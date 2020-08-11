@@ -1,31 +1,56 @@
 <template>
-  <div class="box" :class="{ 'black-mode' : blackMode, 'bordered' : bordered }" @click="goToHome()">
-
+  <div
+    class="box"
+    :class="{ 'black-mode' : blackMode, 'bordered' : bordered }"
+    :style="{ 'height': `${size}px`, 'width': `${size}px` }"
+    @click="goToHome()"
+  >
     <div class="top">
-      <span id="title" class="title-3 bolder"> Cartografia da Cultura. </span>
-      <span id="m-title" class="title-3 bolder"> Carto CG. </span>
+      <span
+        id="title"
+        class="title-3 bolder"
+      > Cartografia da Cultura. </span>
+      <span
+        id="m-title"
+        class="title-3 bolder"
+      > Carto CG. </span>
       <!-- <div class="whitespace"></div> -->
     </div>
 
     <div class="bottom column">
-      <span id="forum-info" class="body-3 bolder"> Fórum municipal <br/> de Cultura <br/> de Campo Grande </span>
-      <div class="line"></div>
-      <span id="sub-info" class="overline bolder"> cultura em movimento </span>
+      <span
+        id="forum-info"
+        class="body-3 bolder"
+      > Fórum municipal <br/> de Cultura <br/> de Campo Grande </span>
+      <div class="line" />
+      <span
+        id="sub-info"
+        class="overline bolder"
+      > cultura em movimento </span>
     </div>
-
   </div>
 </template>
 
 <script>
 export default {
-  name: 'logo-card',
+  name: 'LogoCard',
+  props: {
+    blackMode: {
+      type: Boolean,
+      default: false,
+    },
+    bordered: {
+      type: Boolean,
+      default: false,
+    },
+    size: {
+      type: Number,
+      default: 120,
+    },
+  },
   data() {
     return {
     };
-  },
-  props: {
-    blackMode: Boolean,
-    bordered: Boolean,
   },
   methods: {
     goToHome() {

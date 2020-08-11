@@ -7,7 +7,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue'),
+    component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue'),
   },
   {
     path: '/about',
@@ -66,6 +66,14 @@ const routes = [
     // },
   },
   {
+    path: '/topics/createTopic', // todos os tópicos (debates)
+    name: 'CreateTopic',
+    component: () => import(/* webpackChunkName: "Topics" */ '../views/CreateTopic.vue'),
+    // meta: {
+    //   requiresAuth: true,
+    // },
+  },
+  {
     path: '/topics/:topicId', // página de um tópico
     name: 'TopicPage',
     component: () => import(/* webpackChunkName: "topic" */ '../views/TopicPage.vue'),
@@ -81,9 +89,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "faq" */ '../views/Faq.vue'),
   },
   {
-    path: '/teste',
-    name: 'Teste',
-    component: () => import(/* webpackChunkName: "teste" */ '../views/CompTeste.vue'),
+    path: '/test',
+    name: 'ViewTest',
+    component: () => import(/* webpackChunkName: "teste" */ '../views/ViewTest.vue'),
   },
   {
     path: '/buffer',
@@ -131,14 +139,14 @@ const scrollBehavior = (to, from, savedPosition) => {
   return position;
 };
 
-const router = new VueRouter({
+const Router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
   scrollBehavior,
 });
 
-router.beforeEach((to, from, next) => {
+Router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     // const accessToken = localStorage.getItem('access_token');
     // const accessToken = sessionStorage.getItem('access_token');
@@ -156,4 +164,4 @@ router.beforeEach((to, from, next) => {
   }
 });
 
-export default router;
+export default Router;

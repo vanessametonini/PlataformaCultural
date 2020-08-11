@@ -1,60 +1,76 @@
 <template>
-  <div class="app-page">
-
+  <div class="app-page profile-page">
     <div class="content row no-wrap">
-
+      <button
+        class=""
+        style="height: 60px; width: 150px; background-color: black;"
+        @click="logout()"
+      >
+        <span class="body-2 text-white">sair</span>
+      </button>
+      <!-- FIRST COLUMN -->
       <div class="column">
-
-        <!-- identidada da plataforma e img -->
-        <div class="row brand-box">
-
-          <logo-card class="logo" :blackMode="true"/>
+        <!-- IDENTITY & USER IMG -->
+        <div class="profile-brand row">
+          <logo-card
+            class="logo"
+            :black-mode="true"
+            size="200"
+          />
 
           <div class="img-box">
-            <img class="user-img" src="../assets/statics/avatar01.jpg" alt="Imagen não encontrada" height="200px" width="200px"/>
+            <img
+              class="user-img"
+              src="../assets/statics/avatar01.jpg"
+              alt="Imagen não encontrada"
+              height="200px"
+              width="200px"
+            >
           </div>
-
         </div>
 
-        <!-- informaçoes do usuário (editáveis) -->
+        <!-- USER INFO -->
         <div class="user-info">
-
-          <user-card class="profile-card" :info="currentUser.user" v-on:emitLogout="logout()"/>
-
+          <user-card
+            class="profile-card"
+            :theme="theme"
+            :user="currentUser"
+            @emitLogout="logout()"
+          />
         </div>
-
       </div>
 
-      <!-- pin -->
+      <!-- PIN -->
       <div class="pin">
-
-        <pin-editor v-if="!1"/>
-        <pin-teste :fetch="myPinState" :item="myPin"/>
-
+        <pin-editor v-if="!1" />
+        <pin-teste
+          :fetch="myPinState"
+          :item="myPin"
+        />
       </div>
 
-      <!-- evento (inserção/edição) -->
+      <!-- EVENT (CREATE/EDIT) -->
       <div class="event">
-        <event-editor/>
+        <event-editor />
       </div>
 
-      <!--  tabela de eventos -->
+      <!--  EVENTS GRID -->
       <div class="events">
-
         <q-scroll-area
           class="scrollArea"
           :thumb-style="thumbStyle"
           :bar-style="barStyle"
         >
-
-          <div class="event-item" v-for="item in myEvents" :key="item.id">
-            <collaped-event-view :item="item"/>
+          <div
+            v-for="item in myEvents"
+            :key="item.id"
+            class="event-item"
+          >
+            <collaped-event-view :item="item" />
             <!-- <span> {{ item.newEvent }} </span> -->
           </div>
-
         </q-scroll-area>
       </div>
-
     </div>
 
     <div class="show column">
@@ -70,7 +86,6 @@
       <!-- <span class="status"> myEvents size = {{ myEventsSize }} <br> </span> -->
       <!-- <span class="pin-status"> {{ getMyEvents }} </span> -->
     </div>
-
   </div>
 </template>
 
@@ -83,7 +98,7 @@ import CollapedEventView from '../components/CollapsedEvent.vue';
 import PinTeste from '../components/pinTeste.vue';
 
 export default {
-  name: 'Profile',
+  name: 'ProfilePage',
   components: {
     UserCard,
     PinEditor,
@@ -93,6 +108,16 @@ export default {
   },
   data() {
     return {
+      currentUser: {
+        name: 'none',
+        email: 'none@email.com',
+        categoryId: 8,
+      },
+      theme: {
+        label: 'none',
+        value: '0',
+        color: '#AD3B3B',
+      },
       userImg: '../assets/statics/avatar01.jpg',
       thumbStyle: {
         right: '0px',
@@ -112,17 +137,26 @@ export default {
     };
   },
   computed: {
-    signedIn() {
-      return this.$store.getters.signedIn;
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
     },
     ...mapGetters({
-      currentUser: 'users/getCurrentUser',
+      currentUser: 'users/loadCurrentUser',
       myPin: 'users/getMyPin',
       myPinState: 'users/getMyPinState',
       myEvents: 'users/getMyEvents',
     }),
   },
+  created() {
+    this.loadCurrentUser();
+  },
+  beforeMounted() {
+    this.getPageTheme();
+  },
   methods: {
+    async loadCurrentUser() {
+      this.currentUser = await this.$store.dispatch('users/loadCurrentUser');
+    },
     logout() {
       this.$store.dispatch('users/destroyToken')
         .then(
@@ -137,6 +171,12 @@ export default {
     },
     showEditInfo() {
       this.opemEditInfo = !this.opemEditInfo;
+    },
+    async getPageTheme() {
+      const id = this.currentUser.categoryId;
+      console.log('id', id);
+      this.theme = await this.$store.dispatch('categories/getCategoryTheme', { id });
+      console.log('theme', this.theme);
     },
   },
 };
@@ -169,7 +209,7 @@ export default {
   }
 }
 
-.app-page {
+.profile-page {
   display: flex;
   align-items: flex-start;
   border-radius: 0px;
@@ -198,7 +238,7 @@ span {
 
 // ------------------------- components -----------------------------------------------------
 
-.brand-box {
+.profile-brand {
   height: 200px;
   width: 400px;
   margin: 2px;

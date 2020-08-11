@@ -8,7 +8,7 @@
     ]"
     @click="$emit('click')"
   >
-    <slot/>
+    <slot />
   </button>
   <router-link
     v-else
@@ -19,7 +19,7 @@
     ]"
     :to="to"
   >
-    <slot/>
+    <slot />
   </router-link>
 </template>
 
@@ -57,6 +57,7 @@ $secondaryColor: #E7E7E7;
   display: inline-block;
   text-align: center;
   min-width: 40px;
+  max-height: 40px;
 }
 
 .base-button.disabled {
@@ -81,10 +82,14 @@ $secondaryColor: #E7E7E7;
 
 .base-button:not(.disabled).flat {
   background: transparent;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   color: #FFF;
-  max-height: 36px;
-  padding: 8px 16px 8px 16px;
-  margin-top: -8px;
+  // max-height: 36px;
+  padding: 8px 16px;
+  // margin-top: -8px;
   text-transform: lowercase;
 }
 

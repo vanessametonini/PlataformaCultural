@@ -3,33 +3,43 @@
   <div class="topic-item" @click="emitThisTopic()" :style="{ 'background-color': category.color }">
 
     <div class="card column">
+      <!-- <span id="category-label" class="headline-3 bolder"> {{ category.label }} </span> -->
 
-      <span class="big-title bolder"> {{ topic.title }} </span>
+      <span id="title" class="big-title bolder"> {{ topic.title }} </span>
 
-      <span class="caption bold mg-top8"> {{ category.label }} </span>
+      <span class="caption bolder mg-top16"> {{ category.label }} </span>
       <!-- topicOwner & date -->
-      <div class="row mg-top16">
+      <div class="row al-items-center mg-top8">
 
         <span class="body-3 bolder"> {{ topic.user.name }} </span>
 
-        <span class="body-3 bold mg-left8">- {{ formatDate }} </span>
+        <span class="caption bold mg-left16"> {{ formatDate }} </span>
 
       </div>
 
       <span class="caption bold mg-top16"> {{ formatDescription }} </span>
 
-      <div class="row mg-top16">
-        <!-- <i class="far fa-thumbs-up"></i> -->
-        <span class="caption bolder"> {{ topic.likes }} likes </span>
-        <span class="caption bolder mg-left8"> | </span>
-        <span class="caption bolder mg-left8"> {{ topic.dislikes }} dislikes </span>
+      <div class="row no-wrap justify-between mg-top32">
+        <span class="caption bolder"> {{ topic.positiveSupports + topic.negativeSupports }} votos </span>
+
+        <div class="stats-item">
+          <!-- <q-icon class="vote-icon" name="far fa-thumbs-down" size="xs"></q-icon> -->
+          <i class="far fa-thumbs-up"></i>
+          <span class="caption bolder"> {{ supportsPercentage(true) }}% </span>
+        </div>
+
+        <div class="stats-item">
+          <q-icon class="vote-icon" name="far fa-thumbs-down" size="xs"></q-icon>
+          <span class="caption bolder"> {{ supportsPercentage(false) }}% </span>
+        </div>
+
+        <span class="caption bolder"> {{ topic.numberOfReplies }} comentários </span>
       </div>
 
-      <div class="row mg-top8">
-        <span class="caption bolder"> {{ topic.likes + topic.dislikes }} votos </span>
-        <span class="caption bolder mg-left8"> | </span>
+      <!-- <div class="row mg-top8">
+        <span class="caption bolder"> {{ topic.positiveSupports + topic.negativeSupports }} votos </span>
         <span class="caption bolder mg-left8"> {{ topic.numberOfReplies }} comentários </span>
-      </div>
+      </div> -->
 
     </div>
 
@@ -100,6 +110,15 @@ export default {
       await this.localLoadCurrentTopicReplyes({ topicId: this.topic.id });
       this.$router.push({ name: 'TopicPage', params: { topicId: this.topic.id } });
     },
+    supportsPercentage(type) {
+      const posAmount = parseInt(this.topic.positiveSupports, 10);
+      const negAmount = parseInt(this.topic.negativeSupports, 10);
+      const totalSupports = parseInt(posAmount + negAmount, 10);
+      if (type === true) {
+        return parseInt((posAmount / totalSupports) * 100, 10);
+      }
+      return parseInt((negAmount / totalSupports) * 100, 10);
+    },
   },
 };
 </script>
@@ -131,7 +150,19 @@ export default {
 }
 
 .card {
-  padding: 24px 32px;
+  padding: 32px;
+  position: relative;
+}
+
+#category-label {
+  position: absolute;
+  top: 16px;
+}
+
+#title {
+  margin-left: -4px;
+  margin-top: 0px;
+  line-height: 2.3rem;
 }
 
 .line-h16 {
@@ -159,6 +190,11 @@ span {
 .link {
   text-decoration: none;
   color: white;
+}
+
+.vote-icon {
+  color: black;
+  margin-right: 4px;
 }
 
 </style>

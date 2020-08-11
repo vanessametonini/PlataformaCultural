@@ -173,7 +173,6 @@ export default {
 @import '../styles/mixins.scss';
 @import '../styles/typo.scss';
 
-
 .container {
   background-color: white;
   width: 100%;

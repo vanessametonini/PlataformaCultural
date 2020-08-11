@@ -12,10 +12,10 @@ import Vuelidate from 'vuelidate';
 
 import 'leaflet/dist/leaflet.css';
 
-import App from './App.vue';
-import './registerServiceWorker';
 import router from './router';
 import store from './store';
+import './registerServiceWorker';
+import App from './App.vue';
 
 import './quasar';
 
@@ -29,7 +29,7 @@ Vue.component('multicolor-line', MulticolorLine);
 library.add(faUserSecret);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
-window.eventBus = new Vue();
+// window.eventBus = new Vue();
 
 // my packages
 Vue.use(VueMasonry);
@@ -39,6 +39,7 @@ gsap.config({
 });
 
 Vue.config.productionTip = false;
+Vue.config.devtools = true;
 Vue.use(VueRouter);
 
 new Vue({

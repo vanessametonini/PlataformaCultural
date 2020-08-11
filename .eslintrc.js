@@ -3,11 +3,13 @@ module.exports = {
     env: {
         node: true,
     },
-    extends: ['airbnb-base', 'plugin:vue/recommended'],
+    extends: ['plugin:vue/vue3-recommended', 'airbnb-base'],
     parserOptions: {
         parser: 'babel-eslint',
     },
     rules: {
+        'import/no-named-as-default': 0,
+        'import/no-named-as-default-member': 0,
         'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
         'linebreak-style': 0,
@@ -30,5 +32,9 @@ module.exports = {
           }
         ]
         // 'eslint no-tabs': ["error", { allowIndentationTabs: true }],
+    },
+    globals: {
+      'localStorage': true,
+      'fetch': true,
     },
 };

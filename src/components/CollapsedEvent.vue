@@ -1,34 +1,34 @@
 <template>
-
   <div class="box">
-
-    <div class="first" v-if="showThisShort" :style="{ 'background-color': category.color }">
-
-        <div class="header column">
-
-          <span class="title-2 bolder line-h16"> {{ title }} </span>
-
-          <div class="row spaced-32">
-            <span class="body-3 bold"> {{ formatDate }} </span>
-            <!-- <span class="body-2 bold"> {{ date.year }} </span> -->
-            <span class="body-3 bold mg-left16"> {{ time }} </span>
-          </div>
-
-          <div class="column spaced-16">
-            <span class="body-2 bold"> {{ this.item.address.street }} - {{ this.item.address.number }} </span>
-            <span class="body-2 bold"> {{ this.item.address.neighborhood }} </span>
-          </div>
-
+    <div
+      v-if="showThisShort"
+      class="first"
+      :style="{ 'background-color': category.color }"
+    >
+      <div class="header column">
+        <span class="title-2 bolder line-h16"> {{ title }} </span>
+        <div class="row spaced-32">
+          <span class="body-3 bold"> {{ formatDate }} </span>
+          <!-- <span class="body-2 bold"> {{ date.year }} </span> -->
+          <span class="body-3 bold mg-left16"> {{ time }} </span>
         </div>
 
-        <q-btn flat class="reset-btn btn" ref="btnFirst" @click="emitThisEvent()">
-          <span class="caption bolder">editar</span>
-        </q-btn>
+        <div class="column spaced-16">
+          <span class="body-2 bold"> {{ item.address.street }} - {{ item.address.number }} </span>
+          <span class="body-2 bold"> {{ item.address.neighborhood }} </span>
+        </div>
+      </div>
 
+      <q-btn
+        ref="btnFirst"
+        flat
+        class="reset-btn btn"
+        @click="emitThisEvent()"
+      >
+        <span class="caption bolder">editar</span>
+      </q-btn>
     </div>
-
   </div>
-
 </template>
 
 <script>
@@ -39,8 +39,14 @@ import { mapGetters } from 'vuex';
 // gsap.registerPlugin(TweenMax, Expo);
 
 export default {
-  name: 'Collapsed-Event-View',
+  name: 'CollapsedEventView',
   components: {
+  },
+  props: {
+    item: {
+      type: Object,
+      default: null,
+    },
   },
   data() {
     return {
@@ -55,12 +61,6 @@ export default {
       },
       showThisShort: true,
     };
-  },
-  props: {
-    item: {
-      type: Object,
-      default: null,
-    },
   },
   computed: {
     ...mapGetters({
@@ -84,7 +84,7 @@ export default {
   },
   methods: {
     emitThisEvent() {
-      this.$emit('eventIdToEdit', this.id);
+      this.$emit('event-to-edit', this.id);
       console.log('shortEvent to edit : (id)', this.id); // emitindo que o shortEvent a ser editado
       // this.showThisShort = false;
     },
@@ -203,7 +203,6 @@ export default {
 .roll-in {
   animation: roll-out 1s linear reverse;
 }
-
 
 @keyframes roll-out {
   0% {

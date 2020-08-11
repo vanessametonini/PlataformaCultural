@@ -1,17 +1,14 @@
 <template>
   <div class="about-page about-page">
-
     <div class="content">
-
       <!-- start header section -->
       <header>
-        <logo-card :blackMode="true"/>
+        <logo-card :black-mode="true" />
 
-        <multicolor-line class="line mg-top32"/>
+        <multicolor-line class="line mg-top32" />
       </header>
 
       <section class="plat mg-top32">
-
         <span class="title-2 bolder"> Plataforma Cultural de Campo Grande </span>
         <p class="body-3 mg-top16 text">
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores corporis dicta unde ratione
@@ -27,52 +24,58 @@
           Soluta dolores commodi nulla, quidem dolore dolorem itaque expedita a iure reiciendis, amet consequuntur nihil,
           eveniet molestiae dignissimos quo blanditiis fuga magni.
         </p>
-
       </section>
 
       <!-- start section contato -->
       <section class="contato mg-top16">
-
         <!-- <span class="headline-2">Contato</span> -->
 
         <div class="links row">
-
           <a class="body-3 bolder">cartografiadacultura@forum.com </a>
           <!-- <span class="mg-left8">|</span> -->
 
-          <a class="body-3 bolder mg-left16" target="_blank" href="https://www.facebook.com/AlgoRitmo.ufms/">.facebook</a>
+          <a
+            class="body-3 bolder mg-left16"
+            target="_blank"
+            href="https://www.facebook.com/AlgoRitmo.ufms/"
+          >.facebook</a>
           <!-- <span class="mg-left8">|</span> -->
 
-          <a class="body-3 bolder mg-left16" target="_blank" href="https://www.instagram.com/algo.ritmo_/">.instagram</a>
-
+          <a
+            class="body-3 bolder mg-left16"
+            target="_blank"
+            href="https://www.instagram.com/algo.ritmo_/"
+          >.instagram</a>
         </div>
-
       </section>
 
-      <div class="white-space"></div>
+      <div class="white-space" />
 
       <!-- start section colaboradores -->
       <section class="colabor mg-top32">
-
         <span class="title-3 bolder">Colaboradores</span>
 
         <div class="row">
-
           <!-- colab b0ox -->
           <div class="colab-box column">
-
             <!-- <div class="line spaced-8"></div> -->
-            <div class="separator"/>
-
+            <div class="separator" />
             <div class="colab-item mg-top8">
               <span class="body-2 bolder">Fórum Municipal de Cultura <br> de Campo Grande</span>
             </div>
 
             <div class="colab-links row">
-
               <span class="caption bolder">.email</span>
-              <a class="caption bolder mg-left16" target="blank" href="https://www.facebook.com/AlgoRitmo.ufms/">.facebook</a>
-              <a class="caption bolder mg-left16" target="blank" href="https://www.instagram.com/algo.ritmo_/">.instagram</a>
+              <a
+                class="caption bolder mg-left16"
+                target="blank"
+                href="https://www.facebook.com/AlgoRitmo.ufms/"
+              > .facebook </a>
+              <a
+                class="caption bolder mg-left16"
+                target="blank"
+                href="https://www.instagram.com/algo.ritmo_/"
+              > .instagram </a>
 
               <!-- <q-btn flat round type="a" target="_blank" size="md" href="https://www.facebook.com/AlgoRitmo.ufms/">
                 <q-icon size="sm" name="fab fa-facebook-square" color="white"></q-icon>
@@ -81,16 +84,13 @@
               <!-- <q-btn flat round type="a" target="_blank" size="md" href="https://www.instagram.com/algo.ritmo_/">
                 <q-icon size="sm" name="fab fa-instagram" color="white"></q-icon>
               </q-btn> -->
-
             </div>
-
           </div>
 
           <!-- colab box -->
           <div class="colab-box column">
-
             <!-- <div class="line spaced-8"></div> -->
-            <div class="separator"/>
+            <div class="separator" />
 
             <div class="colab-item mg-top8">
               <span class="body-2 bolder">Colabor</span>
@@ -98,46 +98,57 @@
             <!-- <q-img src="../assets/statics/avatar01.jpg" style="height: 170px; max-width: 300px"/> -->
 
             <div class="links row align-center">
-
               <span class="caption bolder">email</span>
-              <a class="caption bolder mg-left16" target="blank" href="https://www.facebook.com/AlgoRitmo.ufms/">.facebook</a>
-              <a class="caption bolder mg-left16" target="blank" href="https://www.instagram.com/algo.ritmo_/">.instagram</a>
-
+              <a
+                class="caption bolder mg-left16"
+                target="blank"
+                href="https://www.facebook.com/AlgoRitmo.ufms/"
+              > .facebook </a>
+              <a
+                class="caption bolder mg-left16"
+                target="blank"
+                href="https://www.instagram.com/algo.ritmo_/"
+              > .instagram </a>
             </div>
-
           </div>
-
         </div>
-
       </section>
 
-      <div class="white-space"></div>
+      <div class="white-space" />
 
       <!-- start section team -->
       <section class="team mg-top32">
-
         <span class="title-3 bolder">Nosso Time</span>
 
         <div class="row">
-
-          <div class="own-team" v-for="item in team" :key="item.name">
-
-            <div class="separator"/>
+          <div
+            v-for="item in team"
+            :key="item.name"
+            class="own-team"
+          >
+            <div class="separator" />
 
             <div class="team-items column">
-              <span id="line-height" class="body-2 bolder"> {{ item.name }} <br> {{ item.lastName }} </span>
+              <span
+                id="line-height"
+                class="body-2 bolder"
+              > {{ item.name }} <br> {{ item.lastName }} </span>
               <span class="caption"> {{ item.category }} </span>
 
               <div class="social-media row">
-
                 <span class="caption bolder">email</span>
-                <a class="caption bolder mg-left8" target="blank" :href="item.face">.f</a>
-                <a class="caption bolder mg-left8" target="blank" :href="item.insta">.ig</a>
-
+                <a
+                  class="caption bolder mg-left8"
+                  target="blank"
+                  :href="item.face"
+                > .f </a>
+                <a
+                  class="caption bolder mg-left8"
+                  target="blank"
+                  :href="item.insta"
+                > .ig </a>
               </div>
-
             </div>
-
           </div>
 
           <!-- <div class="team-box column" v-for="item in team" :key="item.name">
@@ -159,23 +170,22 @@
             </div>
 
           </div> -->
-
         </div>
-
       </section>
 
-      <div class="white-space"></div>
-      <div class="footer" style="height: 100px;"></div>
-
+      <div class="white-space" />
+      <div
+        class="footer"
+        style="height: 100px;"
+      />
     </div>
-
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'aboutPage',
+  name: 'AboutPage',
   data() {
     return {
       team: [
@@ -230,11 +240,11 @@ export default {
       ],
     };
   },
+  computed: {
+  },
   watch: {
   },
   methods: {
-  },
-  computed: {
   },
 };
 </script>

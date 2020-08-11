@@ -1,65 +1,99 @@
 <template>
-
   <div class="menu-component">
     <q-list>
-
       <!-- item Sobre -->
-      <q-expansion-item class="item" v-if="!expand" group="somegroup" expand-icon-class="text-black">
-
-        <template v-slot:header class="item-header">
+      <q-expansion-item
+        v-if="!expand"
+        class="item"
+        group="somegroup"
+        expand-icon-class="text-black"
+      >
+        <template
+          #header
+          class="item-header"
+        >
           <q-item-section>
             <span class="menu-text body-3">Sobre</span>
           </q-item-section>
         </template>
 
-        <q-card >
-
+        <q-card>
           <q-card-section class="padding-8">
-
             <ul class="navigation-list">
-
               <li class="navigation-item">
-                <router-link class="a" type="link" :to="{ name: 'About' }" exact>
+                <router-link
+                  class="a"
+                  type="link"
+                  :to="{ name: 'About' }"
+                  exact
+                >
                   <span class="body-3 effect-underline">Plataforma</span>
                 </router-link>
               </li>
-              <div class="line"/>
+              <div class="line" />
               <li class="navigation-item">
-                <router-link class="a" ref="link" :to="{ name: 'About', hash:'#frm'} ">
+                <router-link
+                  ref="link"
+                  class="a"
+                  :to="{ name: 'About', hash:'#frm'}"
+                >
                   <span class="body-3 effect-underline">Fórum</span>
                 </router-link>
               </li>
-              <div class="line"/>
+              <div class="line" />
               <li class="navigation-item">
-                  <router-link class="a" ref="link" to="/terms" exact>
+                <router-link
+                  ref="link"
+                  class="a"
+                  to="/terms"
+                  exact
+                >
                   <span class="body-3 effect-underline">Nossos Termos</span>
-                  </router-link>
+                </router-link>
               </li>
-              <div class="line"/>
+              <div class="line" />
               <li class="navigation-item">
-                  <router-link class="a effect-underline" ref="link" :to="{ name: 'Faq', hash:'#frm'}" exact>
+                <router-link
+                  ref="link"
+                  class="a effect-underline"
+                  :to="{ name: 'Faq', hash:'#frm'}"
+                  exact
+                >
                   <span class="body-3">F.A.Q</span>
-                  </router-link>
+                </router-link>
               </li>
-              <div class="line"/>
+              <div class="line" />
               <li class="navigation-item">
-                  <router-link class="a effect-underline" ref="link" to="/about" exact>
+                <router-link
+                  ref="link"
+                  class="a effect-underline"
+                  to="/about"
+                  exact
+                >
                   <span class="body-3">Contato</span>
-                  </router-link>
+                </router-link>
               </li>
             </ul>
           </q-card-section>
-
-          </q-card>
-
+        </q-card>
       </q-expansion-item>
 
-      <q-separator class="separator" v-if="!expand" />
+      <q-separator
+        v-if="!expand"
+        class="separator"
+      />
 
       <!-- item Agenda -->
-      <q-expansion-item class="item" v-if="!expand" group="somegroup" expand-icon-class="text-black">
-
-        <template v-slot:header class="item-header">
+      <q-expansion-item
+        v-if="!expand"
+        class="item"
+        group="somegroup"
+        expand-icon-class="text-black"
+      >
+        <template
+          #header
+          class="item-header"
+        >
           <q-item-section>
             <span class="menu-text body-3">Agenda</span>
           </q-item-section>
@@ -67,8 +101,7 @@
 
         <q-card>
           <q-card-section>
-
-            <div class="recents">falta recentes</div>
+            <span class="recents">falta recentes</span>
 
             <base-button
               class="submenu-button"
@@ -77,17 +110,26 @@
               <!-- <i class="fas fa-pencil-alt reply-icon"></i> -->
               <span class="body-3 bolder mg-left8"> Ver Agenda </span>
             </base-button>
-
           </q-card-section>
         </q-card>
       </q-expansion-item>
 
-      <q-separator class="separator" v-if="!expand" />
+      <q-separator
+        v-if="!expand"
+        class="separator"
+      />
 
       <!-- item Diálogo -->
-      <q-expansion-item class="item" v-if="!expand" group="somegroup" expand-icon-class="text-black">
-
-        <template v-slot:header class="item-header">
+      <q-expansion-item
+        v-if="!expand"
+        class="item"
+        group="somegroup"
+        expand-icon-class="text-black"
+      >
+        <template
+          #header
+          class="item-header"
+        >
           <q-item-section>
             <span class="menu-text body-3">Diálogo</span>
           </q-item-section>
@@ -95,8 +137,7 @@
 
         <q-card>
           <q-card-section>
-
-            <div class="recents">falta recentes</div>
+            <span class="recents">falta recentes</span>
 
             <base-button
               class="submenu-button"
@@ -105,32 +146,37 @@
               <!-- <i class="fas fa-pencil-alt reply-icon"></i> -->
               <span class="body-3 bolder mg-left8"> Ver Diálogos </span>
             </base-button>
-
           </q-card-section>
         </q-card>
       </q-expansion-item>
 
-      <q-separator class="separator" v-if="!expand" />
+      <q-separator
+        v-if="!expand"
+        class="separator"
+      />
 
       <!-- item filtro -->
       <div class="my-item">
-
-        <q-card class="my-card" :class="{ 'my-card-expanded' : expand }">
+        <q-card
+          class="my-card"
+          :class="{ 'my-card-expanded' : expand }"
+        >
           <q-card-section class="my-card-section">
-              <My-filter v-on:callFilter="passCall($event)"/>
+            <My-filter
+              @callFilter="forwardCall($event)"
+            />
           </q-card-section>
         </q-card>
 
-        <div class="my-item-header" @click="expandItem()">
+        <div
+          class="my-item-header"
+          @click="expandItem()"
+        >
           <span class="menu-text body-3">Filtro</span>
         </div>
-
       </div>
-
     </q-list>
-
   </div>
-
 </template>
 
 <script>
@@ -138,7 +184,7 @@ import MyFilter from './Filter.vue';
 import BaseButton from './BaseButton.vue';
 
 export default {
-  name: 'Menu-Component',
+  name: 'MenuComponent',
   components: {
     MyFilter,
     BaseButton,
@@ -152,8 +198,8 @@ export default {
     expandItem() {
       this.expand = !this.expand;
     },
-    passCall(el) {
-      this.$emit('callFilter', el);
+    forwardCall(el) {
+      this.$emit('call-filter', el);
     },
   },
 };

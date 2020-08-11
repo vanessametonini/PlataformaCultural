@@ -1,12 +1,14 @@
+import api from '../../apiClient';
+
 export default {
   namespaced: true,
   state: {
-    events: [
+    list: [
       {
         id: 1,
-        userRef: '',
+        userId: '',
         title: 'Dance_Fest',
-        date: '2020/05/13', // format iso YYYY/MM/DD
+        date: '2020/05/13', // ADD ISO FORMAT ---  YYYY-MM-DDTHH:mm:ss.sssZ
         time: '13:00',
         address: {
           street: 'Rua do Dinar',
@@ -19,130 +21,78 @@ export default {
         categoryId: 1,
         imgUrl: '../assets/statics/avatar01.jpg',
       },
-      {
-        id: 2,
-        title: 'Festival Forró',
-        date: '2020/04/05', // format iso YYYY/MM/DD
-        time: '18:00',
-        address: { street: 'rua festeja', neighborhood: 'centro', city: 'campo grande' },
-        ticket: '0',
-        link: 'https://www.facebook.com/henriquemleonel',
-        description: 'pula fogueira',
-        categoryId: 12,
-        imgUrl: '../assets/statics/avatar01.jpg',
-      },
-      {
-        id: 3,
-        title: '"Como não viver em isolamento"',
-        date: '2020/05/07',
-        time: '18:00',
-        address: { street: 'rua festeja', neighborhood: 'centro', city: 'campo grande' },
-        ticket: '0',
-        link: 'https://www.facebook.com/henriquemleonel',
-        description: 'pula fogueira Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica ede impressos,',
-        categoryId: 1,
-        imgUrl: '../assets/statics/avatar01.jpg',
-      },
-      {
-        id: 4,
-        title: 'Fashion Trends CG',
-        date: '2020/05/12',
-        time: '18:00',
-        address: { street: 'rua festeja', neighborhood: 'centro', city: 'campo grande' },
-        ticket: '0',
-        link: '',
-        description: 'pula fogueira ',
-        categoryId: 15,
-        imgUrl: '../assets/statics/avatar01.jpg',
-      },
-      {
-        id: 5,
-        title: 'Mis Hitchcok',
-        date: '2020/05/16',
-        time: '18:00',
-        address: { street: 'rua festeja', neighborhood: 'centro', city: 'campo grande' },
-        ticket: '0',
-        link: '',
-        description: 'pula fogueira Lorem Ipsum é simplesmente uma simulação de texto',
-        categoryId: 10,
-        imgUrl: '../assets/statics/avatar01.jpg',
-      },
-      {
-        id: 6,
-        title: 'Festa Junina',
-        date: '2020/05/21',
-        time: '18:00',
-        address: { street: 'rua festeja', neighborhood: 'centro', city: 'campo grande' },
-        ticket: '0',
-        link: '',
-        description: 'pula fogueira ',
-        categoryId: 5,
-        imgUrl: '../assets/statics/avatar01.jpg',
-      },
-      {
-        id: 7,
-        title: 'Photo Export',
-        date: '2020/05/23',
-        time: '18:00',
-        address: { street: 'rua festeja', neighborhood: 'centro', city: 'campo grande' },
-        ticket: '0',
-        link: '',
-        description: 'pula fogueira Lorem Ipsum é simplesmente uma simulação de texto',
-        categoryId: 8,
-        imgUrl: '../assets/statics/avatar01.jpg',
-      },
-      {
-        id: 8,
-        title: 'Print',
-        date: '2020/05/28',
-        time: '18:00',
-        address: { street: 'rua festeja', neighborhood: 'centro', city: 'campo grande' },
-        ticket: '0',
-        link: '',
-        description: 'pula fogueira ',
-        categoryId: 4,
-        imgUrl: '../assets/statics/avatar01.jpg',
-      },
-      {
-        id: 9,
-        title: 'Dance_Fest',
-        date: '2020/05/30',
-        time: '18:00',
-        address: { street: 'Rua do Dinar', neighborhood: 'Vila Carlota', city: 'campo grande' },
-        ticket: '0',
-        link: 'https://www.facebook.com/henriquemleonel',
-        description: 'Festival de dança da comunidade para a comunidade, venha se divertir',
-        categoryId: 1,
-        imgUrl: '../assets/statics/avatar01.jpg',
-      },
-      {
-        id: 10,
-        title: 'Festival Forró',
-        date: '2020/06/01',
-        time: '18:00',
-        address: { street: 'rua festeja', neighborhood: 'centro', city: 'campo grande' },
-        ticket: '0',
-        link: 'https://www.facebook.com/henriquemleonel',
-        description: 'pula fogueira',
-        categoryId: 12,
-        imgUrl: '../assets/statics/avatar01.jpg',
-      },
-      {
-        id: 11,
-        title: 'Coo ka',
-        date: '2020/08/03',
-        time: '18:00',
-        address: { street: 'rua festeja', neighborhood: 'centro', city: 'campo grande' },
-        ticket: '0',
-        link: 'https://www.facebook.com/henriquemleonel',
-        description: 'fol clore sse',
-        categoryId: 13,
-        imgUrl: '../assets/statics/avatar01.jpg',
-      },
     ],
   },
 
   getters: {
-    loadEvents: (state) => state.events,
+    loadEvents: (state) => state.list,
+  },
+
+  actions: {
+    // WAITING API IMPLEMENT
+    loadInitialEvents({ commit }, { type, pagination }) {
+      return new Promise((resolve, reject) => {
+        api.get('/getInitialEvents', {
+          params: {
+            type,
+            pagination,
+          },
+        })
+          .then((response) => {
+            console.log('topics/loadInitialTopics');
+            commit('SET_TOPICS_LIST', response.data);
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error.message);
+            reject(error);
+          });
+      });
+    },
+
+    // AWAIT API IMPLEMENT
+    loadMoreEvents({ commit }, { type, pagination }) {
+      // this action is performed every time the user reaches the last topic on the topics page.
+      // const nextStreamStart = (pagination * state.streamAmount) + 1;
+      return new Promise((resolve, reject) => {
+        api.get('/getMoreEvents', {
+          params: {
+            type,
+            pagination,
+          },
+        })
+          .then((response) => {
+            console.log('topics/loadMoreTopics');
+            commit('SET_TOPICS_LIST', response.data);
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error.message);
+            reject(error);
+          });
+      });
+    },
+  },
+
+  mutations: {
+    // OK
+    SET_TOPICS_LIST(state, { data }) {
+      state.list.push(data);
+    },
+
+    // OK
+    SET_CURRENT_TOPIC(state, data) {
+      state.currentTopic = data;
+    },
+
+    // OK
+    SET_CURRENT_TOPIC_REPLYES(state, data) {
+      state.currentTopicReplies = data;
+    },
+
+    // TO BE REWIEWED
+    ADD_NEW_TOPIC(state, { data }) {
+      state.list.push(data);
+    },
   },
 };

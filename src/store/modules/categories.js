@@ -100,11 +100,6 @@ export default {
 
   getters: {
     loadCategories: (state) => state.categories,
-
-    categoryById({ state }, id) {
-      const index = state.categories.findIndex((item) => item.id === id);
-      return state.categories[index];
-    },
   },
 
   // **** apenas admin tem essa permissão -----------------------
@@ -151,6 +146,11 @@ export default {
     //   await apiClient.deleteCategory(categorySlug)
     //   commit('DELETE_CATEGORY', { categorySlug })
     // }
+
+    getCategoryTheme({ state }, id) {
+      const index = state.categories.findIndex((item) => item.id === id);
+      return state.categories[index];
+    },
   },
 
   // mutations: {

@@ -1,25 +1,19 @@
 <template>
   <div class="app-page topic-page">
-
     <div class="content">
-
       <base-spinner
         v-if="loading"
         class="page-spinner"
       />
 
       <template v-else>
-
         <topic-view
           :topic="topic"
           :replyes="replyes"
           @delete="onDeleteTopic"
         />
-
       </template>
-
     </div>
-
   </div>
 </template>
 

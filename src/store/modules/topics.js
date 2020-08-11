@@ -6,143 +6,25 @@ export default {
 
   state: {
     list: [
+      // OBJECT REFERENCE ----  TO BE DELETED
       {
         id: 1,
         title: 'Dance Fest',
-        categoryId: 1,
+        topicCategory: 1,
+        categoriesTagged: 1,
         user: {
           name: 'jão', // implement user name
           id: 12,
         },
-        createdAt: '2020/04/28', // implements full date, with time too
+        createdAt: '2020/04/28', // implements full date, with time too mm dd yyyy HH:MM:SS timezone
         content: 'pula fogueira Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográplesmente uma simulação de texto da indústria tipográfica ede impressos,',
         positiveSupports: 170,
         negativeSupports: 65,
-        numberOfReplyes: 2,
-        views: 0,
-      },
-      {
-        id: 2,
-        title: 'Festival Forró',
-        categoryId: 5,
-        user: {
-          name: 'maria',
-          id: 19,
-        },
-        createdAt: '2020/05/04',
-        content: 'pula fogueira',
-        positiveSupports: 170,
-        negativeSupports: 64,
-        numberOfReplyes: 12,
-        views: 0,
-      },
-      {
-        id: 3,
-        title: 'Como não viver em isolamento',
-        categoryId: 1,
-        user: {
-          name: 'anna',
-          id: 28,
-        },
-        createdAt: '2020/05/07',
-        content: 'pula fogueira Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográplesmente uma simulação de texto da indústria tipográfica ede impressos,',
-        positiveSupports: 170,
-        negativeSupports: 64,
-        numberOfReplyes: 12,
-        views: 0,
-      },
-      {
-        id: 4,
-        title: 'Fashion Trends CG',
-        categoryId: 15,
-        user: {
-          name: 'benta',
-          id: 32,
-        },
-        createdAt: '2020/05/13',
-        content: 'indústria tipográfica ede impressos,',
-        positiveSupports: 170,
-        negativeSupports: 64,
-        numberOfReplyes: 12,
-        views: 0,
-      },
-      {
-        id: 5,
-        title: 'Mis Hitchcok',
-        categoryId: 10,
-        user: {
-          name: 'martiello',
-          id: 67,
-        },
-        createdAt: '2020/05/22',
-        content: 'pula fogueira Lorem Ipsum é simplesmente uma simulação de texto',
-        positiveSupports: 170,
-        negativeSupports: 64,
-        numberOfReplyes: 12,
-        views: 0,
-      },
-      {
-        id: 6,
-        title: 'Festa Junina',
-        categoryId: 5,
-        user: {
-          name: 'claudio',
-          id: 189,
-        },
-        createdAt: '20202/05/28',
-        content: 'pula fogueira ',
-        positiveSupports: 170,
-        negativeSupports: 64,
-        numberOfReplyes: 12,
-        views: 0,
-      },
-      {
-        id: 7,
-        title: 'Photo Export',
-        categoryId: 8,
-        user: {
-          name: 'mellisa',
-          id: 78,
-        },
-        createdAt: '2020/06/01',
-        content: 'photo graph u',
-        positiveSupports: 170,
-        negativeSupports: 64,
-        numberOfReplyes: 12,
-        views: 0,
-      },
-      {
-        id: 8,
-        title: 'Praça Imigrantes',
-        categoryId: 7,
-        user: {
-          name: 'enzo',
-          id: 45,
-        },
-        createdAt: '2020/06/05',
-        content: 'photo graph u',
-        positiveSupports: 170,
-        negativeSupports: 64,
-        numberOfReplyes: 12,
-        views: 0,
-      },
-      {
-        id: 9,
-        title: 'Morada Baís',
-        categoryId: 6,
-        user: {
-          name: 'marcio',
-          id: 7,
-        },
-        createdAt: '2020/07/05',
-        content: 'photo graph u',
-        positiveSupports: 170,
-        negativeSupports: 64,
-        numberOfReplyes: 12,
+        numberOfReplies: 2,
         views: 0,
       },
     ],
-    replyes: [
+    replies: [
       {
         id: 1,
         topicId: 1,
@@ -231,6 +113,8 @@ export default {
     key: null,
     currentTopic: null,
     currentTopicReplies: null,
+    currentFilter: null,
+    streamAmount: 12, // number of topics required in request
   },
 
   getters: {
@@ -241,42 +125,104 @@ export default {
 
   actions: {
 
-    // TO BE DELETED
-    // this action is applied only in the local implementation.
-    localLoadCurrentTopic({ state, commit }, { topicId }) {
-      let data = {};
-      data = state.list.find((el) => el.id === topicId);
-      commit('SET_CURRENT_TOPIC', data); // update local storage
+    // WAITING API IMPLEMENT
+    loadInitialTopics({ commit }, { type, pagination }) {
+      Promise((resolve, reject) => {
+        api.get('/getInitialTopics', {
+          params: {
+            type,
+            pagination,
+          },
+        })
+          .then((response) => {
+            console.log('topics/loadInitialTopics');
+            commit('SET_TOPICS_LIST', response.data);
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error.message);
+            reject(error);
+          });
+      });
     },
 
-    // TO BE DELETED
-    localLoadCurrentTopicReplyes({ state, commit }, { topicId }) {
-      const data = state.replyes.filter(
-        (reply) => reply.topicId !== topicId,
-      );
-      commit('SET_CURRENT_TOPIC_REPLYES', data);
-    },
-
-    // TO BE IMPLEMENTED
-    loadCurrentTopics({ commit }, { filters }) {
+    // AWAIT API IMPLEMENT
+    loadMoreTopics({ commit }, { type, pagination }) {
       // this action is performed every time the user reaches the last topic on the topics page.
-      // api get 12 topics elements as object array, in ascending order by date, based on current filter. *** this appears like unsplash loading.
-      let currentTopics = [];
-      if (filters === 'noFilters') {
-        currentTopics = api.get('NoFilters');
-      } else if (filters === 'moreActives') {
-        currentTopics = api.get('moreActive');
-      } else if (filters === 'mostReplyededs') {
-        currentTopics = api.get('mostReplyeds');
-      } else if (filters === 'mostRecents') {
-        currentTopics = api.get('mostRecents');
-      }
-      commit('SET_TOPICS_LIST', { currentTopics });
+      // const nextStreamStart = (pagination * state.streamAmount) + 1;
+      Promise((resolve, reject) => {
+        api.get('/getMoreTopics', {
+          params: {
+            type,
+            pagination,
+          },
+        })
+          .then((response) => {
+            console.log('topics/loadMoreTopics');
+            commit('SET_TOPICS_LIST', response.data);
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error.message);
+            reject(error);
+          });
+      });
+    },
+
+    // OK - AWAIT API IMPLEMENT
+    createNewTopic({
+      commit,
+      rootGetters,
+    }, { data }) {
+      // getters { userId }
+      const userId = rootGetters['users/getUserId']; // IMPLEMENTAR ISSO NO MÓDULO USERS
+      const token = localStorage.getItem('access_token');
+      // response
+      // const newTopic = {
+      //   topicId: Number, // id do diálogo
+      //   title: String, // titulo do diálogo
+      //   topicCategory: Number, // id da categoria principal do diálogo
+      //   categoriesTagged: Array, // id das categorias relacionadas ao diálogo
+      //   userRef: {
+      //     name: Number, // nome do usuário proprietário deste diálogo
+      //     id: Number, // id do usuário
+      //     categoryId: Number, // categoria do usuário
+      //     avatarUrl: String, // url do avatar do usuário
+      //   },
+      //   createdAt: String, // data de criação do diálogo --- JS DATE OBJECT
+      //   content: String, // texto do diálogo
+      //   positiveSupports: Number, // votos a favor
+      //   negativeSupports: Number, // votos contra
+      //   numberOfReplies: Number, // número de respostas/comentários
+      //   views: Number, // números de visualizações
+      // };
+      Promise((resolve, reject) => {
+        api.post('/createNewTopic', {
+          body: {
+            userId,
+            title: data.title,
+            content: data.content,
+            topicCategory: data.topicCategory,
+            categoriesTagged: data.categoriesTagged,
+          },
+          headers: {
+            Autrhorization: `token ${token}`,
+          },
+        })
+          .then((response) => {
+            console.log('topics/createNewTopic - response', response.data);
+            commit('ADD_NEW_TOPIC', response.data);
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error.message);
+            reject(error);
+          });
+      });
     },
 
     // TO BE REWIWED
     loadCurrentTopic({ commit }, { topicId }) {
-      // api get, this topic to be set as currentTopic. and get replies array of this topic.
       Promise((resolve, reject) => {
         api.get('/getCurrentTopic', {
           topicId,
@@ -312,53 +258,6 @@ export default {
       });
     },
 
-    // OK
-    createNewTopic({
-      state,
-      commit,
-      dispatch,
-      rootGetters,
-    }, { data }) {
-      // generate new key to being used as id, on this new topic.
-      dispatch('setKey'); // TO BE DELETED
-      const topicId = state.key; // TO BE DELETED
-      // get data from current user, to reference this topic. contains { id, name, categoryId, avatarUrl}
-      const userRef = rootGetters['users/getUserReference'];
-      // get current date and time
-      const today = new Date();
-      const date = `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`;
-      // mount reply object
-      const newTopic = {
-        id: topicId, // TO BE DELETED
-        title: data.title,
-        categoryId: data.categoryId,
-        user: userRef,
-        createdAt: date,
-        content: data.content,
-        positiveSupports: 0,
-        negativeSupports: 0,
-        numberOfReplyes: 0,
-        views: 0,
-      };
-      console.log('topics/createNewTopic', newTopic);
-      commit('ADD_NEW_TOPIC', { newTopic }); // TO BE DELETED
-      // post to api topic object, to be added on serve and storage response.
-      // Promise((resolve, reject) => {
-      //   api.post('/createNewTopic', {
-      //     newTopic,
-      //   })
-      //     .then((response) => {
-      //       console.log('topics/createNewTopic - response', response.data);
-      //       commit('ADD_NEW_TOPIC', response.data);
-      //       resolve(response);
-      //     })
-      //     .catch((error) => {
-      //       console.log(error.message);
-      //       reject(error);
-      //     });
-      // });
-    },
-
     // TO BE IMPLEMENTED
     // async updateTopic({ commit }, { topicId, data }) {
     //   await apiClient.updateTopic(topicId, data);
@@ -371,17 +270,15 @@ export default {
     // },
 
     // OK
-    supportThisTopic({ state, commit }, { data }) {
-      // call this action from usersModule, after conditions are processed.
-      // post to api, this current topic id, to be supported (approved/true || notApproved/false).
-      const newSupport = { topicId: state.currentTopic.id, support: data };
+    supportCurrentTopic({ state, commit }, { supportType }) {
       // Promise((resolve, reject) => {
-      //   api.post('/supportThisTopic', {
-      //     newSupport,
+      //   api.patch('/updateSupport', {
+      //     topicId: state.currentTopic.id,
+      //     supportType,
       //   })
       //     .then((response) => {
-      //       console.log('topics/supportThis');
-      //       commit('ADD_SUPPORT', data);
+      //       console.log('topics/supportThis response', response.message);
+      //       commit('ADD_SUPPORT', supportType);
       //       resolve(response);
       //     })
       //     .catch((error) => {
@@ -389,8 +286,9 @@ export default {
       //       reject(error);
       //     });
       // });
-      console.log('topics/supportThisTopic', newSupport);
-      commit('ADD_SUPPORT', { data });
+      const newSupport = { topicId: state.currentTopic.id, support: supportType }; // TO BE DELETED
+      console.log('topics/supportCurrentTopic', newSupport); // TO BE DELETED
+      commit('ADD_SUPPORT', { supportType }); // TO BE DELETED
     },
 
     // OK
@@ -460,29 +358,36 @@ export default {
 
     // TO BE REWIEWED
     updateReply({ commit }, { replyId, data }) {
+      console.log('topics/updateReply', replyId);
+      // console.log('topics/updateReply', data);
       // post to api, this reply id and newData to be updated.
       // api post action HERE ------ (replyId, data);
       // then
       commit('UPDATE_REPLY', { replyId, data }); // update local storage.
-      return replyId;
     },
 
-    // TO BE REWIEWED
-    likeReply({ dispatch, commit }, { replyId }) {
-      // post to api, a reply element on this topic, to be liked.
-      // then
-      dispatch('users/addLike', { replyId }, { root: true }); // add from local user register like to this reply
-      commit('LIKE_REPLY', { replyId });
-      return replyId;
+    // TO BE TESTED
+    incrementLikeInReply({ commit }, { replyId }) {
+      // Promise((resolve, reject) => {
+      //   api.patch('/incrementLikeInReply', {
+      //     replyId,
+      //   })
+      //     .then((response) => {
+      //       console.log('topics/incrementLikeInReply', response.message);
+      //       commit('INCREMENT_LIKE_IN_REPLY', { replyId });
+      //     })
+      //     .catch((error) => {
+      //       console.log(error.message);
+      //       reject(error);
+      //     });
+      // });
+      commit('INCREMENT_LIKE_IN_REPLY', { replyId });
     },
 
-    // TO BE REWIEWED
-    unlikeReply({ dispatch, commit }, { replyId }) {
-      // post to api, reply element on this topic, to be unliked.
-      // then
-      dispatch('users/removeLike', { replyId }, { root: true }); // remove from local user register like to this reply
-      commit('UNLIKE_REPLY', { replyId });
-      return replyId;
+    // TO BE TESTED
+    decrementLikeInReply({ commit }, { replyId }) {
+      console.log('topics/decrementLikeInReply', replyId);
+      commit('DECREMENT_LIKE_IN_REPLY', { replyId });
     },
 
     // TO BE REWIEWED
@@ -509,7 +414,7 @@ export default {
   mutations: {
     // OK
     SET_TOPICS_LIST(state, { data }) {
-      state.list = data;
+      state.list.push(data);
     },
 
     // OK
@@ -528,8 +433,8 @@ export default {
     },
 
     // TO BE REWIEWED
-    ADD_SUPPORT(state, { support }) {
-      if (support === true) {
+    ADD_SUPPORT(state, { supportType }) {
+      if (supportType) {
         // approved
         state.currentTopic.positiveSupports += 1;
       } else {
@@ -538,12 +443,12 @@ export default {
       }
     },
 
-    // OK
+    // NO CALLED
     POSITIVE_SUPPORT_DECREMENT(state) {
       state.currentTopic.positiveSupports -= 1;
     },
 
-    // OK
+    // NO CALLED
     NEGATIVE_SUPPORT_DECREMENT(state) {
       state.currentTopic.negativeSupports -= 1;
     },
@@ -551,36 +456,35 @@ export default {
     // OK
     ADD_REPLY_TO_CURRENT_TOPIC(state, data) {
       console.log('ADD_REPLY_TO_CURRENT_TOPIC', data);
-      state.currentTopicReplies = [
-        ...state.currentTopicReplies,
-        data,
-      ];
+      // state.currentTopicReplies.push(data);
+      state.replies.push(data); // TO BE DELETED
     },
 
-    // TO BE REWIEWED - PERSIST AFTER DELETE
+    // Ok
     DELETE_REPLY(state, { replyId }) {
       console.log('topics/DELETE_REPLY', replyId);
-      state.currentTopicReplies = state.currentTopicReplies.filter(
-        (reply) => reply.id !== replyId,
-      );
+      // const replyIndex = state.currentTopicReplies.findIndex((reply) => reply.id === replyId);
+      // state.currentTopicReplies.splice(replyIndex, 1);
+      const replyIndex = state.replies.findIndex((reply) => reply.id === replyId); // TO BE DELETED
+      state.replies.splice(replyIndex, 1); // TO BE DELETED
     },
 
     // TO BE IMPLEMENTED
-    // UPDATE_REPLY({ state }, { replyId, data }) {
-    //   const replyIndex = state.currentTopicReplies.map((reply) => reply.id).indexOf(replyId);
-    //   if (replyIndex !== -1) {
-    //     Vue.set(state.currentTopicReplies, replyIndex, { ...state.currentTopicReplies[replyIndex], ...data });
-    //   }
-    // },
+    UPDATE_REPLY(state, { replyId, data }) {
+      // const replyIndex = state.currentTopicReplies.findIndex((reply) => reply.id === replyId);
+      // state.currentTopicReplies[replyIndex].content = data;
+      const replyIndex = state.replies.findIndex((reply) => reply.id === replyId); // TO BE DELETED
+      state.replies[replyIndex].content = data; // TO BE DELETED
+    },
 
     // OK
-    LIKE_REPLY(state, { replyId }) {
+    INCREMENT_LIKE_IN_REPLY(state, { replyId }) {
       const replyIndex = state.currentTopicReplies.findIndex((reply) => reply.id === replyId);
       state.currentTopicReplies[replyIndex].numberOfLikes += 1;
     },
 
     // OK
-    UNLIKE_REPLY(state, { replyId }) {
+    DECREMENT_LIKE_IN_REPLY(state, { replyId }) {
       const replyIndex = state.currentTopicReplies.findIndex((reply) => reply.id === replyId);
       state.currentTopicReplies[replyIndex].numberOfLikes -= 1;
     },

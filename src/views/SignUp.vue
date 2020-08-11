@@ -79,7 +79,7 @@
             square
             filled
             v-model="username"
-            label="Sobrenome*"
+            label="Nome*"
             bottom-slots
             @blur="$v.username.$touch"
             :error="$v.username.$error"
@@ -150,11 +150,11 @@
             dense
             square
             filled
-            v-model="passwordConfirmation"
+            v-model="confirmPassword"
             label="confirme a senha*"
-            @blur="$v.passwordConfirmation.$touch"
-            :error="$v.passwordConfirmation.$error"
-            :error-message="passwordConfirmationErrorMessage"
+            @blur="$v.confirmPassword.$touch"
+            :error="$v.confirmPassword.$error"
+            :error-message="confirmPasswordErrorMessage"
           />
 
         </div>
@@ -268,7 +268,7 @@ export default {
       email: '',
       emailConfirmation: '',
       password: '',
-      passwordConfirmation: '',
+      confirmPassword: '',
       selected: null, // --- selected category?
       lastSelected: 0,
       active: false,
@@ -320,7 +320,7 @@ export default {
       minLength: minLength(8),
       maxLength: maxLength(15)
     },
-    passwordConfirmation: {
+    confirmPassword: {
       required,
       sameAsPassword: sameAs('password')
     }
@@ -375,10 +375,10 @@ export default {
         return 'Máximo de 15 dígitos'
       }
     },
-    passwordConfirmationErrorMessage () {
-      if (!this.$v.passwordConfirmation.required) {
+    confirmPasswordErrorMessage () {
+      if (!this.$v.confirmPassword.required) {
         return 'Confirmação de senha é requerida'
-      } else if (!this.$v.passwordConfirmation.sameAsPassword) {
+      } else if (!this.$v.confirmPassword.sameAsPassword) {
         return 'Senha não confere'
       }
     },
@@ -446,17 +446,16 @@ export default {
     submit(){
       if (!this.$v.$anyError) {
         this.loading = true;
-        const credentials = {
-          username: this.username,
-          lastname: this.lastname,
+        this.$store.dispatch('users/signUp', { credentials: {
+          firstName: this.username,
+          lastName: this.lastname,
           email: this.email,
           password: this.password,
-          passwordConfirmation: this.passwordConfirmation,
-          isValid: true, 
+          confirmPassword: this.confirmPassword,
+          isValid: true,
           isAdmin: false,
           categoryId: this.selected.value,
-        };
-        this.$store.dispatch('users/signUp', { credentials })
+        }})
           .then((response) => {
             this.message = 'Só uns segundinhos';
             this.loadingTransition();
@@ -634,8 +633,7 @@ export default {
 
     .altoc {
       margin-top: 4px;
-    margin-left: 8px;
-
+      margin-left: 8px;
     }
   }
 }

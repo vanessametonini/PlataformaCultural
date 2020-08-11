@@ -1,74 +1,113 @@
 <template>
-  <div class="app-page">
+  <div class="app-page events-page">
+    <!-- ASIDE -->
+    <div class="events-page-aside">
+      <logo-card
+        :black-mode="true"
+        class="identity"
+      />
 
-    <!-- <logo-card class="fixed-logo" :blackMode="true"/> -->
+      <div
+        v-if="handleResize"
+        class="aside-actions"
+      >
+        <div class="aside-filter-options">
+          <div
+            v-for="(item, index) in options"
+            :key="index"
+            class="filter-options-item"
+            @click="filterThis(item.value)"
+          >
+            <span
+              id="filter-item"
+              class="body-3"
+              :class="{ 'selected-effect' : filterTypeSelected === item.value }"
+            >
+              {{ item.label }}
+            </span>
+          </div>
+        </div>
 
-    <div class="aside">
+        <div class="aside-filter-search">
+          <q-input
+            v-model="search"
+            label="Procurar"
+            square
+            dense
+            color="black"
+          >
+            <template #prepend>
+              <q-icon
+                class="bolder text-black"
+                name="search"
+                size="xs"
+              />
+            </template>
+          </q-input>
+        </div>
 
-      <logo-card class="identity" :blackMode="true"/>
+        <div class="aside-filter-create-event">
+          <base-button
+            class="btn-signup"
+            theme="primary"
+            @click="signUp()"
+            v-if="isLoggedIn"
+          >
+            <!-- <q-icon class="fas fa-plus text-white" size="xs"></q-icon> -->
+            <!-- <span class="body-2 bolder text-white"> + </span> -->
+            <span class="caption bolder text-white"> Cadastre-se! </span>
+          </base-button>
+        </div>
+      </div>
+    </div>
+    <!-- end aside -->
 
-      <div class="white-space"></div>
-
-      <section class="filter" v-if="!handleResize">
-        <span class="body-2 bolder">+</span>
-      </section>
-
+    <!-- filter to mobile -->
+    <div
+      v-if="handleResize"
+      class="filter-mobile"
+    >
+      <span class="body-2 bolder"> + </span>
     </div>
 
-    <div class="filter-mobile" v-if="handleResize">
-      <span class="body-2 bolder">+</span>
-    </div>
-
+    <!-- content -->
     <div class="content">
-
+      <!-- scroll area -->
       <q-scroll-area
-        class="scroll-area"
+        v-if="handleResize"
+        class="scrollArea"
         :thumb-style="thumbStyle"
         :bar-style="barStyle"
-        v-if="handleResize"
       >
-
-        <masonry class="items" :cols="{ default: 3, 1200: 3, 1130: 2, 600: 1 }" :gutter="{ default: '8px' }">
-          <div  v-for="item in events" :key="item.id">
-
-            <schedule-item class="item" :item="item" v-if="events[item.id - 1]"/>
-
-          </div>
-        </masonry>
-
+        <event-list />
       </q-scroll-area>
-
-      <div class="mobile-items" v-if="!handleResize">
-
-        <masonry class="items" :cols="{ default: 3, 1320: 2, 600: 1 }" :gutter="0">
-
-          <div  v-for="item in events" :key="item.id">
-            <transition name="q-transition--scale">
-              <my-event class="item" :item="item" v-if="events[item.id - 1]"/>
-            </transition>
-          </div>
-
-        </masonry>
-
-      </div>
-
+      <!-- end scroll-area -->
     </div>
-
+    <!-- end content -->
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import ScheduleItem from '../components/ScheduleItem.vue';
+import EventList from '../components/EventList.vue';
+import BaseButton from '../components/BaseButton.vue';
 
 export default {
-  name: 'Schedule_Page',
+  name: 'SchedulePage',
   components: {
-    ScheduleItem,
+    EventList,
+    BaseButton,
   },
   data() {
     return {
       newEvent: '',
+      filterTypeSelected: 'mostRecent',
+      search: '',
+      options: [
+        { label: 'Mais ativos', value: 'mostActive', color: 'black' },
+        { label: 'Mais Comentados', value: 'mostAnswed', color: 'black' },
+        { label: 'Novos', value: 'mostRecent', color: 'black' },
+      ],
       thumbStyle: {
         right: '0px',
         top: '16px',
@@ -88,24 +127,29 @@ export default {
       },
     };
   },
+  ...mapGetters({
+    isLoggedIn: 'users/isLoggedIn',
+  }),
+  computed: {
+    allTopics() {
+      const eventsToShow = this.$store.getters.eventsFiltered;
+      return eventsToShow;
+    },
+  },
   created() {
     window.addEventListener('resize', this.handleResize);
     this.handleResize();
   },
-  destroyed() {
+  unmounted() {
     window.removeEventListener('resize', this.handleResize);
   },
-  computed: {
-    ...mapGetters({
-      events: 'events/loadEvents',
-    }),
-  },
   methods: {
-    onIntersection(entry) {
-      const index = parseInt(entry.target.dataset.id, 10);
-      setTimeout(() => {
-        this.events.splice(index, 3, entry.isIntersecting);
-      }, 50);
+    signUp() {
+      this.$router.push({ name: 'SignUp' });
+    },
+    filterThis(filterType) {
+      this.filterTypeSelected = filterType;
+      console.log('filterThis', filterType);
     },
     handleResize() {
       const size = window.innerWidth;
@@ -114,8 +158,6 @@ export default {
       }
       return true;
     },
-  },
-  watch: {
   },
 };
 </script>
@@ -126,10 +168,11 @@ export default {
 @import '../styles/mixins.scss';
 @import '../styles/typo.scss';
 
-.app-page {
+.events-page {
   z-index: 0;
   width: 100%;
   height: 100vh;
+  overflow: hidden;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -140,16 +183,15 @@ export default {
   }
 }
 
-.aside {
+.events-page-aside {
   background-color: white;
   height: 100%;
-  width: 250px;
-  padding: 32px 16px;
+  min-width: 250px;
+  padding: 16px;
   margin: 8px 8px 0px 0px;
   z-index: 1;
   display: flex;
   flex-direction: column;
-  // border: 2px solid pink;
 
   @include for-phone-only {
     height: 80px;
@@ -169,8 +211,8 @@ export default {
   }
 
   .identity {
-    align-self: center;
-    // margin-top: 32px;
+    align-self: flex-start;
+    min-height: 180px;
 
     @include for-phone-only {
       width: 100%;
@@ -179,18 +221,84 @@ export default {
     }
   }
 
-  .filter {
+  .aside-actions {
      @include for-phone-only {
       width: 100%;
+      height: 100%;
+      position: relative;
     }
   }
+}
+
+.aside-actions {
+  // border: 1px solid red;
+  margin-top: 0px;
+  height: 100%;
+  overflow: hidden;
+  padding: 32px 0px 32px 0px;
+  position: relative;
+}
+
+.aside-filter-options {
+  margin-top: 0px;
+  // width: fit-content;
+  display: inline-block;
+  // border: 2px solid $borderGray;
+}
+
+.filter-options-item {
+  margin: 8px 0px 4px 0px;
+}
+
+#filter-item {
+  cursor: pointer;
+  color: $gray3;
+  font-weight: bolder;
+  position: relative;
+  transition: 0.35s linear;
+}
+
+.selected-effect {
+  color: black !important;
+  margin-left: 8px;
+  position: relative;
+  transition: 0.75s linear;
+}
+
+.selected-effect:after {
+  content: '';
+  color: black;
+  position: absolute;
+  left: -8px;
+  display: inline-block;
+  height: 1em;
+  width: calc(100% + 16px);
+  border-bottom: 3px solid;
+  margin-top: 8px;
+  opacity: 1;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+.aside-filter-search {
+  margin-top: 40px;
+  // border: 2px solid pink;
+}
+
+.aside-filter-create-event {
+  position: absolute;
+  bottom: 80px;
 }
 
 .content {
   height: 100vh;
   background-color: #f5f5f5;
-  width: calc(3 * 335px);
-  overflow: hidden;
+  width: 100%;
+  padding: 16px 0px 8px 16px;
+  max-width: calc(3 * 360px);
+  // overflow: hidden;
   z-index: 1;
 
   @include for-phone-only {
@@ -201,15 +309,14 @@ export default {
   @include for-desktop-up {
     align-self: center;
     margin: 0px;
-    padding: 24px 8px 8px 8px;
-    max-width: 1240px;
+    // padding: 16px 8px 8px 0px;
   }
 }
 
-.scroll-area {
-  height: 100%;
-  // width: 100%;
-  padding-right: 16px;
+.scrollArea {
+  height: 100vh;
+  width: 100%;
+  padding: 8px 16px 16px 0px;
 
   @include for-phone-only {
     display: none;

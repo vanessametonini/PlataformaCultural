@@ -1,5 +1,7 @@
 <template>
-  <svg :id="`svg${this.iconId + 1}`" xmlns="http://www.w3.org/2000/svg"
+  <svg
+    :id="`svg${iconId + 1}`"
+    xmlns="http://www.w3.org/2000/svg"
     :width="width"
     viewBox="0 0 151.000000 151.000000"
     preserveAspectRatio="xMidYMid meet"
@@ -10,11 +12,21 @@
       :id="iconId"
       lang="en"
     >{{ iconId }} icon</title>
-    <g id="g" v-if="!setWhite" transform="translate(0.000000,151.000000) scale(0.100000,-0.100000)" :fill="getIcon.iconColor" >
+    <g
+      v-if="!setWhite"
+      id="g"
+      transform="translate(0.000000,151.000000) scale(0.100000,-0.100000)"
+      :fill="getIcon.iconColor"
+    >
       <path :d="getIcon.path" />
       <path :d="getIcon.path2" />
     </g>
-    <g id="g" v-if="setWhite" transform="translate(0.000000,151.000000) scale(0.100000,-0.100000)" fill="#fff" >
+    <g
+      v-if="setWhite"
+      id="g"
+      transform="translate(0.000000,151.000000) scale(0.100000,-0.100000)"
+      fill="#fff"
+    >
       <path :d="getIcon.path" />
       <path :d="getIcon.path2" />
     </g>

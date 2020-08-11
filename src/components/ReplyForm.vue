@@ -24,7 +24,7 @@
         <base-button
           class="reply-button cancel-button"
           @click="cancel"
-          :theme="this.content === '' ? 'secondary' : 'disabled'"
+          :theme="this.content !== '' ? 'secondary' : 'disabled'"
         >
           <span class="caption bolder"> Cancelar </span>
         </base-button>
@@ -32,7 +32,7 @@
         <base-button
           class="reply-button"
           @click="reply"
-          :theme="this.content != '' ? 'primary' : 'disabled'"
+          theme="primary"
         >
           <span class="caption bolder"> {{ loading ? 'Comentando...' : 'Comentar' }} </span>
         </base-button>
@@ -65,7 +65,8 @@ export default {
   props: {
     replyToTag: {
       type: Object,
-      default: null,
+      default: () => {},
+      required: true,
     },
   },
   validations: {
@@ -74,7 +75,7 @@ export default {
   methods: {
     reply() {
       this.$v.$touch();
-      if (!this.$v.$anyError) {
+      if (!this.$v.$anyError && this.content !== '') {
         this.loading = true;
         let tagId = null;
         if (this.replyToTag != null) {
@@ -84,19 +85,19 @@ export default {
         this.$store.dispatch('topics/addReply', { data: newReply })
           .then(() => {
             this.content = '';
-            this.replyToTag = null;
+            // this.replyToTag = {};
             this.$v.$reset();
             this.loading = false;
           })
           .catch((error) => {
             console.log(error);
             this.loading = false;
-            this.replyToTag = null;
+            // this.replyToTag = {};
           });
       }
     },
     cancel() {
-      this.replyToTag = null;
+      // this.replyToTag = {};
       this.content = '';
     },
     focus() {

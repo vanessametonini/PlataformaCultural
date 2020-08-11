@@ -1,94 +1,111 @@
 <template>
   <div class="app-page topics-page">
+    <!-- ASIDE -->
+    <div class="topics-page-aside">
+      <logo-card
+        :black-mode="true"
+        class="identity"
+      />
 
-    <!-- aside -->
-    <div class="aside">
-
-      <logo-card class="identity" :blackMode="true"/>
-
-      <div class="white-space"></div>
-
-      <section
-        class="filter"
+      <div
         v-if="handleResize"
+        class="aside-actions"
       >
+        <div class="aside-filter-options">
+          <div
+            v-for="(item, index) in options"
+            :key="index"
+            class="filter-options-item"
+            @click="filterThis(item.value)"
+          >
+            <span
+              id="filter-item"
+              class="body-3"
+              :class="{ 'selected-effect' : filterTypeSelected === item.value }"
+            >
+              {{ item.label }}
+            </span>
+          </div>
+        </div>
 
-        <h2 class="body-2 bolder">filtro here</h2>
+        <div class="aside-filter-search">
+          <q-input
+            v-model="search"
+            label="Procurar"
+            square
+            dense
+            color="black"
+          >
+            <template #prepend>
+              <q-icon
+                class="bolder text-black"
+                name="search"
+                size="xs"
+              />
+            </template>
+          </q-input>
+        </div>
 
-      </section>
-
+        <div class="aside-filter-create-topic">
+          <base-button
+            class="row no-wrap al-items-center"
+            theme="primary"
+            @click="createNewTopic()"
+          >
+            <!-- <q-icon class="fas fa-plus text-white" size="xs"></q-icon> -->
+            <span class="body-2 bolder text-white"> + </span>
+            <span class="caption bolder text-white"> insira um novo diálogo </span>
+          </base-button>
+        </div>
+      </div>
     </div>
     <!-- end aside -->
 
     <!-- filter to mobile -->
     <div
-      class="filter-mobile"
       v-if="handleResize"
+      class="filter-mobile"
     >
-
-      <span
-        class="body-2 bolder"
-      >
-        +
-      </span>
-
+      <span class="body-2 bolder"> + </span>
     </div>
 
     <!-- content -->
     <div class="content">
-
       <!-- scroll area -->
       <q-scroll-area
+        v-if="handleResize"
         class="scrollArea"
         :thumb-style="thumbStyle"
         :bar-style="barStyle"
-        v-if="handleResize"
       >
-
-        <!-- <masonry class="grid" :cols="{ default: 3, 1200: 3, 1130: 2, 600: 1 }" :gutter="{ default: '4px', 1200: '4px', 1130: '8px', 600: '4px'}">
-
-          topic-list
-          <div
-            class="topics-list"
-            v-for="item in allEvents"
-            :key="item.id"
-          >
-
-              topic-item
-              <topic-item
-                class="topic-item"
-                :item="item"
-                v-if="allEvents[item.id - 1]"
-                :bgColor="item.category.color"
-              />
-
-          </div>
-          end topic-list
-
-        </masonry> -->
-
-        <topics-list/>
-
+        <topics-list />
       </q-scroll-area>
       <!-- end scroll-area -->
-
     </div>
     <!-- end content -->
-
   </div>
 </template>
 
 <script>
 import TopicsList from '../components/TopicsList.vue';
+import BaseButton from '../components/BaseButton.vue';
 
 export default {
-  name: 'schedulePage',
+  name: 'TopicsPage',
   components: {
     TopicsList,
+    BaseButton,
   },
   data() {
     return {
       newEvent: '',
+      filterTypeSelected: 'mostRecent',
+      search: '',
+      options: [
+        { label: 'Mais ativos', value: 'mostActive', color: 'black' },
+        { label: 'Mais Comentados', value: 'mostAnswed', color: 'black' },
+        { label: 'Novos', value: 'mostRecent', color: 'black' },
+      ],
       thumbStyle: {
         right: '0px',
         top: '16px',
@@ -108,20 +125,27 @@ export default {
       },
     };
   },
-  created() {
-    window.addEventListener('resize', this.handleResize);
-    this.handleResize();
-  },
-  destroyed() {
-    window.removeEventListener('resize', this.handleResize);
-  },
   computed: {
     allTopics() {
       const eventsToShow = this.$store.getters.eventsFiltered;
       return eventsToShow;
     },
   },
+  created() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+  },
+  unmounted() {
+    window.removeEventListener('resize', this.handleResize);
+  },
   methods: {
+    createNewTopic() {
+      this.$router.push({ name: 'CreateTopic' });
+    },
+    filterThis(filterType) {
+      this.filterTypeSelected = filterType;
+      console.log('filterThis', filterType);
+    },
     handleResize() {
       const size = window.innerWidth;
       if (size > 600) {
@@ -154,10 +178,10 @@ export default {
   }
 }
 
-.aside {
+.topics-page-aside {
   background-color: white;
   height: 100%;
-  width: 250px;
+  min-width: 250px;
   padding: 16px;
   margin: 8px 8px 0px 0px;
   z-index: 1;
@@ -182,8 +206,8 @@ export default {
   }
 
   .identity {
-    align-self: center;
-    // margin-top: 32px;
+    align-self: flex-start;
+    min-height: 180px;
 
     @include for-phone-only {
       width: 100%;
@@ -192,18 +216,82 @@ export default {
     }
   }
 
-  .filter {
+  .aside-actions {
      @include for-phone-only {
       width: 100%;
+      height: 100%;
+      position: relative;
     }
   }
+}
+
+.aside-actions {
+  // border: 1px solid red;
+  margin-top: 0px;
+  height: 100%;
+  overflow: hidden;
+  padding: 32px 0px 32px 0px;
+  position: relative;
+}
+
+.aside-filter-options {
+  margin-top: 0px;
+  // width: fit-content;
+  display: inline-block;
+  // border: 2px solid $borderGray;
+}
+
+.filter-options-item {
+  margin: 8px 0px 4px 0px;
+}
+
+#filter-item {
+  cursor: pointer;
+  color: $gray3;
+  font-weight: bolder;
+  position: relative;
+  transition: 0.35s linear;
+}
+
+.selected-effect {
+  color: black !important;
+  margin-left: 8px;
+  position: relative;
+  transition: 0.75s linear;
+}
+
+.selected-effect:after {
+  content: '';
+  color: black;
+  position: absolute;
+  left: -8px;
+  display: inline-block;
+  height: 1em;
+  width: calc(100% + 16px);
+  border-bottom: 3px solid;
+  margin-top: 8px;
+  opacity: 1;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+.aside-filter-search {
+  margin-top: 40px;
+  // border: 2px solid pink;
+}
+
+.aside-filter-create-topic {
+  position: absolute;
+  bottom: 80px;
 }
 
 .content {
   height: 100vh;
   background-color: #f5f5f5;
   width: 100%;
-  padding: 16px 0px 8px 8px;
+  padding: 16px 0px 8px 16px;
   max-width: calc(3 * 360px);
   // overflow: hidden;
   z-index: 1;

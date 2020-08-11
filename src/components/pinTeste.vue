@@ -611,7 +611,6 @@ export default {
   animation: roll-out 1s linear reverse;
 }
 
-
 @keyframes roll-out {
   0% {
     transform: scale(1);

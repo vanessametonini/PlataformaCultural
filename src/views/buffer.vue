@@ -215,7 +215,7 @@ export default {
     this.homeTransition();
     this.setCoordinates();
   },
-  destroyed() {
+  unmounted() {
     window.removeEventListener('resize', this.handleResize);
   },
   computed: {

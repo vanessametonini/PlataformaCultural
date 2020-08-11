@@ -75,7 +75,7 @@
             flat
             class="btn"
             color="white"
-            @click="signIn()"
+            @click="submit()"
           >
             <span class="body-3 bold">entrar</span>
           </q-btn>
@@ -132,7 +132,7 @@ export default {
     },
   },
   methods: {
-    signIn() {
+    submit() {
       if (!this.$v.$anyError) {
         this.$store.dispatch('users/retrieveToken', { credentials: {
           email: this.email,
@@ -154,7 +154,7 @@ export default {
           if (error.message === 'timeout of 5000ms exceeded') {
             this.errorMessage = 'Houve um Problema, tente novamente';
           }
-          console.log('error login', error.message);
+          console.log('signIn/submit', error.message);
         })
       }
     },
@@ -164,6 +164,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/mixins.scss';
+@import '../styles/variables.scss';
 
 * {
   margin: 0;

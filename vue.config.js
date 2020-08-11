@@ -3,7 +3,7 @@ module.exports = {
     quasar: {
       importStrategy: 'manual',
       rtlSupport: false,
-    }
+    },
   },
   transpileDependencies: ['quasar'],
 };
