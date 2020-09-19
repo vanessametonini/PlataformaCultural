@@ -1,7 +1,11 @@
+import api from '../../apiClient';
+
+const token = localStorage.getItem('access_token');
+
 export default {
   namespaced: true,
   state: {
-    pins: [
+    list: [
       {
         id: 1,
         userId: 0, // nao mostra no mapa, mas se user for dono então pode editar no seu perfil
@@ -135,40 +139,91 @@ export default {
         imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRuD1wHotql9_3l0Md18AZBHazV0gWFHzlv7itpkZ6oB1cnLNtc&usqp=CAU',
       },
     ],
+    markers: [],
+    currentPin: null,
   },
 
   getters: {
     loadPins(state) {
-      return state.pins;
+      return state.list;
     },
 
-    getPinById({ state }, id) {
-      const index = state.pins.findIndex((item) => item.id === id);
-      return state.pins[index];
+    getMarkers({ state }) {
+      return state.markers;
+    },
+
+    getPinById({ state }, { pinId }) {
+      const index = state.pins.findIndex((item) => item.id === pinId);
+      return state.list[index];
     },
   },
 
   actions: {
-    loadPins(state, { commit }) {
-      commit('SET_PINS_LIST', state.list);
+    loadMarkes({ commit }) {
+      Promise((resolve, reject) => {
+        api.get('/loadMarkes', {
+          params: {
+            // type,
+            // pagination,
+          },
+          headers: {
+            Autrhorization: `token ${token}`,
+          },
+        })
+          .then((response) => {
+            console.log('pins/loadMarkers');
+            commit('SET_PINS_LIST', response.data);
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error.message);
+            reject(error);
+          });
+      });
+    },
+
+    loadPinById({ commit }, { pinId }) {
+      Promise((resolve, reject) => {
+        api.get('/getPinById', {
+          params: {
+            pinId,
+          },
+          headers: {
+            Autrhorization: `token ${token}`,
+          },
+        })
+          .then((response) => {
+            console.log('pins/loadMarkers');
+            commit('SET_PINS_LIST', response.data);
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error.message);
+            reject(error);
+          });
+      });
     },
   },
 
   mutatios: {
-    SET_PINS_LIST({ pins }) {
-      this.state.list = pins;
+    SET_PINS_LIST(state, { data }) {
+      state.list = data;
     },
 
-    // ADD_NEW_PIN({ state }, { data }) {
-    //   return 'add pin mutation';
-    // },
+    ADD_NEW_PIN(state, { data }) {
+      state.list.push(data);
+    },
 
-    // DELETE_PIN_BY_ID({ state }, { id }) {
-    //   return 'delete pin by id';
-    // },
+    DELETE_PIN_BY_ID(state, { data }) {
+      const index = state.list.findIndex((el) => el.id === data.id);
+      state.list.splice(index, 1);
 
-    // UPDATE_PIN_BY_ID({state}, { id, newData }) {
-    //   return 'update pin by id';
-    // },
+      // delete markers too
+    },
+
+    UPDATE_PIN_BY_ID(state, { newData }) {
+      const index = state.list.findIndex((el) => el.id === newData.id);
+      state.list[index] = newData.body;
+    },
   },
 };

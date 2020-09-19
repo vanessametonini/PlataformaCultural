@@ -5,6 +5,7 @@
       <logo-card
         :black-mode="true"
         class="identity"
+        :size="180"
       />
 
       <div

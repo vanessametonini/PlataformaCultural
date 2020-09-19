@@ -170,7 +170,7 @@ export default {
     },
 
     // OK - AWAIT API IMPLEMENT
-    createNewTopic({
+    async createNewTopic({
       commit,
       rootGetters,
     }, { data }) {
@@ -196,7 +196,7 @@ export default {
       //   numberOfReplies: Number, // número de respostas/comentários
       //   views: Number, // números de visualizações
       // };
-      Promise((resolve, reject) => {
+      return new Promise((resolve, reject) => {
         api.post('/createNewTopic', {
           body: {
             userId,

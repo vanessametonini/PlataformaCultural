@@ -45,7 +45,7 @@ export default {
     },
     size: {
       type: Number,
-      default: 120,
+      default: 180,
     },
   },
   data() {

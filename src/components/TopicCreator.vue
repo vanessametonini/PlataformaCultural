@@ -341,7 +341,7 @@ export default {
   },
   data() {
     return {
-      currentStep: 3,
+      currentStep: 1,
       count: 0,
       numberOfSteps: 3,
       stepsTitle: ['O que são os Diálogos', 'Regras', 'Crie seu Diálogo'],
