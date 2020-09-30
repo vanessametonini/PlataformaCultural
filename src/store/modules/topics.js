@@ -177,27 +177,8 @@ export default {
       // getters { userId }
       const userId = rootGetters['users/getUserId']; // IMPLEMENTAR ISSO NO MÓDULO USERS
       const token = localStorage.getItem('access_token');
-      // response
-      // const newTopic = {
-      //   topicId: Number, // id do diálogo
-      //   title: String, // titulo do diálogo
-      //   topicCategory: Number, // id da categoria principal do diálogo
-      //   categoriesTagged: Array, // id das categorias relacionadas ao diálogo
-      //   userRef: {
-      //     name: Number, // nome do usuário proprietário deste diálogo
-      //     id: Number, // id do usuário
-      //     categoryId: Number, // categoria do usuário
-      //     avatarUrl: String, // url do avatar do usuário
-      //   },
-      //   createdAt: String, // data de criação do diálogo --- JS DATE OBJECT
-      //   content: String, // texto do diálogo
-      //   positiveSupports: Number, // votos a favor
-      //   negativeSupports: Number, // votos contra
-      //   numberOfReplies: Number, // número de respostas/comentários
-      //   views: Number, // números de visualizações
-      // };
       return new Promise((resolve, reject) => {
-        api.post('/createNewTopic', {
+        api.post('/topic', {
           body: {
             userId,
             title: data.title,
@@ -206,7 +187,7 @@ export default {
             categoriesTagged: data.categoriesTagged,
           },
           headers: {
-            Autrhorization: `token ${token}`,
+            Authorization: `token ${token}`,
           },
         })
           .then((response) => {
