@@ -105,7 +105,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	// Expose all/spread
 	axios.all = function all(promises) {
-	  return Promise.all(promises);
+	  return zzzzzzPromise.all(promises);
 	};
 	axios.spread = __webpack_require__(25);
 	

@@ -234,17 +234,6 @@ export default {
       filterSelections: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18'],
     };
   },
-  created() {
-    window.addEventListener('resize', this.handleResize);
-    this.handleResize();
-  },
-  mounted() {
-    this.homeTransition();
-    this.setCoordinates();
-  },
-  unmounted() {
-    window.removeEventListener('resize', this.handleResize);
-  },
   computed: {
     ...mapGetters({
       isLoggedIn: 'isLoggedIn',
@@ -260,6 +249,18 @@ export default {
       return filter;
     },
   },
+  created() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+  },
+  mounted() {
+    this.homeTransition();
+    this.setCoordinates();
+  },
+  unmounted() {
+    window.removeEventListener('resize', this.handleResize);
+  },
+
   methods: {
     filterThis(el) {
       if (this.filterSelections.includes(el)) {

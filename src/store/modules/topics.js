@@ -127,7 +127,7 @@ export default {
 
     // WAITING API IMPLEMENT
     loadInitialTopics({ commit }, { type, pagination }) {
-      Promise((resolve, reject) => {
+      const loadFunc = new Promise((resolve, reject) => {
         api.get('/getInitialTopics', {
           params: {
             type,
@@ -144,6 +144,7 @@ export default {
             reject(error);
           });
       });
+      loadFunc();
     },
 
     // AWAIT API IMPLEMENT
@@ -172,11 +173,14 @@ export default {
     // OK - AWAIT API IMPLEMENT
     async createNewTopic({
       commit,
-      rootGetters,
     }, { data }) {
       // getters { userId }
-      const userId = rootGetters['users/getUserId']; // IMPLEMENTAR ISSO NO MÓDULO USERS
+      // const userId = rootGetters['users/getUserId']; // IMPLEMENTAR ISSO NO MÓDULO USERS
       const token = localStorage.getItem('access_token');
+      const userId = 1;
+      // const vuexDados = localStorage.getItem('vuex');
+      // const vuexObj = JSON.parse(vuexDados);
+      // const userId = vuexObj.users.currentUser.id;
       // response
       // const newTopic = {
       //   topicId: Number, // id do diálogo
@@ -197,13 +201,18 @@ export default {
       //   views: Number, // números de visualizações
       // };
       return new Promise((resolve, reject) => {
-        api.post('/createNewTopic', {
+        console.log(data.categoriesTagged);
+        const arrayTagged = [];
+        data.categoriesTagged.forEach((element) => {
+          arrayTagged.push(element.value);
+        });
+        api.post('/topic', {
           body: {
             userId,
             title: data.title,
             content: data.content,
-            topicCategory: data.topicCategory,
-            categoriesTagged: data.categoriesTagged,
+            topicCategory: data.topicCategory.value,
+            categoriesTagged: arrayTagged,
           },
           headers: {
             Autrhorization: `token ${token}`,
@@ -211,6 +220,7 @@ export default {
         })
           .then((response) => {
             console.log('topics/createNewTopic - response', response.data);
+            console.log(response);
             commit('ADD_NEW_TOPIC', response.data);
             resolve(response);
           })
