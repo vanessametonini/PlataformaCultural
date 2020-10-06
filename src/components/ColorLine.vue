@@ -1,5 +1,5 @@
 <template>
-    <div class="line"></div>
+  <div class="line" />
 </template>
 
 <style lang="scss" scoped>

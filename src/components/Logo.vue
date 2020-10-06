@@ -21,7 +21,7 @@
       <span
         id="forum-info"
         class="body-3 bolder"
-      > Fórum municipal <br/> de Cultura <br/> de Campo Grande </span>
+      > Fórum municipal <br> de Cultura <br> de Campo Grande </span>
       <div class="line" />
       <span
         id="sub-info"

@@ -1,8 +1,9 @@
 <template>
   <div class="app-component">
-
-    <div class="card column" :style="{ 'background-color': category.color }">
-
+    <div
+      class="card column"
+      :style="{ 'background-color': category.color }"
+    >
       <span class="big-title bolder line-h16"> {{ title }} </span>
       <span class="caption bolder mg-top8"> {{ category.label }} </span>
 
@@ -20,15 +21,20 @@
 
       <span class="body-3">Entrada: {{ ticket }} </span>
 
-      <a class=" link body-3 bolder mg-top16" target="blank" :href="link">.link do evento</a>
-
+      <a
+        class=" link body-3 bolder mg-top16"
+        target="blank"
+        :href="link"
+      >.link do evento</a>
     </div>
 
     <div class="img-box">
       <!-- <q-img :src="img" :ratio="16/9" placeholder-src="statics/avatar01.jpg"/> -->
-      <img class="img" src="../assets/statics/avatar01.jpg"/>
+      <img
+        class="img"
+        src="../assets/statics/avatar01.jpg"
+      >
     </div>
-
   </div>
 </template>
 
@@ -36,7 +42,13 @@
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'schedule_Item',
+  name: 'ScheduleItem',
+  props: {
+    item: {
+      type: Object,
+      default: null,
+    },
+  },
   data() {
     return {
       id: this.item.id,
@@ -55,12 +67,6 @@ export default {
       },
       img: this.item.imgUrl,
     };
-  },
-  props: {
-    item: {
-      type: Object,
-      default: null,
-    },
   },
   computed: {
     ...mapGetters({

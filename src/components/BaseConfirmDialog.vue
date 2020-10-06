@@ -7,10 +7,10 @@
   >
     <div class="modal-content">
       <h1 class="title">
-        <slot name="title"/>
+        <slot name="title" />
       </h1>
       <div class="content">
-        <slot/>
+        <slot />
         <div class="actions">
           <base-button
             theme="secondary"

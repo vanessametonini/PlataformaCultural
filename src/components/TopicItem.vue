@@ -1,20 +1,24 @@
 <template>
   <!-- item to be selected in topics-page -->
-  <div class="topic-item" @click="emitThisTopic()" :style="{ 'background-color': category.color }">
-
+  <div
+    class="topic-item"
+    :style="{ 'background-color': category.color }"
+    @click="emitThisTopic()"
+  >
     <div class="card column">
       <!-- <span id="category-label" class="headline-3 bolder"> {{ category.label }} </span> -->
 
-      <span id="title" class="big-title bolder"> {{ topic.title }} </span>
+      <span
+        id="title"
+        class="big-title bolder"
+      > {{ topic.title }} </span>
 
       <span class="caption bolder mg-top16"> {{ category.label }} </span>
       <!-- topicOwner & date -->
       <div class="row al-items-center mg-top8">
-
         <span class="body-3 bolder"> {{ topic.user.name }} </span>
 
         <span class="caption bold mg-left16"> {{ formatDate }} </span>
-
       </div>
 
       <span class="caption bold mg-top16"> {{ formatDescription }} </span>
@@ -24,12 +28,16 @@
 
         <div class="stats-item">
           <!-- <q-icon class="vote-icon" name="far fa-thumbs-down" size="xs"></q-icon> -->
-          <i class="far fa-thumbs-up"></i>
+          <i class="far fa-thumbs-up" />
           <span class="caption bolder"> {{ supportsPercentage(true) }}% </span>
         </div>
 
         <div class="stats-item">
-          <q-icon class="vote-icon" name="far fa-thumbs-down" size="xs"></q-icon>
+          <q-icon
+            class="vote-icon"
+            name="far fa-thumbs-down"
+            size="xs"
+          />
           <span class="caption bolder"> {{ supportsPercentage(false) }}% </span>
         </div>
 
@@ -40,9 +48,7 @@
         <span class="caption bolder"> {{ topic.positiveSupports + topic.negativeSupports }} votos </span>
         <span class="caption bolder mg-left8"> {{ topic.numberOfReplies }} comentários </span>
       </div> -->
-
     </div>
-
   </div>
 </template>
 
@@ -50,7 +56,13 @@
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
-  name: 'topicItem',
+  name: 'TopicItem',
+  props: {
+    topic: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
   data() {
     return {
       category: {
@@ -59,12 +71,6 @@ export default {
         color: '#000',
       },
     };
-  },
-  props: {
-    topic: {
-      type: Object,
-      default: () => ({}),
-    },
   },
   computed: {
     ...mapGetters({

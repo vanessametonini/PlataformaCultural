@@ -1,16 +1,17 @@
 <template>
   <div class="reply-form">
-
     <span class="body-2 bolder">Deixe seu comentário</span>
     <!-- <q-separator/> -->
 
     <div class="reply-content">
-
-      <reply-tag v-if="replyToTag != null" :replyTag="replyToTag"/>
+      <reply-tag
+        v-if="replyToTag != null"
+        :reply-tag="replyToTag"
+      />
 
       <q-input
-        v-model="content"
         ref="input"
+        v-model="content"
         class="text-area"
         placeholder="Escreva aqui..."
         :errors="$v.content"
@@ -20,27 +21,23 @@
       />
 
       <div class="row no-wrap mg-top8">
-
         <base-button
           class="reply-button cancel-button"
-          @click="cancel"
           :theme="this.content !== '' ? 'secondary' : 'disabled'"
+          @click="cancel"
         >
           <span class="caption bolder"> Cancelar </span>
         </base-button>
 
         <base-button
           class="reply-button"
-          @click="reply"
           theme="primary"
+          @click="reply"
         >
           <span class="caption bolder"> {{ loading ? 'Comentando...' : 'Comentar' }} </span>
         </base-button>
-
       </div>
-
     </div>
-
   </div>
 </template>
 
@@ -56,18 +53,18 @@ export default {
     BaseButton,
     ReplyTag,
   },
-  data() {
-    return {
-      content: '',
-      loading: false,
-    };
-  },
   props: {
     replyToTag: {
       type: Object,
       default: () => {},
       required: true,
     },
+  },
+  data() {
+    return {
+      content: '',
+      loading: false,
+    };
   },
   validations: {
     content: { required },

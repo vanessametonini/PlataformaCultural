@@ -1,37 +1,50 @@
 <template>
   <div class="app-page">
-
-    <div class="overlay" ref="overlay">
-      <h1 class="presentation" ref="presentation" v-if="!loading">Faça Parte</h1>
-      <span class="message" ref="message" v-if="message !== null">{{ message }}</span>
+    <div
+      ref="overlay"
+      class="overlay"
+    >
+      <h1
+        v-if="!loading"
+        ref="presentation"
+        class="presentation"
+      >
+        Faça Parte
+      </h1>
+      <span
+        v-if="message !== null"
+        ref="message"
+        class="message"
+      >{{ message }}</span>
     </div>
 
     <div
       id="content"
       class="content-center column"
       :class="{ 'bg-change' : active }"
-      >
-
+    >
       <!-- identity (seal) -->
-      <logo-card class="header" :blackMode="true"/>
+      <logo-card
+        class="header"
+        :black-mode="true"
+      />
 
       <!-- color line -->
-      <multicolor-line class="line mg-top8"/>
+      <multicolor-line class="line mg-top8" />
 
       <!-- info -->
       <div class="info">
-
         <div class="column mg-top16">
           <span class="title-2 bolder">Cartografia da Cultura - Campo Grande</span>
           <span class="body-3 mg-top16">
             Para o Fórum Municipal de Cultura é muito importante que você, sendo classe artística, produtor cultural,
-              instituição ou responsável por estabelecimento, que promova arte e cultura na cidade, participe desta plataforma.
-              A cartografia da cultura é uma maneira de dar voz e visibilidade a todos que produzem arte e cultura, sem hierarquias
-              e com transparência.
+            instituição ou responsável por estabelecimento, que promova arte e cultura na cidade, participe desta plataforma.
+            A cartografia da cultura é uma maneira de dar voz e visibilidade a todos que produzem arte e cultura, sem hierarquias
+            e com transparência.
           </span>
         </div>
 
-        <div class="whitespace"></div>
+        <div class="whitespace" />
 
         <div class="">
           <span class="headline-2 bolder">O cadastro permitirá:</span>
@@ -60,165 +73,188 @@
             artísticos e culturais da cidade.
           </span>
         </div>
-
       </div>
 
-      <div class="whitespace"></div>
+      <div class="whitespace" />
 
       <!-- form -->
       <div class="form column">
-
         <span class="headline-2 bolder">Insira suas informações:</span>
 
-        <div class="row field" style="justify-content: space-between">
-
+        <div
+          class="row field"
+          style="justify-content: space-between"
+        >
           <!-- first name -->
           <q-input
+            v-model="username"
             class="input"
             dense
             square
             filled
-            v-model="username"
             label="Nome*"
             bottom-slots
-            @blur="$v.username.$touch"
             :error="$v.username.$error"
             :error-message="usernameErrorMessage"
+            @blur="$v.username.$touch"
           />
 
           <!-- last name -->
           <q-input
+            v-model="lastname"
             class="input"
             dense
             square
             filled
-            v-model="lastname"
             label="Sobrenome*"
             bottom-slots
-            @blur="$v.lastname.$touch"
             :error="$v.lastname.$error"
             :error-message="lastnameErrorMessage"
+            @blur="$v.lastname.$touch"
           />
-
         </div>
 
         <!-- email -->
         <q-input
+          v-model="email"
           class="input"
           dense
           square
           filled
-          v-model="email"
           label="email*"
-          @blur="$v.email.$touch"
           :error="$v.email.$error"
           :error-message="emailErrorMessage"
           lazy-rules
+          @blur="$v.email.$touch"
         />
 
         <!-- confirm email -->
         <q-input
+          v-model="emailConfirmation"
           class="input"
           dense
           square
           filled
-          v-model="emailConfirmation"
           label="confirme o email*"
-          @blur="$v.emailConfirmation.$touch"
           :error="$v.emailConfirmation.$error"
           :error-message="emailConfirmationErrorMessage"
+          @blur="$v.emailConfirmation.$touch"
         />
 
-        <div class="row field" style="justify-content: space-between">
-
+        <div
+          class="row field"
+          style="justify-content: space-between"
+        >
           <!-- password -->
           <q-input
+            v-model="password"
             class="input"
             dense
             square
             filled
-            v-model="password"
             label="senha*"
-            @blur="$v.password.$touch"
             :error="$v.password.$error"
             :error-message="passwordErrorMessage"
+            @blur="$v.password.$touch"
           />
 
           <!-- confirm password -->
           <q-input
+            v-model="confirmPassword"
             class="input"
             dense
             square
             filled
-            v-model="confirmPassword"
             label="confirme a senha*"
-            @blur="$v.confirmPassword.$touch"
             :error="$v.confirmPassword.$error"
             :error-message="confirmPasswordErrorMessage"
+            @blur="$v.confirmPassword.$touch"
           />
-
         </div>
         <!-- end row -->
-
       </div>
 
-      <div class="whitespace"></div>
+      <div class="whitespace" />
 
       <!-- selecionar categoria -->
-      <div id="target" class="category column">
-
+      <div
+        id="target"
+        class="category column"
+      >
         <span class="headline-2 bolder">Identifique sua categoria</span>
         <span class="body-3">A categoria escolhida aparecerá no mapa quando você criar seu pin.
           Escolha sabiamente, não será possível mudar posteriormente.</span>
 
         <div class="list">
-          <q-list id="item" v-for="item in options" :key="item.value">
-
-            <q-item clickable @click="emit(item)">
-
+          <q-list
+            v-for="item in options"
+            id="item"
+            :key="item.value"
+          >
+            <q-item
+              clickable
+              @click="emit(item)"
+            >
               <q-item-section avatar>
-
                 <!-- iconId -1 : index of array of icons (0 a 17) -->
-                <icon-base :iconId="item.value -1" width="16" :setWhite="active" />
-
+                <icon-base
+                  :icon-id="item.value -1"
+                  width="16"
+                  :set-white="active"
+                />
               </q-item-section>
 
-              <q-item-section :id="item.value" class="body-3 bolder" :class="{ 'white' : active }"> {{ item.label }} </q-item-section>
-
+              <q-item-section
+                :id="item.value"
+                class="body-3 bolder"
+                :class="{ 'white' : active }"
+              >
+                {{ item.label }}
+              </q-item-section>
             </q-item>
-
           </q-list>
-
         </div>
-
       </div>
 
       <!-- ações -->
       <div class="actions">
-
         <div class="terms row">
-
-          <q-checkbox v-model="terms" size="32px" color="black"  true-value="item.category"/>
+          <q-checkbox
+            v-model="terms"
+            size="32px"
+            color="black"
+            true-value="item.category"
+          />
 
           <span class="body-3 altoc">Eu li e concordo com os
-              <router-link class="link" :to="{ path: '/terms', hash: '#terms'}">
-                <span class="body-3 bolder" :class="{ white: active}">Termos de Uso</span>
-              </router-link>
-              e
-              <router-link class="link" :to="{ path: '/terms', hash: '#privacity'}">
-                <span class="body-3 bolder" :class="{ white: active}">Privacidade.</span>
-              </router-link>
+            <router-link
+              class="link"
+              :to="{ path: '/terms', hash: '#terms'}"
+            >
+              <span
+                class="body-3 bolder"
+                :class="{ white: active}"
+              >Termos de Uso</span>
+            </router-link>
+            e
+            <router-link
+              class="link"
+              :to="{ path: '/terms', hash: '#privacity'}"
+            >
+              <span
+                class="body-3 bolder"
+                :class="{ white: active}"
+              >Privacidade.</span>
+            </router-link>
 
           </span>
-
         </div>
 
         <div class="btn-field">
-
           <q-btn
+            v-if="!formIsValid"
             flat
             disable
-            v-if="!formIsValid"
             class="btn-custom-disable"
             color="black"
           >
@@ -226,21 +262,18 @@
           </q-btn>
 
           <q-btn
-            flat
-            @click="submit()"
             v-if="formIsValid"
+            flat
             class="btn-custom"
             color="black"
+            @click="submit()"
           >
             <span class="span-btn">Cadastre-se</span>
           </q-btn>
-
         </div>
-
       </div>
 
-      <div class="bottom-space"></div>
-
+      <div class="bottom-space" />
     </div>
   </div>
 </template>

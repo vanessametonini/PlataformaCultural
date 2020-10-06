@@ -60,22 +60,44 @@
           <div class="row">
             <div class="">
               <span class="overline">nova senha </span>
-              <q-input dense filled square class="input" v-model="newPassword" bg-color="grey-1" color="white" />
+              <q-input
+                v-model="newPassword"
+                dense
+                filled
+                square
+                class="input"
+                bg-color="grey-1"
+                color="white"
+              />
             </div>
 
             <div class="">
               <span class="overline">repita sua senha</span>
-              <q-input dense filled square class="input" v-model="checkNewPassword" bg-color="grey-1" color="white" />
+              <q-input
+                v-model="checkNewPassword"
+                dense
+                filled
+                square
+                class="input"
+                bg-color="grey-1"
+                color="white"
+              />
             </div>
           </div>
 
           <!-- actions inputs -->
           <div class="row al-self-end">
-            <button class="secondary-action mg-top16" @click="cancelPasswordEdit()">
+            <button
+              class="secondary-action mg-top16"
+              @click="cancelPasswordEdit()"
+            >
               <span class="overline text-secondary-action">cancelar</span>
             </button>
 
-            <button class="primary-action mg-top16 mg-left8 mg-right8" @click="confirmPasswordEdit()">
+            <button
+              class="primary-action mg-top16 mg-left8 mg-right8"
+              @click="confirmPasswordEdit()"
+            >
               <span class="overline">confirmar</span>
             </button>
           </div>

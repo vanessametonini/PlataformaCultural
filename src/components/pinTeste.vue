@@ -1,49 +1,57 @@
 <template>
-
-  <div class="box" :style="{ 'background-color' : background }" :class="{ 'active' : active}">
-
+  <div
+    class="box"
+    :style="{ 'background-color' : background }"
+    :class="{ 'active' : active}"
+  >
     <!-- <div class="show-steps"> {{ this.step }} - {{ this.lastStep }} </div> -->
 
     <!-- first -->
-    <div class="first" v-if="step==0">
+    <div
+      v-if="step==0"
+      class="first"
+    >
+      <div class="header column">
+        <span class="title-1 bolder line-h16">Adicionar Pin</span>
+      </div>
 
-        <div class="header column">
-
-          <span class="title-1 bolder line-h16">Adicionar Pin</span>
-
-        </div>
-
-        <q-btn flat class="reset-btn btn" ref="btnFirst" @click="showFirstEdit()">
-          <span class="body2 bolder">+</span>
-        </q-btn>
-
+      <q-btn
+        ref="btnFirst"
+        flat
+        class="reset-btn btn"
+        @click="showFirstEdit()"
+      >
+        <span class="body2 bolder">+</span>
+      </q-btn>
     </div>
 
     <!-- edit mode -->
-    <div class="edit" v-if="step==1">
-
+    <div
+      v-if="step==1"
+      class="edit"
+    >
       <div class="input-content">
-
         <span class="body-2 bolder">Edite seu Pin</span>
 
         <!-- pin title -->
         <div class="column mg-top16">
           <!-- <span class="subheading-2">nome do pin</span> -->
           <q-input
-            class="input"
             v-model="title"
+            class="input"
             label="nome do pin"
             label-color="white"
             input-class="text-white"
-            color="white"/>
+            color="white"
+          />
         </div>
 
         <!-- email -->
         <div class="column mg-top8">
           <!-- <span class="subheading-2">email</span> -->
           <q-input
-            class="input"
             v-model="email"
+            class="input"
             type="email"
             label="email"
             label-color="white"
@@ -57,8 +65,8 @@
           <!-- <span class="subheading-2">telefone</span> -->
 
           <q-input
-            class="input"
             v-model="phone"
+            class="input"
             type="tel"
             mask="(##) ####-####"
             label="telefone"
@@ -73,14 +81,13 @@
           <!-- <span class="subheading-2">rua - logradouro</span> -->
 
           <q-input
-            class="input"
             v-model="street"
+            class="input"
             label="rua - logradouro"
             label-color="white"
             input-class="text-white"
             color="white"
           />
-
         </div>
 
         <!-- neighborhood -->
@@ -88,25 +95,23 @@
           <!-- <span class="subheading-2">bairro</span> -->
 
           <q-input
-            class="input"
             v-model="neighborhood"
+            class="input"
             label="bairro"
             label-color="white"
             input-class="text-white"
             color="white"
           />
-
         </div>
 
         <!-- number & cep -->
         <div class="row justify-between mg-top8">
-
           <div class="column">
             <!-- <span class="subheading-2">número</span> -->
 
             <q-input
-              class="input2"
               v-model="number"
+              class="input2"
               :rules="[ val => val.length <= 5 || 'Máximo de 5 caracteres']"
               mask="#####"
               label="número"
@@ -114,15 +119,14 @@
               input-class="text-white"
               color="white"
             />
-
           </div>
 
           <div class="column">
             <!-- <span class="subheading-2">cep</span> -->
 
             <q-input
-              class="input2"
               v-model="cep"
+              class="input2"
               :rules="[ val => val.length <= 8 || 'Máximo de 8 caracteres']"
               mask="#####-###"
               label="cep"
@@ -130,9 +134,7 @@
               input-class="text-white"
               color="white"
             />
-
           </div>
-
         </div>
 
         <!-- description -->
@@ -140,16 +142,16 @@
           <!-- <span class="subheading-2">descrição</span> -->
 
           <q-input
+            v-model="description"
             autogrow
             class="f-size"
-            v-model="description"
             hint="Máximo 2000 caracteres"
             :rules="[ val => val.length <= 2000 || 'Máximo de 2000 caracteres']"
             label="descrição"
             label-color="white"
             input-class="text-white"
-            color="white"/>
-
+            color="white"
+          />
         </div>
 
         <!-- link -->
@@ -157,14 +159,13 @@
           <!-- <span class="subheading-2">link</span> -->
 
           <q-input
-            class="input f-size"
             v-model="otherLink"
+            class="input f-size"
             label="link"
             label-color="white"
             input-class="text-white"
             color="white"
           />
-
         </div>
 
         <!-- facebook -->
@@ -172,14 +173,13 @@
           <!-- <span class="subheading-2">facebook</span> -->
 
           <q-input
-            class="input f-size"
             v-model="linkF"
+            class="input f-size"
             label="facebook"
             label-color="white"
             input-class="text-white"
             color="white"
           />
-
         </div>
 
         <!-- instagram -->
@@ -187,14 +187,13 @@
           <!-- <span class="subheading-2">instagram</span> -->
 
           <q-input
-            class="input f-size"
             v-model="linkIG"
+            class="input f-size"
             label="instagram"
             label-color="white"
             input-class="text-white"
             color="white"
           />
-
         </div>
 
         <!-- file picker -->
@@ -214,12 +213,13 @@
             <q-icon name="attach_file" />
           </template> -->
         </q-file>
-
       </div>
 
       <!-- actions edit -->
-      <div class="mg-top32" align="right">
-
+      <div
+        class="mg-top32"
+        align="right"
+      >
         <q-btn
           class="reset-btn btn mg-right8"
           flat
@@ -237,14 +237,14 @@
         >
           <span class="caption">Finalizar</span>
         </q-btn>
-
       </div>
-
     </div>
 
     <!-- ready -->
-    <div class="ready" v-if="step==2">
-
+    <div
+      v-if="step==2"
+      class="ready"
+    >
       <div class="context column">
         <span class="title-1 bolder line-h16"> {{ this.item.title }} </span>
         <!-- <span class="body-2 bold mg-n-8"> {{ category.value.toLowerCase() }} </span> -->
@@ -258,27 +258,43 @@
         <span class="body-2 bold spaced-16"> {{ this.item.phone }} </span>
 
         <div class="links row mg-top16">
-          <a class="link caption bold" target="blank" :href="this.item.linkF">.facebook</a>
-          <a class="link caption bold mg-left16" target="blank" :href="this.item.linkIG">.instagram</a>
-          <a class="link caption bold mg-left16" target="blank" :href="this.item.otherLink">.link</a>
+          <a
+            class="link caption bold"
+            target="blank"
+            :href="this.item.linkF"
+          >.facebook</a>
+          <a
+            class="link caption bold mg-left16"
+            target="blank"
+            :href="this.item.linkIG"
+          >.instagram</a>
+          <a
+            class="link caption bold mg-left16"
+            target="blank"
+            :href="this.item.otherLink"
+          >.link</a>
         </div>
-
       </div>
 
       <div class="img-box">
-        <q-img :src="this.item.imgUrl" :ratio="16/9" />
+        <q-img
+          :src="this.item.imgUrl"
+          :ratio="16/9"
+        />
       </div>
 
       <div class="action">
-        <q-btn class="btn-edit" flat color="white" @click="reEdit()">
+        <q-btn
+          class="btn-edit"
+          flat
+          color="white"
+          @click="reEdit()"
+        >
           <span class="overline bold">editar</span>
         </q-btn>
       </div>
-
     </div>
-
   </div>
-
 </template>
 
 <script>
@@ -288,8 +304,22 @@
 // gsap.registerPlugin(TweenMax, Expo);
 
 export default {
-  name: 'pin-Profile',
+  name: 'PinProfile',
   components: {
+  },
+  props: {
+    item: {
+      type: Object,
+      default: null,
+    },
+    fetch: {
+      type: Boolean,
+      default: false,
+    },
+    bgColor: {
+      type: String,
+      default: '#254C26',
+    },
   },
   data() {
     return {
@@ -313,23 +343,6 @@ export default {
       imgUrl: 'https://placeimg.com/500/300/nature',
       file: null,
     };
-  },
-  props: {
-    item: {
-      type: Object,
-      default: null,
-    },
-    fetch: {
-      type: Boolean,
-      default: false,
-    },
-    bgColor: {
-      type: String,
-      default: '#254C26',
-    },
-  },
-  created() {
-    this.fetchData();
   },
   computed: {
     // mascara para telefone
@@ -358,6 +371,9 @@ export default {
       const aux = this.$store.getters.currentUser.categoryId;
       return aux;
     },
+  },
+  created() {
+    this.fetchData();
   },
   methods: {
     fetchData() {

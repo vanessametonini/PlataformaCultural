@@ -1,9 +1,8 @@
 <template>
   <div class="reply-tag row no-wrap">
-    <div class="left-line"/>
+    <div class="left-line" />
 
     <div class="reply-content column">
-
       <div class="row">
         <span class="caption bolder">{{ replyTag.user.name }} </span>
         <span class="caption bold mg-left8"> {{ formatDate }} </span>
@@ -11,24 +10,22 @@
 
       <span class="caption bold"> {{ replyTag.content }} </span>
     </div>
-
   </div>
 </template>
 
 <script>
 export default {
-  name: 'reply-tag',
-  data() {
-    return {
-    };
-  },
+  name: 'ReplyTag',
   props: {
     replyTag: {
       type: Object,
       default: () => ({}),
     },
   },
-  methods: {},
+  data() {
+    return {
+    };
+  },
   computed: {
     formatDate() {
       const d = new Date(this.replyTag.createdAt);
@@ -44,6 +41,7 @@ export default {
       return `${day} de ${month} de ${year}`;
     },
   },
+  methods: {},
 };
 </script>
 

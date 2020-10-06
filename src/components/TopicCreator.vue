@@ -35,7 +35,12 @@
         <span class="headline-3 bolder mg-top16"> Recomendações para participar de um diálogo aberto</span>
         <p class="body-2 mg-top8 justify-text">
           1. Para iniciar um debate é necessário que você faça um cadastro na
-          <router-link class="link body-2" to="/signUp"><strong>Plataforma Cartografia da Cultura</strong></router-link>.
+          <router-link
+            class="link body-2"
+            to="/signUp"
+          >
+            <strong>Plataforma Cartografia da Cultura</strong>
+          </router-link>.
           Os usuários cadastrados também podem participar das discussões já iniciadas através dos comentários e/ ou indicar se concorda ou não concorda
           clicando nos botões “👍” ou “👎” encontrados em cada debate proposto.
         </p>
@@ -134,7 +139,10 @@
               Regras da Plataforma
             </strong>.
           </span>
-          <span class="caption mg-left8" :class="{ 'rules-accept-error' : rulesError }">(Esta opção deve ser marcada*)</span>
+          <span
+            class="caption mg-left8"
+            :class="{ 'rules-accept-error' : rulesError }"
+          >(Esta opção deve ser marcada*)</span>
         </div>
       </section>
       <!-- SECTION 3 -->
@@ -214,14 +222,21 @@
           <!-- show tags -->
           <div class="tag-field">
             <div class="main-tag">
-              <span id="label" class="caption">categoria principal</span>
+              <span
+                id="label"
+                class="caption"
+              >categoria principal</span>
               <div
                 v-if="topicCategory !== null"
                 class="main-tag-badge caption bolder"
                 :style="{ 'color': topicCategory.color }"
               >
                 <span class="caption bolder">{{ topicCategory.label }}</span>
-                <i id="untag" class="far fa-times-circle mg-left16" @click="untagMain()" />
+                <i
+                  id="untag"
+                  class="far fa-times-circle mg-left16"
+                  @click="untagMain()"
+                />
               </div>
             </div>
             <div class="related-tags">

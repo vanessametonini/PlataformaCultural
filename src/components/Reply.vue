@@ -9,10 +9,8 @@
     </div>
 
     <div class="reply-container column">
-
       <!-- reply author and current-user-action -->
       <div class="reply-header">
-
         <div class="author-right">
           <span class="author-name body-3 bolder">
             {{ reply.user.name }}
@@ -23,69 +21,96 @@
         </div>
 
         <div class="owner-actions">
-
-          <div class="action-content" v-if="!editing && !deleteAction">
+          <div
+            v-if="!editing && !deleteAction"
+            class="action-content"
+          >
             <i
               v-if="isLoggedIn && currentUser && canEditTopic()"
               class="action-icon far fa-edit"
               @click="editing = true"
-            ></i>
+            />
             <i
               v-if="isLoggedIn && currentUser && canEditTopic()"
               class="action-icon far fa-trash-alt"
               @click="deleteAction = true, editing = false"
-            ></i>
+            />
           </div>
 
-          <div class="row" v-if="deleteAction">
+          <div
+            v-if="deleteAction"
+            class="row"
+          >
             <span class="caption bold text-black al-self-center"> Deseja excluir este comentário?</span>
 
-            <base-button class="mg-left8" @click="deleteAction = false" theme="transparent">
+            <base-button
+              class="mg-left8"
+              theme="transparent"
+              @click="deleteAction = false"
+            >
               <span class="caption bolder text-black">não</span>
             </base-button>
 
-            <base-button class="mg-left8" @click="deleteReply" theme="transparent">
+            <base-button
+              class="mg-left8"
+              theme="transparent"
+              @click="deleteReply"
+            >
               <span class="caption bolder text-black">sim</span>
             </base-button>
-
           </div>
-
         </div>
 
         <!-- reply-this and like -->
-        <div class="action-replying row" v-if="!canEditTopic()">
-
-          <base-button v-if="isLoggedIn && currentUser" class="reply-button" theme="transparent" @click="replyThis()">
-            <span class="caption bolder" style="color: black;">Responder</span>
+        <div
+          v-if="!canEditTopic()"
+          class="action-replying row"
+        >
+          <base-button
+            v-if="isLoggedIn && currentUser"
+            class="reply-button"
+            theme="transparent"
+            @click="replyThis()"
+          >
+            <span
+              class="caption bolder"
+              style="color: black;"
+            >Responder</span>
           </base-button>
 
-          <i v-if="isLoggedIn && currentUser" class="action-icon far fa-heart" :class="{ 'liked': hasBeenLiked }" @click="likeReply()"/>
-          <i v-if="!isLoggedIn" class="action-icon no-pointer far fa-heart"/>
+          <i
+            v-if="isLoggedIn && currentUser"
+            class="action-icon far fa-heart"
+            :class="{ 'liked': hasBeenLiked }"
+            @click="likeReply()"
+          />
+          <i
+            v-if="!isLoggedIn"
+            class="action-icon no-pointer far fa-heart"
+          />
 
           <span class="caption bolder no-pointer text-black mg-left8">{{ reply.numberOfLikes }}</span>
-
         </div>
         <!-- end reply action -->
-
       </div>
 
       <!-- this reply -->
       <div class="reply-content body-3">
-
         <template v-if="!editing">
-
-          <reply-tag v-if="hasReplyTag" :replyTag="this.replyTag"/>
+          <reply-tag
+            v-if="hasReplyTag"
+            :reply-tag="this.replyTag"
+          />
 
           <span class="content-text">{{ reply.content }}</span>
         </template>
 
         <!-- edit -->
         <template v-else>
-
           <!-- <span class="content-text">{{ reply.content }}</span> -->
           <q-input
-            class="mg-top8"
             v-model="content"
+            class="mg-top8"
             :disabled="loading"
             :label="reply.content"
             filled
@@ -95,24 +120,27 @@
           />
 
           <div class="action-editing">
-
-            <base-button class="cancel-button" theme="secondary" @click="editing = false">
+            <base-button
+              class="cancel-button"
+              theme="secondary"
+              @click="editing = false"
+            >
               <span class="caption bolder">Cancelar</span>
             </base-button>
 
-            <base-button class="save-button" theme="primary" :disabled="loading" @click="editReply">
+            <base-button
+              class="save-button"
+              theme="primary"
+              :disabled="loading"
+              @click="editReply"
+            >
               <span class="caption bolder"> {{ loading ? 'Salvando...' : 'Salvar' }} </span>
             </base-button>
-
           </div>
-
         </template>
-
       </div>
       <!-- end reply -->
-
     </div>
-
   </div>
 </template>
 

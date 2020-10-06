@@ -1,94 +1,127 @@
 <template>
   <div class="container">
-
     <!-- dashboar -->
     <div class="dashboard column">
-
       <!-- actions -->
       <div class="user-actions row">
-
         <q-chip>
-          <q-avatar square size="xl">
+          <q-avatar
+            square
+            size="xl"
+          >
             <img src="https://cdn.quasar.dev/img/avatar.png">
           </q-avatar>
           Admin
         </q-chip>
 
         <!-- <q-btn square @click="logout()" label="logout" size="sm" color="black"/> -->
-        <q-btn flat @click="logout()" label="sair" color="black"/>
-
+        <q-btn
+          flat
+          label="sair"
+          color="black"
+          @click="logout()"
+        />
       </div>
 
-      <div class="admin-options column jus-items-center">
-
-      </div>
-
+      <div class="admin-options column jus-items-center" />
     </div>
 
     <div class="content">
+      <q-tabs
+        v-model="tab"
+        dense
+        class="text-black"
+        active-color="primary"
+        indicator-color="orange-5"
+        align="justify"
+        narrow-indicator
+      >
+        <q-tab
+          name="request"
+          label="Requisições"
+        />
+        <q-tab
+          name="users"
+          label="Todos Usuários"
+        />
+        <q-tab
+          name="categories"
+          label="Categorias"
+        />
+        <q-tab
+          name="pins"
+          label="Pins"
+        />
+        <q-tab
+          name="events"
+          label="Eventos"
+        />
+      </q-tabs>
 
-        <q-tabs
-          v-model="tab"
-          dense
-          class="text-black"
-          active-color="primary"
-          indicator-color="orange-5"
-          align="justify"
-          narrow-indicator
-        >
-          <q-tab name="request" label="Requisições" />
-          <q-tab name="users" label="Todos Usuários" />
-          <q-tab name="categories" label="Categorias" />
-          <q-tab name="pins" label="Pins" />
-          <q-tab name="events" label="Eventos" />
-        </q-tabs>
+      <q-separator />
 
-        <q-separator />
+      <q-tab-panels
+        v-model="tab"
+        animated
+      >
+        <q-tab-panel name="request">
+          <div class="text-h6">
+            Re
+          </div>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </q-tab-panel>
 
-        <q-tab-panels v-model="tab" animated>
+        <q-tab-panel name="users">
+          <div class="text-h6">
+            Alarms
+          </div>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </q-tab-panel>
 
-          <q-tab-panel name="request">
-            <div class="text-h6">Re</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </q-tab-panel>
+        <q-tab-panel name="categories">
+          <div class="text-h6">
+            categories
+          </div>
+          <div class="add-categories">
+            <span class="spaced-32"> {{ category }} </span>
+            <q-input
+              v-model="category"
+              dense
+              square
+              outlined
+              class="input mg-top16"
+              label="Nome"
+            />
 
-          <q-tab-panel name="users">
-            <div class="text-h6">Alarms</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </q-tab-panel>
+            <q-btn
+              outlined
+              class=""
+              color="black"
+              @click="addCategorie()"
+            >
+              <span class="span-btn">adicionar categoria</span>
+            </q-btn>
+          </div>
+        </q-tab-panel>
 
-          <q-tab-panel name="categories">
+        <q-tab-panel name="pins">
+          <div class="text-h6">
+            Pins
+          </div>
+        </q-tab-panel>
 
-            <div class="text-h6">categories</div>
-            <div class="add-categories">
-              <span class="spaced-32"> {{ category }} </span>
-              <q-input dense square outlined class="input mg-top16" v-model="category" label="Nome" />
+        <q-tab-panel name="events">
+          <div class="text-h6">
+            Movies
+          </div>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </q-tab-panel>
 
-              <q-btn outlined @click="addCategorie()" class="" color="black">
-                <span class="span-btn">adicionar categoria</span>
-              </q-btn>
-            </div>
-
-          </q-tab-panel>
-
-          <q-tab-panel name="pins">
-
-            <div class="text-h6">Pins</div>
-
-          </q-tab-panel>
-
-          <q-tab-panel name="events">
-            <div class="text-h6">Movies</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </q-tab-panel>
-
-          <!-- <q-tab-panel name="pins">
+        <!-- <q-tab-panel name="pins">
             <div class="text-h6">Movies</div>
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </q-tab-panel> -->
-
-        </q-tab-panels>
-
+      </q-tab-panels>
     </div>
 
     <div class="show column">
@@ -104,7 +137,6 @@
       <!-- <span class="status"> myEvents size = {{ myEventsSize }} <br> </span> -->
       <!-- <span class="pin-status"> {{ getMyEvents }} </span> -->
     </div>
-
   </div>
 </template>
 

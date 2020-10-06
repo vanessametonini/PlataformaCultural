@@ -36,25 +36,40 @@
       </div>
 
       <div
-        class="nav-menu"
         v-if="opemNav"
+        class="nav-menu"
       >
-        <logo-card class="logo" :black-node="true" />
+        <logo-card
+          class="logo"
+          :black-node="true"
+        />
 
         <div class="routes column">
-          <router-link class="link mg-top32" to="/about">
+          <router-link
+            class="link mg-top32"
+            to="/about"
+          >
             <span class="body-2">Sobre</span>
           </router-link>
 
-          <router-link class="link mg-top32" to="/schedule">
+          <router-link
+            class="link mg-top32"
+            to="/schedule"
+          >
             <span class="body-2">Agenda</span>
           </router-link>
 
-          <router-link class="link mg-top32" to="/topics">
+          <router-link
+            class="link mg-top32"
+            to="/topics"
+          >
             <span class="body-2">Debates</span>
           </router-link>
 
-          <router-link class="link mg-top32" to="/about">
+          <router-link
+            class="link mg-top32"
+            to="/about"
+          >
             <span class="body-2">sei lá</span>
           </router-link>
         </div>
@@ -69,7 +84,10 @@
         class="btn-custom"
         to="/signIn"
       >
-        <span class="body-3 bolder" to="/singIn">Entrar</span>
+        <span
+          class="body-3 bolder"
+          to="/singIn"
+        >Entrar</span>
       </q-btn>
 
       <q-btn
@@ -78,7 +96,10 @@
         class="btn-custom"
         to="/profile"
       >
-        <span class="subheading-2 bolder" to="/singIn">Perfil</span>
+        <span
+          class="subheading-2 bolder"
+          to="/singIn"
+        >Perfil</span>
       </q-btn>
     </div>
 
@@ -100,7 +121,10 @@
           :attribution="mapOptions.attribution"
         />
 
-        <l-control-zoom v-if="handleResize()" position="bottomright" />
+        <l-control-zoom
+          v-if="handleResize()"
+          position="bottomright"
+        />
 
         <div class="my-markes">
           <l-marker

@@ -1,23 +1,28 @@
 <template>
   <div class="topic-view">
-
     <!-- header -->
     <div class="header">
-      <logo class="identity" :blackMode="true"/>
+      <logo
+        class="identity"
+        :black-mode="true"
+      />
 
-      <base-button class="reset-btn mg-top8" theme="flat" :to="{ name: 'Topics' }">
-        <i class="fas fa-arrow-left text-black"></i>
+      <base-button
+        class="reset-btn mg-top8"
+        theme="flat"
+        :to="{ name: 'Topics' }"
+      >
+        <i class="fas fa-arrow-left text-black" />
         <span class="caption bolder mg-left8 text-black"> voltar aos debates </span>
       </base-button>
 
       <!-- <multicolor-line class="multicolor-line-top"/> -->
-
     </div>
 
     <!-- delete field -->
     <base-confirm-dialog
-      class="confirm-dialog"
       v-if="showConfirmDialog"
+      class="confirm-dialog"
       confirm-button-title="delete"
       dismiss-button-title="cancel"
       @dismiss="showConfirmDialog = false"
@@ -33,60 +38,84 @@
 
     <!-- topic -->
     <div class="topic-content">
-
       <span class="big-title bolder"> {{ topic.title }} </span>
-      <multicolor-line class="multicolor-line-top"/>
+      <multicolor-line class="multicolor-line-top" />
 
       <div class="author row mg-top8">
-
         <span class="body-3 bolder text-gray"> {{ topic.user.name }} </span>
         <span class="body-3 text-gray mg-left8"> - </span>
         <span class="body-3 text-gray mg-left8"> {{ formatDate }} </span>
-
       </div>
 
-      <p class="body-2 mg-top32"> {{ topic.content }} </p>
-
+      <p class="body-2 mg-top32">
+        {{ topic.content }}
+      </p>
     </div>
 
     <div class="topic-stats">
       <span class="body-3 bold mg-right16"> {{ topic.positiveSupports + topic.negativeSupports }} <strong>votos</strong> </span>
 
-      <q-icon class="vote-icon mg-top-n8" name="far fa-thumbs-up" size="xs"></q-icon>
+      <q-icon
+        class="vote-icon mg-top-n8"
+        name="far fa-thumbs-up"
+        size="xs"
+      />
       <span class="body-3 bolder mg-right16"> {{ supportsPercentage(true) }}%</span>
 
-      <q-icon class="vote-icon" name="far fa-thumbs-down" size="xs"></q-icon>
+      <q-icon
+        class="vote-icon"
+        name="far fa-thumbs-down"
+        size="xs"
+      />
       <span class="body-3 bolder mg-right16"> {{ supportsPercentage(false) }}%</span>
 
       <!-- <span class="body-3 bolder mg-right16"> votei: {{ hasBeenSupported }}</span> -->
-
     </div>
 
     <!-- participate-area -->
     <div class="participate-area">
-
       <!-- common user -->
-        <base-button
-          class=""
-          @click="onReply"
-          v-if="!isLoggedIn"
-          theme="flat"
-        >
-          <!-- <i class="fas fa-plus reply-icon"></i> -->
-          <span class="body-2 bolder text-black"> Vote, Comente. Participe! </span>
-        </base-button>
+      <base-button
+        v-if="!isLoggedIn"
+        class=""
+        theme="flat"
+        @click="onReply"
+      >
+        <!-- <i class="fas fa-plus reply-icon"></i> -->
+        <span class="body-2 bolder text-black"> Vote, Comente. Participe! </span>
+      </base-button>
 
       <!-- registered user -->
-      <div class="participate-content row" v-if="isLoggedIn">
-
-        <div class="row" v-if="hasBeenSupported">
-          <q-icon class="vote-icon" name="far fa-thumbs-up" size="xs" v-if="supportStatus"></q-icon>
-          <q-icon class="vote-icon mg-top4" name="far fa-thumbs-down" size="xs" v-if="!supportStatus"></q-icon>
-          <span id="vote-text" class="body-2 bolder"> {{ supportStatus === true ? 'Apoiei este Tópico' : 'Não apoiei este Tópico'}} </span>
+      <div
+        v-if="isLoggedIn"
+        class="participate-content row"
+      >
+        <div
+          v-if="hasBeenSupported"
+          class="row"
+        >
+          <q-icon
+            v-if="supportStatus"
+            class="vote-icon"
+            name="far fa-thumbs-up"
+            size="xs"
+          />
+          <q-icon
+            v-if="!supportStatus"
+            class="vote-icon mg-top4"
+            name="far fa-thumbs-down"
+            size="xs"
+          />
+          <span
+            id="vote-text"
+            class="body-2 bolder"
+          > {{ supportStatus === true ? 'Apoiei este Tópico' : 'Não apoiei este Tópico' }} </span>
         </div>
 
-        <div class="row" v-if="!hasBeenSupported">
-
+        <div
+          v-if="!hasBeenSupported"
+          class="row"
+        >
           <span class="headline-2 bolder"> Vote, participe! </span>
 
           <base-button
@@ -96,7 +125,6 @@
           >
             <!-- <q-icon class="vote-icon" :class="{ 'positive-support': supportStatus }"  name="far fa-thumbs-up" size="xs"></q-icon> -->
             <span class="body-3 bolder"> Apoiar </span>
-
           </base-button>
 
           <base-button
@@ -106,65 +134,53 @@
           >
             <!-- <q-icon class="vote-icon" :class="{ 'negative-support': !supportStatus }" name="far fa-thumbs-down" size="xs"></q-icon> -->
             <span class="body-3 bolder"> Não apoiar </span>
-
           </base-button>
-
         </div>
-
       </div>
-
     </div>
 
     <!-- topic footer and owner actions -->
     <div class="topic-footer">
-
       <div class="topic-footer-reply">
-
-        <q-icon name="far fa-comment"></q-icon>
+        <q-icon name="far fa-comment" />
         <span class="headline-3 text-gray bolder mg-left8">{{ replyes.length !== 0 ? `${replyes.length} comentários` : 'seja o primero a comentar.' }}</span>
         <!-- <span class="topic-footer-title headline-2 bolder">Comentários</span> -->
-
       </div>
 
       <div class="action-buttons">
-
         <!-- botao editar -->
         <base-button
+          v-if="isLoggedIn && currentUser && canEditTopic(currentUser.user.id, topic.user.id)"
           class="user-button mg-left8"
-          v-if="isLoggedIn  && currentUser && canEditTopic(currentUser.user.id, topic.user.id)"
           :to="{ name: 'EditTopic', params: { topicId: topic.id } }"
         >
-          <i class="fas fa-pencil-alt reply-icon"></i>
+          <i class="fas fa-pencil-alt reply-icon" />
           <span class="body-3 bolder mg-left8"> Editar </span>
         </base-button>
 
         <!-- v-if cond = > && currentUser && currentUser.canDeleteTopic(topic) -->
         <base-button
+          v-if="isLoggedIn && currentUser && canEditTopic(currentUser.user.id, topic.user.id)"
           class="user-button mg-left8"
-          v-if="isLoggedIn  && currentUser && canEditTopic(currentUser.user.id, topic.user.id)"
           @click="showConfirmDialog = true"
         >
-          <i class="fas fa-trash reply-icon"></i>
+          <i class="fas fa-trash reply-icon" />
           <span class="body-3 bolder mg-left8"> Excluir </span>
         </base-button>
-
       </div>
-
     </div>
 
     <!-- reply-section -->
     <div class="replies-content mg-top16">
-
       <reply
         v-for="reply in replyes"
         :key="reply.id"
         :reply="reply"
-        v-on:callReply="replyThis($event)"
+        @callReply="replyThis($event)"
       />
-
     </div>
 
-    <q-separator/>
+    <q-separator />
 
     <!-- <q-scroll-area
       class="scroll-area"
@@ -175,15 +191,12 @@
 
     <!-- reply-form -->
     <div class="reply-form">
-
       <reply-form
-        :replyToTag="replyToTag != null ? replyToTag : null"
         v-if="isLoggedIn"
         ref="replyForm"
+        :reply-to-tag="replyToTag != null ? replyToTag : null"
       />
-
     </div>
-
   </div>
 </template>
 

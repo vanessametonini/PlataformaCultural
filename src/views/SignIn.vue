@@ -1,42 +1,48 @@
 <template>
   <div class="app-page column">
-
     <div class="identity">
-       <logo-card class="logo" :blackMode="true"/>
+      <logo-card
+        class="logo"
+        :black-mode="true"
+      />
     </div>
 
     <div class="content column">
-
       <div class="card column">
-
         <span class="title title-3 bolder"> Olá novamente </span>
-        <router-link class="link" to="/signUp">
+        <router-link
+          class="link"
+          to="/signUp"
+        >
           <span class="body-3">Novo Usuário? Cadastre-se</span>
         </router-link>
 
-        <div class="error-field" v-if="errorMessage !== null">
+        <div
+          v-if="errorMessage !== null"
+          class="error-field"
+        >
           <span class="error-message">* {{ errorMessage }}</span>
         </div>
 
         <div class="input-field">
-
           <q-input
+            v-model="email"
             class="input"
             square
             filled
             clearable
             clear-icon="close"
             color="black"
-            v-model="email"
             type="email"
             label="Email"
-            @blur="$v.email.$touch"
             :error="$v.email.$error"
             :error-message="emailErrorMessage"
             lazy-rules
+            @blur="$v.email.$touch"
           />
 
           <q-input
+            v-model="password"
             class="input"
             square
             filled
@@ -45,29 +51,32 @@
             color="black"
             :type="isPwd ? 'password' : 'text'"
             label="Senha"
-            v-model="password"
-            @blur="$v.password.$touch"
             :error="$v.password.$error"
             :error-message="passwordErrorMessage"
             lazy-rules
             hint="Mínimo de 8 caracteres"
+            @blur="$v.password.$touch"
           >
-            <template v-slot:append>
+            <template #append>
               <!-- <q-icon
                 :name="isPwd ? 'visibility' : 'visibility_off'"
                 size="18px"
                 class="cursor-pointer"
                 @click="isPwd = !isPwd"
               /> -->
-              <i :class="{'far fa-eye': isPwd, 'far fa-eye-slash': !isPwd}" @click="isPwd = !isPwd"></i>
+              <i
+                :class="{'far fa-eye': isPwd, 'far fa-eye-slash': !isPwd}"
+                @click="isPwd = !isPwd"
+              />
             </template>
           </q-input>
-
         </div>
 
         <div class="links column">
-
-          <router-link class="link" to="/recover">
+          <router-link
+            class="link"
+            to="/recover"
+          >
             <span class="body-3">Esqueceu a senha?</span>
           </router-link>
 
@@ -79,13 +88,9 @@
           >
             <span class="body-3 bold">entrar</span>
           </q-btn>
-
         </div>
-
       </div>
-
     </div>
-
   </div>
 </template>
 

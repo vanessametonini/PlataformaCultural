@@ -22,12 +22,12 @@ import './quasar';
 import LogoCard from './components/Logo.vue'; // logo da plataforma
 import MulticolorLine from './components/ColorLine.vue';
 
-Vue.component('logo-card', LogoCard);
-Vue.component('multicolor-line', MulticolorLine);
+Vue.component('LogoCard', LogoCard);
+Vue.component('MulticolorLine', MulticolorLine);
 
 // font awesome setups
 library.add(faUserSecret);
-Vue.component('font-awesome-icon', FontAwesomeIcon);
+Vue.component('FontAwesomeIcon', FontAwesomeIcon);
 
 // window.eventBus = new Vue();
 

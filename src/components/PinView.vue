@@ -1,14 +1,15 @@
 <template>
   <div class="pin-component">
-
-    <div class="content" :style="{ 'background-color' : getColor.color }">
-
+    <div
+      class="content"
+      :style="{ 'background-color' : getColor.color }"
+    >
       <!-- <span>{{ options }}</span> -->
       <!-- <span>{{ getColor }}</span> -->
       <!-- <span>{{ pinView }}</span> -->
 
       <span class="title-1 bolder line-h16"> {{ this.pinView.title }} </span>
-        <!-- <span class="body-2 bold mg-n-8"> {{ category.value.toLowerCase() }} </span> -->
+      <!-- <span class="body-2 bold mg-n-8"> {{ category.value.toLowerCase() }} </span> -->
 
       <span class="body-2 bolder spaced-32"> {{ this.pinView.description }} </span>
 
@@ -19,29 +20,50 @@
       <span class="body-2 bolder spaced-16"> {{ this.pinView.phone }} </span>
 
       <div class="links row mg-top16">
-        <a class="link caption bolder" target="blank" :href="this.pinView.linkF">.facebook</a>
-        <a class="link caption bolder mg-left16" target="blank" :href="this.pinView.linkIG">.instagram</a>
-        <a class="link caption bolder mg-left16" target="blank" :href="this.pinView.otherLink">.link</a>
+        <a
+          class="link caption bolder"
+          target="blank"
+          :href="this.pinView.linkF"
+        >.facebook</a>
+        <a
+          class="link caption bolder mg-left16"
+          target="blank"
+          :href="this.pinView.linkIG"
+        >.instagram</a>
+        <a
+          class="link caption bolder mg-left16"
+          target="blank"
+          :href="this.pinView.otherLink"
+        >.link</a>
       </div>
+    </div>
 
-      </div>
+    <div class="img-box">
+      <img
+        class="img"
+        :src="this.pinView.imgUrl"
+        width="350px"
+      >
+    </div>
 
-      <div class="img-box">
-        <img class="img" :src="this.pinView.imgUrl" width="350px"/>
-      </div>
-
-      <div class="pin-view-tip-container" :style="{ 'background-color' : getColor.color }">
-      </div>
-
+    <div
+      class="pin-view-tip-container"
+      :style="{ 'background-color' : getColor.color }"
+    />
   </div>
-
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'pinView',
+  name: 'PinView',
+  props: {
+    pinView: {
+      type: Object,
+      default: null,
+    },
+  },
   data() {
     return {
       categoryId: this.pinView.categoryId,
@@ -59,12 +81,6 @@ export default {
       otherLink: '',
       imgUrl: '',
     };
-  },
-  props: {
-    pinView: {
-      type: Object,
-      default: null,
-    },
   },
   // mounted() {
   //   this.setCategory();

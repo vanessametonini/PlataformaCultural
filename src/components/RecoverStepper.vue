@@ -31,8 +31,12 @@
           @blur="$v.email.$touch"
         />
         <div class="recover-status">
-          <div class="error"> {{ errorMessage }} </div>
-          <div class="loading-spinner">colocar o spinner</div>
+          <div class="error">
+            {{ errorMessage }}
+          </div>
+          <div class="loading-spinner">
+            colocar o spinner
+          </div>
         </div>
       </section>
       <!-- SECTION 2 - VERIFY EMAIL -->

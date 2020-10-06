@@ -9,7 +9,7 @@
         v-if="showOverlay"
         class="overlay"
         @click="close"
-      ></div>
+      />
     </transition>
     <transition
       name="fade"
@@ -20,7 +20,7 @@
         class="modal-container"
         :style="{ 'max-width': `${width}px` }"
       >
-        <slot/>
+        <slot />
       </div>
     </transition>
   </div>

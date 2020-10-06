@@ -1,47 +1,54 @@
 <template>
-
-  <div class="box" :style="{ 'background-color' : background }">
-
+  <div
+    class="box"
+    :style="{ 'background-color' : background }"
+  >
     <!-- first -->
-    <div class="first" v-if="step==0">
+    <div
+      v-if="step==0"
+      class="first"
+    >
+      <div class="header column">
+        <span class="title-1 bolder line-h16">Adicionar Pin</span>
+      </div>
 
-        <div class="header column">
-
-          <span class="title-1 bolder line-h16">Adicionar Pin</span>
-
-        </div>
-
-        <q-btn flat class="reset-btn btn" ref="btnFirst" @click="showFirstEdit()">
-          <span class="body2 bolder">+</span>
-        </q-btn>
-
+      <q-btn
+        ref="btnFirst"
+        flat
+        class="reset-btn btn"
+        @click="showFirstEdit()"
+      >
+        <span class="body2 bolder">+</span>
+      </q-btn>
     </div>
 
     <!-- edit mode -->
-    <div class="edit" v-if="step==1">
-
+    <div
+      v-if="step==1"
+      class="edit"
+    >
       <div class="input-content">
-
         <span class="body-2 bolder">Edite seu Pin</span>
 
         <!-- pin name -->
         <div class="column mg-top16">
           <span class="subheading-2">nome do pin</span>
           <q-input
+            v-model="title"
             class="input"
             dense
-            v-model="title"
             input-class="text-white"
-            color="white"/>
+            color="white"
+          />
         </div>
 
         <!-- email -->
         <div class="column mg-top8">
           <span class="subheading-2">email</span>
           <q-input
+            v-model="email"
             class="input"
             dense
-            v-model="email"
             type="email"
             input-class="text-white"
             color="white"
@@ -53,9 +60,9 @@
           <span class="subheading-2">telefone</span>
 
           <q-input
+            v-model="phone"
             class="input"
             dense
-            v-model="phone"
             type="tel"
             mask="(##) ##### - ####"
             unmasked-value
@@ -67,49 +74,56 @@
         <!-- address -->
         <div class="column mg-top8">
           <span class="subheading-2">rua - logradouro</span>
-          <q-input class="input" dense v-model="street" input-class="text-white" color="white"/>
+          <q-input
+            v-model="street"
+            class="input"
+            dense
+            input-class="text-white"
+            color="white"
+          />
         </div>
 
         <div class="column mg-top8">
           <span class="subheading-2">bairro</span>
-          <q-input class="input" dense v-model="neighborhood" input-class="text-white" color="white"/>
+          <q-input
+            v-model="neighborhood"
+            class="input"
+            dense
+            input-class="text-white"
+            color="white"
+          />
         </div>
 
         <!-- number & cep -->
         <div class="row justify-between mg-top8">
-
           <div class="column">
-
             <span class="subheading-2">número</span>
 
             <q-input
+              v-model="number"
               class="input2"
               dense
-              v-model="number"
               :rules="[ val => val.length <= 5 || 'Máximo de 5 caracteres']"
               mask="#####"
               input-class="text-white"
               color="white"
             />
-
           </div>
 
           <div class="column">
             <span class="subheading-2">cep</span>
 
             <q-input
+              v-model="cep"
               class="input2"
               dense
-              v-model="cep"
               :rules="[ val => val.length <= 8 || 'Máximo de 5 caracteres']"
               mask="##-######"
               unmasked-value
               input-class="text-white"
               color="white"
             />
-
           </div>
-
         </div>
 
         <!-- description -->
@@ -117,67 +131,95 @@
           <span class="subheading-2">descrição</span>
 
           <q-input
+            v-model="description"
             autogrow
             class="f-size"
             dense
-            v-model="description"
             hint="Máximo 2000 caracteres"
             :rules="[ val => val.length <= 2000 || 'Máximo de 2000 caracteres']"
             input-class="text-white"
-            color="white"/>
-
+            color="white"
+          />
         </div>
 
         <!-- links -->
         <div class="column mg-top8">
           <span class="subheading-2">link</span>
-          <q-input class="input f-size" dense v-model="link" input-class="text-white" color="white"/>
+          <q-input
+            v-model="link"
+            class="input f-size"
+            dense
+            input-class="text-white"
+            color="white"
+          />
         </div>
 
         <div class="column mg-top8">
           <span class="subheading-2">facebook</span>
-          <q-input class="input f-size" dense v-model="face" input-class="text-white" color="white"/>
+          <q-input
+            v-model="face"
+            class="input f-size"
+            dense
+            input-class="text-white"
+            color="white"
+          />
         </div>
 
         <div class="column mg-top8">
           <span class="subheading-2">instagram</span>
-          <q-input class="input f-size" dense v-model="insta" input-class="text-white" color="white"/>
+          <q-input
+            v-model="insta"
+            class="input f-size"
+            dense
+            input-class="text-white"
+            color="white"
+          />
         </div>
 
         <!-- file picker -->
         <q-file
-          label="Insira uma imagem"
           v-model="file"
+          label="Insira uma imagem"
           :max-file-size="2048"
           counter
           color="white"
           input-class="text-white"
         >
-          <template v-slot:prepend>
+          <template #prepend>
             <!-- <q-icon name="attach_file" /> -->
           </template>
         </q-file>
-
       </div>
 
       <!-- actions edit -->
-      <div class="mg-top32" align="right">
-
-        <q-btn class="mg-right8" flat color="white" @click="cancelEdit()">
+      <div
+        class="mg-top32"
+        align="right"
+      >
+        <q-btn
+          class="mg-right8"
+          flat
+          color="white"
+          @click="cancelEdit()"
+        >
           <span class="caption">Cancelar</span>
         </q-btn>
 
-        <q-btn outline color="white" @click="createPin()">
+        <q-btn
+          outline
+          color="white"
+          @click="createPin()"
+        >
           <span class="caption">Finalizar</span>
         </q-btn>
-
       </div>
-
     </div>
 
     <!-- ready -->
-    <div class="ready" v-if="step==2">
-
+    <div
+      v-if="step==2"
+      class="ready"
+    >
       <div class="context column">
         <span class="title-1 bolder line-h16"> {{ this.title }} </span>
         <!-- <span class="body-2 bold mg-n-8"> {{ category.value.toLowerCase() }} </span> -->
@@ -191,27 +233,43 @@
         <span class="body-2 bold spaced-16"> {{ phoneMask }} </span>
 
         <div class="links row mg-top16">
-          <a class="link caption bold" target="blank" :href="this.links.linkF">.facebook</a>
-          <a class="link caption bold mg-left16" target="blank" :href="this.links.linkIG">.instagram</a>
-          <a class="link caption bold mg-left16" target="blank" :href="this.links.otherLink">.link</a>
+          <a
+            class="link caption bold"
+            target="blank"
+            :href="this.links.linkF"
+          >.facebook</a>
+          <a
+            class="link caption bold mg-left16"
+            target="blank"
+            :href="this.links.linkIG"
+          >.instagram</a>
+          <a
+            class="link caption bold mg-left16"
+            target="blank"
+            :href="this.links.otherLink"
+          >.link</a>
         </div>
-
       </div>
 
       <div class="img-box">
-        <q-img :src="this.imgUrl" :ratio="16/9" />
+        <q-img
+          :src="this.imgUrl"
+          :ratio="16/9"
+        />
       </div>
 
       <div class="action">
-        <q-btn class="btn-edit" flat color="white" @click="reEdit()">
+        <q-btn
+          class="btn-edit"
+          flat
+          color="white"
+          @click="reEdit()"
+        >
           <span class="overline bold">editar</span>
         </q-btn>
       </div>
-
     </div>
-
   </div>
-
 </template>
 
 <script>
@@ -221,8 +279,18 @@
 // gsap.registerPlugin(TweenMax, Expo);
 
 export default {
-  name: 'pin-Profile',
+  name: 'PinProfile',
   components: {
+  },
+  props: {
+    // info: {
+    //   type: Object,
+    //   default: null,
+    // },
+    bgColor: {
+      type: String,
+      default: '#254C26',
+    },
   },
   data() {
     return {
@@ -250,22 +318,6 @@ export default {
       imgUrl: 'https://placeimg.com/500/300/nature',
       file: null,
     };
-  },
-  props: {
-    // info: {
-    //   type: Object,
-    //   default: null,
-    // },
-    bgColor: {
-      type: String,
-      default: '#254C26',
-    },
-  },
-  created() {
-    this.fetchStorage();
-  },
-  updated() {
-    // this.fetcLocalStorage();
   },
   computed: {
     phoneMask() {
@@ -299,6 +351,12 @@ export default {
       }
       return true;
     },
+  },
+  created() {
+    this.fetchStorage();
+  },
+  updated() {
+    // this.fetcLocalStorage();
   },
   methods: {
     fetchStorage() {

@@ -49,10 +49,10 @@
 
         <div class="aside-filter-create-event">
           <base-button
+            v-if="isLoggedIn"
             class="btn-signup"
             theme="primary"
             @click="signUp()"
-            v-if="isLoggedIn"
           >
             <!-- <q-icon class="fas fa-plus text-white" size="xs"></q-icon> -->
             <!-- <span class="body-2 bolder text-white"> + </span> -->

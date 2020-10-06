@@ -1,89 +1,142 @@
 <template>
-
   <div class="box">
+    <div
+      v-if="step==0"
+      class="first"
+      :class="{ 'active' : active }"
+    >
+      <div class="header column">
+        <span class="title-1 bolder line-h16">Adicionar Evento</span>
+      </div>
 
-    <div class="first" v-if="step==0" :class="{ 'active' : active }">
-
-        <div class="header column">
-
-          <span class="title-1 bolder line-h16">Adicionar Evento</span>
-
-        </div>
-
-        <q-btn flat class="reset-btn btn" ref="btnFirst" @click="createEvent()">
-          <span class="body2 bolder">+</span>
-        </q-btn>
-
+      <q-btn
+        ref="btnFirst"
+        flat
+        class="reset-btn btn"
+        @click="createEvent()"
+      >
+        <span class="body2 bolder">+</span>
+      </q-btn>
     </div>
 
-    <div class="create" v-if="step==1" :style="{ 'background-color' : category.color }">
-
+    <div
+      v-if="step==1"
+      class="create"
+      :style="{ 'background-color' : category.color }"
+    >
       <div class="input-content">
-
         <span class="body-2 bolder">Crie seu evento</span>
 
         <!-- event name -->
         <div class="column mg-top16">
           <span class="subheading-2">nome do evento</span>
           <q-input
+            v-model="name"
             class="input"
             dense
-            v-model="name"
             input-class="text-white"
-            color="white"/>
+            color="white"
+          />
         </div>
 
         <!-- date & time -->
         <div class="row justify-between mg-top8">
-
           <div class="column">
             <span class="subheading-2">data</span>
-            <q-input class="input2" dense v-model="date" mask="##/##/####" input-class="text-white" color="white"/>
+            <q-input
+              v-model="date"
+              class="input2"
+              dense
+              mask="##/##/####"
+              input-class="text-white"
+              color="white"
+            />
           </div>
 
           <div class="column">
             <span class="subheading-2">hora</span>
-            <q-input class="input2" dense v-model="time" mask="##:##" input-class="text-white" color="white"/>
+            <q-input
+              v-model="time"
+              class="input2"
+              dense
+              mask="##:##"
+              input-class="text-white"
+              color="white"
+            />
           </div>
-
         </div>
 
         <!-- address -->
         <div class="column mg-top8">
           <span class="subheading-2">rua - logradouro</span>
-          <q-input class="input" dense v-model="street" input-class="text-white" color="white"/>
+          <q-input
+            v-model="street"
+            class="input"
+            dense
+            input-class="text-white"
+            color="white"
+          />
         </div>
 
         <div class="column mg-top8">
           <span class="subheading-2">bairro</span>
-          <q-input class="input" dense v-model="neighborhood" input-class="text-white" color="white"/>
+          <q-input
+            v-model="neighborhood"
+            class="input"
+            dense
+            input-class="text-white"
+            color="white"
+          />
         </div>
 
         <!-- number & cep -->
         <div class="row justify-between mg-top8">
-
           <div class="column">
             <span class="subheading-2">número</span>
-            <q-input class="input2" dense v-model="number" input-class="text-white" color="white"/>
+            <q-input
+              v-model="number"
+              class="input2"
+              dense
+              input-class="text-white"
+              color="white"
+            />
           </div>
 
           <div class="column">
             <span class="subheading-2">cep</span>
-            <q-input class="input2" dense v-model="cep" input-class="text-white" color="white"/>
+            <q-input
+              v-model="cep"
+              class="input2"
+              dense
+              input-class="text-white"
+              color="white"
+            />
           </div>
-
         </div>
 
         <!-- ticket -->
         <div class="column mg-top8">
           <span class="subheading-2">valor</span>
-          <q-input class="input" dense v-model="ticket" mask="r$ ##" input-class="text-white" color="white"/>
+          <q-input
+            v-model="ticket"
+            class="input"
+            dense
+            mask="r$ ##"
+            input-class="text-white"
+            color="white"
+          />
         </div>
 
         <!-- link -->
         <div class="column mg-top8">
           <span class="subheading-2">link do evento</span>
-          <q-input class="input" dense v-model="link" input-class="text-white" color="white"/>
+          <q-input
+            v-model="link"
+            class="input"
+            dense
+            input-class="text-white"
+            color="white"
+          />
         </div>
 
         <!-- description -->
@@ -91,15 +144,15 @@
           <span class="subheading-2">descrição</span>
 
           <q-input
+            v-model="description"
             autogrow
             class="f-size"
             dense
-            v-model="description"
             hint="Máximo 200 caracteres"
             :rules="[ val => val.length <= 200 || 'Máximo de 2000 caracteres']"
             input-class="text-white"
-            color="white"/>
-
+            color="white"
+          />
         </div>
 
         <!-- category -->
@@ -107,33 +160,32 @@
           <span class="subheading-2">categoria</span>
 
           <q-select
+            v-model="category"
             class="input"
             outlined
             square
             dense
-            v-model="category"
             :options="options"
             options-dense
             options-selected-class
-            color="white">
-            <template v-slot:selected>
+            color="white"
+          >
+            <template #selected>
               <span class="caption bold">{{ category.label }}</span>
             </template>
           </q-select>
-
         </div>
 
         <!-- file picker -->
         <div class="column mg-top8">
-
           <span class="subheading-2">Insira uma imagem</span>
           <q-file
+            v-model="file"
             class="input"
             dense
             outlined
             square
             use-chips
-            v-model="file"
             :max-file-size="2048"
             input-style="{ color: #000 }"
             color="white"
@@ -142,28 +194,38 @@
               <span class="caption bold"> {{ file }}</span>
             </template> -->
           </q-file>
-
         </div>
-
       </div>
 
       <!-- actions edit -->
-      <div class="mg-top32" align="right">
-
-        <q-btn class="mg-right8" flat color="white" @click="cancelCreate()">
+      <div
+        class="mg-top32"
+        align="right"
+      >
+        <q-btn
+          class="mg-right8"
+          flat
+          color="white"
+          @click="cancelCreate()"
+        >
           <span class="caption">Cancelar</span>
         </q-btn>
 
-        <q-btn outline color="white" @click="confirmCreate()">
+        <q-btn
+          outline
+          color="white"
+          @click="confirmCreate()"
+        >
           <span class="caption">Finalizar</span>
         </q-btn>
-
       </div>
-
     </div>
 
-    <div class="ready" v-if="step==2" :style="{ 'background-color' : category.color }">
-
+    <div
+      v-if="step==2"
+      class="ready"
+      :style="{ 'background-color' : category.color }"
+    >
       <div class="context column">
         <span class="title-1 bolder line-h16"> {{ this.name }} </span>
         <!-- <span class="body-2 bold mg-n-8"> {{ category.value.toLowerCase() }} </span> -->
@@ -177,27 +239,40 @@
         <span class="body-2 bold spaced-16"> {{ phoneMask }} </span>
 
         <div class="links row mg-top16">
-          <a class="link caption bold" target="blank" :href="this.linkFacebook">.facebook</a>
-          <a class="link caption bold mg-left16" target="blank" :href="this.linkInstagram">.instagram</a>
-          <a class="link caption bold mg-left16" target="blank" :href="this.linkPagina">.link</a>
+          <a
+            class="link caption bold"
+            target="blank"
+            :href="this.linkFacebook"
+          >.facebook</a>
+          <a
+            class="link caption bold mg-left16"
+            target="blank"
+            :href="this.linkInstagram"
+          >.instagram</a>
+          <a
+            class="link caption bold mg-left16"
+            target="blank"
+            :href="this.linkPagina"
+          >.link</a>
         </div>
 
         <!-- <div class="img-box">
           <q-img :src="imgUrl" :ratio="16/9" placeholder-src="statics/avatar01.jpg"/>
         </div> -->
-
       </div>
 
       <div class="action">
-        <q-btn class="btn-edit" flat color="white" @click="reEdit()">
+        <q-btn
+          class="btn-edit"
+          flat
+          color="white"
+          @click="reEdit()"
+        >
           <span class="overline bold">editar</span>
         </q-btn>
       </div>
-
     </div>
-
   </div>
-
 </template>
 
 <script>
@@ -208,8 +283,14 @@
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'event-Profile',
+  name: 'EventProfile',
   components: {
+  },
+  props: {
+    info: {
+      type: Object,
+      default: null,
+    },
   },
   data() {
     return {
@@ -241,12 +322,6 @@ export default {
       file: null,
       imgUrl: '',
     };
-  },
-  props: {
-    info: {
-      type: Object,
-      default: null,
-    },
   },
   computed: {
     ...mapGetters({

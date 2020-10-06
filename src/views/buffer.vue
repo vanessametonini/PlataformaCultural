@@ -1,83 +1,110 @@
 <template>
   <div class="app-page">
-
-    <div class="overlay" ref="overlay">
+    <div
+      ref="overlay"
+      class="overlay"
+    >
       <!-- <img class="imgPresentation" src="../assets/esboco.png" alt=""> -->
-      <h1 class="presentation" ref="presentation">cartografia da cultura</h1>
+      <h1
+        ref="presentation"
+        class="presentation"
+      >
+        cartografia da cultura
+      </h1>
     </div>
 
     <div class="aside column">
+      <logo-card />
 
-      <logo-card/>
-
-      <my-menu v-on:callFilter="filterThis($event)"/>
-
+      <my-menu @callFilter="filterThis($event)" />
     </div>
 
     <!-- nav menu (for phone only) -->
-    <div class="nav-phone" :class="{ 'opemNav' : opemNav }">
-
-      <div id="nav-icon" @click="opem()" :class="{ 'open' : opemNav }">
-        <span></span>
-        <span></span>
-        <span></span>
+    <div
+      class="nav-phone"
+      :class="{ 'opemNav' : opemNav }"
+    >
+      <div
+        id="nav-icon"
+        :class="{ 'open' : opemNav }"
+        @click="opem()"
+      >
+        <span />
+        <span />
+        <span />
       </div>
 
-      <div class="nav-menu" v-if="opemNav">
-
-        <logo-card class="logo" :blackMode="true"/>
+      <div
+        v-if="opemNav"
+        class="nav-menu"
+      >
+        <logo-card
+          class="logo"
+          :black-mode="true"
+        />
 
         <div class="routes column">
-
-          <router-link class="link mg-top32" to="/about">
+          <router-link
+            class="link mg-top32"
+            to="/about"
+          >
             <span class="body-2">Sobre</span>
           </router-link>
 
-          <router-link class="link mg-top32" to="/schedule">
+          <router-link
+            class="link mg-top32"
+            to="/schedule"
+          >
             <span class="body-2">Agenda</span>
           </router-link>
 
-          <router-link class="link mg-top32" to="/debates">
+          <router-link
+            class="link mg-top32"
+            to="/debates"
+          >
             <span class="body-2">Debates</span>
           </router-link>
 
-          <router-link class="link mg-top32" to="/about">
+          <router-link
+            class="link mg-top32"
+            to="/about"
+          >
             <span class="body-2">sei lá</span>
           </router-link>
-
         </div>
-
       </div>
-
     </div>
 
     <!-- start button area -->
     <div class="button-area">
+      <q-btn
+        v-if="!isLoggedIn"
+        flat
+        class="btn-custom"
+        to="/signIn"
+      >
+        <span
+          class="body-3 bolder"
+          to="/singIn"
+        >Entrar</span>
+      </q-btn>
 
-        <q-btn
-          flat
-          class="btn-custom"
-          to="/signIn"
-          v-if="!isLoggedIn"
-        >
-          <span class="body-3 bolder" to="/singIn">Entrar</span>
-        </q-btn>
-
-        <q-btn
-          flat
-          class="btn-custom"
-          to="/profile"
-          v-if="isLoggedIn"
-        >
-          <span class="subheading-2 bolder" to="/singIn">Perfil</span>
-        </q-btn>
-
+      <q-btn
+        v-if="isLoggedIn"
+        flat
+        class="btn-custom"
+        to="/profile"
+      >
+        <span
+          class="subheading-2 bolder"
+          to="/singIn"
+        >Perfil</span>
+      </q-btn>
     </div>
     <!-- end button area -->
 
     <!-- start map -->
     <div class="map-container">
-
       <l-map
         style="width: 100%, height: 100%"
         :zoom="zoomSet.zoom"
@@ -89,18 +116,23 @@
         @update:center="centerUpdated"
         @update:bounds="boundsUpdated"
       >
-
         <l-tile-layer
           :url="layers.carto.url"
           :attribution="mapOptions.attribution"
-        ></l-tile-layer>
+        />
 
-        <l-control-zoom v-if="handleResize()" position="bottomright" ></l-control-zoom>
+        <l-control-zoom
+          v-if="handleResize()"
+          position="bottomright"
+        />
 
         <div class="my-markes">
-
-          <l-marker class="marker-item" v-for="item in markesFiltered" :key="item.id" :lat-lng="item.coordinates">
-
+          <l-marker
+            v-for="item in markesFiltered"
+            :key="item.id"
+            class="marker-item"
+            :lat-lng="item.coordinates"
+          >
             <l-icon
               class="icon-marker"
               :icon-size="iconSet.iconSize"
@@ -111,25 +143,20 @@
                 class="img-icon"
                 :height="iconSet.iconSize[0]"
                 :width="iconSet.iconSize[1]"
-                v-bind:src="require(`../assets/icons/pins/${item.categoryId}.png`)"
+                :src="require(`../assets/icons/pins/${item.categoryId}.png`)"
               >
-
             </l-icon>
 
             <l-popup :options="popupOptions">
-              <pin-view :pinView="getPinById(item.id)"/>
+              <pin-view :pin-view="getPinById(item.id)" />
             </l-popup>
-
           </l-marker>
-
         </div>
 
         <!-- <l-control-attribution position="topleft" prefix="Algo+Ritmo - Research Group" /> -->
       </l-map>
-
     </div>
     <!-- end map -->
-
   </div>
 </template>
 

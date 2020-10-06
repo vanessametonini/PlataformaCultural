@@ -1,47 +1,43 @@
 <template>
   <div class="container">
-
     <!-- <logo-card class="fixed-logo" :blackMode="true"/> -->
     <div class="content-center column">
-
       <header>
-        <logo-card :blackMode="true"/>
+        <logo-card :black-mode="true" />
 
-        <multicolor-line class="line mg-top32"/>
+        <multicolor-line class="line mg-top32" />
       </header>
 
       <section class="column mg-top16">
-
         <!-- title -->
         <span class="title-1 bolder"> Perguntas Frequentes </span>
 
         <!-- questions -->
         <div class="questions mg-top8">
-
-          <div class="item" v-for="(item, index) in questions" :key="index">
-
+          <div
+            v-for="(item, index) in questions"
+            :key="index"
+            class="item"
+          >
             <p class="body-2 bolder mg-top16">
               {{ index + 1 }}. {{ item.question }}
             </p>
-            <p class="body-2"> {{ item.answer }}</p>
-
+            <p class="body-2">
+              {{ item.answer }}
+            </p>
           </div>
-
         </div>
-
       </section>
 
-      <div class="white-space"></div>
-
+      <div class="white-space" />
     </div>
-
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'termsPage',
+  name: 'TermsPage',
   data() {
     return {
       questions: [

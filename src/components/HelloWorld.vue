@@ -1,17 +1,15 @@
 <template>
-  <div class="app-component">
-
-  </div>
+  <div class="app-component" />
 </template>
 
 <script>
 export default {
-  name: 'hello-word',
+  name: 'HelloWord',
+  props: {},
   data() {
     return {
     };
   },
-  props: {},
   methods: {},
 };
 </script>

@@ -1,17 +1,17 @@
 <template>
   <div class="container">
-
     <!-- <logo-card class="fixed-logo" :blackMode="true"/> -->
-    <div id="privacity" class="content-center column">
-
+    <div
+      id="privacity"
+      class="content-center column"
+    >
       <header>
-        <logo-card :blackMode="true"/>
+        <logo-card :black-mode="true" />
 
-        <multicolor-line class="line mg-top32"/>
+        <multicolor-line class="line mg-top32" />
       </header>
 
       <section class="column mg-top16">
-
         <span class="title-1 bolder text-al-left"> Política de Privacidade </span>
         <span class="heading bold">Aviso de proteção de dados</span>
         <p class="body-2  mg-top32">
@@ -56,11 +56,12 @@
           11. A Autoridade Nacional de Proteção de Dados - ANPD, ligada ao Poder Executivo Federal, é a autoridade de controle à qual podem
           ser enviadas reclamações sobre o processamento de dados pessoais.
         </P>
-
       </section>
 
-      <section id="terms" class="column">
-
+      <section
+        id="terms"
+        class="column"
+      >
         <div class="scroll-offset" />
 
         <span class="title-1 bolder text-al-left">Termo de Compromisso</span>
@@ -101,7 +102,6 @@
         </P>
 
         <div class="mg-top16">
-
           <span class="body-2 bolder">4. Obrigações dos usuários da Plataforma Cartografia da Cultura:</span>
           <P class="body-2">
             A diretoria do Fórum Municipal de Cultura de Campo Grande não se responsabiliza pelo uso incorreto da Plataforma Cartografia da Cultura pelos
@@ -122,7 +122,7 @@
             </li>
             <li>
               Compartilhar qualquer conteúdo que viole o sigilo nas comunicações, a violação dos direitos de propriedade industrial e intelectual ou as regras
-            regulamentares para a proteção de dados pessoais.
+              regulamentares para a proteção de dados pessoais.
             </li>
             <li>
               Reproduzir, distribuir, compartilhar conteúdo, informações ou imagens que foram disponibilizadas por outros usuários sem sua autorização expressa.
@@ -138,31 +138,27 @@
             Fórum Municipal de Cultura de Campo Grande estará isenta de qualquer responsabilidade por reclamações, demandas ou danos de qualquer natureza relacionada ou
             derivada do litígio.
           </p>
-
         </div>
-
       </section>
 
-      <footer style="height: 100px;"></footer>
-
+      <footer style="height: 100px;" />
     </div>
-
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'termsPage',
+  name: 'TermsPage',
   data() {
     return {
     };
   },
+  computed: {
+  },
   watch: {
   },
   methods: {
-  },
-  computed: {
   },
 };
 </script>
