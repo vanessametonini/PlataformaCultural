@@ -48,6 +48,7 @@ export default {
   components: {
     iconBase,
   },
+  emits: ['call-filter'],
   data() {
     return {
       selected: [],

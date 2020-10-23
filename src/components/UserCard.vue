@@ -122,6 +122,7 @@ export default {
       default: () => {},
     },
   },
+  emits: ['emit-logout'],
   data() {
     return {
       isActive: true,

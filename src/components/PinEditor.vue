@@ -221,13 +221,13 @@
       class="ready"
     >
       <div class="context column">
-        <span class="title-1 bolder line-h16"> {{ this.title }} </span>
+        <span class="title-1 bolder line-h16"> {{ title }} </span>
         <!-- <span class="body-2 bold mg-n-8"> {{ category.value.toLowerCase() }} </span> -->
 
-        <span class="body-2 bold spaced-32"> {{ this.description }} </span>
+        <span class="body-2 bold spaced-32"> {{ description }} </span>
 
         <div class="row spaced-16">
-          <span class="body-2 bold"> {{ this.street }} - {{ this.neighborhood }} - {{ this.number }} </span>
+          <span class="body-2 bold"> {{ street }} - {{ neighborhood }} - {{ number }} </span>
         </div>
 
         <span class="body-2 bold spaced-16"> {{ phoneMask }} </span>
@@ -236,24 +236,24 @@
           <a
             class="link caption bold"
             target="blank"
-            :href="this.links.linkF"
+            :href="links.linkF"
           >.facebook</a>
           <a
             class="link caption bold mg-left16"
             target="blank"
-            :href="this.links.linkIG"
+            :href="links.linkIG"
           >.instagram</a>
           <a
             class="link caption bold mg-left16"
             target="blank"
-            :href="this.links.otherLink"
+            :href="links.otherLink"
           >.link</a>
         </div>
       </div>
 
       <div class="img-box">
         <q-img
-          :src="this.imgUrl"
+          :src="imgUrl"
           :ratio="16/9"
         />
       </div>

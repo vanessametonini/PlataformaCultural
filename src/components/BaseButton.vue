@@ -6,7 +6,7 @@
       theme,
       { 'disabled': disabled }
     ]"
-    @click="$emit('click')"
+    @click="emitClick"
   >
     <slot />
   </button>
@@ -39,6 +39,14 @@ export default {
       default: false,
     },
   },
+  emits: ['click'],
+  methods: {
+    emitClick() {
+      this.$emit('click');
+    },
+
+  },
+
 };
 </script>
 

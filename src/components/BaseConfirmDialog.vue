@@ -49,6 +49,7 @@ export default {
       default: 'Dismiss',
     },
   },
+  emits: ['dismiss', 'confirm'],
   data() {
     return {
       show: false,

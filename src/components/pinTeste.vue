@@ -4,7 +4,7 @@
     :style="{ 'background-color' : background }"
     :class="{ 'active' : active}"
   >
-    <!-- <div class="show-steps"> {{ this.step }} - {{ this.lastStep }} </div> -->
+    <!-- <div class="show-steps"> {{ step }} - {{ lastStep }} </div> -->
 
     <!-- first -->
     <div
@@ -246,39 +246,39 @@
       class="ready"
     >
       <div class="context column">
-        <span class="title-1 bolder line-h16"> {{ this.item.title }} </span>
+        <span class="title-1 bolder line-h16"> {{ item.title }} </span>
         <!-- <span class="body-2 bold mg-n-8"> {{ category.value.toLowerCase() }} </span> -->
 
-        <span class="body-2 bold spaced-32"> {{ this.item.description }} </span>
+        <span class="body-2 bold spaced-32"> {{ item.description }} </span>
 
         <div class="row spaced-16">
-          <span class="body-2 bold"> {{ this.itme.street }} - {{ this.item.neighborhood }} - {{ this.item.number }} </span>
+          <span class="body-2 bold"> {{ itme.street }} - {{ item.neighborhood }} - {{ item.number }} </span>
         </div>
 
-        <span class="body-2 bold spaced-16"> {{ this.item.phone }} </span>
+        <span class="body-2 bold spaced-16"> {{ item.phone }} </span>
 
         <div class="links row mg-top16">
           <a
             class="link caption bold"
             target="blank"
-            :href="this.item.linkF"
+            :href="item.linkF"
           >.facebook</a>
           <a
             class="link caption bold mg-left16"
             target="blank"
-            :href="this.item.linkIG"
+            :href="item.linkIG"
           >.instagram</a>
           <a
             class="link caption bold mg-left16"
             target="blank"
-            :href="this.item.otherLink"
+            :href="item.otherLink"
           >.link</a>
         </div>
       </div>
 
       <div class="img-box">
         <q-img
-          :src="this.item.imgUrl"
+          :src="item.imgUrl"
           :ratio="16/9"
         />
       </div>

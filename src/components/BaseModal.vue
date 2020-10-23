@@ -38,6 +38,7 @@ export default {
       default: 500,
     },
   },
+  emits: ['close', 'show-content'],
   data() {
     return {
       showOverlay: false,

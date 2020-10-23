@@ -228,6 +228,7 @@ export default {
       default: () => [],
     },
   },
+  emits: ['delete'],
   data() {
     return {
       showConfirmDialog: this.isLoggedIn,

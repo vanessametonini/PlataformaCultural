@@ -8,32 +8,32 @@
       <!-- <span>{{ getColor }}</span> -->
       <!-- <span>{{ pinView }}</span> -->
 
-      <span class="title-1 bolder line-h16"> {{ this.pinView.title }} </span>
+      <span class="title-1 bolder line-h16"> {{ pinView.title }} </span>
       <!-- <span class="body-2 bold mg-n-8"> {{ category.value.toLowerCase() }} </span> -->
 
-      <span class="body-2 bolder spaced-32"> {{ this.pinView.description }} </span>
+      <span class="body-2 bolder spaced-32"> {{ pinView.description }} </span>
 
       <div class="row spaced-16">
-        <span class="body-2 bolder"> {{ this.pinView.street }} - {{ this.pinView.neighborhood }} - {{ this.pinView.number }} </span>
+        <span class="body-2 bolder"> {{ pinView.street }} - {{ pinView.neighborhood }} - {{ pinView.number }} </span>
       </div>
 
-      <span class="body-2 bolder spaced-16"> {{ this.pinView.phone }} </span>
+      <span class="body-2 bolder spaced-16"> {{ pinView.phone }} </span>
 
       <div class="links row mg-top16">
         <a
           class="link caption bolder"
           target="blank"
-          :href="this.pinView.linkF"
+          :href="pinView.linkF"
         >.facebook</a>
         <a
           class="link caption bolder mg-left16"
           target="blank"
-          :href="this.pinView.linkIG"
+          :href="pinView.linkIG"
         >.instagram</a>
         <a
           class="link caption bolder mg-left16"
           target="blank"
-          :href="this.pinView.otherLink"
+          :href="pinView.otherLink"
         >.link</a>
       </div>
     </div>
@@ -41,7 +41,7 @@
     <div class="img-box">
       <img
         class="img"
-        :src="this.pinView.imgUrl"
+        :src="pinView.imgUrl"
         width="350px"
       >
     </div>

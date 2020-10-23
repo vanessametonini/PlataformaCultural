@@ -48,6 +48,7 @@ export default {
       default: null,
     },
   },
+  emits: ['event-to-edit'],
   data() {
     return {
       id: this.item.id, // emit to edit

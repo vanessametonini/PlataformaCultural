@@ -189,6 +189,7 @@ export default {
     MyFilter,
     BaseButton,
   },
+  emits: ['call-filter'],
   data() {
     return {
       expand: false,

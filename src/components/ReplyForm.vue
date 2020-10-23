@@ -23,7 +23,7 @@
       <div class="row no-wrap mg-top8">
         <base-button
           class="reply-button cancel-button"
-          :theme="this.content !== '' ? 'secondary' : 'disabled'"
+          :theme="content !== '' ? 'secondary' : 'disabled'"
           @click="cancel"
         >
           <span class="caption bolder"> Cancelar </span>

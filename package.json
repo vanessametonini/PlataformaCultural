@@ -12,6 +12,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/vue-fontawesome": "^0.1.10",
     "@quasar/extras": "^1.9.7",
+    "@types/leaflet": "^1.5.19",
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
     "gsap": "^3.5.1",

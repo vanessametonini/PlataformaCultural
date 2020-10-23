@@ -99,7 +99,7 @@
         <template v-if="!editing">
           <reply-tag
             v-if="hasReplyTag"
-            :reply-tag="this.replyTag"
+            :reply-tag="replyTag"
           />
 
           <span class="content-text">{{ reply.content }}</span>
@@ -164,6 +164,7 @@ export default {
       default: () => ({}),
     },
   },
+  emits: ['call-reply'],
   data() {
     return {
       showConfirmDialog: false,

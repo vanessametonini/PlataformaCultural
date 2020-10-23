@@ -227,13 +227,13 @@
       :style="{ 'background-color' : category.color }"
     >
       <div class="context column">
-        <span class="title-1 bolder line-h16"> {{ this.name }} </span>
+        <span class="title-1 bolder line-h16"> {{ name }} </span>
         <!-- <span class="body-2 bold mg-n-8"> {{ category.value.toLowerCase() }} </span> -->
 
-        <span class="body-2 bold spaced-32"> {{ this.description }} </span>
+        <span class="body-2 bold spaced-32"> {{ description }} </span>
 
         <div class="row spaced-16">
-          <span class="body-2 bold"> {{ this.street }} - {{ this.neighborhood }} - {{ this.number }} </span>
+          <span class="body-2 bold"> {{ street }} - {{ neighborhood }} - {{ number }} </span>
         </div>
 
         <span class="body-2 bold spaced-16"> {{ phoneMask }} </span>
@@ -242,17 +242,17 @@
           <a
             class="link caption bold"
             target="blank"
-            :href="this.linkFacebook"
+            :href="linkFacebook"
           >.facebook</a>
           <a
             class="link caption bold mg-left16"
             target="blank"
-            :href="this.linkInstagram"
+            :href="linkInstagram"
           >.instagram</a>
           <a
             class="link caption bold mg-left16"
             target="blank"
-            :href="this.linkPagina"
+            :href="linkPagina"
           >.link</a>
         </div>
 
