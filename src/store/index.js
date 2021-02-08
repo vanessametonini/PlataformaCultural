@@ -6,7 +6,7 @@ import router from '../router/index.js'
 import createPersistedState from "vuex-persistedstate"
 import api from '../apiClient/index.js'
 import ModuleUsers from './modules/users'
-import ModuleCategories from './modules/categories'
+import ModuleCategories from './modules/categories/index'
 import ModuleTopics from './modules/topics'
 import ModulePins from './modules/pins'
 import ModuleEvents from './modules/events'
