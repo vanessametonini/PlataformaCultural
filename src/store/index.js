@@ -2,24 +2,27 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { Store } from  'vuex'
-import router from '../router/index.js'
-import createPersistedState from "vuex-persistedstate"
-import api from '../apiClient/index.js'
+// import router from '../router/index.js'
+// import createPersistedState from "vuex-persistedstate"
+// import api from '../apiClient/index.js'
 import ModuleUsers from './modules/users'
 import ModuleCategories from './modules/categories/index'
 import ModuleTopics from './modules/topics'
 import ModulePins from './modules/pins'
 import ModuleEvents from './modules/events'
+import ModuleServices from './modules/services'
 
 Vue.use(Vuex)
 
 const store = new Store({
+  devtools: true,
   modules: {
     categories: ModuleCategories,
     topics: ModuleTopics,
     pins: ModulePins,
     events: ModuleEvents,
     users: ModuleUsers,
+    services: ModuleServices,
   },
 
   state: {
@@ -28,9 +31,9 @@ const store = new Store({
     nextRoute: null,
   },
 
-  plugins: [
-    createPersistedState(),
-  ],
+  // plugins: [
+  //   createPersistedState(),
+  // ],
 
   getters: {
     getKey(state) {

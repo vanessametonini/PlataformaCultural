@@ -4,10 +4,19 @@
   </div>
 </template>
 
+<script>
+export default {
+  created() {
+    this.$store.dispatch('categories/services/GET');
+    // console.log('dscfsdf');
+  },
+};
+</script>
+
 <style lang="scss">
-@import './styles/variables.scss';
-@import './styles/mixins.scss';
-@import './styles/typo.scss';
+@import "./styles/variables.scss";
+@import "./styles/mixins.scss";
+@import "./styles/typo.scss";
 
 #app {
   // font-family: Helvetica, Arial, sans-serif;
@@ -17,14 +26,14 @@
 
 // ----------------- leaflet reset popup --------------------
 .leaflet-popup-content-wrapper {
-  box-shadow: none  !important;
-  border-radius: 0px  !important;
+  box-shadow: none !important;
+  border-radius: 0px !important;
   padding: 0px !important;
 }
 
 .leaflet-popup-content {
   margin: 0px;
-  box-shadow: none  !important;
+  box-shadow: none !important;
   padding: 0px;
 }
 
@@ -47,7 +56,7 @@
 * {
   box-sizing: border-box;
   padding: 0;
-  font-family: 'Helvetica';
+  font-family: "Helvetica";
 }
 
 .txt-al-jus {
@@ -82,7 +91,7 @@
 }
 
 @keyframes fadeIn {
-  0%{
+  0% {
     opacity: 0;
   }
   50% {
@@ -111,24 +120,24 @@
 
 // ---------------- patterns components -------------------
 .reset-btn {
-    border-radius: 0px !important;
-    box-shadow: none;
+  border-radius: 0px !important;
+  box-shadow: none;
 }
 
 // --------------- flexbox instances ----------------------
 .column {
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .row {
-display: flex;
-flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .row-reverse {
-display: flex;
-flex-direction: row-reverse;
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .jus-items-end {
@@ -289,5 +298,4 @@ flex-direction: row-reverse;
 .bl-8 {
   border-left: 8px solid white;
 }
-
 </style>
