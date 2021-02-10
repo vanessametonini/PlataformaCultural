@@ -3,8 +3,8 @@ const mutations = {
     state.list = data;
   },
 
-  ADD_NEW_PIN(state, { data }) {
-    state.list.push(data);
+  ADD_NEW_PIN(state, { pins }) {
+    state.list = pins;
   },
 
   DELETE_PIN_BY_ID(state, { data }) {

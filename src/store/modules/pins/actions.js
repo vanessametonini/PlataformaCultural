@@ -3,6 +3,13 @@ import api from '../../../apiClient';
 const token = localStorage.getItem('access_token');
 
 const actions = {
+  loadPins({ commit, dispatch }) {
+    dispatch('services/GET', { uri: 'pins' }, { root: true })
+      .then((response) => {
+        commit('SET_PINS_LIST', { pins: response.data });
+      })
+      .catch((error) => console.log(error));
+  },
   loadMarkes({ commit }) {
     Promise((resolve, reject) => {
       api.get('/loadMarkes', {
