@@ -1,5 +1,5 @@
 const mutations = {
-  categories(state, { categories }) {
+  SET_CATEGORIES(state, { categories }) {
     state.categories = categories;
   },
 };

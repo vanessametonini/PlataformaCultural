@@ -487,7 +487,7 @@ export default {
           confirmPassword: this.confirmPassword,
           isValid: true,
           isAdmin: false,
-          categoryId: this.selected.value,
+          categoryId: this.selected.id,
         }})
           .then((response) => {
             this.message = 'Só uns segundinhos';

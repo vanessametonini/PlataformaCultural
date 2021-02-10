@@ -1,20 +1,13 @@
 import api from '../../../apiClient';
 
 const actions = {
-  loadCategories({ commit }) {
-    return new Promise((resolve, reject) => {
-      api.get('categories')
-        .then((response) => {
-          console.log('response add categorie', response);
-          const categories = response.data;
-          commit('SET_CATEGORIES', { categories });
-          resolve(response);
-        })
-        .catch((error) => {
-          console.log(error);
-          reject(error);
-        });
-    });
+
+  loadCategories({ commit, dispatch }) {
+    dispatch('services/GET', { uri: 'categories' }, { root: true })
+      .then((response) => {
+        commit('SET_CATEGORIES', { categories: response.data });
+      })
+      .catch((error) => console.log(error));
   },
 
   addCategorie({ commit }, { data }) {

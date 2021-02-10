@@ -7,7 +7,7 @@
 <script>
 export default {
   created() {
-    this.$store.dispatch('categories/services/GET');
+    this.$store.dispatch('categories/loadCategories');
     // console.log('dscfsdf');
   },
 };
