@@ -11,16 +11,11 @@ const actions = {
   },
 
   // Ok
-  retrieveToken({ commit }, { credentials }) {
+  retrieveToken({ commit, dispatch }, { credentials }) {
     return new Promise((resolve, reject) => {
-      api.post('/signin', {
-        email: credentials.email,
-        password: credentials.password,
-      })
+      dispatch('services/POST', { uri: 'signin', data: credentials }, { root: true })
         .then((response) => {
           console.log('reponse LOGIN', response.data);
-          // const { token } = response.data.token;
-          // const { currentUser } = response.data;
           commit('SET_CURRENT_USER', response.data);
           localStorage.setItem('access_token', response.data.token);
           resolve(response);
@@ -34,24 +29,6 @@ const actions = {
 
   loadCurrentUser({ state }) {
     return state.currentUser;
-    // return new Promise((resolve, reject) => {
-    //   api.post('/loadCurrentUser', {
-    //     id: credentials.email,
-    //     password: credentials.password,
-    //   })
-    //     .then((response) => {
-    //       console.log('reponse LOGIN', response.data);
-    //       // const { token } = response.data.token;
-    //       // const { currentUser } = response.data;
-    //       commit('SET_CURRENT_USER', response.data);
-    //       localStorage.setItem('access_token', response.data.token);
-    //       resolve(response);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error.message);
-    //       reject(error);
-    //     });
-    // });
   },
 
   // IMPLEMENT REQUEST???
