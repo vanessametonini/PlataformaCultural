@@ -1,3 +1,5 @@
+import { updateField } from 'vuex-map-fields';
+
 const mutations = {
   SET_PINS_LIST(state, { data }) {
     state.list = data;
@@ -18,6 +20,8 @@ const mutations = {
     const index = state.list.findIndex((el) => el.id === newData.id);
     state.list[index] = newData.body;
   },
+
+  updateField,
 };
 
 export default mutations;

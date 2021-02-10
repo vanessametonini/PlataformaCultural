@@ -1,8 +1,28 @@
 const state = {
+  currentPin: {
+    userId: null,
+    categoryId: null,
+    title: 'ttttt',
+    email: '',
+    phone: '',
+    street: '',
+    number: '',
+    neighborhood: '',
+    city: '',
+    zipcode: '',
+    description: '',
+    lat: null,
+    long: null,
+    image: '',
+    facebook: '',
+    instagram: '',
+    twitter: '',
+    whatsapp: '',
+  },
   list: [
     {
-      userId: 0,
-      categoryId: 0,
+      userId: null,
+      categoryId: null,
       title: '',
       email: '',
       phone: '',
@@ -12,8 +32,8 @@ const state = {
       city: '',
       zipcode: '',
       description: '',
-      lat: 0,
-      long: 0,
+      lat: null,
+      long: null,
       image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRuD1wHotql9_3l0Md18AZBHazV0gWFHzlv7itpkZ6oB1cnLNtc&usqp=CAU',
       facebook: 'https://www.facebook.com',
       instagram: 'https://www.instagram.com',
@@ -22,7 +42,6 @@ const state = {
     },
   ],
   markers: [],
-  currentPin: null,
 };
 
 export default state;

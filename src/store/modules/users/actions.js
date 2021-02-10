@@ -2,7 +2,6 @@ import api from '../../../apiClient';
 // import permissions from './Permissions';
 
 const actions = {
-
   // OK
   signUp({ dispatch }, { credentials }) {
     dispatch('services/POST', { uri: 'signup', data: credentials }, { root: true })
