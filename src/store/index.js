@@ -8,7 +8,7 @@ import { Store } from  'vuex'
 import ModuleUsers from './modules/users'
 import ModuleCategories from './modules/categories/index'
 import ModuleTopics from './modules/topics'
-import ModulePins from './modules/pins'
+import ModulePins from './modules/pins/index'
 import ModuleEvents from './modules/events'
 import ModuleServices from './modules/services'
 

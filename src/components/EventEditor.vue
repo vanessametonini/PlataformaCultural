@@ -326,11 +326,8 @@ export default {
   computed: {
     ...mapGetters({
       options: 'categories/loadCategories',
+      userReference: 'users/UserReference',
     }),
-    // getUserRef() {
-    //   const aux = this.$store.getters.currentUser;
-    //   return aux.email;
-    // },
   },
   methods: {
     createEvent() { // abre criação do evento
@@ -368,13 +365,9 @@ export default {
     },
     confirmCreate() { // confirma criação de evento ou ediçao de shortEvent
       this.completed = true;
-      this.$store.dispatch('setKey');
-      // this.eventId = this.$store.getters.getKey;
-      // console.log('getKey', this.eventId);
-      console.log('userRef', this.getUserRef);
       const newEvent = {
         // id: this.eventId, // não precisa, o banco cria
-        userRef: this.getUserRef,
+        userRef: this.userReference.id,
         name: this.name,
         date: this.date,
         time: this.time,
