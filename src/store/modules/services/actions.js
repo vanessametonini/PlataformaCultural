@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 const actions = {
-  GET({ state, commit }, { uri, httpConfigs = {} }) {
+  GET({ state, commit, getters }, { uri, httpConfigs = {} }) {
     // commit('SET_WAITING');
     return new Promise((resolve, reject) => {
-      axios.get(`${state.url}${uri}`, { ...httpConfigs, ...state.httpConfigs })
+      axios.get(`${state.url}${uri}`, { ...httpConfigs, ...getters.httpConfigs })
         .then((response) => {
           commit('SUCCESS', { response });
           // commit('RESET_WAITING');
@@ -17,10 +17,10 @@ const actions = {
         });
     });
   },
-  POST({ state, commit }, { uri, data = {} }) {
+  POST({ state, commit, getters }, { uri, data = {}, httpConfigs = {} }) {
     // commit('SET_WAITING');
     return new Promise((resolve, reject) => {
-      axios.post(`${state.url}${uri}`, data, state.httpConfigs)
+      axios.post(`${state.url}${uri}`, data, { ...httpConfigs, ...getters.httpConfigs })
         .then((response) => {
           commit('SUCCESS', { response });
           // commit('RESET_WAITING');
