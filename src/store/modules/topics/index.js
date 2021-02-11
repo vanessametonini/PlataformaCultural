@@ -1,5 +1,5 @@
 // import Vue from 'vue';
-import api from '../../apiClient';
+import api from '../../../apiClient';
 
 export default {
   namespaced: true,

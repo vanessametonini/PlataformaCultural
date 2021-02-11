@@ -7,9 +7,9 @@ import { Store } from  'vuex'
 // import api from '../apiClient/index.js'
 import ModuleUsers from './modules/users'
 import ModuleCategories from './modules/categories/index'
-import ModuleTopics from './modules/topics'
+import ModuleTopics from './modules/topics/index'
 import ModulePins from './modules/pins/index'
-import ModuleEvents from './modules/events'
+import ModuleEvents from './modules/events/index'
 import ModuleServices from './modules/services'
 
 Vue.use(Vuex)

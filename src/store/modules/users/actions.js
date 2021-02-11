@@ -30,22 +30,24 @@ const actions = {
     return state.currentUser;
   },
 
-  authentication({ commit, dispatch, rootGetters }) {
+  loadUserId({ commit, dispatch }, { id }) {
+    return new Promise((resolve, reject) => {
+      dispatch('services/GET', { uri: `users/${id}` }, { root: true })
+        .then((response) => {
+          commit('SET_CURRENT_USER', response.data[0]);
+          resolve(response);
+        })
+        .catch((error) => {
+          console.log(error.message);
+          reject(error);
+        });
+    });
+  },
+
+  authentication({ dispatch, rootGetters }) {
     try {
-      const user = rootGetters['services/decodeToken'];
-      return new Promise((resolve, reject) => {
-        dispatch('services/GET', { uri: `users/${user.id}` }, { root: true })
-          .then((response) => {
-            commit('SET_CURRENT_USER', response.data[0]);
-            resolve(response);
-          })
-          .catch((error) => {
-            console.log(error.message);
-            reject(error);
-          });
-      });
+      return dispatch('loadUserId', { id: rootGetters['services/decodeToken'].id });
     } catch (error) {
-      console.log(error);
       return error;
     }
   },
