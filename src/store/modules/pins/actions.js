@@ -33,6 +33,20 @@ const actions = {
     });
   },
 
+  loadMyPin({ commit, dispatch, rootState }) {
+    return new Promise((resolve, reject) => {
+      dispatch('services/GET', { uri: `pins/${rootState.users.currentUser.id}` }, { root: true })
+        .then((response) => {
+          commit('users/ADD_PIN', response.data, { root: true });
+          resolve(response);
+        })
+        .catch((error) => {
+          console.log(error.message);
+          reject(error);
+        });
+    });
+  },
+
   loadPinById({ commit }, { pinId }) {
     Promise((resolve, reject) => {
       api.get('/getPinById', {
@@ -53,6 +67,25 @@ const actions = {
           reject(error);
         });
     });
+  //   Promise((resolve, reject) => {
+  //     api.get('/getPinById', {
+  //       params: {
+  //         pinId,
+  //       },
+  //       headers: {
+  //         Autrhorization: `token ${token}`,
+  //       },
+  //     })
+  //       .then((response) => {
+  //         console.log('pins/loadMarkers');
+  //         commit('SET_PINS_LIST', response.data);
+  //         resolve(response);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error.message);
+  //         reject(error);
+  //       });
+  //   });
   },
 };
 

@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 const actions = {
-  GET({ state, commit }, { uri }) {
+  GET({ state, commit }, { uri, httpConfigs = {} }) {
     // commit('SET_WAITING');
     return new Promise((resolve, reject) => {
-      axios.get(`${state.url}${uri}`, state.httpConfigs)
+      axios.get(`${state.url}${uri}`, { ...httpConfigs, ...state.httpConfigs })
         .then((response) => {
           commit('SUCCESS', { response });
           // commit('RESET_WAITING');

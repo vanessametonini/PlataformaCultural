@@ -7,10 +7,7 @@
 <script>
 export default {
   created() {
-    this.$store.dispatch('users/authentication');
-    this.$store.dispatch('categories/loadCategories');
-    // this.$store.dispatch('pins/loadPins');
-    // console.log('dscfsdf');
+    this.$store.dispatch('initStore');
   },
 };
 </script>

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
+// import createPersistedState from 'vuex-persistedstate';
 import ModuleUsers from './modules/users';
 import ModuleCategories from './modules/categories/index';
 import ModuleTopics from './modules/topics/index';
@@ -15,6 +16,9 @@ Vue.use(Vuex);
 
 const store = new Store({
   devtools: true,
+  // plugins: [
+  //   createPersistedState(),
+  // ],
   modules: {
     categories: ModuleCategories,
     topics: ModuleTopics,

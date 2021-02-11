@@ -17,6 +17,7 @@ const actions = {
         .then((response) => {
           commit('SET_CURRENT_USER', response.data);
           commit('services/STORAGE_TOKEN', response.data.token, { root: true });
+          dispatch('pins/loadMyPin', {}, { root: true });
           resolve(response);
         })
         .catch((error) => {
@@ -35,6 +36,7 @@ const actions = {
       dispatch('services/GET', { uri: `users/${id}` }, { root: true })
         .then((response) => {
           commit('SET_CURRENT_USER', response.data[0]);
+          dispatch('pins/loadMyPin', {}, { root: true });
           resolve(response);
         })
         .catch((error) => {
@@ -42,14 +44,6 @@ const actions = {
           reject(error);
         });
     });
-  },
-
-  authentication({ dispatch, rootGetters }) {
-    try {
-      return dispatch('loadUserId', { id: rootGetters['services/decodeToken'].id });
-    } catch (error) {
-      return error;
-    }
   },
 
   // IMPLEMENT REQUEST???
