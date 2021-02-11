@@ -8,7 +8,7 @@
 export default {
   created() {
     this.$store.dispatch('categories/loadCategories');
-    this.$store.dispatch('pins/loadPins');
+    // this.$store.dispatch('pins/loadPins');
     // console.log('dscfsdf');
   },
 };
