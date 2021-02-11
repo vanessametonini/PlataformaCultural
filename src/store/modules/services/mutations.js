@@ -11,6 +11,10 @@ const mutations = {
   RESET_WAITING(state) {
     state.waiting = false;
   },
+  STORAGE_TOKEN(state, token) {
+    localStorage.setItem('access_token', token);
+    state.token = token;
+  },
 };
 
 export default mutations;

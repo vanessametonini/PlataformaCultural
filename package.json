@@ -16,6 +16,7 @@
     "axios": "^0.19.2",
     "core-js": "^3.8.3",
     "gsap": "^3.6.0",
+    "jsonwebtoken": "^8.5.1",
     "leaflet": "^1.7.1",
     "node-geocoder": "^3.27.0",
     "quasar": "^1.15.2",

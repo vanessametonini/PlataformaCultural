@@ -1,4 +1,5 @@
 import api from '../../../apiClient';
+
 // import permissions from './Permissions';
 
 const actions = {
@@ -14,9 +15,8 @@ const actions = {
     return new Promise((resolve, reject) => {
       dispatch('services/POST', { uri: 'signin', data: credentials }, { root: true })
         .then((response) => {
-          console.log('reponse LOGIN', response.data);
           commit('SET_CURRENT_USER', response.data);
-          localStorage.setItem('access_token', response.data.token);
+          commit('services/STORAGE_TOKEN', response.data.token, { root: true });
           resolve(response);
         })
         .catch((error) => {
@@ -28,6 +28,26 @@ const actions = {
 
   loadCurrentUser({ state }) {
     return state.currentUser;
+  },
+
+  authentication({ commit, dispatch, rootGetters }) {
+    try {
+      const user = rootGetters['services/decodeToken'];
+      return new Promise((resolve, reject) => {
+        dispatch('services/GET', { uri: `users/${user.id}` }, { root: true })
+          .then((response) => {
+            commit('SET_CURRENT_USER', response.data[0]);
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error.message);
+            reject(error);
+          });
+      });
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
   },
 
   // IMPLEMENT REQUEST???
