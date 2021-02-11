@@ -1,18 +1,17 @@
-/* eslint-disable */
-import Vue from 'vue'
-import Vuex from 'vuex'
-import { Store } from  'vuex'
-// import router from '../router/index.js'
-// import createPersistedState from "vuex-persistedstate"
-// import api from '../apiClient/index.js'
-import ModuleUsers from './modules/users'
-import ModuleCategories from './modules/categories/index'
-import ModuleTopics from './modules/topics/index'
-import ModulePins from './modules/pins/index'
-import ModuleEvents from './modules/events/index'
-import ModuleServices from './modules/services'
+import Vue from 'vue';
+import Vuex, { Store } from 'vuex';
+import ModuleUsers from './modules/users';
+import ModuleCategories from './modules/categories/index';
+import ModuleTopics from './modules/topics/index';
+import ModulePins from './modules/pins/index';
+import ModuleEvents from './modules/events/index';
+import ModuleServices from './modules/services';
+import STATE from './state';
+import GETTERS from './getters';
+import ACTIONS from './actions';
+import MUTATIONS from './mutations';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const store = new Store({
   devtools: true,
@@ -24,40 +23,10 @@ const store = new Store({
     users: ModuleUsers,
     services: ModuleServices,
   },
-
-  state: {
-    namespaced: true,
-    newKey: null,
-    nextRoute: null,
-  },
-
-  // plugins: [
-  //   createPersistedState(),
-  // ],
-
-  getters: {
-    getKey(state) {
-      return state.newKey;
-    },
-  },
-
-  actions: {    
-    setNextRoute ({ commit }, { route }) {
-      commit('SET_NEXT_ROUTE', { route })
-    }
-  },
-
-  mutations: {
-    setKey (state, payload) {
-      state.newKey = payload;
-      console.log('mutations -> state/newKey : _SETKEY');
-    },
-
-    SET_NEXT_ROUTE (state, { route }) {
-      state.nextRoute = route
-    }
-  },
+  state: STATE,
+  getters: GETTERS,
+  mutations: MUTATIONS,
+  actions: ACTIONS,
 });
 
 export default store;
-
