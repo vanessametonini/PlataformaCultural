@@ -247,14 +247,14 @@ export default {
       if (this.filterSelections.lehgth === 0) {
         return this.markers;
       }
-      const vm = this;
-      const filter = this.markers.filter((item) => vm.filterSelections.includes(item.categoryId.toString()));
+      const filter = this.markers.filter((item) => this.filterSelections.includes(item.categoryId.toString()));
       return filter;
     },
   },
   created() {
     window.addEventListener('resize', this.handleResize);
     this.handleResize();
+    console.log('markers', this.markers);
   },
   mounted() {
     this.homeTransition();
@@ -278,8 +278,8 @@ export default {
       this.opemNav = !this.opemNav;
     },
     setCoordinates() {
-      const vm = this;
-      this.pins.forEach((item) => vm.markers.push({ id: item.id, categoryId: item.categoryId, coordinates: item.coordinates }));
+      console.log('pinsss:', this.pins);
+      this.pins.forEach((item) => this.markers.push({ id: item.id, categoryId: item.categoryId, coordinates: [item.lat, item.long] }));
     },
     getPinById(id) {
       const target = this.pins.find((item) => item.id === id);

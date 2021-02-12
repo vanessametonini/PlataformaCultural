@@ -1,8 +1,8 @@
 import { updateField } from 'vuex-map-fields';
 
 const mutations = {
-  SET_PINS_LIST(state, { data }) {
-    state.list = data;
+  SET_PINS_LIST(state, pins) {
+    state.list = pins;
   },
 
   ADD_NEW_PIN(state, { pins }) {
@@ -19,6 +19,10 @@ const mutations = {
   UPDATE_PIN_BY_ID(state, { newData }) {
     const index = state.list.findIndex((el) => el.id === newData.id);
     state.list[index] = newData.body;
+  },
+
+  ADD_CURRENT_PIN(state, pin) {
+    state.currentPin = pin;
   },
 
   updateField,

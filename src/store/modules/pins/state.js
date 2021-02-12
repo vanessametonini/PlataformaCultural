@@ -2,7 +2,7 @@ const state = {
   currentPin: {
     userId: null,
     categoryId: null,
-    title: 'ttttt',
+    title: '',
     email: '',
     phone: '',
     street: '',
