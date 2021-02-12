@@ -3,6 +3,17 @@ import api from '../../../apiClient';
 
 const actions = {
 
+  loadTopics({ dispatch, commit }) {
+    dispatch('services/GET', { uri: 'topics' }, { root: true })
+      .then((response) => {
+        const topics = response.data;
+        commit('SET_TOPICS_LIST', topics);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  },
+
   // WAITING API IMPLEMENT
   loadInitialTopics({ commit }, { type, pagination }) {
     const loadFunc = new Promise((resolve, reject) => {

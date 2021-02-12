@@ -1,7 +1,7 @@
 const mutations = {
   // OK
-  SET_TOPICS_LIST(state, { data }) {
-    state.list.push(data);
+  SET_TOPICS_LIST(state, list) {
+    state.list = list;
   },
 
   // OK

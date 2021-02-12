@@ -6,7 +6,8 @@ const actions = {
     dispatch('categories/loadCategories');
     dispatch('pins/loadPins');
     try {
-      return dispatch('users/loadUserId', { id: getters['services/decodeToken'].id });
+      dispatch('topics/loadTopics');
+      return dispatch('users/loadCurrentUser', { id: getters['services/decodeToken'].id });
     } catch (error) {
       return error;
     }

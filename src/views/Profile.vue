@@ -108,11 +108,6 @@ export default {
   },
   data() {
     return {
-      currentUser: {
-        name: 'none',
-        email: 'none@email.com',
-        categoryId: 8,
-      },
       theme: {
         label: 'none',
         value: '0',
@@ -141,22 +136,17 @@ export default {
       return this.$store.getters.isLoggedIn;
     },
     ...mapGetters({
-      currentUser: 'users/loadCurrentUser',
+      currentUser: 'users/getCurrentUser',
       myPin: 'users/getMyPin',
       myPinState: 'users/getMyPinState',
       myEvents: 'users/getMyEvents',
     }),
   },
-  created() {
-    this.loadCurrentUser();
-  },
+  created() {},
   beforeMounted() {
     this.getPageTheme();
   },
   methods: {
-    async loadCurrentUser() {
-      this.currentUser = await this.$store.dispatch('users/loadCurrentUser');
-    },
     logout() {
       this.$store.dispatch('users/destroyToken')
         .then(

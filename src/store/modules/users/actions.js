@@ -27,11 +27,7 @@ const actions = {
     });
   },
 
-  loadCurrentUser({ state }) {
-    return state.currentUser;
-  },
-
-  loadUserId({ commit, dispatch }, { id }) {
+  loadCurrentUser({ commit, dispatch }, { id }) {
     return new Promise((resolve, reject) => {
       dispatch('services/GET', { uri: `users/${id}` }, { root: true })
         .then((response) => {
@@ -44,6 +40,12 @@ const actions = {
           reject(error);
         });
     });
+  },
+
+  async loadUserId({ dispatch }, { id }) {
+    return dispatch('services/GET', { uri: `users/${id}` }, { root: true })
+      .then((response) => response.data)
+      .catch((error) => error);
   },
 
   // IMPLEMENT REQUEST???

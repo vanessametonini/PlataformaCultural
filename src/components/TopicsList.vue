@@ -1,7 +1,7 @@
 <template>
   <div class="topics-list">
     <div
-      v-if="topicsLoaded.length === 0"
+      v-if="topics.length == 0"
       class="null-state column"
     >
       <img src="../assets/statics/pixeltrue-idea.png">
@@ -23,7 +23,7 @@
         <topic-item
           v-for="topic in topics"
           ref="users"
-          :key="topic._id"
+          :key="topic.id"
           :topic="topic"
         />
       </masonry>
@@ -70,16 +70,17 @@ export default {
     // }),
   },
   beforeMount() {
-    this.getInitialTopics('mostRecents');
+    // this.getInitialTopics('mostRecents');
   },
   mounted() {
-    this.$nextTick(function scrollListener() {
-      window.addEventListener('scroll', this.onScroll);
-      this.onScroll(); // needed for initial loading on page
-    });
+    console.log(this.topics);
+    // this.$nextTick(function scrollListener() {
+    //   window.addEventListener('scroll', this.onScroll);
+    //   this.onScroll(); // needed for initial loading on page
+    // });
   },
   beforeUnmount() {
-    window.removeEventListener('scroll', this.onScroll);
+    // window.removeEventListener('scroll', this.onScroll);
   },
   methods: {
     changeFilter(type) {

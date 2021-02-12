@@ -1,6 +1,10 @@
 const state = {
   key: null,
-  currentUser: null,
+  currentUser: {
+    name: 'none',
+    email: 'none@email.com',
+    categoryId: 8,
+  },
   isAdmin: null,
   myPin: null,
   myEvents: null,
