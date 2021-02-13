@@ -1,3 +1,5 @@
+import { updateField } from 'vuex-map-fields';
+
 const mutations = {
   // OK
   SET_TOPICS_LIST(state, list) {
@@ -81,6 +83,8 @@ const mutations = {
     state.key = newKey;
     console.log('topics/setKey', newKey);
   },
+
+  updateField,
 };
 
 export default mutations;

@@ -60,64 +60,52 @@ const actions = {
   },
 
   // OK - AWAIT API IMPLEMENT
-  async createNewTopic({
-    commit,
-  }, { data }) {
-    // getters { userId }
-    // const userId = rootGetters['users/getUserId']; // IMPLEMENTAR ISSO NO MÓDULO USERS
-    const token = localStorage.getItem('access_token');
-    const userId = 1;
-    // const vuexDados = localStorage.getItem('vuex');
-    // const vuexObj = JSON.parse(vuexDados);
-    // const userId = vuexObj.users.currentUser.id;
-    // response
-    // const newTopic = {
-    //   topicId: Number, // id do diálogo
-    //   title: String, // titulo do diálogo
-    //   topicCategory: Number, // id da categoria principal do diálogo
-    //   categoriesTagged: Array, // id das categorias relacionadas ao diálogo
-    //   userRef: {
-    //     name: Number, // nome do usuário proprietário deste diálogo
-    //     id: Number, // id do usuário
-    //     categoryId: Number, // categoria do usuário
-    //     avatarUrl: String, // url do avatar do usuário
-    //   },
-    //   createdAt: String, // data de criação do diálogo --- JS DATE OBJECT
-    //   content: String, // texto do diálogo
-    //   positiveSupports: Number, // votos a favor
-    //   negativeSupports: Number, // votos contra
-    //   numberOfReplies: Number, // número de respostas/comentários
-    //   views: Number, // números de visualizações
-    // };
-    return new Promise((resolve, reject) => {
-      console.log(data.categoriesTagged);
-      const arrayTagged = [];
-      data.categoriesTagged.forEach((element) => {
-        arrayTagged.push(element.value);
-      });
-      api.post('/topic', {
-        body: {
-          userId,
-          title: data.title,
-          content: data.content,
-          topicCategory: data.topicCategory.value,
-          categoriesTagged: arrayTagged,
-        },
-        headers: {
-          Autrhorization: `token ${token}`,
-        },
+  createNewTopic({
+    getters,
+    dispatch,
+    rootState,
+    rootGetters,
+  }) {
+    const info = {
+      userId: rootState.users.currentUser.id,
+      createdAt: rootGetters.date,
+    };
+    dispatch('services/POST', { uri: 'topics', data: { ...getters.topicForm, ...info } }, { root: true })
+      .then(() => {
+        dispatch('loadTopics');
       })
-        .then((response) => {
-          console.log('topics/createNewTopic - response', response.data);
-          console.log(response);
-          commit('ADD_NEW_TOPIC', response.data);
-          resolve(response);
-        })
-        .catch((error) => {
-          console.log(error.message);
-          reject(error);
-        });
-    });
+      .catch((error) => console.log(error.message));
+    // const token = localStorage.getItem('access_token');
+    // const userId = 1;
+    // return new Promise((resolve, reject) => {
+    //   console.log(data.categoriesTagged);
+    //   const arrayTagged = [];
+    //   data.categoriesTagged.forEach((element) => {
+    //     arrayTagged.push(element.value);
+    //   });
+    //   api.post('/topic', {
+    //     body: {
+    //       userId,
+    //       title: data.title,
+    //       content: data.content,
+    //       topicCategory: data.topicCategory.value,
+    //       categoriesTagged: arrayTagged,
+    //     },
+    //     headers: {
+    //       Autrhorization: `token ${token}`,
+    //     },
+    //   })
+    //     .then((response) => {
+    //       console.log('topics/createNewTopic - response', response.data);
+    //       console.log(response);
+    //       commit('ADD_NEW_TOPIC', response.data);
+    //       resolve(response);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error.message);
+    //       reject(error);
+    //     });
+    // });
   },
 
   // TO BE REWIWED

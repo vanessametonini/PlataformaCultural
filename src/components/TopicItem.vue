@@ -16,7 +16,7 @@
       <span class="caption bolder mg-top16"> {{ category.label }} </span>
       <!-- topicOwner & date -->
       <div class="row al-items-center mg-top8">
-        <span class="body-3 bolder"> {{ topic.user.firstName + ' ' + topic.user.lastName}} </span>
+        <span class="body-3 bolder"> {{ topic.user.firstName + ' ' + topic.user.lastName }} </span>
 
         <span class="caption bold mg-left16"> {{ formatDate }} </span>
       </div>
@@ -121,9 +121,9 @@ export default {
       const negAmount = parseInt(this.topic.negativeSupports, 10);
       const totalSupports = parseInt(posAmount + negAmount, 10);
       if (type === true) {
-        return parseInt((posAmount / totalSupports) * 100, 10);
+        return totalSupports ? parseInt((posAmount / totalSupports) * 100, 10) : 0;
       }
-      return parseInt((negAmount / totalSupports) * 100, 10);
+      return totalSupports ? parseInt((negAmount / totalSupports) * 100, 10) : 0;
     },
   },
 };

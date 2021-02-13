@@ -227,11 +227,11 @@
                 class="caption"
               >categoria principal</span>
               <div
-                v-if="topicCategory !== null"
+                v-if="categoryId !== null"
                 class="main-tag-badge caption bolder"
-                :style="{ 'color': topicCategory.color }"
+                :style="{ 'color': categoryId.color }"
               >
-                <span class="caption bolder">{{ topicCategory.label }}</span>
+                <span class="caption bolder">{{ categoryId.label }}</span>
                 <i
                   id="untag"
                   class="far fa-times-circle mg-left16"
@@ -338,12 +338,17 @@ import {
   // alphaNum,
 } from 'vuelidate/lib/validators';
 import { mapGetters } from 'vuex';
-
+import { createHelpers } from 'vuex-map-fields';
 import Identity from './Logo.vue';
 import ColorLine from './ColorLine.vue';
 import ProgressBar from './BaseStepProgressBar.vue';
 import BaseButton from './BaseButton.vue';
 import iconBase from './iconBase.vue';
+
+const { mapFields } = createHelpers({
+  getterType: 'topics/getField',
+  mutationType: 'topics/updateField',
+});
 
 export default {
   name: 'TopicCreator',
@@ -363,11 +368,9 @@ export default {
       rulesAccepted: false,
       rulesError: false,
       termsAccepted: false,
-      title: '',
-      content: '',
-      topicCategory: null,
+      // categoryId: null,
       hasSelected: false,
-      categoriesTagged: [],
+      // categoriesTagged: [],
     };
   },
   validations: {
@@ -384,6 +387,12 @@ export default {
     },
   },
   computed: {
+    ...mapFields({
+      title: 'topicForm.title',
+      content: 'topicForm.content',
+      categoryId: 'topicForm.categoryId',
+      categoriesTagged: 'topicForm.categoriesTagged',
+    }),
     ...mapGetters({
       options: 'categories/loadCategories',
     }),
@@ -420,36 +429,38 @@ export default {
       console.log('data', new Date());
     },
     submit() {
-      if (!this.$v.$anyError && this.formIsValid) {
-        this.$store.dispatch('topics/createNewTopic', {
-          data: {
-            title: this.title,
-            content: this.content,
-            topicCategory: this.topicCategory,
-            categoriesTagged: this.categoriesTagged,
-          },
-        }).then((response) => {
-          console.log('topicCreator/submit');
-          this.$router.push({ name: 'TopicPage', params: { topicId: response.id } }); // push nextPage here or store
-        }).catch((error) => {
-          if (error.message === 'Request failed with status code 400') {
-            this.errorMessage = 'Escrever errors';
-          }
-          if (error.message === 'Request failed with status code 401') {
-            this.errorMessage = 'Escrever errors';
-          }
-          if (error.message === 'timeout of 5000ms exceeded') {
-            this.errorMessage = 'Escrever errors';
-          }
-          console.log('topicCreator/submit', error.message);
-        });
-      }
+      this.$store.dispatch('topics/createNewTopic')
+        .then(() => this.$router.push('/topics'));
+      // if (!this.$v.$anyError && this.formIsValid) {
+      //   this.$store.dispatch('topics/createNewTopic', {
+      //     data: {
+      //       title: this.title,
+      //       content: this.content,
+      //       categoryId: this.categoryId,
+      //       categoriesTagged: this.categoriesTagged,
+      //     },
+      //   }).then((response) => {
+      //     console.log('topicCreator/submit');
+      //     this.$router.push({ name: 'TopicPage', params: { topicId: response.id } }); // push nextPage here or store
+      //   }).catch((error) => {
+      //     if (error.message === 'Request failed with status code 400') {
+      //       this.errorMessage = 'Escrever errors';
+      //     }
+      //     if (error.message === 'Request failed with status code 401') {
+      //       this.errorMessage = 'Escrever errors';
+      //     }
+      //     if (error.message === 'timeout of 5000ms exceeded') {
+      //       this.errorMessage = 'Escrever errors';
+      //     }
+      //     console.log('topicCreator/submit', error.message);
+      //   });
+      // }
     },
     cancel() {
       this.$router.push({ name: 'Topics' });
     },
     tagEvent(sel) {
-      if (this.topicCategory === null && this.categoriesTagged.length === 0) {
+      if (this.categoryId === null && this.categoriesTagged.length === 0) {
         this.tagMain(sel);
       } else if (this.categoriesTagged.some((tag) => tag === sel)) {
         console.log('hasBeenTagged', sel);
@@ -462,22 +473,24 @@ export default {
         console.log('tag in array', this.categoriesTagged);
       } else {
         console.log('tagged', sel);
-        this.categoriesTagged.push(sel);
+        const aux = this.categoriesTagged;
+        aux.push(sel);
+        this.categoriesTagged = aux;
         document.getElementById(`category-label-${sel.value}`).style.color = `${sel.color}`;
         document.getElementById(`item-${sel.value}`).style.borderRight = `2px solid ${sel.color}`;
       }
     },
     tagMain(sel) {
       console.log('sel', sel);
-      this.topicCategory = sel;
+      this.categoryId = sel;
       document.getElementById(`category-label-${sel.value}`).style.color = `${sel.color}`;
       this.hasSelected = true;
       const index = this.options.findIndex((el) => el.value === sel.value);
       this.options.splice(index, 1);
     },
     untagMain() {
-      this.options.push(this.topicCategory);
-      this.topicCategory = null;
+      this.options.push(this.categoryId);
+      this.categoryId = null;
     },
     nextStep() {
       if (this.currentStep === 2 && this.rulesAccepted === false) {
