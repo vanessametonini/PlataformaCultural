@@ -6,7 +6,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       axios.get(`${state.url}${uri}`, { ...httpConfigs, ...getters.httpConfigs })
         .then((response) => {
-          commit('SUCCESS', { response });
+          // commit('SUCCESS', { response });
           // commit('RESET_WAITING');
           resolve(response);
         })
@@ -22,7 +22,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       axios.post(`${state.url}${uri}`, data, { ...httpConfigs, ...getters.httpConfigs })
         .then((response) => {
-          commit('SUCCESS', { response });
+          // commit('SUCCESS', { response });
           // commit('RESET_WAITING');
           resolve(response);
         })

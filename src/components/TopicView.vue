@@ -53,7 +53,7 @@
     </div>
 
     <div class="topic-stats">
-      <span class="body-3 bold mg-right16"> {{ topic.positiveSupports + topic.negativeSupports }} <strong>votos</strong> </span>
+      <span class="body-3 bold mg-right16"> {{ supports.positiveSupports + supports.negativeSupports }} <strong>votos</strong> </span>
 
       <q-icon
         class="vote-icon mg-top-n8"
@@ -69,7 +69,7 @@
       />
       <span class="body-3 bolder mg-right16"> {{ supportsPercentage(false) }}%</span>
 
-      <!-- <span class="body-3 bolder mg-right16"> votei: {{ hasBeenSupported }}</span> -->
+      <!-- <span class="body-3 bolder mg-right16"> votei: {{ supported.hasBeen }}</span> -->
     </div>
 
     <!-- participate-area -->
@@ -91,17 +91,17 @@
         class="participate-content row"
       >
         <div
-          v-if="hasBeenSupported"
+          v-if="supported.hasBeen"
           class="row"
         >
           <q-icon
-            v-if="supportStatus"
+            v-if="supported.status"
             class="vote-icon"
             name="far fa-thumbs-up"
             size="xs"
           />
           <q-icon
-            v-if="!supportStatus"
+            v-if="!supported.status"
             class="vote-icon mg-top4"
             name="far fa-thumbs-down"
             size="xs"
@@ -109,11 +109,11 @@
           <span
             id="vote-text"
             class="body-2 bolder"
-          > {{ supportStatus === true ? 'Apoiei este Tópico' : 'Não apoiei este Tópico' }} </span>
+          > {{ supported.status ? 'Apoiei este Tópico' : 'Não apoiei este Tópico' }} </span>
         </div>
 
         <div
-          v-if="!hasBeenSupported"
+          v-if="!supported.hasBeen"
           class="row"
         >
           <span class="headline-2 bolder"> Vote, participe! </span>
@@ -123,7 +123,7 @@
             theme="secondary"
             @click="supportThis(true)"
           >
-            <!-- <q-icon class="vote-icon" :class="{ 'positive-support': supportStatus }"  name="far fa-thumbs-up" size="xs"></q-icon> -->
+            <!-- <q-icon class="vote-icon" :class="{ 'positive-support': supported.status }"  name="far fa-thumbs-up" size="xs"></q-icon> -->
             <span class="body-3 bolder"> Apoiar </span>
           </base-button>
 
@@ -132,7 +132,7 @@
             theme="secondary"
             @click="supportThis(false)"
           >
-            <!-- <q-icon class="vote-icon" :class="{ 'negative-support': !supportStatus }" name="far fa-thumbs-down" size="xs"></q-icon> -->
+            <!-- <q-icon class="vote-icon" :class="{ 'negative-support': !supported.status }" name="far fa-thumbs-down" size="xs"></q-icon> -->
             <span class="body-3 bolder"> Não apoiar </span>
           </base-button>
         </div>
@@ -257,37 +257,23 @@ export default {
       isLoggedIn: 'users/isLoggedIn',
       currentUser: 'users/getCurrentUser',
       myVotes: 'users/getMyVotes',
+      formatDate: 'formatDate',
+      supports: 'topics/supports/getInfoCurrentTopicSupports',
+      supported: 'topics/supports/getMyVoteCurrentTopic',
     }),
-    formatDate() {
-      const d = new Date(this.topic.createdAt);
-      const monthNames = ['Jan', 'Fev', 'Mar', 'Abril', 'Maio', 'Junho', 'Julho', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
-      const month = monthNames[d.getMonth()];
-      const year = d.getFullYear();
-      let day;
-      if (d.getDate().toString().length === 1) {
-        day = `0${d.getDate()}`;
-      } else {
-        day = d.getDate();
-      }
-      return `${day} de ${month} de ${year}`;
-    },
-    hasBeenSupported() {
-      return this.myVotes.some((el) => el.topicId === this.topic.id);
-    },
-    supportStatus() {
-      if (this.hasBeenSupported) {
-        const currentSupport = this.myVotes.find((el) => el.topicId === this.topic.id);
-        console.log('topicView/supportStatus', currentSupport);
-        return currentSupport.supportType;
-      }
-      return null;
-    },
+    // supported.hasBeen() {
+    //   return this.myVotes.some((el) => el.topicId === this.topic.id);
+    // },
+    // supported.status() {
+    //   return true;
+    // },
   },
   mounted() {
     this.$store.dispatch('topics/loadTopicId', { id: this.$route.params.topicId })
       .then((topic) => {
         this.$store.commit('topics/SET_CURRENT_TOPIC', topic);
         this.$store.dispatch('topics/replies/loadRepliesByTopicId');
+        this.$store.dispatch('topics/supports/loadSupportsByTopicId');
       });
   },
   // async created() {
@@ -339,8 +325,8 @@ export default {
         });
     },
     supportsPercentage(type) {
-      const posAmount = parseInt(this.topic.positiveSupports, 10);
-      const negAmount = parseInt(this.topic.negativeSupports, 10);
+      const posAmount = parseInt(this.supports.positiveSupports, 10);
+      const negAmount = parseInt(this.supports.negativeSupports, 10);
       const totalSupports = parseInt(posAmount + negAmount, 10);
       if (type === true) {
         return parseInt((posAmount / totalSupports) * 100, 10);
