@@ -111,9 +111,9 @@ export default {
       this.category = el;
     },
     async emitThisTopic() {
-      console.log('topicItem/emitThisTopic', this.topic.id);
-      await this.localLoadCurrentTopic({ topicId: this.topic.id });
-      await this.localLoadCurrentTopicReplyes({ topicId: this.topic.id });
+      this.$store.commit('topics/SET_CURRENT_TOPIC', this.topic);
+      // await this.localLoadCurrentTopic({ topicId: this.topic.id });
+      // await this.localLoadCurrentTopicReplyes({ topicId: this.topic.id });
       this.$router.push({ name: 'TopicPage', params: { topicId: this.topic.id } });
     },
     supportsPercentage(type) {

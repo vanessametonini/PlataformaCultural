@@ -150,7 +150,7 @@
       <div class="action-buttons">
         <!-- botao editar -->
         <base-button
-          v-if="isLoggedIn && currentUser && canEditTopic(currentUser.user.id, topic.user.id)"
+          v-if="isLoggedIn && currentUser && canEditTopic(currentUser.id, topic.user.id)"
           class="user-button mg-left8"
           :to="{ name: 'EditTopic', params: { topicId: topic.id } }"
         >
@@ -160,7 +160,7 @@
 
         <!-- v-if cond = > && currentUser && currentUser.canDeleteTopic(topic) -->
         <base-button
-          v-if="isLoggedIn && currentUser && canEditTopic(currentUser.user.id, topic.user.id)"
+          v-if="isLoggedIn && currentUser && canEditTopic(currentUser.id, topic.user.id)"
           class="user-button mg-left8"
           @click="showConfirmDialog = true"
         >
@@ -282,6 +282,13 @@ export default {
       }
       return null;
     },
+  },
+  async created() {
+    await this.$store.dispatch('topics/loadTopicId', { id: this.$route.params.topicId })
+      .then((topic) => {
+        this.$store.commit('topics/SET_CURRENT_TOPIC', topic);
+        this.$store.dispatch('topics/replies/loadRepliesByTopicId');
+      });
   },
   methods: {
     ...mapActions(['setNextRoute']),

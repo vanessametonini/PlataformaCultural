@@ -14,6 +14,12 @@ const actions = {
       });
   },
 
+  loadTopicId({ dispatch }, { id }) {
+    return dispatch('services/GET', { uri: `topics/${id}` }, { root: true })
+      .then((response) => response.data)
+      .catch((error) => error);
+  },
+
   // WAITING API IMPLEMENT
   loadInitialTopics({ commit }, { type, pagination }) {
     const loadFunc = new Promise((resolve, reject) => {

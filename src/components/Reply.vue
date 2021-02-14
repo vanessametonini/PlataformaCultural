@@ -199,11 +199,12 @@ export default {
       return this.myLikes.some((el) => el.replyId === this.reply.id);
     },
     hasReplyTag() {
-      return this.reply.replyTag != null;
+      // return this.reply.replyTag != null;
+      return true;
     },
   },
   created() {
-    this.getThisTag();
+    // this.getThisTag();
   },
   methods: {
     deleteReply() {
@@ -253,7 +254,7 @@ export default {
       }
     },
     canEditTopic() {
-      if (this.currentUser !== null && this.currentUser.user.id === this.reply.user.id) {
+      if (this.currentUser !== null && this.currentUser?.user?.id === this.reply?.user?.id) {
         return true;
       }
       return false;

@@ -1,0 +1,90 @@
+const state = {
+  currentTopicReplies: [
+    // {
+    //   id: 1,
+    //   topicId: 1,
+    //   user: {
+    //     id: 2,
+    //     name: 'Juliana Trujillo',
+    //     categoryId: 8,
+    //     avatar: '',
+    //   },
+    //   replyTag: null,
+    //   content: 'Expedita aliquid at suscipit molestias eos dicta, sed iste quidem blanditiis quod.',
+    //   createdAt: '2019-03-27',
+    //   numberOfLikes: 12,
+    // },
+    // {
+    //   id: 2,
+    //   topicId: 1,
+    //   user: {
+    //     id: 27,
+    //     name: 'Henrique Leonel',
+    //     categoryId: 15,
+    //     avatar: '',
+    //   },
+    //   replyTag: null,
+    //   content: 'Aperiam minima autem aliquam alias consequuntur quas magnam?',
+    //   createdAt: '2019-03-27',
+    //   numberOfLikes: 0,
+    // },
+    // {
+    //   id: 3,
+    //   topicId: 3,
+    //   user: {
+    //     id: 2,
+    //     name: 'Juliana Trujillo',
+    //     categoryId: 8,
+    //     avatar: '',
+    //   },
+    //   replyTag: null,
+    //   content: 'Expedita aliquid at suscipit molestias eos dicta, sed iste quidem blanditiis quod.',
+    //   createdAt: '2019-03-27',
+    //   numberOfLikes: 12,
+    // },
+    // {
+    //   id: 4,
+    //   topicId: 3,
+    //   user: {
+    //     id: 27,
+    //     name: 'Henrique Leonel',
+    //     categoryId: 15,
+    //     avatar: '',
+    //   },
+    //   replyTag: null,
+    //   content: 'Aperiam minima autem aliquam alias consequuntur quas magnam?',
+    //   createdAt: '2019-03-27',
+    //   numberOfLikes: 0,
+    // },
+    // {
+    //   id: 5,
+    //   topicId: 3,
+    //   user: {
+    //     id: 2,
+    //     name: 'Juliana Trujillo',
+    //     categoryId: 8,
+    //     avatar: '',
+    //   },
+    //   replyTag: null,
+    //   content: 'Expedita aliquid at suscipit molestias eos dicta, sed iste quidem blanditiis quod.',
+    //   createdAt: '2019-03-27',
+    //   numberOfLikes: 12,
+    // },
+    // {
+    //   id: 6,
+    //   topicId: 3,
+    //   user: {
+    //     id: 43,
+    //     name: 'fulano',
+    //     categoryId: 15,
+    //     avatar: '',
+    //   },
+    //   replyTag: 5,
+    //   content: 'Aperiam minima autem aliquam alias consequuntur quas magnam?',
+    //   createdAt: '2019-03-27',
+    //   numberOfLikes: 3,
+    // },
+  ],
+};
+
+export default state;
