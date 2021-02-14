@@ -2,6 +2,7 @@ import STATE from './state';
 import ACTIONS from './actions';
 import MUTATIONS from './mutations';
 import GETTERS from './getters';
+import REJOINDERS from './rejoinders';
 
 export default {
   namespaced: true,
@@ -9,4 +10,7 @@ export default {
   actions: ACTIONS,
   mutations: MUTATIONS,
   getters: GETTERS,
+  modules: {
+    rejoinders: REJOINDERS,
+  },
 };

@@ -283,13 +283,20 @@ export default {
       return null;
     },
   },
-  async created() {
-    await this.$store.dispatch('topics/loadTopicId', { id: this.$route.params.topicId })
+  mounted() {
+    this.$store.dispatch('topics/loadTopicId', { id: this.$route.params.topicId })
       .then((topic) => {
         this.$store.commit('topics/SET_CURRENT_TOPIC', topic);
         this.$store.dispatch('topics/replies/loadRepliesByTopicId');
       });
   },
+  // async created() {
+  //   await this.$store.dispatch('topics/loadTopicId', { id: this.$route.params.topicId })
+  //     .then((topic) => {
+  //       this.$store.commit('topics/SET_CURRENT_TOPIC', topic);
+  //       this.$store.dispatch('topics/replies/loadRepliesByTopicId');
+  //     });
+  // },
   methods: {
     ...mapActions(['setNextRoute']),
     onReply() {

@@ -6,6 +6,10 @@ const mutations = {
     state.currentTopicReplies = data;
   },
 
+  ADD_CURRENT_TOPIC_REPLY(state, data) {
+    state.currentTopicReplies.push(data);
+  },
+
   updateField,
 };
 

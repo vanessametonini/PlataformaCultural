@@ -1,7 +1,7 @@
 import { getField } from 'vuex-map-fields';
 
 const getters = {
-  getCurrentTopicReplyes: (state) => state.currentTopicReplies,
+  getCurrentTopicRejoinders: (state) => state.currentTopicRejoinders,
   getField,
 };
 

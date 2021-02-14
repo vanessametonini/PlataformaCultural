@@ -43,10 +43,15 @@
 
 <script>
 // import { mapActions } from 'vuex';
+import { createHelpers } from 'vuex-map-fields';
 import { required } from 'vuelidate/lib/validators';
-
 import BaseButton from './BaseButton.vue';
 import ReplyTag from './ReplyTag.vue';
+
+const { mapFields } = createHelpers({
+  getterType: 'topics/replies/getField',
+  mutationType: 'topics/replies/updateField',
+});
 
 export default {
   components: {
@@ -62,36 +67,49 @@ export default {
   },
   data() {
     return {
-      content: '',
+      // content: '',
       loading: false,
     };
   },
   validations: {
     content: { required },
   },
+  computed: {
+    ...mapFields({
+      content: 'replieForm.content',
+    }),
+  },
   methods: {
     reply() {
+      this.loading = true;
       this.$v.$touch();
       if (!this.$v.$anyError && this.content !== '') {
-        this.loading = true;
-        let tagId = null;
-        if (this.replyToTag != null) {
-          tagId = this.replyToTag.id;
-        }
-        const newReply = { content: this.content, replyTag: tagId };
-        this.$store.dispatch('topics/addReply', { data: newReply })
-          .then(() => {
-            this.content = '';
-            // this.replyToTag = {};
-            this.$v.$reset();
-            this.loading = false;
-          })
-          .catch((error) => {
-            console.log(error);
-            this.loading = false;
-            // this.replyToTag = {};
-          });
+        this.$store.dispatch('topics/replies/addReply').then(() => {
+          this.content = '';
+          this.$v.$reset();
+          this.loading = false;
+        });
       }
+      // if (!this.$v.$anyError && this.content !== '') {
+      //   this.loading = true;
+      //   let tagId = null;
+      //   if (this.replyToTag != null) {
+      //     tagId = this.replyToTag.id;
+      //   }
+      //   const newReply = { content: this.content, replyTag: tagId };
+      //   this.$store.dispatch('topics/addReply', { data: newReply })
+      //     .then(() => {
+      //       this.content = '';
+      //       // this.replyToTag = {};
+      //       this.$v.$reset();
+      //       this.loading = false;
+      //     })
+      //     .catch((error) => {
+      //       console.log(error);
+      //       this.loading = false;
+      //       // this.replyToTag = {};
+      //     });
+      // }
     },
     cancel() {
       // this.replyToTag = {};
