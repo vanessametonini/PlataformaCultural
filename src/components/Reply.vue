@@ -89,7 +89,7 @@
             class="action-icon no-pointer far fa-heart"
           />
 
-          <span class="caption bolder no-pointer text-black mg-left8">{{ reply.numberOfLikes }}</span>
+          <span class="caption bolder no-pointer text-black mg-left8">{{ numberOfReplyLikes(reply.id) }}</span>
         </div>
         <!-- end reply action -->
       </div>
@@ -180,23 +180,13 @@ export default {
     ...mapGetters({
       isLoggedIn: 'users/isLoggedIn',
       currentUser: 'users/getCurrentUser',
-      myLikes: 'users/getMyLikes',
+      numberOfReplyLikes: 'topics/replies/likes/getNumberOfReplyLikes',
+      myLike: 'topics/replies/likes/getMyLikeCurrentTopicByReplyId',
+      formatDate: 'formatDate',
     }),
-    formatDate() {
-      const d = new Date(this.reply.createdAt);
-      const monthNames = ['Jan', 'Fev', 'Mar', 'Abril', 'Maio', 'Junho', 'Julho', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
-      const month = monthNames[d.getMonth()];
-      const year = d.getFullYear();
-      let day;
-      if (d.getDate().toString().length === 1) {
-        day = `0${d.getDate()}`;
-      } else {
-        day = d.getDate();
-      }
-      return `${day} de ${month} de ${year}`;
-    },
     hasBeenLiked() {
-      return this.myLikes.some((el) => el.replyId === this.reply.id);
+      return 0;
+      // return this.myLikes.some((el) => el.replyId === this.reply.id);
     },
     hasReplyTag() {
       // return this.reply.replyTag != null;
@@ -209,49 +199,55 @@ export default {
   methods: {
     deleteReply() {
       console.log('reply/deleteReply', this.reply.id);
-      this.$store.dispatch('topics/deleteReply', {
-        replyId: this.reply.id,
-      }).then((response) => {
-        console.log(response);
-      }).catch((error) => {
-        console.log('reply/deleteReply ERROR', error);
-      });
+      // this.$store.dispatch('topics/deleteReply', {
+      //   replyId: this.reply.id,
+      // }).then((response) => {
+      //   console.log(response);
+      // }).catch((error) => {
+      //   console.log('reply/deleteReply ERROR', error);
+      // });
     },
     editReply() {
       this.loading = true;
       console.log('reply/updateReply - ID', this.reply.id);
       // console.log('reply/updateReply - content', this.content);
-      this.$store.dispatch('topics/updateReply', {
-        replyId: this.reply.id,
-        data: this.content,
-      }).then(() => {
-        this.editing = false;
-        this.loading = false;
-      }).catch((error) => {
-        this.loading = false;
-        console.log('reply/updateReply ERROR', error);
-      });
+      // this.$store.dispatch('topics/updateReply', {
+      //   replyId: this.reply.id,
+      //   data: this.content,
+      // }).then(() => {
+      //   this.editing = false;
+      //   this.loading = false;
+      // }).catch((error) => {
+      //   this.loading = false;
+      //   console.log('reply/updateReply ERROR', error);
+      // });
     },
     likeReply() {
-      if (!this.hasBeenLiked()) {
-        this.liked = true;
-        this.$store.dispatch('users/likeReply', {
-          replyId: this.reply.id,
-        }).then(() => {
-          // console.log('reply/likeReply');
-        }).catch((error) => {
-          console.log('reply/likeReply ERROR', error);
-        });
-      } else if (this.hasBeenLiked()) {
-        this.liked = false;
-        this.$store.dispatch('users/unlikeReply', {
-          replyId: this.reply.id,
-        }).then(() => {
-          // console.log('reply/unlikeReply');
-        }).catch((error) => {
-          console.log('reply/unlikeReply ERROR', error);
-        });
+      if (this.myLike(this.reply.id).length) {
+        this.$store.dispatch('topics/replies/likes/removeLike', { replyId: this.reply.id });
+      } else {
+        this.$store.dispatch('topics/replies/likes/createLike', { replyId: this.reply.id });
       }
+      // this.$store.dispatch('topics/replies/likes/createNewLike', { replyId: this.reply.id });
+      // if (!this.hasBeenLiked()) {
+      //   this.liked = true;
+      //   this.$store.dispatch('users/likeReply', {
+      //     replyId: this.reply.id,
+      //   }).then(() => {
+      //     // console.log('reply/likeReply');
+      //   }).catch((error) => {
+      //     console.log('reply/likeReply ERROR', error);
+      //   });
+      // } else if (this.hasBeenLiked()) {
+      //   this.liked = false;
+      //   this.$store.dispatch('users/unlikeReply', {
+      //     replyId: this.reply.id,
+      //   }).then(() => {
+      //     // console.log('reply/unlikeReply');
+      //   }).catch((error) => {
+      //     console.log('reply/unlikeReply ERROR', error);
+      //   });
+      // }
     },
     canEditTopic() {
       if (this.currentUser !== null && this.currentUser?.user?.id === this.reply?.user?.id) {

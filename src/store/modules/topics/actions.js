@@ -14,9 +14,9 @@ const actions = {
       });
   },
 
-  loadTopicId({ dispatch }, { id }) {
+  loadTopicId({ commit, dispatch }, { id }) {
     return dispatch('services/GET', { uri: `topics/${id}` }, { root: true })
-      .then((response) => response.data)
+      .then((response) => commit('SET_CURRENT_TOPIC', response.data))
       .catch((error) => error);
   },
 

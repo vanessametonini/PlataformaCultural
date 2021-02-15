@@ -33,6 +33,22 @@ const actions = {
         });
     });
   },
+  DELETE({ state, commit, getters }, { uri, httpConfigs = {} }) {
+    // commit('SET_WAITING');
+    return new Promise((resolve, reject) => {
+      axios.delete(`${state.url}${uri}`, { ...httpConfigs, ...getters.httpConfigs })
+        .then((response) => {
+          // commit('SUCCESS', { response });
+          // commit('RESET_WAITING');
+          resolve(response);
+        })
+        .catch((error) => {
+          commit('ERROR', { error });
+          // commit('RESET_WAITING');
+          reject(error);
+        });
+    });
+  },
 };
 
 export default actions;

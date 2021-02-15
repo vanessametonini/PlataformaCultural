@@ -261,28 +261,16 @@ export default {
       supports: 'topics/supports/getInfoCurrentTopicSupports',
       supported: 'topics/supports/getMyVoteCurrentTopic',
     }),
-    // supported.hasBeen() {
-    //   return this.myVotes.some((el) => el.topicId === this.topic.id);
-    // },
-    // supported.status() {
-    //   return true;
-    // },
   },
   mounted() {
     this.$store.dispatch('topics/loadTopicId', { id: this.$route.params.topicId })
-      .then((topic) => {
-        this.$store.commit('topics/SET_CURRENT_TOPIC', topic);
+      .then(() => {
+        // this.$store.commit('topics/SET_CURRENT_TOPIC', topic);
         this.$store.dispatch('topics/replies/loadRepliesByTopicId');
+        this.$store.dispatch('topics/replies/likes/loadLikesByTopicId');
         this.$store.dispatch('topics/supports/loadSupportsByTopicId');
       });
   },
-  // async created() {
-  //   await this.$store.dispatch('topics/loadTopicId', { id: this.$route.params.topicId })
-  //     .then((topic) => {
-  //       this.$store.commit('topics/SET_CURRENT_TOPIC', topic);
-  //       this.$store.dispatch('topics/replies/loadRepliesByTopicId');
-  //     });
-  // },
   methods: {
     ...mapActions(['setNextRoute']),
     onReply() {
@@ -317,12 +305,19 @@ export default {
       });
     },
     supportThis(triggerType) {
-      this.$store.dispatch('users/supportThis', { topicId: this.topic.id, supportType: triggerType })
+      this.$store.dispatch('topics/supports/supportCurrentTopic', { supportType: triggerType })
         .then(() => {
           console.log('topicsView/supportThis', this.topic.id);
         }).catch((error) => {
           console.log('topicView/supportThis - ERROR', error);
         });
+
+      // this.$store.dispatch('users/supportThis', { topicId: this.topic.id, supportType: triggerType })
+      //   .then(() => {
+      //     console.log('topicsView/supportThis', this.topic.id);
+      //   }).catch((error) => {
+      //     console.log('topicView/supportThis - ERROR', error);
+      //   });
     },
     supportsPercentage(type) {
       const posAmount = parseInt(this.supports.positiveSupports, 10);
