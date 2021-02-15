@@ -18,7 +18,7 @@
       <div class="row al-items-center mg-top8">
         <span class="body-3 bolder"> {{ topic.user.firstName + ' ' + topic.user.lastName }} </span>
 
-        <span class="caption bold mg-left16"> {{ formatDate }} </span>
+        <span class="caption bold mg-left16"> {{ formatDate(topic.createdAt) }} </span>
       </div>
 
       <span class="caption bold mg-top16"> {{ formatDescription }} </span>
@@ -75,19 +75,8 @@ export default {
   computed: {
     ...mapGetters({
       options: 'categories/loadCategories',
+      formatDate: 'formatDate',
     }),
-    formatDate() {
-      const d = new Date(this.topic.createdAt);
-      const monthNames = ['Jan', 'Fev', 'Mar', 'Abril', 'Maio', 'Junho', 'Julho', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
-      const month = monthNames[d.getMonth()];
-      let day;
-      if (d.getDate().toString().length === 1) {
-        day = `0${d.getDate()}`;
-      } else {
-        day = d.getDate();
-      }
-      return `${day} de ${month}`;
-    },
     formatDescription() {
       const limit = 150;
       const str = this.topic.content;

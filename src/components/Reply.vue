@@ -16,7 +16,7 @@
             {{ reply.user.name }}
           </span>
           <span class="date caption bold">
-            {{ formatDate }}
+            {{ formatDate(reply.createdAt) }}
           </span>
         </div>
 
@@ -97,12 +97,14 @@
       <!-- this reply -->
       <div class="reply-content body-3">
         <template v-if="!editing">
+          <span class="content-text">{{ reply.content }}</span>
           <reply-tag
             v-if="hasReplyTag"
             :reply-tag="replyTag"
           />
-
-          <span class="content-text">{{ reply.content }}</span>
+          <div>
+            <span class="content-text">formulário de resposta</span>
+          </div>
         </template>
 
         <!-- edit -->
@@ -194,7 +196,7 @@ export default {
     },
   },
   created() {
-    // this.getThisTag();
+    this.replyTag = this.reply;
   },
   methods: {
     deleteReply() {

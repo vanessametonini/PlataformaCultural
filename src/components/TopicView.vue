@@ -44,7 +44,7 @@
       <div class="author row mg-top8">
         <span class="body-3 bolder text-gray"> {{ topic.user.name }} </span>
         <span class="body-3 text-gray mg-left8"> - </span>
-        <span class="body-3 text-gray mg-left8"> {{ formatDate }} </span>
+        <span class="body-3 text-gray mg-left8"> {{ formatDate(topic.createdAt) }} </span>
       </div>
 
       <p class="body-2 mg-top32">

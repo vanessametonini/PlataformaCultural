@@ -17,9 +17,9 @@ const getters = {
       ${date.getDate().toString().padStart(2, '0')}
     `;
   },
-  formatDate(state) {
-    const d = new Date(state.topics.currentTopic.createdAt);
-    const monthNames = ['Jan', 'Fev', 'Mar', 'Abril', 'Maio', 'Junho', 'Julho', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+  formatDate: () => (date) => {
+    const d = new Date(date);
+    const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
     const month = monthNames[d.getMonth()];
     const year = d.getFullYear();
     let day;
