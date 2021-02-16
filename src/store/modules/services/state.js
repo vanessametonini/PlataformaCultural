@@ -1,5 +1,5 @@
 const state = {
-  url: 'http://localhost:4000/',
+  url: 'https://polar-sierra-18297.herokuapp.com//',
   supersecret: process.env.supersecret || 'chavemuitosegura',
   token: localStorage.getItem('access_token') || '',
   response: {},
