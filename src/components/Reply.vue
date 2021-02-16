@@ -16,7 +16,7 @@
             {{ reply.user.name }}
           </span>
           <span class="date caption bold">
-            {{ formatDate(reply.createdAt) }}
+            {{ $store.getters.formatDate(reply.createdAt) }}
           </span>
         </div>
 
@@ -70,12 +70,12 @@
             v-if="isLoggedIn && currentUser"
             class="reply-button"
             theme="transparent"
-            @click="replyThis()"
+            @click="comment = !comment"
           >
             <span
               class="caption bolder"
               style="color: black;"
-            >Responder</span>
+            >{{ comment ? 'ocultar comentários' : 'ver comentários' }}</span>
           </base-button>
 
           <i
@@ -97,14 +97,15 @@
       <!-- this reply -->
       <div class="reply-content body-3">
         <template v-if="!editing">
-          <span class="content-text">{{ reply.content }}</span>
-          <reply-tag
-            v-if="hasReplyTag"
-            :reply-tag="replyTag"
+          <span class="body-2 bolder">{{ reply.content }}</span>
+          <rejoinders
+            v-if="comment"
+            :rejoinders="rejoinders(reply.id)"
+            :reply="reply"
           />
-          <div>
+          <!-- <div>
             <span class="content-text">formulário de resposta</span>
-          </div>
+          </div> -->
         </template>
 
         <!-- edit -->
@@ -151,13 +152,13 @@ import { mapGetters } from 'vuex';
 // import BaseConfirmDialog from './BaseConfirmDialog.vue';
 import BaseAvatar from './BaseAvatar.vue';
 import BaseButton from './BaseButton.vue';
-import ReplyTag from './ReplyTag.vue';
+import Rejoinders from './Rejoinders.vue';
 
 export default {
   components: {
     BaseAvatar,
     BaseButton,
-    ReplyTag,
+    Rejoinders,
     // BaseConfirmDialog,
   },
   props: {
@@ -173,9 +174,9 @@ export default {
       content: '',
       editing: false,
       loading: false,
+      comment: false,
       deleteAction: false,
       liked: false,
-      replyTag: null,
     };
   },
   computed: {
@@ -184,20 +185,14 @@ export default {
       currentUser: 'users/getCurrentUser',
       numberOfReplyLikes: 'topics/replies/likes/getNumberOfReplyLikes',
       myLike: 'topics/replies/likes/getMyLikeCurrentTopicByReplyId',
-      formatDate: 'formatDate',
+      rejoinders: 'topics/replies/rejoinders/getMyRejoindersCurrentTopicByReplyId',
     }),
     hasBeenLiked() {
       return 0;
       // return this.myLikes.some((el) => el.replyId === this.reply.id);
     },
-    hasReplyTag() {
-      // return this.reply.replyTag != null;
-      return true;
-    },
   },
-  created() {
-    this.replyTag = this.reply;
-  },
+  created() {},
   methods: {
     deleteReply() {
       console.log('reply/deleteReply', this.reply.id);
@@ -256,20 +251,6 @@ export default {
         return true;
       }
       return false;
-    },
-    getThisTag() {
-      this.$store.dispatch('topics/getReplyTag', {
-        replyTagId: this.reply.replyTag,
-      }).then((response) => {
-        this.replyTag = response;
-        // console.log('tag response', response);
-      }).catch((error) => {
-        console.log('error getTag', error);
-      });
-    },
-    replyThis() {
-      this.$emit('call-reply', this.reply.id);
-      console.log('id reset', this.reply.id);
     },
   },
 };

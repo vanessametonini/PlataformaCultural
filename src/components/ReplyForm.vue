@@ -1,14 +1,7 @@
 <template>
   <div class="reply-form">
     <span class="body-2 bolder">Deixe seu comentário</span>
-    <!-- <q-separator/> -->
-
     <div class="reply-content">
-      <reply-tag
-        v-if="replyToTag != null"
-        :reply-tag="replyToTag"
-      />
-
       <q-input
         ref="input"
         v-model="content"
@@ -46,7 +39,6 @@
 import { createHelpers } from 'vuex-map-fields';
 import { required } from 'vuelidate/lib/validators';
 import BaseButton from './BaseButton.vue';
-import ReplyTag from './ReplyTag.vue';
 
 const { mapFields } = createHelpers({
   getterType: 'topics/replies/getField',
@@ -56,18 +48,9 @@ const { mapFields } = createHelpers({
 export default {
   components: {
     BaseButton,
-    ReplyTag,
-  },
-  props: {
-    replyToTag: {
-      type: Object,
-      default: () => {},
-      required: true,
-    },
   },
   data() {
     return {
-      // content: '',
       loading: false,
     };
   },
@@ -90,33 +73,9 @@ export default {
           this.loading = false;
         });
       }
-      // if (!this.$v.$anyError && this.content !== '') {
-      //   this.loading = true;
-      //   let tagId = null;
-      //   if (this.replyToTag != null) {
-      //     tagId = this.replyToTag.id;
-      //   }
-      //   const newReply = { content: this.content, replyTag: tagId };
-      //   this.$store.dispatch('topics/addReply', { data: newReply })
-      //     .then(() => {
-      //       this.content = '';
-      //       // this.replyToTag = {};
-      //       this.$v.$reset();
-      //       this.loading = false;
-      //     })
-      //     .catch((error) => {
-      //       console.log(error);
-      //       this.loading = false;
-      //       // this.replyToTag = {};
-      //     });
-      // }
     },
     cancel() {
-      // this.replyToTag = {};
       this.content = '';
-    },
-    focus() {
-      this.$refs.input.focus();
     },
   },
 };

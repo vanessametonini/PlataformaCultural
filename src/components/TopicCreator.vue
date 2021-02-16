@@ -430,7 +430,11 @@ export default {
     },
     submit() {
       this.$store.dispatch('topics/createNewTopic')
-        .then(() => this.$router.push('/topics'));
+        .then(() => {
+          this.content = '';
+          this.title = '';
+          this.$router.push('/topics');
+        });
       // if (!this.$v.$anyError && this.formIsValid) {
       //   this.$store.dispatch('topics/createNewTopic', {
       //     data: {

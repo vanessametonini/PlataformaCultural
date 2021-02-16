@@ -44,7 +44,7 @@
       <div class="author row mg-top8">
         <span class="body-3 bolder text-gray"> {{ topic.user.name }} </span>
         <span class="body-3 text-gray mg-left8"> - </span>
-        <span class="body-3 text-gray mg-left8"> {{ formatDate(topic.createdAt) }} </span>
+        <span class="body-3 text-gray mg-left8"> {{ $store.getters.formatDate(topic.createdAt) }} </span>
       </div>
 
       <p class="body-2 mg-top32">
@@ -69,7 +69,7 @@
       />
       <span class="body-3 bolder mg-right16"> {{ supportsPercentage(false) }}%</span>
 
-      <!-- <span class="body-3 bolder mg-right16"> votei: {{ supported.hasBeen }}</span> -->
+      <!-- <span class="body-3 bolder mg-right16"> votei: {{ myVote.hasBeen }}</span> -->
     </div>
 
     <!-- participate-area -->
@@ -91,17 +91,17 @@
         class="participate-content row"
       >
         <div
-          v-if="supported.hasBeen"
+          v-if="myVote.hasBeen"
           class="row"
         >
           <q-icon
-            v-if="supported.status"
+            v-if="myVote.status"
             class="vote-icon"
             name="far fa-thumbs-up"
             size="xs"
           />
           <q-icon
-            v-if="!supported.status"
+            v-if="!myVote.status"
             class="vote-icon mg-top4"
             name="far fa-thumbs-down"
             size="xs"
@@ -109,11 +109,11 @@
           <span
             id="vote-text"
             class="body-2 bolder"
-          > {{ supported.status ? 'Apoiei este Tópico' : 'Não apoiei este Tópico' }} </span>
+          > {{ myVote.status ? 'Apoiei este Tópico' : 'Não apoiei este Tópico' }} </span>
         </div>
 
         <div
-          v-if="!supported.hasBeen"
+          v-if="!myVote.hasBeen"
           class="row"
         >
           <span class="headline-2 bolder"> Vote, participe! </span>
@@ -123,7 +123,7 @@
             theme="secondary"
             @click="supportThis(true)"
           >
-            <!-- <q-icon class="vote-icon" :class="{ 'positive-support': supported.status }"  name="far fa-thumbs-up" size="xs"></q-icon> -->
+            <!-- <q-icon class="vote-icon" :class="{ 'positive-support': myVote.status }"  name="far fa-thumbs-up" size="xs"></q-icon> -->
             <span class="body-3 bolder"> Apoiar </span>
           </base-button>
 
@@ -132,7 +132,7 @@
             theme="secondary"
             @click="supportThis(false)"
           >
-            <!-- <q-icon class="vote-icon" :class="{ 'negative-support': !supported.status }" name="far fa-thumbs-down" size="xs"></q-icon> -->
+            <!-- <q-icon class="vote-icon" :class="{ 'negative-support': !myVote.status }" name="far fa-thumbs-down" size="xs"></q-icon> -->
             <span class="body-3 bolder"> Não apoiar </span>
           </base-button>
         </div>
@@ -191,11 +191,7 @@
 
     <!-- reply-form -->
     <div class="reply-form">
-      <reply-form
-        v-if="isLoggedIn"
-        ref="replyForm"
-        :reply-to-tag="replyToTag != null ? replyToTag : null"
-      />
+      <reply-form />
     </div>
   </div>
 </template>
@@ -232,7 +228,6 @@ export default {
   data() {
     return {
       showConfirmDialog: this.isLoggedIn,
-      replyToTag: null,
       thumbStyle: {
         right: '0px',
         top: '16px',
@@ -256,19 +251,17 @@ export default {
     ...mapGetters({
       isLoggedIn: 'users/isLoggedIn',
       currentUser: 'users/getCurrentUser',
-      myVotes: 'users/getMyVotes',
-      formatDate: 'formatDate',
       supports: 'topics/supports/getInfoCurrentTopicSupports',
-      supported: 'topics/supports/getMyVoteCurrentTopic',
+      myVote: 'topics/supports/getMyVoteCurrentTopic',
     }),
   },
   mounted() {
     this.$store.dispatch('topics/loadTopicId', { id: this.$route.params.topicId })
       .then(() => {
-        // this.$store.commit('topics/SET_CURRENT_TOPIC', topic);
+        this.$store.dispatch('topics/supports/loadSupportsByTopicId');
         this.$store.dispatch('topics/replies/loadRepliesByTopicId');
         this.$store.dispatch('topics/replies/likes/loadLikesByTopicId');
-        this.$store.dispatch('topics/supports/loadSupportsByTopicId');
+        this.$store.dispatch('topics/replies/rejoinders/loadRejoindersByTopicId');
       });
   },
   methods: {
@@ -293,17 +286,7 @@ export default {
       }
       return false;
     },
-    replyThis(replyIdToTag) {
-      this.jumpToReplyForm();
-      this.$store.dispatch('topics/getReplyTag', {
-        replyTagId: replyIdToTag,
-      }).then((response) => {
-        this.replyToTag = response;
-        console.log('topicView/replyThis', response);
-      }).catch((error) => {
-        console.log('error replyToTag', error);
-      });
-    },
+    replyThis() {},
     supportThis(triggerType) {
       this.$store.dispatch('topics/supports/supportCurrentTopic', { supportType: triggerType })
         .then(() => {
@@ -323,6 +306,9 @@ export default {
       const posAmount = parseInt(this.supports.positiveSupports, 10);
       const negAmount = parseInt(this.supports.negativeSupports, 10);
       const totalSupports = parseInt(posAmount + negAmount, 10);
+      if (!totalSupports) {
+        return 0;
+      }
       if (type === true) {
         return parseInt((posAmount / totalSupports) * 100, 10);
       }
