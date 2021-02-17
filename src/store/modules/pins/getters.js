@@ -32,7 +32,7 @@ const getters = {
     return markers;
   },
 
-  getPinById({ state }, { pinId }) {
+  getPinById: (state) => (pinId) => {
     const index = state.pins.findIndex((item) => item.id === pinId);
     return state.list[index];
   },

@@ -23,28 +23,28 @@
         <a
           class="link caption bolder"
           target="blank"
-          :href="pinView.linkF"
+          :href="pinView.facebook"
         >.facebook</a>
         <a
           class="link caption bolder mg-left16"
           target="blank"
-          :href="pinView.linkIG"
+          :href="pinView.instagram"
         >.instagram</a>
         <a
           class="link caption bolder mg-left16"
           target="blank"
-          :href="pinView.otherLink"
+          :href="pinView.twitter"
         >.link</a>
       </div>
     </div>
 
-    <div class="img-box">
+    <!-- <div class="img-box">
       <img
         class="img"
         :src="pinView.imgUrl"
         width="350px"
       >
-    </div>
+    </div> -->
 
     <div
       class="pin-view-tip-container"
@@ -65,22 +65,7 @@ export default {
     },
   },
   data() {
-    return {
-      categoryId: this.pinView.categoryId,
-      title: '',
-      email: '',
-      phone: '',
-      street: '',
-      neighborhood: '',
-      number: '',
-      city: '',
-      cep: '',
-      description: '',
-      linkF: '',
-      linkIG: '',
-      otherLink: '',
-      imgUrl: '',
-    };
+    return {};
   },
   // mounted() {
   //   this.setCategory();
@@ -90,7 +75,7 @@ export default {
       options: 'categories/loadCategories',
     }),
     getColor() {
-      const target = this.options.find((item) => item.value === this.categoryId.toString());
+      const target = this.options.find((item) => item.id === this.pinView.categoryId);
       return target;
     },
   },
