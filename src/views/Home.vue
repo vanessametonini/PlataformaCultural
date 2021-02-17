@@ -140,7 +140,7 @@
             >
               <img
                 :id="`img-icon#${item.id}`"
-                :src="require(`../assets/icons/pins/${item.categoryId}.png`)"
+                :src="require(`../assets/icons/pins/${item.value}.png`)"
                 class="img-icon"
                 :height="iconSet.iconSize[0]"
                 :width="iconSet.iconSize[1]"
@@ -254,7 +254,6 @@ export default {
   created() {
     window.addEventListener('resize', this.handleResize);
     this.handleResize();
-    console.log('markers', this.markers);
   },
   mounted() {
     this.homeTransition();
@@ -278,7 +277,6 @@ export default {
       this.opemNav = !this.opemNav;
     },
     setCoordinates() {
-      console.log('pinsss:', this.pins);
       this.pins.forEach((item) => this.markers.push({ id: item.id, categoryId: item.categoryId, coordinates: [item.lat, item.long] }));
     },
     getPinById(id) {

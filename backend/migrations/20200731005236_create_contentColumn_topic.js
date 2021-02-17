@@ -6,6 +6,6 @@ exports.up = function(knex) {
 
 exports.down = function(knex) {
   return knex.schema.createTable('topics', function(table){
-      table.dropColumn('content')
+      table.dropTable('content')
   }) 
 }
