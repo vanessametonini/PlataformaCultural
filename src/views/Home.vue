@@ -140,7 +140,7 @@
             >
               <img
                 :id="`img-icon#${item.id}`"
-                :src="require(`../assets/icons/pins/${item.value}.png`)"
+                :src="require(`../assets/icons/pins/${(item.categoryId-1)/10+1}.png`)"
                 class="img-icon"
                 :height="iconSet.iconSize[0]"
                 :width="iconSet.iconSize[1]"
