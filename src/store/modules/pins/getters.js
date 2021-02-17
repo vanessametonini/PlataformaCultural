@@ -5,8 +5,10 @@ const getters = {
     return state.list;
   },
 
-  getMarkers({ state }) {
-    return state.markers;
+  getMarkers(state) {
+    const markers = [];
+    state.list.forEach((item) => markers.push({ ...item, coordinates: [item.lat, item.long], image: `../../../assets/icons/pins/${(item.categoryId - 1) / 10 + 1}.png` }));
+    return markers;
   },
 
   getPinById({ state }, { pinId }) {

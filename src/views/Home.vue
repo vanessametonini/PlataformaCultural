@@ -128,7 +128,7 @@
 
         <div class="my-markes">
           <l-marker
-            v-for="item in markesFiltered"
+            v-for="item in markers"
             :key="item.id"
             class="marker-item"
             :lat-lng="item.coordinates"
@@ -140,7 +140,7 @@
             >
               <img
                 :id="`img-icon#${item.id}`"
-                :src="require(`../assets/icons/pins/${(item.categoryId-1)/10+1}.png`)"
+                :src="item.image"
                 class="img-icon"
                 :height="iconSet.iconSize[0]"
                 :width="iconSet.iconSize[1]"
@@ -234,22 +234,15 @@ export default {
         autoPanPaddingTopLeft: [240, 16],
         closeButton: false,
       },
-      markers: [],
-      filterSelections: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18'],
+      filterSelections: ['2', '11', '21', '31', '41', '51', '61', '71', '81', '91', '101', '111', '121', '131', '141', '151', '161', '171'],
     };
   },
   computed: {
     ...mapGetters({
       isLoggedIn: 'users/isLoggedIn',
       pins: 'pins/loadPins',
+      markers: 'pins/getMarkers',
     }),
-    markesFiltered() {
-      if (this.filterSelections.lehgth === 0) {
-        return this.markers;
-      }
-      const filter = this.markers.filter((item) => this.filterSelections.includes(item.categoryId.toString()));
-      return filter;
-    },
   },
   created() {
     window.addEventListener('resize', this.handleResize);
@@ -257,7 +250,6 @@ export default {
   },
   mounted() {
     this.homeTransition();
-    this.setCoordinates();
   },
   unmounted() {
     window.removeEventListener('resize', this.handleResize);
