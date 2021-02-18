@@ -14,7 +14,7 @@ const actions = {
     };
     dispatch('services/POST', { uri: 'supports', data: support }, { root: true })
       .then((response) => {
-        commit('ADD_CURRENT_TOPIC_SUPPORT', { id: response.data[0].id, ...support });
+        commit('ADD_CURRENT_TOPIC_SUPPORT', { id: response.data[0], ...support });
         return response.data;
       })
       .catch((error) => error);

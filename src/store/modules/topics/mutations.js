@@ -34,12 +34,10 @@ const mutations = {
   },
 
   ADD_REPLY_TO_CURRENT_TOPIC(state, data) {
-    console.log('ADD_REPLY_TO_CURRENT_TOPIC', data);
     state.replies.push(data);
   },
 
   DELETE_REPLY(state, { replyId }) {
-    console.log('topics/DELETE_REPLY', replyId);
     const replyIndex = state.replies.findIndex((reply) => reply.id === replyId);
     state.replies.splice(replyIndex, 1);
   },
@@ -61,7 +59,6 @@ const mutations = {
 
   SET_KEY(state, { newKey }) {
     state.key = newKey;
-    console.log('topics/setKey', newKey);
   },
 
   updateField,

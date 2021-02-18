@@ -1,6 +1,19 @@
 import axios from 'axios';
+import jwt from 'jsonwebtoken';
 
 const actions = {
+  verifyToken({ state }) {
+    return new Promise((resolve, reject) => {
+      jwt.verify(state.token, state.supersecret, (err, decode) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(decode);
+      });
+    });
+  },
+
   GET({ state, commit, getters }, { uri, httpConfigs = {} }) {
     // commit('SET_WAITING');
     return new Promise((resolve, reject) => {
