@@ -220,6 +220,7 @@ export default {
       // });
     },
     likeReply() {
+      console.log(this.myLike(this.reply.id).length);
       if (this.myLike(this.reply.id).length) {
         this.$store.dispatch('topics/replies/likes/removeLike', { replyId: this.reply.id });
       } else {

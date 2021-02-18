@@ -14,7 +14,7 @@ const actions = {
     };
     dispatch('services/POST', { uri: 'likes', data: { ...info } }, { root: true })
       .then((response) => {
-        commit('ADD_CURRENT_TOPIC_REPLY_LIKE', { id: response.data.id, ...info });
+        commit('ADD_CURRENT_TOPIC_REPLY_LIKE', { id: response.data[0], ...info });
       })
       .catch((error) => console.log(error.message));
   },

@@ -25,7 +25,7 @@ const actions = {
     console.log(rejoinder);
     dispatch('services/POST', { uri: 'rejoinders', data: { ...rejoinder } }, { root: true })
       .then((response) => commit('ADD_CURRENT_TOPIC_REPLY_REJOINDER', {
-        ...{ id: response.data },
+        ...{ id: response.data[0] },
         ...rejoinder,
         user: {
           ...rootState.users.currentUser,
