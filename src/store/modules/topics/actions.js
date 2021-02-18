@@ -4,7 +4,7 @@ import api from '../../../apiClient';
 const actions = {
 
   loadTopics({ dispatch, commit }) {
-    dispatch('services/GET', { uri: 'topics' }, { root: true })
+    dispatch('services/GET', { uri: 'topicos' }, { root: true })
       .then((response) => {
         const topics = response.data;
         commit('SET_TOPICS_LIST', topics);
@@ -15,7 +15,7 @@ const actions = {
   },
 
   loadTopicId({ commit, dispatch }, { id }) {
-    return dispatch('services/GET', { uri: `topics/${id}` }, { root: true })
+    return dispatch('services/GET', { uri: `topicos/${id}` }, { root: true })
       .then((response) => commit('SET_CURRENT_TOPIC', response.data))
       .catch((error) => error);
   },
@@ -30,7 +30,7 @@ const actions = {
         },
       })
         .then((response) => {
-          console.log('topics/loadInitialTopics');
+          console.log('topicos/loadInitialTopics');
           commit('SET_TOPICS_LIST', response.data);
           resolve(response);
         })
@@ -76,7 +76,7 @@ const actions = {
       userId: rootState.users.currentUser.id,
       createdAt: rootGetters.date,
     };
-    dispatch('services/POST', { uri: 'topics', data: { ...getters.topicForm, ...info } }, { root: true })
+    dispatch('services/POST', { uri: 'topicos', data: { ...getters.topicForm, ...info } }, { root: true })
       .then(() => {
         dispatch('loadTopics');
       })
