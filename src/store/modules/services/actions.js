@@ -2,9 +2,9 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 
 const actions = {
-  verifyToken({ state }) {
+  verifyToken({ getters }) {
     return new Promise((resolve, reject) => {
-      jwt.verify(state.token, state.supersecret, (err, decode) => {
+      jwt.verify(getters.getToken, getters.getSuperSecretKey, (err, decode) => {
         if (err) {
           reject(err);
           return;
