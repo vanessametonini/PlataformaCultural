@@ -79,8 +79,6 @@ export default {
   created() {},
   methods: {
     rejoin() {
-      console.log('iddd: ', this.reply.id);
-      console.log(this.content);
       this.loading = true;
       this.$v.$touch();
       if (!this.$v.$anyError && this.content !== '') {
