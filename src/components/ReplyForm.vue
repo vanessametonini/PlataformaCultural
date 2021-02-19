@@ -67,11 +67,14 @@ export default {
       this.loading = true;
       this.$v.$touch();
       if (!this.$v.$anyError && this.content !== '') {
-        this.$store.dispatch('topics/replies/addReply').then(() => {
-          this.content = '';
-          this.$v.$reset();
-          this.loading = false;
-        });
+        this.$store.dispatch('topics/replies/addReply')
+          .then(() => {
+            this.content = '';
+            this.$v.$reset();
+            this.loading = false;
+          });
+      } else {
+        this.loading = false;
       }
     },
     cancel() {

@@ -19,11 +19,11 @@ const actions = {
       .then((response) => {
         commit('topics/INCREMENT_TOPIC_LIST_REPLY', data, { root: true });
         commit('rejoinders/ADD_CURRENT_TOPIC_REPLY_REJOINDER_FORM', {
-          replyId: response.data.id,
+          replyId: response.data[0],
           content: '',
         });
         commit('ADD_CURRENT_TOPIC_REPLY', {
-          ...{ id: response.data.id },
+          ...{ id: response.data[0] },
           ...data,
           user: {
             ...rootState.users.currentUser,

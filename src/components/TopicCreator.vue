@@ -437,34 +437,16 @@ export default {
         .then(() => {
           this.content = '';
           this.title = '';
+          this.categoryId = null;
+          this.categoriesTagged = [];
           this.$router.push('/topics');
         });
-      // if (!this.$v.$anyError && this.formIsValid) {
-      //   this.$store.dispatch('topics/createNewTopic', {
-      //     data: {
-      //       title: this.title,
-      //       content: this.content,
-      //       categoryId: this.categoryId,
-      //       categoriesTagged: this.categoriesTagged,
-      //     },
-      //   }).then((response) => {
-      //     console.log('topicCreator/submit');
-      //     this.$router.push({ name: 'TopicPage', params: { topicId: response.id } }); // push nextPage here or store
-      //   }).catch((error) => {
-      //     if (error.message === 'Request failed with status code 400') {
-      //       this.errorMessage = 'Escrever errors';
-      //     }
-      //     if (error.message === 'Request failed with status code 401') {
-      //       this.errorMessage = 'Escrever errors';
-      //     }
-      //     if (error.message === 'timeout of 5000ms exceeded') {
-      //       this.errorMessage = 'Escrever errors';
-      //     }
-      //     console.log('topicCreator/submit', error.message);
-      //   });
-      // }
     },
     cancel() {
+      this.content = '';
+      this.title = '';
+      this.categoryId = null;
+      this.categoriesTagged = [];
       this.$router.push({ name: 'Topics' });
     },
     tagEvent(sel) {
