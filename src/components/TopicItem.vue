@@ -2,7 +2,7 @@
   <!-- item to be selected in topics-page -->
   <div
     class="topic-item"
-    :style="{ 'background-color': category.color }"
+    :style="{ 'background-color': category(topic.categoryId).color }"
     @click="emitThisTopic()"
   >
     <div class="card column">
@@ -13,7 +13,7 @@
         class="big-title bolder"
       > {{ topic.title }} </span>
 
-      <span class="caption bolder mg-top16"> {{ category.label }} </span>
+      <span class="caption bolder mg-top16"> {{ category(topic.categoryId).label }} </span>
       <!-- topicOwner & date -->
       <div class="row al-items-center mg-top8">
         <span class="body-3 bolder"> {{ topic.user.firstName + ' ' + topic.user.lastName }} </span>
@@ -63,19 +63,11 @@ export default {
       default: () => ({}),
     },
   },
-  data() {
-    return {
-      category: {
-        label: '',
-        value: '0',
-        color: '#000',
-      },
-    };
-  },
   computed: {
     ...mapGetters({
-      options: 'categories/loadCategories',
+      categories: 'categories/loadCategories',
       formatDate: 'formatDate',
+      category: 'categories/getCategoryById',
     }),
     formatDescription() {
       const limit = 150;
@@ -86,23 +78,13 @@ export default {
       return this.topic.description;
     },
   },
-  mounted() {
-    this.setCategory();
-  },
   methods: {
     ...mapActions('topics', [
       'localLoadCurrentTopic',
       'localLoadCurrentTopicReplyes',
     ]),
-    setCategory() {
-      const vm = this;
-      const el = this.options.find((item) => item.value === vm.topic.categoryId.toString());
-      this.category = el;
-    },
     async emitThisTopic() {
       this.$store.commit('topics/SET_CURRENT_TOPIC', this.topic);
-      // await this.localLoadCurrentTopic({ topicId: this.topic.id });
-      // await this.localLoadCurrentTopicReplyes({ topicId: this.topic.id });
       this.$router.push({ name: 'TopicPage', params: { topicId: this.topic.id } });
     },
     supportsPercentage(type) {

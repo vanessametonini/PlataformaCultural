@@ -371,6 +371,7 @@ export default {
       // categoryId: null,
       hasSelected: false,
       // categoriesTagged: [],
+      options: [],
     };
   },
   validations: {
@@ -394,7 +395,7 @@ export default {
       categoriesTagged: 'topicForm.categoriesTagged',
     }),
     ...mapGetters({
-      options: 'categories/loadCategories',
+      categories: 'categories/loadCategories',
     }),
     formIsValid() {
       if (this.$v.$anyError || this.rulesAccepted === false || this.termsAccepted === false || this.categoriesTagged.length === 0) {
@@ -423,6 +424,9 @@ export default {
       }
       return '';
     },
+  },
+  mounted() {
+    this.options = [...this.categories];
   },
   methods: {
     showDate() {

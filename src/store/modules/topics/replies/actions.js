@@ -17,6 +17,7 @@ const actions = {
     const data = { ...getters.getCurrentReply };
     dispatch('services/POST', { uri: 'replies', data }, { root: true })
       .then((response) => {
+        commit('topics/INCREMENT_TOPIC_LIST_REPLY', data, { root: true });
         commit('rejoinders/ADD_CURRENT_TOPIC_REPLY_REJOINDER_FORM', {
           replyId: response.data.id,
           content: '',

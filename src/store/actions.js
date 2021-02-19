@@ -6,7 +6,10 @@ const actions = {
     dispatch('categories/loadCategories');
     dispatch('pins/loadPins');
     dispatch('services/verifyToken')
-      .then((response) => dispatch('users/loadCurrentUser', { id: response.id }));
+      .then((response) => {
+        dispatch('users/loadCurrentUser', { id: response.id });
+        dispatch('topics/loadTopics');
+      });
     // try {
     //   dispatch('topics/loadTopics');
     //   return dispatch('users/loadCurrentUser', { id: getters['services/decodeToken'].id });

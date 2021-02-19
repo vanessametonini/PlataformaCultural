@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 // import { mapGetters } from 'vuex';
 import TopicItem from './TopicItem.vue';
 
@@ -55,8 +55,8 @@ export default {
     };
   },
   computed: {
-    ...mapState('topics', {
-      topics: (state) => state.list,
+    ...mapGetters({
+      topics: 'topics/loadTopics',
     }),
     hasAnyFilter() {
       let filterState = false;
@@ -65,19 +65,12 @@ export default {
       }
       return filterState;
     },
-    // ...mapGetters({
-    //   topics: 'loadTopics',
-    // }),
-  },
-  beforeMount() {
-    // this.getInitialTopics('mostRecents');
   },
   mounted() {
-    console.log(this.topics);
-    // this.$nextTick(function scrollListener() {
-    //   window.addEventListener('scroll', this.onScroll);
-    //   this.onScroll(); // needed for initial loading on page
-    // });
+    this.$nextTick(function scrollListener() {
+      window.addEventListener('scroll', this.onScroll);
+      this.onScroll(); // needed for initial loading on page
+    });
   },
   beforeUnmount() {
     // window.removeEventListener('scroll', this.onScroll);
