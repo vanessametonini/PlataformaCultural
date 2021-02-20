@@ -87,7 +87,9 @@ export default {
           this.$v.$reset();
           this.loading = false;
         });
-      }
+      } else {
+        this.loading = false;
+      } 
     },
     cancel() {
       this.content = '';
