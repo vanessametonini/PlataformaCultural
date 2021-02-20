@@ -89,7 +89,7 @@ export default {
         });
       } else {
         this.loading = false;
-      } 
+      }
     },
     cancel() {
       this.content = '';
