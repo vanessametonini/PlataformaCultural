@@ -141,6 +141,9 @@ export default {
     window.addEventListener('resize', this.handleResize);
     this.handleResize();
   },
+  mounted() {
+    this.$store.dispatch('events/loadEvents');
+  },
   unmounted() {
     window.removeEventListener('resize', this.handleResize);
   },

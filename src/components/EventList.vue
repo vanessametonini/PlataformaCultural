@@ -41,7 +41,7 @@
 </template>
 
 <script>
-// import { mapState } from 'vuex';
+import { mapState } from 'vuex';
 import ScheduleItem from './ScheduleItem.vue';
 
 export default {
@@ -80,9 +80,9 @@ export default {
     };
   },
   computed: {
-    // ...mapState('events', {
-    //   events: (state) => state.list,
-    // }),
+    ...mapState('events', {
+      events: (state) => state.list,
+    }),
     hasAnyFilter() {
       let filterState = false;
       if (this.filter.length !== 0) {
@@ -99,7 +99,7 @@ export default {
     this.handleResize();
   },
   beforeMount() {
-    this.getInitialTopics('mostRecents');
+    // this.getInitialTopics('mostRecents');
   },
   mounted() {
     this.$nextTick(function scrollListener() {

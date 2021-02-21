@@ -165,7 +165,7 @@
             outlined
             square
             dense
-            :options="options"
+            :options="categories"
             options-dense
             options-selected-class
             color="white"
@@ -281,6 +281,12 @@
 
 // import { mapState } from 'vuex';
 import { mapGetters } from 'vuex';
+import { createHelpers } from 'vuex-map-fields';
+
+const { mapFields } = createHelpers({
+  getterType: 'events/getField',
+  mutationType: 'events/updateField',
+});
 
 export default {
   name: 'EventProfile',
@@ -303,30 +309,44 @@ export default {
       step: 0,
       lastStep: '',
       eventId: null,
-      name: '',
-      date: null,
-      time: '',
-      ticket: '',
-      street: '',
-      neighborhood: '',
-      number: '',
-      city: '',
-      cep: '',
-      description: '',
+      // name: '',
+      // date: null,
+      // time: '',
+      // ticket: '',
+      // street: '',
+      // neighborhood: '',
+      // number: '',
+      // city: '',
+      // cep: '',
+      // description: '',
       category: {
         label: '',
         value: '',
         color: '#b8cad4',
       },
-      link: '',
+      // link: '',
       file: null,
-      imgUrl: '',
+      // imgUrl: '',
     };
   },
   computed: {
+    ...mapFields({
+      name: 'eventForm.title',
+      date: 'eventForm.date',
+      time: 'eventForm.time',
+      ticket: 'eventForm.ticket',
+      street: 'eventForm.street',
+      neighborhood: 'eventForm.neighborhood',
+      number: 'eventForm.number',
+      city: 'eventForm.city',
+      cep: 'eventForm.zipcode',
+      description: 'eventForm.description',
+      link: 'eventForm.link',
+      imgUrl: 'eventForm.imgUrl',
+    }),
     ...mapGetters({
-      options: 'categories/loadCategories',
-      userReference: 'users/UserReference',
+      categories: 'categories/loadCategories',
+      user: 'users/getCurrentUser',
     }),
   },
   methods: {
@@ -365,53 +385,53 @@ export default {
     },
     confirmCreate() { // confirma criação de evento ou ediçao de shortEvent
       this.completed = true;
-      const newEvent = {
-        // id: this.eventId, // não precisa, o banco cria
-        userRef: this.userReference.id,
-        name: this.name,
-        date: this.date,
-        time: this.time,
-        street: this.street,
-        neighborhood: this.neighborhood,
-        number: this.number,
-        city: this.city,
-        cep: this.cep,
-        ticket: this.ticket,
-        description: this.description,
-        link: this.link,
-        category: this.category.value, // from to addEventPost
-        bg: this.category.color, // criar função para obter bg, retirar daqui
-        imgUrl: this.imgUrl,
-      };
-      console.log('payload:confirmEdit', newEvent); // log do objeto
+      // const newEvent = {
+      //   // id: this.eventId, // não precisa, o banco cria
+      //   userRef: this.user.id,
+      //   name: this.name,
+      //   date: this.date,
+      //   time: this.time,
+      //   street: this.street,
+      //   neighborhood: this.neighborhood,
+      //   number: this.number,
+      //   city: this.city,
+      //   cep: this.cep,
+      //   ticket: this.ticket,
+      //   description: this.description,
+      //   link: this.link,
+      //   category: this.category.value, // from to addEventPost
+      //   bg: this.category.color, // criar função para obter bg, retirar daqui
+      //   imgUrl: this.imgUrl,
+      // };
+      // console.log('payload:confirmEdit', newEvent); // log do objeto
       // this.$emit('createEvent', this.newEvent.id); // emit id do evento para o componente myEvents se atualizar
-      this.$store.dispatch({ type: 'addEvent', newEvent }); // envia a store a ação add event
-      this.resetFields();
+      // this.$store.dispatch({ type: 'addEvent', newEvent }); // envia a store a ação add event
+      // this.resetFields();
       this.lastStep = 1; // seta o lastStep
       const a = this; // armazena escopo
       setTimeout(() => {
         a.step = 0;
       }, 1000); // seta step para modo de adicionar novo evento
     },
-    resetFields() {
-      this.eventId = null;
-      this.name = '';
-      this.date = '';
-      this.time = '';
-      this.ticket = '';
-      this.street = '';
-      this.neighborhood = '';
-      this.number = '';
-      this.city = '';
-      this.cep = '';
-      this.description = '';
-      this.category.label = '';
-      this.category.value = '';
-      this.category.color = '#b8cad4';
-      this.link = '';
-      this.file = null;
-      this.imgUrl = '';
-    },
+    // resetFields() {
+    //   this.eventId = null;
+    //   this.name = '';
+    //   this.date = '';
+    //   this.time = '';
+    //   this.ticket = '';
+    //   this.street = '';
+    //   this.neighborhood = '';
+    //   this.number = '';
+    //   this.city = '';
+    //   this.cep = '';
+    //   this.description = '';
+    //   this.category.label = '';
+    //   this.category.value = '';
+    //   this.category.color = '#b8cad4';
+    //   this.link = '';
+    //   this.file = null;
+    //   this.imgUrl = '';
+    // },
     expand() {
       this.state = !this.state;
     },

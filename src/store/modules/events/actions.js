@@ -3,6 +3,14 @@ import api from '../../../apiClient';
 const token = localStorage.getItem('access_token');
 const actions = {
 
+  loadEvents({ commit, dispatch }) {
+    dispatch('services/GET', { uri: 'events' }, { root: true })
+      .then((response) => commit('SET_EVENTS_LIST', response.data))
+      .catch((error) => {
+        console.log(error.message);
+      });
+  },
+
   loadInitialEvents({ commit }, { type, pagination }) {
     return new Promise((resolve, reject) => {
       api.get('/getInitialEvents', {
@@ -48,8 +56,6 @@ const actions = {
         });
     });
   },
-
-  addNewEvent() { },
 
   updateEvent({ commit }, { eventId, newData }) {
     return new Promise((resolve, reject) => {
