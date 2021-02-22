@@ -24,9 +24,7 @@ const actions = {
           id: response.data[0],
         });
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => error);
   },
 
   loadEvents({ commit, dispatch, rootGetters }) {
@@ -87,10 +85,7 @@ const actions = {
           commit('SET_TOPICS_LIST', response.data);
           resolve(response);
         })
-        .catch((error) => {
-          console.log(error.message);
-          reject(error);
-        });
+        .catch((error) => reject(error));
     });
   },
 
@@ -106,14 +101,10 @@ const actions = {
         },
       })
         .then((response) => {
-          console.log('events/updateEvent');
           commit('UPDATE_EVENT', response.data);
           resolve(response);
         })
-        .catch((error) => {
-          console.log(error.message);
-          reject(error);
-        });
+        .catch((error) => reject(error));
     });
   },
 
@@ -128,14 +119,10 @@ const actions = {
         },
       })
         .then((response) => {
-          console.log('events/deleteEvent');
           commit('DELETE_EVENT', response.data);
           resolve(response);
         })
-        .catch((error) => {
-          console.log(error.message);
-          reject(error);
-        });
+        .catch((error) => reject(error));
     });
   },
 };
