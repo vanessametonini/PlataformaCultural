@@ -3,6 +3,32 @@ import api from '../../../apiClient';
 const token = localStorage.getItem('access_token');
 const actions = {
 
+  createNewEvent({
+    commit,
+    getters,
+    dispatch,
+    rootGetters,
+  }) {
+    const event = {
+      ...getters.getEventForm,
+      userId: rootGetters['users/getCurrentUser'].id,
+      createdAt: rootGetters.date,
+    };
+    event.dateTime = `${event.date} ${event.time}`;
+    delete event.date;
+    delete event.time;
+    dispatch('services/POST', { uri: 'events', data: event }, { root: true })
+      .then((response) => {
+        commit('ADD_EVENT_LIST', {
+          ...event,
+          id: response.data[0],
+        });
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  },
+
   loadEvents({ commit, dispatch, rootGetters }) {
     dispatch('services/GET', { uri: 'events' }, { root: true })
       .then((response) => {

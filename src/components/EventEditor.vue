@@ -59,7 +59,7 @@
               v-model="time"
               class="input2"
               dense
-              mask="##:##"
+              mask="##:##:##"
               input-class="text-white"
               color="white"
             />
@@ -89,7 +89,7 @@
           />
         </div>
 
-        <!-- number & cep -->
+        <!-- number & zipcode -->
         <div class="row justify-between mg-top8">
           <div class="column">
             <span class="subheading-2">número</span>
@@ -103,9 +103,9 @@
           </div>
 
           <div class="column">
-            <span class="subheading-2">cep</span>
+            <span class="subheading-2">zipcode</span>
             <q-input
-              v-model="cep"
+              v-model="zipcode"
               class="input2"
               dense
               input-class="text-white"
@@ -121,7 +121,6 @@
             v-model="ticket"
             class="input"
             dense
-            mask="r$ ##"
             input-class="text-white"
             color="white"
           />
@@ -160,7 +159,11 @@
           <span class="subheading-2">categoria</span>
 
           <q-select
-            v-model="category"
+            v-model="categoryId"
+            option-value="id"
+            option-label="label"
+            map-options
+            emit-value
             class="input"
             outlined
             square
@@ -170,9 +173,9 @@
             options-selected-class
             color="white"
           >
-            <template #selected>
+            <!-- <template #selected>
               <span class="caption bold">{{ category.label }}</span>
-            </template>
+            </template> -->
           </q-select>
         </div>
 
@@ -309,24 +312,12 @@ export default {
       step: 0,
       lastStep: '',
       eventId: null,
-      // name: '',
-      // date: null,
-      // time: '',
-      // ticket: '',
-      // street: '',
-      // neighborhood: '',
-      // number: '',
-      // city: '',
-      // cep: '',
-      // description: '',
       category: {
         label: '',
         value: '',
         color: '#b8cad4',
       },
-      // link: '',
       file: null,
-      // imgUrl: '',
     };
   },
   computed: {
@@ -339,10 +330,11 @@ export default {
       neighborhood: 'eventForm.neighborhood',
       number: 'eventForm.number',
       city: 'eventForm.city',
-      cep: 'eventForm.zipcode',
+      zipcode: 'eventForm.zipcode',
       description: 'eventForm.description',
       link: 'eventForm.link',
       imgUrl: 'eventForm.imgUrl',
+      categoryId: 'eventForm.categoryId',
     }),
     ...mapGetters({
       categories: 'categories/loadCategories',
@@ -384,7 +376,8 @@ export default {
       }
     },
     confirmCreate() { // confirma criação de evento ou ediçao de shortEvent
-      this.completed = true;
+      this.$store.dispatch('events/createNewEvent');
+      // this.completed = true;
       // const newEvent = {
       //   // id: this.eventId, // não precisa, o banco cria
       //   userRef: this.user.id,
@@ -395,7 +388,7 @@ export default {
       //   neighborhood: this.neighborhood,
       //   number: this.number,
       //   city: this.city,
-      //   cep: this.cep,
+      //   zipcode: this.zipcode,
       //   ticket: this.ticket,
       //   description: this.description,
       //   link: this.link,
@@ -407,11 +400,11 @@ export default {
       // this.$emit('createEvent', this.newEvent.id); // emit id do evento para o componente myEvents se atualizar
       // this.$store.dispatch({ type: 'addEvent', newEvent }); // envia a store a ação add event
       // this.resetFields();
-      this.lastStep = 1; // seta o lastStep
-      const a = this; // armazena escopo
-      setTimeout(() => {
-        a.step = 0;
-      }, 1000); // seta step para modo de adicionar novo evento
+      // this.lastStep = 1; // seta o lastStep
+      // const a = this; // armazena escopo
+      // setTimeout(() => {
+      //   a.step = 0;
+      // }, 1000); // seta step para modo de adicionar novo evento
     },
     // resetFields() {
     //   this.eventId = null;
@@ -423,7 +416,7 @@ export default {
     //   this.neighborhood = '';
     //   this.number = '';
     //   this.city = '';
-    //   this.cep = '';
+    //   this.zipcode = '';
     //   this.description = '';
     //   this.category.label = '';
     //   this.category.value = '';

@@ -26,7 +26,7 @@
         :href="item.link"
       >.link do evento</a>
     </div>
-    <div class="img-box">
+    <!-- <div class="img-box">
       <q-img
         :src="item.imgUrl"
         :ratio="16/9"
@@ -36,7 +36,7 @@
         class="img"
         src="../assets/statics/avatar01.jpg"
       >
-    </div>
+    </div> -->
   </div>
 </template>
 

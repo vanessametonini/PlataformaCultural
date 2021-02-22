@@ -21,6 +21,10 @@ const mutations = {
     state.list = data;
   },
 
+  ADD_EVENT_LIST(state, data) {
+    state.list.push(data);
+  },
+
   SET_TOPICS_LIST(state, { data }) {
     state.list = data;
   },

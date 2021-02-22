@@ -2,10 +2,12 @@ const state = {
   list: [],
   eventForm: {
     title: '',
-    date: null,
+    date: '',
     time: '',
     street: '',
     neighborhood: '',
+    number: '',
+    zipcode: '',
     city: '',
     ticket: '',
     link: '',
