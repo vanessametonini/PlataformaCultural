@@ -1,7 +1,7 @@
 <template>
   <div class="app-component topics-list">
     <div
-      v-if="eventsLoaded.length === 0"
+      v-if="false"
       class="null-state column"
     >
       <img src="../assets/statics/pixeltrue-idea.png">
@@ -14,28 +14,28 @@
       v-else
       class="content"
     >
-      <q-scroll-area
+      <!-- <q-scroll-area
         v-if="handleResize"
         class="scroll-area"
         :thumb-style="thumbStyle"
         :bar-style="barStyle"
+      > -->
+      <masonry
+        class="grid"
+        :cols="{ default: 3, 1200: 3, 1130: 2, 600: 1 }"
+        :gutter="{ default: '16px', 1200: '4px', 1130: '8px', 600: '4px'}"
       >
-        <masonry
-          class="grid"
-          :cols="{ default: 3, 1200: 3, 1130: 2, 600: 1 }"
-          :gutter="{ default: '16px', 1200: '4px', 1130: '8px', 600: '4px'}"
+        <div
+          v-for="item in events"
+          :key="item.id"
         >
-          <div
-            v-for="item in events"
-            :key="item.id"
-          >
-            <schedule-item
-              class="item"
-              :item="item"
-            />
-          </div>
-        </masonry>
-      </q-scroll-area>
+          <schedule-item
+            class="item"
+            :item="item"
+          />
+        </div>
+      </masonry>
+      <!-- </q-scroll-area> -->
     </div>
   </div>
 </template>

@@ -3,9 +3,20 @@ import api from '../../../apiClient';
 const token = localStorage.getItem('access_token');
 const actions = {
 
-  loadEvents({ commit, dispatch }) {
+  loadEvents({ commit, dispatch, rootGetters }) {
     dispatch('services/GET', { uri: 'events' }, { root: true })
-      .then((response) => commit('SET_EVENTS_LIST', response.data))
+      .then((response) => {
+        const events = response.data.map((event) => {
+          const date = rootGetters.formatDate(event.dateTime);
+          const time = rootGetters.formatTime(event.dateTime);
+          return {
+            ...event,
+            date,
+            time,
+          };
+        });
+        commit('SET_EVENTS_LIST', events);
+      })
       .catch((error) => {
         console.log(error.message);
       });

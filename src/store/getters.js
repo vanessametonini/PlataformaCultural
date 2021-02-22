@@ -18,17 +18,21 @@ const getters = {
     `;
   },
   formatDate: () => (date) => {
-    const d = new Date(date);
+    const data = new Date(date);
     const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-    const month = monthNames[d.getMonth()];
-    const year = d.getFullYear();
-    let day;
-    if (d.getDate().toString().length === 1) {
-      day = `0${d.getDate()}`;
-    } else {
-      day = d.getDate();
-    }
-    return `${day} de ${month} de ${year}`;
+    return single`
+      ${data.getDate().toString().padStart(2, '0')} 
+      de ${monthNames[data.getMonth()]} de 
+      ${data.getFullYear()}
+    `;
+  },
+  formatTime: () => (date) => {
+    const data = new Date(date);
+    const minutos = data.getMinutes();
+    return single`
+      ${data.getHours()} horas 
+      ${(minutos === 0) ? '' : `e ${minutos} minutos`}
+    `;
   },
 };
 

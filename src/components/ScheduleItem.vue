@@ -2,34 +2,36 @@
   <div class="app-component">
     <div
       class="card column"
-      :style="{ 'background-color': category.color }"
+      :style="{ 'background-color': category(item.categoryId).color }"
     >
-      <span class="big-title bolder line-h16"> {{ title }} </span>
-      <span class="caption bolder mg-top8"> {{ category.label }} </span>
+      <span class="big-title bolder line-h16"> {{ item.title }} </span>
+      <span class="caption bolder mg-top8"> {{ category(item.categoryId).label }} </span>
 
       <div class="row mg-top16">
-        <span class="body-2 bolder"> {{ formatDate }} </span>
-        <!-- <span class="body-2 bold"> {{ date.year }} </span> -->
-        <span class="body-2 bolder mg-left16"> {{ formatTime }} </span>
+        <span class="body-2 bolder"> Dia {{ item.date }} </span>
+        <span class="body-2 bolder mg-left16"> às {{ item.time }} </span>
       </div>
 
-      <span class="body-2 bolder mg-top32"> {{ description }} </span>
+      <span class="body-2 bolder mg-top32"> {{ item.description }} </span>
 
       <div class="row mg-top32">
-        <span class="body-3"> {{ address.street }}, {{ address.neighborhood }} </span>
+        <span class="body-3"> {{ item.street }}, {{ item.neighborhood }} </span>
       </div>
 
-      <span class="body-3">Entrada: {{ ticket }} </span>
+      <span class="body-3">Entrada:  R$ {{ item.ticket }} </span>
 
       <a
         class=" link body-3 bolder mg-top16"
         target="blank"
-        :href="link"
+        :href="item.link"
       >.link do evento</a>
     </div>
-
     <div class="img-box">
-      <!-- <q-img :src="img" :ratio="16/9" placeholder-src="statics/avatar01.jpg"/> -->
+      <q-img
+        :src="item.imgUrl"
+        :ratio="16/9"
+        placeholder-src="statics/avatar01.jpg"
+      />
       <img
         class="img"
         src="../assets/statics/avatar01.jpg"
@@ -49,55 +51,10 @@ export default {
       default: null,
     },
   },
-  data() {
-    return {
-      id: this.item.id,
-      title: this.item.title,
-      date: this.item.date,
-      time: this.item.time,
-      address: this.item.address,
-      ticket: this.item.ticket,
-      link: this.item.link,
-      description: this.item.description,
-      categoryId: this.item.categoryId,
-      category: {
-        label: '',
-        value: '0',
-        color: '#000',
-      },
-      img: this.item.imgUrl,
-    };
-  },
   computed: {
     ...mapGetters({
-      options: 'categories/loadCategories',
+      category: 'categories/getCategoryById',
     }),
-    formatDate() {
-      const d = new Date(this.date);
-      const monthNames = ['Jan', 'Fev', 'Mar', 'Abril', 'Maio', 'Junho', 'Julho', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
-      const month = monthNames[d.getMonth()];
-      let day;
-      if (d.getDate().toString().length === 1) {
-        day = `0${d.getDate()}`;
-      } else {
-        day = d.getDate();
-      }
-      return `${day} de ${month}`;
-    },
-    formatTime() {
-      const t = this.time;
-      return `${t.substr(0, 2)}h`;
-    },
-  },
-  mounted() {
-    this.setCategory();
-  },
-  methods: {
-    setCategory() {
-      const vm = this;
-      const el = this.options.find((item) => item.value === vm.categoryId.toString());
-      this.category = el;
-    },
   },
 };
 </script>
