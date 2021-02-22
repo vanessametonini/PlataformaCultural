@@ -67,6 +67,7 @@ export default {
     },
   },
   mounted() {
+    this.$store.dispatch('topics/loadTopics');
     this.$nextTick(function scrollListener() {
       window.addEventListener('scroll', this.onScroll);
       this.onScroll(); // needed for initial loading on page

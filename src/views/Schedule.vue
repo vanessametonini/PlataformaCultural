@@ -49,7 +49,6 @@
 
         <div class="aside-filter-create-event">
           <base-button
-            v-if="isLoggedIn"
             class="btn-signup"
             theme="primary"
             @click="signUp()"
@@ -89,7 +88,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import EventList from '../components/EventList.vue';
 import BaseButton from '../components/BaseButton.vue';
 
@@ -128,9 +126,6 @@ export default {
       },
     };
   },
-  ...mapGetters({
-    isLoggedIn: 'users/isLoggedIn',
-  }),
   computed: {
     allTopics() {
       const eventsToShow = this.$store.getters.eventsFiltered;

@@ -26,12 +26,12 @@
             class="action-content"
           >
             <i
-              v-if="isLoggedIn && currentUser && canEditTopic()"
+              v-if="canEditTopic()"
               class="action-icon far fa-edit"
               @click="editing = true"
             />
             <i
-              v-if="isLoggedIn && currentUser && canEditTopic()"
+              v-if="canEditTopic()"
               class="action-icon far fa-trash-alt"
               @click="deleteAction = true, editing = false"
             />
@@ -67,7 +67,7 @@
           class="action-replying row"
         >
           <base-button
-            v-if="isLoggedIn && currentUser"
+
             class="reply-button"
             theme="transparent"
             @click="comment = !comment"
@@ -79,13 +79,11 @@
           </base-button>
 
           <i
-            v-if="isLoggedIn && currentUser"
             class="action-icon far fa-heart"
             :class="{ 'liked': hasBeenLiked }"
             @click="likeReply()"
           />
           <i
-            v-if="!isLoggedIn"
             class="action-icon no-pointer far fa-heart"
           />
 
@@ -181,7 +179,6 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isLoggedIn: 'users/isLoggedIn',
       currentUser: 'users/getCurrentUser',
       numberOfReplyLikes: 'topics/replies/likes/getNumberOfReplyLikes',
       myLike: 'topics/replies/likes/getMyLikeCurrentTopicByReplyId',

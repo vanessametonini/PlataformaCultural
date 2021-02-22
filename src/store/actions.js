@@ -8,7 +8,6 @@ const actions = {
     dispatch('services/verifyToken')
       .then((response) => {
         dispatch('users/loadCurrentUser', { id: response.id });
-        dispatch('topics/loadTopics');
       });
     // try {
     //   dispatch('topics/loadTopics');

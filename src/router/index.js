@@ -36,9 +36,9 @@ const routes = [
     path: '/profile',
     name: 'Profile',
     component: () => import(/* webpackChunkName: "profile" */ '../views/Profile.vue'),
-    // meta: {
-    //   requiresAuth: true,
-    // },
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/dashboard',
@@ -53,17 +53,17 @@ const routes = [
     path: '/schedule',
     name: 'Schedule',
     component: () => import(/* webpackChunkName: "schedule" */ '../views/Schedule.vue'),
-    // meta: {
-    //   requiresAuth: true,
-    // },
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/topics', // todos os tópicos (debates)
     name: 'Topics',
     component: () => import(/* webpackChunkName: "Topics" */ '../views/Topics.vue'),
-    // meta: {
-    //   requiresAuth: true,
-    // },
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/topics/createTopic', // todos os tópicos (debates)

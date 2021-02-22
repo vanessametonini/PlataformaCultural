@@ -132,9 +132,6 @@ export default {
     };
   },
   computed: {
-    isLoggedIn() {
-      return this.$store.getters.isLoggedIn;
-    },
     ...mapGetters({
       currentUser: 'users/getCurrentUser',
       myPin: 'users/getMyPin',

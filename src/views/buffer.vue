@@ -78,7 +78,6 @@
     <!-- start button area -->
     <div class="button-area">
       <q-btn
-        v-if="!isLoggedIn"
         flat
         class="btn-custom"
         to="/signIn"
@@ -90,7 +89,6 @@
       </q-btn>
 
       <q-btn
-        v-if="isLoggedIn"
         flat
         class="btn-custom"
         to="/profile"
@@ -236,7 +234,6 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isLoggedIn: 'isLoggedIn',
       categories: 'loadCategories',
       loadPins: 'loadPins',
     }),

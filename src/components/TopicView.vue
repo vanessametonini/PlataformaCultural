@@ -21,7 +21,7 @@
 
     <!-- delete field -->
     <base-confirm-dialog
-      v-if="showConfirmDialog"
+      v-if="false"
       class="confirm-dialog"
       confirm-button-title="delete"
       dismiss-button-title="cancel"
@@ -74,20 +74,8 @@
 
     <!-- participate-area -->
     <div class="participate-area">
-      <!-- common user -->
-      <base-button
-        v-if="!isLoggedIn"
-        class=""
-        theme="flat"
-        @click="onReply"
-      >
-        <!-- <i class="fas fa-plus reply-icon"></i> -->
-        <span class="body-2 bolder text-black"> Vote, Comente. Participe! </span>
-      </base-button>
-
       <!-- registered user -->
       <div
-        v-if="isLoggedIn"
         class="participate-content row"
       >
         <div
@@ -150,7 +138,7 @@
       <div class="action-buttons">
         <!-- botao editar -->
         <base-button
-          v-if="isLoggedIn && currentUser && canEditTopic(currentUser.id, topic.user.id)"
+          v-if="false"
           class="user-button mg-left8"
           :to="{ name: 'EditTopic', params: { topicId: topic.id } }"
         >
@@ -160,7 +148,7 @@
 
         <!-- v-if cond = > && currentUser && currentUser.canDeleteTopic(topic) -->
         <base-button
-          v-if="isLoggedIn && currentUser && canEditTopic(currentUser.id, topic.user.id)"
+          v-if="false"
           class="user-button mg-left8"
           @click="showConfirmDialog = true"
         >
@@ -227,7 +215,7 @@ export default {
   emits: ['delete'],
   data() {
     return {
-      showConfirmDialog: this.isLoggedIn,
+      showConfirmDialog: true,
       thumbStyle: {
         right: '0px',
         top: '16px',
@@ -249,7 +237,6 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isLoggedIn: 'users/isLoggedIn',
       currentUser: 'users/getCurrentUser',
       supports: 'topics/supports/getInfoCurrentTopicSupports',
       myVote: 'topics/supports/getMyVoteCurrentTopic',
@@ -267,12 +254,12 @@ export default {
   methods: {
     ...mapActions(['setNextRoute']),
     onReply() {
-      if (this.isLoggedIn) {
-        this.jumpToReplyForm();
-      } else {
-        this.setNextRoute({ route: this.$route.fullPath }); // seta a nextRoute para redirecionar o usuário para cá
-        this.$router.push({ name: 'SignIn' });
-      }
+      // if (this.isLoggedIn) {
+      this.jumpToReplyForm();
+      // } else {
+      //   this.setNextRoute({ route: this.$route.fullPath }); // seta a nextRoute para redirecionar o usuário para cá
+      //   this.$router.push({ name: 'SignIn' });
+      // }
     },
     jumpToReplyForm() {
       if (this.$refs.replyForm) {

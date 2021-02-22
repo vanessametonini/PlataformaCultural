@@ -35,7 +35,6 @@ export default {
     ...mapGetters({
       topic: 'topics/getCurrentTopic',
       replyes: 'topics/replies/getCurrentTopicReplyes',
-      isLoggedIn: 'users/isLoggedIn',
     }),
   },
   methods: {
