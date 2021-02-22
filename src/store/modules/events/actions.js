@@ -41,9 +41,7 @@ const actions = {
         });
         commit('SET_EVENTS_LIST', events);
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => error);
   },
 
   loadInitialEvents({ commit }, { type, pagination }) {
@@ -58,14 +56,10 @@ const actions = {
         },
       })
         .then((response) => {
-          console.log('topics/loadInitialTopics');
           commit('SET_TOPICS_LIST', response.data);
           resolve(response);
         })
-        .catch((error) => {
-          console.log(error.message);
-          reject(error);
-        });
+        .catch((error) => reject(error));
     });
   },
   // AWAIT API IMPLEMENT
@@ -81,7 +75,6 @@ const actions = {
         },
       })
         .then((response) => {
-          console.log('topics/loadMoreTopics');
           commit('SET_TOPICS_LIST', response.data);
           resolve(response);
         })
