@@ -5,7 +5,7 @@ const actions = {
         commit('SET_PINS_LIST', response.data);
         commit('SET_PINS_LIST_FILTERED', response.data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => error);
   },
 
   loadMyPin({ commit, dispatch, rootState }) {
@@ -14,9 +14,7 @@ const actions = {
         commit('users/ADD_PIN', response.data, { root: true });
         commit('ADD_CURRENT_PIN', response.data);
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => error);
   },
 
   updateMyPin({ dispatch, rootState }) {
@@ -31,10 +29,7 @@ const actions = {
           dispatch('loadMyPin');
           resolve(response);
         })
-        .catch((error) => {
-          console.log(error.message);
-          reject(error);
-        });
+        .catch((error) => reject(error));
     });
   },
 };
