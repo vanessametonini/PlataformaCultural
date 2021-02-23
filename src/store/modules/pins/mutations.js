@@ -5,6 +5,17 @@ const mutations = {
     state.list = pins;
   },
 
+  SET_PINS_LIST_FILTERED(state, pins) {
+    state.listFiltered = pins;
+  },
+
+  UPDATE_PIN_LIST_FILTERED_BY_ARRAY_CATEGORY_VALUE(state, array) {
+    state.listFiltered = [];
+    array.forEach((categoryId) => {
+      state.listFiltered = state.listFiltered.concat(state.list.filter((pin) => pin.categoryId === categoryId));
+    });
+  },
+
   ADD_NEW_PIN(state, { pins }) {
     state.list = pins;
   },

@@ -41,6 +41,7 @@ const state = {
       whatsapp: 'https://whatsapp.com',
     },
   ],
+  listFiltered: [],
   markers: [],
 };
 

@@ -6,6 +6,9 @@ function single(strings, ...values) {
 }
 
 const getters = {
+  getAuth(state) {
+    return state.authenticated;
+  },
   getKey(state) {
     return state.newKey;
   },

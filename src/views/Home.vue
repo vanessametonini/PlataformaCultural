@@ -79,6 +79,7 @@
     <!-- BUTTON LOGIN/PROFILE -->
     <div class="button-area">
       <q-btn
+        v-if="!$store.getters['getAuth']"
         flat
         class="btn-custom"
         to="/signIn"
@@ -90,6 +91,7 @@
       </q-btn>
 
       <q-btn
+        v-if="$store.getters['getAuth']"
         flat
         class="btn-custom"
         to="/profile"
@@ -232,12 +234,12 @@ export default {
         autoPanPaddingTopLeft: [240, 16],
         closeButton: false,
       },
-      filterSelections: ['2', '11', '21', '31', '41', '51', '61', '71', '81', '91', '101', '111', '121', '131', '141', '151', '161', '171'],
+      filterSelections: [],
     };
   },
   computed: {
     ...mapGetters({
-      pins: 'pins/loadPins',
+      pins: 'pins/loadPinsFiltered',
       markers: 'pins/getMarkers',
     }),
   },

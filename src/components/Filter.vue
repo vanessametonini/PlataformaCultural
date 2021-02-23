@@ -1,11 +1,11 @@
 <template>
   <div class="filter">
-    <!-- start options -->
+    <!-- start categories -->
     <div class="filter-list">
       <q-list>
         <q-item
-          v-for="item in options"
-          :id="`item-${item.value}`"
+          v-for="item in categories"
+          :id="`item-${item.id}`"
           :key="item.value"
           class="item"
           clickable
@@ -35,7 +35,7 @@
 
       <!-- <span style="color: red"> {{ this.selected }}</span> -->
     </div>
-    <!-- end options -->
+    <!-- end categories -->
   </div>
 </template>
 
@@ -52,32 +52,68 @@ export default {
   data() {
     return {
       selected: [],
+      selecteds: [],
       active: false,
     };
   },
   computed: {
     ...mapGetters({
-      options: 'categories/loadCategories',
+      categories: 'categories/loadCategories',
+      category: 'categories/getCategoryByValue',
     }),
   },
+  mounted() {
+    // this.resetAllColors();
+    // this.setColor(2);
+  },
   methods: {
-    emit(sel) {
-      if (this.selected.includes(sel)) {
-        this.$emit('call-filter', sel.value);
-        // console.log('delete', sel);
-        const index = this.selected.indexOf(sel); // resgata do array o index fo elemento selecionado
-        const element = this.selected[index]; // resgata o elemento selecionado
-        // console.log('restore', element);
-        document.getElementById(`icon-${sel.value}`).getElementById('g').setAttribute('fill', `${element.color}`); // restaura a cor do svg icon
-        document.getElementById(`category-label-${sel.value}`).style.color = '#000'; // restaura a cor do label
-        this.selected.splice(index, 1); // remove elemento do array backup
+    emit(category) {
+      if (this.selecteds.length === 0) {
+        this.resetAllColors();
+        this.selecteds.push(category.id);
+        this.setColor(category.value);
+      } else if (this.selecteds.includes(category.id)) {
+        this.selecteds.splice(this.selecteds.indexOf(category.id), 1);
+        this.resetColor(category.value);
       } else {
-        this.$emit('call-filter', sel.value);
-        // console.log('push selected', sel);
-        this.selected.push(sel); // salva elemento selecionado no array
-        document.getElementById(`icon-${sel.value}`).getElementById('g').setAttribute('fill', '#b8bfc2'); // seta a nova cor para o svg icon
-        document.getElementById(`category-label-${sel.value}`).style.color = '#b8bfc2'; // seta a nova cor para label
+        this.selecteds.push(category.id);
+        this.setColor(category.value);
       }
+      this.$store.commit('pins/UPDATE_PIN_LIST_FILTERED_BY_ARRAY_CATEGORY_VALUE', this.selecteds);
+      // this.resetColor(sel.value);
+      // if (this.selected.includes(sel)) {
+      //   const index = this.selected.indexOf(sel);
+      //   const element = this.selected[index];
+      //   document.getElementById(`icon-${sel.value}`).getElementById('g').setAttribute('fill', `${element.color}`);
+      //   document.getElementById(`category-label-${sel.value}`).style.color = '#000';
+      //   this.selected.splice(index, 1);
+      // } else {
+      //   this.selected.push(sel);
+      //   document.getElementById(`icon-${sel.value}`).getElementById('g').setAttribute('fill', 'b8bfc2');
+      //   document.getElementById(`category-label-${sel.value}`).style.color = '#b8bfc2';
+      // }
+    },
+    resetAllColors() {
+      let i = 1;
+      for (i; i < 19; i += 1) {
+        document.getElementById(`icon-${i}`).getElementById('g').setAttribute('fill', '#b8bfc2');
+        document.getElementById(`category-label-${i}`).style.color = '#b8bfc2';
+      }
+    },
+    setAllColors() {
+      let i = 1;
+      for (i; i < 19; i += 1) {
+        document.getElementById(`icon-${i}`).getElementById('g').setAttribute('fill', `${this.category(i).color}`);
+        document.getElementById(`category-label-${i}`).style.color = '#000';
+      }
+    },
+    setColor(value) {
+      document.getElementById(`icon-${value}`).getElementById('g').setAttribute('fill', `${this.category(value).color}`);
+      document.getElementById(`category-label-${value}`).style.color = '#000';
+    },
+    resetColor(value) {
+      document.getElementById(`icon-${value}`).getElementById('g').setAttribute('fill', '#b8bfc2');
+      document.getElementById(`category-label-${value}`).style.color = '#b8bfc2';
     },
   },
 };

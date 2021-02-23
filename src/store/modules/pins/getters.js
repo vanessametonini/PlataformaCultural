@@ -25,10 +25,12 @@ const getters = {
   loadPins(state) {
     return state.list;
   },
-
+  loadPinsFiltered(state) {
+    return state.listFiltered;
+  },
   getMarkers(state) {
     const markers = [];
-    state.list.forEach((item) => markers.push({ ...item, coordinates: [item.lat, item.long], image: images[(item.categoryId - 1) / 10 + 1] }));
+    state.listFiltered.forEach((item) => markers.push({ ...item, coordinates: [item.lat, item.long], image: images[(item.categoryId - 1) / 10 + 1] }));
     return markers;
   },
 

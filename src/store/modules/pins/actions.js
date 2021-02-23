@@ -3,6 +3,7 @@ const actions = {
     dispatch('services/GET', { uri: 'pins' }, { root: true })
       .then((response) => {
         commit('SET_PINS_LIST', response.data);
+        commit('SET_PINS_LIST_FILTERED', response.data);
       })
       .catch((error) => console.log(error));
   },
