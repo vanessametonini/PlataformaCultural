@@ -4,14 +4,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  created() {
-    this.$store.dispatch('initStore');
-  },
-};
-</script>
-
 <style lang="scss">
 @import "./styles/variables.scss";
 @import "./styles/mixins.scss";

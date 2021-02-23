@@ -1,8 +1,7 @@
 const state = {
-  namespaced: true,
   newKey: null,
   nextRoute: null,
-  authenticated: false,
+  authenticated: null,
 };
 
 export default state;

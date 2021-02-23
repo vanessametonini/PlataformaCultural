@@ -15,6 +15,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       dispatch('services/POST', { uri: 'signin', data: credentials }, { root: true })
         .then((response) => {
+          commit('SET_AUTHENTICATION', {}, { root: true });
           commit('SET_CURRENT_USER', response.data);
           commit('services/STORAGE_TOKEN', response.data.token, { root: true });
           dispatch('pins/loadMyPin', {}, { root: true });
@@ -52,6 +53,7 @@ const actions = {
   destroyToken({ commit }) {
     localStorage.removeItem('access_token');
     commit('DESTROY_CURRENT_USER');
+    commit('RESET_AUTHENTICATION', {}, { root: true });
     console.log('logout');
   },
 

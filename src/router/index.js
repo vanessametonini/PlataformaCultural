@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import store from '../store/index';
 
 Vue.use(VueRouter);
 
@@ -69,14 +70,17 @@ const routes = [
     path: '/topics/createTopic', // todos os tópicos (debates)
     name: 'CreateTopic',
     component: () => import(/* webpackChunkName: "Topics" */ '../views/CreateTopic.vue'),
-    // meta: {
-    //   requiresAuth: true,
-    // },
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/topics/:topicId', // página de um tópico
     name: 'TopicPage',
     component: () => import(/* webpackChunkName: "topic" */ '../views/TopicPage.vue'),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/terms',
@@ -146,21 +150,27 @@ const Router = new VueRouter({
   scrollBehavior,
 });
 
+store.dispatch('initStore');
+
 Router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    // const accessToken = localStorage.getItem('access_token');
-    // const accessToken = sessionStorage.getItem('access_token');
-    const accessToken = true;
-    console.log(`to ${to.name}`);
-    if (to.name !== 'SignIn' && !accessToken) {
-      next({
-        path: '/signIn',
-      });
-    } else {
+  if (store.state.authenticated == null) {
+    store.watch(() => store.state.authenticated, (status) => {
+      if (status) {
+        next();
+      } else if (to.matched.some((record) => record.meta.requiresAuth)) {
+        next('/signIn');
+      } else {
+        next();
+      }
+    });
+  } else if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (store.state.authenticated) {
       next();
+    } else {
+      next('/signIn');
     }
   } else {
-    next(); // make sure to always call next()!
+    next();
   }
 });
 
