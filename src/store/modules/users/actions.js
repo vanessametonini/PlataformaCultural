@@ -137,7 +137,7 @@ const actions = {
   },
 
   // IMPLEMENT REQUEST - ADD TOKEN
-  unlikeReply({ state, commit, dispatch }, { replyId }) {
+  unlikeReply({ commit, dispatch }, { replyId }) {
     // Promise((resolve, reject) => {
     //   api.delete('/removeLikeInReply', {
     //     replyId,
@@ -157,7 +157,7 @@ const actions = {
   },
 
   // IMPLEMENT REQUEST - ADD TOKEN - CONTINUE HERE
-  supportThis({ state, dispatch, commit }, { topicId, supportType }) {
+  supportThis({ dispatch, commit }, { topicId, supportType }) {
     const newSupport = { topicId, supportType }; // TO BE DELETED
     // Promise((resolve, reject) => {
     //   api.post('/supportTopic', {
