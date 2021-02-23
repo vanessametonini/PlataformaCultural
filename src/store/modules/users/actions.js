@@ -6,8 +6,8 @@ const actions = {
   // OK
   signUp({ dispatch }, { credentials }) {
     dispatch('services/POST', { uri: 'signup', data: credentials }, { root: true })
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
+      .then((response) => response)
+      .catch((error) => error);
   },
 
   // Ok
@@ -21,10 +21,7 @@ const actions = {
           dispatch('pins/loadMyPin', {}, { root: true });
           resolve(response);
         })
-        .catch((error) => {
-          console.log(error.message);
-          reject(error);
-        });
+        .catch((error) => reject(error));
     });
   },
 
@@ -36,10 +33,7 @@ const actions = {
           dispatch('pins/loadMyPin', {}, { root: true });
           resolve(response);
         })
-        .catch((error) => {
-          console.log(error.message);
-          reject(error);
-        });
+        .catch((error) => reject(error));
     });
   },
 
@@ -54,13 +48,11 @@ const actions = {
     localStorage.removeItem('access_token');
     commit('DESTROY_CURRENT_USER');
     commit('RESET_AUTHENTICATION', {}, { root: true });
-    console.log('logout');
   },
 
   // IMPLEMENT REQUEST - ADD TOKEN
   addPin({ commit }, { data }) {
     return new Promise((resolve, reject) => {
-      console.log('users/addPin');
       api.post('/addNewPin', {
         title: data.title,
         category: data.category,
@@ -85,12 +77,10 @@ const actions = {
         },
       })
         .then((response) => {
-          console.log('users/addPin RESPONSE', response.data);
           commit('ADD_PIN', response.data);
           resolve(response);
         })
         .catch((error) => {
-          console.log('users/addPin - ERROR', error.message);
           reject(error);
         });
     });
@@ -114,12 +104,10 @@ const actions = {
         imgUrl: data.imgUrl,
       })
         .then((response) => {
-          console.log('users/addNewEvent RESPONSE', response.data);
           commit('ADD_EVENT', response.data);
           resolve(response);
         })
         .catch((error) => {
-          console.log('users/addNewEvent - ERROR', error.message);
           reject(error);
         });
     });
@@ -127,7 +115,6 @@ const actions = {
 
   // IMPLEMENT REQUEST - ADD TOKEN
   likeReply({ state, commit, dispatch }, { replyId }) {
-    console.log(state.currentUser.id); // TO BE DELETED
     // Promise((resolve, reject) => {
     //   api.post('/likeReply', {
     //     replyId,
@@ -147,12 +134,10 @@ const actions = {
     const likeId = state.key; // TO BE DELETED
     const like = { likeId, replyId, userId: state.currentUser.id }; // TO BE DELETED
     commit('ADD_LIKE', { like }); // TO BE DELETED
-    console.log('users/addLike'); // TO BE DELETED
   },
 
   // IMPLEMENT REQUEST - ADD TOKEN
   unlikeReply({ state, commit, dispatch }, { replyId }) {
-    console.log(state.currentUser.id); // TO BE DELETED
     // Promise((resolve, reject) => {
     //   api.delete('/removeLikeInReply', {
     //     replyId,
@@ -169,12 +154,10 @@ const actions = {
     // });
     dispatch('topics/decrementLikeInReply', { replyId }, { root: true }); // call decrementLike on topicModule
     commit('REMOVE_LIKE', { replyId });
-    console.log('users/unlikeLike');
   },
 
   // IMPLEMENT REQUEST - ADD TOKEN - CONTINUE HERE
   supportThis({ state, dispatch, commit }, { topicId, supportType }) {
-    console.log('fake log', state.currentUser.id); // TO BE DELETED
     const newSupport = { topicId, supportType }; // TO BE DELETED
     // Promise((resolve, reject) => {
     //   api.post('/supportTopic', {
@@ -204,7 +187,6 @@ const actions = {
       autoId += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     const key = autoId;
-    console.log('generated KEY', key);
     commit('SET_KEY', { newKey: key });
   },
 };
