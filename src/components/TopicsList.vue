@@ -84,8 +84,6 @@ export default {
         this.lastFilter = type; // used to call getInitialTopics whenever filter changes
         this.streamCount = 0;
         this.getInitialTopics(type);
-      } else {
-        console.log('filter dont changed');
       }
     },
     getInitialTopics(type) {
@@ -97,9 +95,7 @@ export default {
           this.streamCount = 1; // records the value of the new streamCount
           this.topicsLoaded.push(response.data);
         })
-        .catch((error) => {
-          console.log('topicsList/getInitialTopics - ERROR', error.message);
-        });
+        .catch((error) => error);
     },
     getMoreTopics() {
       // stream continue get 'currentFilter' and increment streamCount
@@ -111,16 +107,13 @@ export default {
           this.streamCount += 1; // increment
           this.topicsLoaded.push(response.data);
         })
-        .catch((error) => {
-          console.log('topicsList/getMoreTopics - ERROR', error.message);
-        });
+        .catch((error) => error);
     },
     onScroll() {
       window.onscroll = () => {
         const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
 
         if (bottomOfWindow) {
-          console.log('onScroll - trigger');
           this.getMoreTopics();
         }
       };
