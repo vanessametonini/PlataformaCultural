@@ -56,7 +56,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      topics: 'topics/loadTopics',
+      topics: 'topics/loadTopicsFiltered',
     }),
     hasAnyFilter() {
       let filterState = false;

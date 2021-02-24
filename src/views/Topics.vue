@@ -17,12 +17,12 @@
             v-for="(item, index) in options"
             :key="index"
             class="filter-options-item"
-            @click="filterThis(item.value)"
+            @click="currentFilter = item.value"
           >
             <span
               id="filter-item"
               class="body-3"
-              :class="{ 'selected-effect' : filterTypeSelected === item.value }"
+              :class="{ 'selected-effect' : currentFilter === item.value }"
             >
               {{ item.label }}
             </span>
@@ -88,8 +88,14 @@
 </template>
 z
 <script>
+import { createHelpers } from 'vuex-map-fields';
 import TopicsList from '../components/TopicsList.vue';
 import BaseButton from '../components/BaseButton.vue';
+
+const { mapFields } = createHelpers({
+  getterType: 'topics/getField',
+  mutationType: 'topics/updateField',
+});
 
 export default {
   name: 'TopicsPage',
@@ -100,8 +106,6 @@ export default {
   data() {
     return {
       newEvent: '',
-      filterTypeSelected: 'mostRecent',
-      search: '',
       options: [
         { label: 'Mais ativos', value: 'mostActive', color: 'black' },
         { label: 'Mais Comentados', value: 'mostAnswed', color: 'black' },
@@ -127,6 +131,7 @@ export default {
     };
   },
   computed: {
+    ...mapFields(['search', 'currentFilter']),
     allTopics() {
       const eventsToShow = this.$store.getters.eventsFiltered;
       return eventsToShow;
@@ -142,10 +147,6 @@ export default {
   methods: {
     createNewTopic() {
       this.$router.push({ name: 'CreateTopic' });
-    },
-    filterThis(filterType) {
-      this.filterTypeSelected = filterType;
-      console.log('filterThis', filterType);
     },
     handleResize() {
       const size = window.innerWidth;
