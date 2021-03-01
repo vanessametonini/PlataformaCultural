@@ -4,8 +4,8 @@
       ref="overlay"
       class="overlay"
     > -->
-      <!-- <img class="imgPresentation" src="../assets/esboco.png" alt=""> -->
-      <!-- <span
+    <!-- <img class="imgPresentation" src="../assets/esboco.png" alt=""> -->
+    <!-- <span
         ref="presentation"
         class="presentation"
       >cartografia da cultura</span> -->
