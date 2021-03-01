@@ -1,15 +1,15 @@
 <template>
   <div class="app-page home-page">
-    <div
+    <!-- <div
       ref="overlay"
       class="overlay"
-    >
+    > -->
       <!-- <img class="imgPresentation" src="../assets/esboco.png" alt=""> -->
-      <span
+      <!-- <span
         ref="presentation"
         class="presentation"
-      >cartografia da cultura</span>
-    </div>
+      >cartografia da cultura</span> -->
+    <!-- </div> -->
 
     <div class="aside column">
       <logo-card
@@ -248,7 +248,7 @@ export default {
     this.handleResize();
   },
   mounted() {
-    this.homeTransition();
+    // this.homeTransition();
   },
   unmounted() {
     window.removeEventListener('resize', this.handleResize);
