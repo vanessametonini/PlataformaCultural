@@ -16,7 +16,7 @@
       v-if="!setWhite"
       id="g"
       transform="translate(0.000000,151.000000) scale(0.100000,-0.100000)"
-      :fill="getIcon.iconColor"
+      :fill="color"
     >
       <path :d="getIcon.path" />
       <path :d="getIcon.path2" />
@@ -38,6 +38,10 @@
 export default {
   name: 'IconBase',
   props: {
+    color: {
+      type: String,
+      default: '#b8bfc2',
+    },
     iconId: {
       type: [Number, String],
       default: 0,

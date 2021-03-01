@@ -3,7 +3,7 @@ const actions = {
     dispatch('services/GET', { uri: 'pins' }, { root: true })
       .then((response) => {
         commit('SET_PINS_LIST', response.data);
-        commit('SET_PINS_LIST_FILTERED', response.data);
+        // commit('SET_PINS_LIST_FILTERED', response.data);
       })
       .catch((error) => error);
   },
@@ -17,20 +17,18 @@ const actions = {
       .catch((error) => error);
   },
 
-  updateMyPin({ dispatch, rootState }) {
-    return new Promise((resolve, reject) => {
-      const params = {
-        userId: rootState.users.currentUser.id,
-        categoryId: rootState.users.currentUser.categoryId,
-      };
-      dispatch('services/POST', { uri: 'pins', data: { ...rootState.pins.currentPin, ...params } }, { root: true })
-        .then((response) => {
-          dispatch('loadPins');
-          dispatch('loadMyPin');
-          resolve(response);
-        })
-        .catch((error) => reject(error));
-    });
+  postPin({ commit, dispatch, rootState }) {
+    const data = {
+      ...rootState.pins.pinForm,
+      userId: rootState.users.currentUser.id,
+    };
+    dispatch('services/POST', { uri: 'pins', data }, { root: true })
+      .then((response) => {
+        commit('ADD_PIN', { ...data, ...response.data });
+        console.log(response);
+        return response;
+      })
+      .catch((error) => console.log(error));
   },
 };
 

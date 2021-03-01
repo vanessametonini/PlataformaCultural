@@ -3,17 +3,26 @@ import { updateField } from 'vuex-map-fields';
 const mutations = {
   SET_PINS_LIST(state, pins) {
     state.list = pins;
-  },
-
-  SET_PINS_LIST_FILTERED(state, pins) {
     state.listFiltered = pins;
   },
 
-  UPDATE_PIN_LIST_FILTERED_BY_ARRAY_CATEGORY_VALUE(state, array) {
+  ADD_PIN(state, pin) {
+    state.list.push(pin);
+  },
+
+  UPDATE_CATEGORIES_SELECTEDS(state, categoryId) {
+    if (state.selecteds.includes(categoryId)) {
+      state.selecteds.splice(state.selecteds.indexOf(categoryId), 1);
+    } else {
+      state.selecteds.push(categoryId);
+    }
     state.listFiltered = [];
-    array.forEach((categoryId) => {
-      state.listFiltered = state.listFiltered.concat(state.list.filter((pin) => pin.categoryId === categoryId));
+    state.selecteds.forEach((id) => {
+      state.listFiltered = state.listFiltered.concat(state.list.filter((pin) => pin.categoryId === id));
     });
+    if (state.selecteds.length === 0) {
+      state.listFiltered = state.list;
+    }
   },
 
   ADD_NEW_PIN(state, { pins }) {
@@ -33,7 +42,7 @@ const mutations = {
   },
 
   ADD_CURRENT_PIN(state, pin) {
-    state.currentPin = pin;
+    state.pinForm = pin;
   },
 
   updateField,

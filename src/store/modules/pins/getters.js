@@ -19,7 +19,7 @@ const i16 = require('../../../assets/icons/pins/16.png');
 const i17 = require('../../../assets/icons/pins/17.png');
 const i18 = require('../../../assets/icons/pins/18.png');
 
-const images = [i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i1, i12, i13, i14, i15, i16, i17, i18];
+const images = [i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18];
 
 const getters = {
   loadPins(state) {
@@ -27,6 +27,12 @@ const getters = {
   },
   loadPinsFiltered(state) {
     return state.listFiltered;
+  },
+  getColors: (state) => (category) => {
+    if (state.selecteds.length === 0 || state.selecteds.includes(category.id)) {
+      return category.color;
+    }
+    return '#b8bfc2';
   },
   getMarkers(state) {
     const markers = [];

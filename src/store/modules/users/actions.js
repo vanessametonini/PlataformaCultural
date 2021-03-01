@@ -18,7 +18,7 @@ const actions = {
           commit('SET_AUTHENTICATION', {}, { root: true });
           commit('SET_CURRENT_USER', response.data);
           commit('services/STORAGE_TOKEN', response.data.token, { root: true });
-          dispatch('pins/loadMyPin', {}, { root: true });
+          // dispatch('pins/loadMyPin', {}, { root: true });
           resolve(response);
         })
         .catch((error) => reject(error));
@@ -30,7 +30,7 @@ const actions = {
       dispatch('services/GET', { uri: `users/${id}` }, { root: true })
         .then((response) => {
           commit('SET_CURRENT_USER', response.data[0]);
-          dispatch('pins/loadMyPin', {}, { root: true });
+          // dispatch('pins/loadMyPin', {}, { root: true });
           resolve(response);
         })
         .catch((error) => reject(error));

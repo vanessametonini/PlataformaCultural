@@ -1,5 +1,7 @@
 const state = {
-  currentPin: {
+  selected: [],
+  selecteds: [],
+  pinForm: {
     userId: null,
     categoryId: null,
     title: '',
@@ -11,8 +13,6 @@ const state = {
     city: '',
     zipcode: '',
     description: '',
-    lat: null,
-    long: null,
     image: '',
     facebook: '',
     instagram: '',

@@ -172,6 +172,25 @@
             color="white"
           />
         </div>
+        <!-- category -->
+        <div class="column mg-top8">
+          <span class="subheading-2">categoria</span>
+          <q-select
+            v-model="categoryId"
+            option-value="id"
+            option-label="label"
+            map-options
+            emit-value
+            class="input"
+            outlined
+            square
+            dense
+            :options="categories"
+            options-dense
+            options-selected-class
+            color="white"
+          />
+        </div>
         <!-- file picker -->
         <q-file
           :max-file-size="2048"
@@ -204,7 +223,7 @@
           class="reset-btn primary-action"
           flat
           color="white"
-          @click="$store.dispatch('pins/updateMyPin')"
+          @click="$store.dispatch('pins/postPin')"
         >
           <span class="caption">Finalizar</span>
         </q-btn>
@@ -214,7 +233,7 @@
 </template>
 
 <script>
-
+import { mapGetters } from 'vuex';
 import { createHelpers } from 'vuex-map-fields';
 
 const { mapFields } = createHelpers({
@@ -251,21 +270,25 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      categories: 'categories/loadCategories',
+    }),
     ...mapFields({
-      title: 'currentPin.title',
-      email: 'currentPin.email',
-      phone: 'currentPin.phone',
-      street: 'currentPin.street',
-      number: 'currentPin.number',
-      neighborhood: 'currentPin.neighborhood',
-      city: 'currentPin.city',
-      zipcode: 'currentPin.zipcode',
-      description: 'currentPin.description',
-      image: 'currentPin.image',
-      facebook: 'currentPin.facebook',
-      instagram: 'currentPin.instagram',
-      twitter: 'currentPin.twitter',
-      whatsapp: 'currentPin.whatsapp',
+      title: 'pinForm.title',
+      email: 'pinForm.email',
+      phone: 'pinForm.phone',
+      street: 'pinForm.street',
+      number: 'pinForm.number',
+      neighborhood: 'pinForm.neighborhood',
+      city: 'pinForm.city',
+      zipcode: 'pinForm.zipcode',
+      description: 'pinForm.description',
+      image: 'pinForm.image',
+      facebook: 'pinForm.facebook',
+      instagram: 'pinForm.instagram',
+      twitter: 'pinForm.twitter',
+      whatsapp: 'pinForm.whatsapp',
+      categoryId: 'pinForm.categoryId',
     }),
     // mascara para telefone
     phoneMask() {
