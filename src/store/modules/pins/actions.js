@@ -17,7 +17,12 @@ const actions = {
       .catch((error) => error);
   },
 
-  postPin({ commit, dispatch, rootState }) {
+  postPin({
+    commit,
+    dispatch,
+    rootState,
+    rootGetters,
+  }, { $router }) {
     const data = {
       ...rootState.pins.pinForm,
       userId: rootState.users.currentUser.id,
@@ -25,7 +30,21 @@ const actions = {
     dispatch('services/POST', { uri: 'pins', data }, { root: true })
       .then((response) => {
         commit('ADD_PIN', { ...data, ...response.data });
-        console.log(response);
+        commit('SET_SELECTED_PIN_ID', response.data.id);
+        commit('ADD_SELECTED_CATEGORY', data.categoryId);
+        $router.push({ name: 'Home' });
+        const newPosition = [response.data.lat, response.data.long];
+        const oldPosition = { ...rootGetters['maps/getCenter'] };
+        const dx = (newPosition[0] - oldPosition.lat);
+        const dy = (newPosition[1] - oldPosition.lng);
+        let i = 0;
+        const interval = setInterval(() => {
+          i += 1;
+          commit('maps/TRANSLATE_MAP_CENTER', [oldPosition.lat + (dx * i) / 100, oldPosition.lng + (dy * i) / 100], { root: true });
+          if (i === 100) {
+            clearInterval(interval);
+          }
+        }, 3);
         return response;
       })
       .catch((error) => console.log(error));

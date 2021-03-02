@@ -6,12 +6,27 @@ const mutations = {
     state.listFiltered = pins;
   },
 
+  SET_SELECTED_PIN_ID(state, pinId) {
+    state.selectedPinId = pinId;
+  },
+
   ADD_PIN(state, pin) {
     state.list.push(pin);
   },
 
+  ADD_SELECTED_CATEGORY(state, categoryId) {
+    if (!state.selecteds.includes(categoryId)) {
+      state.selecteds.push(categoryId);
+    }
+    state.listFiltered = [];
+    state.selecteds.forEach((id) => {
+      state.listFiltered = state.listFiltered.concat(state.list.filter((pin) => pin.categoryId === id));
+    });
+  },
+
   UPDATE_CATEGORIES_SELECTEDS(state, categoryId) {
     if (state.selecteds.includes(categoryId)) {
+      state.selectedPinId = null;
       state.selecteds.splice(state.selecteds.indexOf(categoryId), 1);
     } else {
       state.selecteds.push(categoryId);

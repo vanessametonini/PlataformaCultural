@@ -107,18 +107,18 @@
     <div class="map-container">
       <l-map
         style="width: 100%, height: 100%"
-        :zoom="zoomSet.zoom"
-        :center="mapOptions.center"
-        :options="zoomSet.options"
-        :min-zoom="zoomSet.minZoom"
-        :max-zoom="zoomSet.maxZoom"
-        @update:zoom="zoomUpdated"
-        @update:center="centerUpdated"
-        @update:bounds="boundsUpdated"
+        :zoom="zoom"
+        :center="[center.lat, center.lng]"
+        :options="options"
+        :min-zoom="minZoom"
+        :max-zoom="maxZoom"
+        @update:zoom="zoom = $event"
+        @update:center="center = $event"
+        @update:bounds="bounds = $event"
       >
         <l-tile-layer
           :url="layers.carto.url"
-          :attribution="mapOptions.attribution"
+          :attribution="attribution"
         />
 
         <l-control-zoom
@@ -132,6 +132,8 @@
             :key="item.id"
             class="marker-item"
             :lat-lng="item.coordinates"
+            @ready="openDefaultMarkers($event, item)"
+            @click="$store.commit('pins/SET_SELECTED_PIN_ID', item.id)"
           >
             <l-icon
               class="icon-marker"
@@ -173,12 +175,16 @@ import {
   LPopup,
   LIcon,
 } from 'vue2-leaflet';
-
 import { mapGetters } from 'vuex';
 import { gsap, TweenMax, Expo } from 'gsap';
-
+import { createHelpers } from 'vuex-map-fields';
 import PinView from '../components/PinView.vue';
 import MyMenu from '../components/Menu.vue';
+
+const { mapFields } = createHelpers({
+  getterType: 'maps/getField',
+  mutationType: 'maps/updateField',
+});
 
 gsap.registerPlugin(TweenMax, Expo);
 
@@ -197,12 +203,6 @@ export default {
   data() {
     return {
       opemNav: false,
-      oldCenter: [-20.460277, -54.612277],
-      mapOptions: {
-        center: [-20.455662, -54.592933],
-        bounds: null,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      },
       layers: {
         standard: {
           url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
@@ -215,29 +215,29 @@ export default {
           url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
         },
       },
-      zoomSet: {
-        zoom: 14,
-        minZoom: 13,
-        maxZoom: 16,
-        options: {
-          zoomSnap: 0.5,
-          zoomControl: false,
-        },
-      },
       iconSet: {
         iconSize: [24, 24],
         iconAnchor: [15, -8],
       },
       popupOptions: {
-        autoPan: true,
-        keepInView: true,
-        autoPanPaddingTopLeft: [240, 16],
-        closeButton: false,
+        autoPan: false,
+        // keepInView: true,
+        // autoPanPaddingTopLeft: [240, 16],
+        // closeButton: true,
       },
       filterSelections: [],
     };
   },
   computed: {
+    ...mapFields({
+      center: 'mapOptions.center',
+      bounds: 'mapOptions.bounds',
+      attribution: 'mapOptions.attribution',
+      zoom: 'zoomSet.zoom',
+      minZoom: 'zoomSet.minZoom',
+      maxZoom: 'zoomSet.maxZoom',
+      options: 'zoomSet.options',
+    }),
     ...mapGetters({
       pins: 'pins/loadPinsFiltered',
       markers: 'pins/getMarkers',
@@ -248,12 +248,16 @@ export default {
     this.handleResize();
   },
   mounted() {
-    // this.homeTransition();
   },
   unmounted() {
     window.removeEventListener('resize', this.handleResize);
   },
   methods: {
+    openDefaultMarkers(mapObject, item) {
+      if ((item.id === this.$store.getters['pins/getSelectedPinId']) && (this.$store.getters['pins/getSelectedPinId'] !== null)) {
+        mapObject.openPopup();
+      }
+    },
     filterThis(el) {
       if (this.filterSelections.includes(el)) {
         // console.log('removeThisFilter', el);
@@ -273,15 +277,6 @@ export default {
     getPinById(id) {
       const target = this.pins.find((item) => item.id === id);
       return target;
-    },
-    zoomUpdated(newZoom) {
-      this.zoomSet.zoom = newZoom;
-    },
-    centerUpdated(newCenter) {
-      this.mapOptions.center = newCenter;
-    },
-    boundsUpdated(newBounds) {
-      this.mapOptions.bounds = newBounds;
     },
     homeTransition() {
       const { overlay, presentation } = this.$refs;

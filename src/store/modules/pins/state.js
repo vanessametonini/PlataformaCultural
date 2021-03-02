@@ -1,5 +1,5 @@
 const state = {
-  selected: [],
+  selectedPinId: null,
   selecteds: [],
   pinForm: {
     userId: null,

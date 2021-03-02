@@ -223,7 +223,7 @@
           class="reset-btn primary-action"
           flat
           color="white"
-          @click="$store.dispatch('pins/postPin')"
+          @click="$store.dispatch('pins/postPin', { $router });"
         >
           <span class="caption">Finalizar</span>
         </q-btn>
