@@ -1,4 +1,5 @@
 const state = {
+  expand: false,
   selectedPinId: null,
   selecteds: [],
   pinForm: {

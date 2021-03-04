@@ -39,11 +39,11 @@ const actions = {
         const dy = (newPosition[1] - oldPosition.lng);
         let i = 0;
         const interval = setInterval(() => {
-          i += 1;
           commit('maps/TRANSLATE_MAP_CENTER', [oldPosition.lat + (dx * i) / 100, oldPosition.lng + (dy * i) / 100], { root: true });
           if (i === 100) {
             clearInterval(interval);
           }
+          i += 1;
         }, 3);
         return response;
       })

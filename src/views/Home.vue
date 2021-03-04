@@ -132,8 +132,7 @@
             :key="item.id"
             class="marker-item"
             :lat-lng="item.coordinates"
-            @ready="openDefaultMarkers($event, item)"
-            @click="$store.commit('pins/SET_SELECTED_PIN_ID', item.id)"
+            @ready="openDefaultMarker($event, item)"
           >
             <l-icon
               class="icon-marker"
@@ -248,14 +247,16 @@ export default {
     this.handleResize();
   },
   mounted() {
+    // this.$store.commit('pins/SET_SELECTED_PIN_ID', null);
   },
   unmounted() {
     window.removeEventListener('resize', this.handleResize);
   },
   methods: {
-    openDefaultMarkers(mapObject, item) {
-      if ((item.id === this.$store.getters['pins/getSelectedPinId']) && (this.$store.getters['pins/getSelectedPinId'] !== null)) {
+    openDefaultMarker(mapObject, item) {
+      if ((item.id === this.$store.getters['pins/getSelectedPinId'])) {
         mapObject.openPopup();
+        this.$store.commit('pins/SET_SELECTED_PIN_ID', null);
       }
     },
     filterThis(el) {

@@ -170,7 +170,7 @@
 
         <div
           class="my-item-header"
-          @click="expandItem()"
+          @click="expand = !expand"
         >
           <span class="menu-text body-3">Filtro</span>
         </div>
@@ -180,8 +180,14 @@
 </template>
 
 <script>
+import { createHelpers } from 'vuex-map-fields';
 import MyFilter from './Filter.vue';
 import BaseButton from './BaseButton.vue';
+
+const { mapFields } = createHelpers({
+  getterType: 'pins/getField',
+  mutationType: 'pins/updateField',
+});
 
 export default {
   name: 'MenuComponent',
@@ -192,13 +198,13 @@ export default {
   emits: ['call-filter'],
   data() {
     return {
-      expand: false,
+      // expand: false,
     };
   },
+  computed: {
+    ...mapFields(['expand']),
+  },
   methods: {
-    expandItem() {
-      this.expand = !this.expand;
-    },
     forwardCall(el) {
       this.$emit('call-filter', el);
     },
