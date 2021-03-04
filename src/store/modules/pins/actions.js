@@ -47,7 +47,7 @@ const actions = {
         }, 3);
         return response;
       })
-      .catch((error) => console.log(error));
+      .catch((error) => error);
   },
 };
 
