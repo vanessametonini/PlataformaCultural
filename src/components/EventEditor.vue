@@ -59,7 +59,7 @@
               v-model="time"
               class="input2"
               dense
-              mask="##:##:##"
+              mask="##:##"
               input-class="text-white"
               color="white"
             />
