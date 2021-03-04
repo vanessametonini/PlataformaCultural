@@ -14,8 +14,8 @@ const actions = {
       userId: rootGetters['users/getCurrentUser'].id,
       createdAt: rootGetters.date,
     };
-    const datearray = event.date.split('/').reverse();
-    event.dateTime = `${datearray[0]}/${datearray[1]}/${datearray[2]} ${event.time}:00`;
+    const datearray = event.date.split('/');
+    event.dateTime = `${datearray[2]}/${datearray[1]}/${datearray[0]} ${event.time}:00`;
     delete event.date;
     delete event.time;
     dispatch('services/POST', { uri: 'events', data: event }, { root: true })
