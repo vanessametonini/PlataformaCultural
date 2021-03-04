@@ -16,7 +16,6 @@ const actions = {
     };
     const datearray = event.date.split('/').reverse();
     event.dateTime = `${datearray[0]}/${datearray[1]}/${datearray[2]} ${event.time}:00`;
-    console.log(event.dateTime);
     delete event.date;
     delete event.time;
     dispatch('services/POST', { uri: 'events', data: event }, { root: true })
