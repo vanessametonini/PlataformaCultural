@@ -344,23 +344,19 @@ export default {
   methods: {
     createEvent() { // abre criação do evento
       this.status.push('creating');
-      console.log('profile -> addEvent : status', this.status[0]); // emitindo que a box está aberta
       if (this.step === 0) {
         this.lastStep = 0;
         // this.active = true;
         const a = this;
         setTimeout(() => {
           a.step = 1;
-          console.log('lastStep - currentStep', this.lastStep, this.step);
         }, 1000);
       }
     },
     cancelCreate() { // cancela criação do evento ou edição de shortEvent
-      console.log('cancelar ->', this.lastStep, this.step);
       this.status.slice(0, 1, 'cancel');
       if (this.lastStep === 0) {
         this.status = []; // reseta status
-        console.log('-> criação de evento');
         const a = this;
         setTimeout(() => { a.step = 0; }, 1000);
         this.lastStep = 1;
@@ -368,7 +364,6 @@ export default {
       }
       if (this.lastStep === 2) {
         this.status = []; // reseta status
-        console.log('-> reedição de shortEvent');
         const a = this;
         setTimeout(() => { a.step = 2; }, 1000);
         this.lastStep = 2;
