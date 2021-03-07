@@ -7,7 +7,7 @@ const actions = {
       .then((response) => {
         commit('SET_CATEGORIES', { categories: response.data });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => error);
   },
 
   addCategorie({ commit }, { data }) {
@@ -16,12 +16,10 @@ const actions = {
         data,
       })
         .then((response) => {
-          console.log('response add categorie', response);
           resolve(response);
           commit('ADD_CATEGORY', { data });
         })
         .catch((error) => {
-          console.log(error);
           reject(error);
         });
     });

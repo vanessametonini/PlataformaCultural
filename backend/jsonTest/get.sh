@@ -1,1 +1,0 @@
-curl -u max@corbux -H "Content-Type: application/json" -X GET https://localhost:4000/users
