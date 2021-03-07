@@ -5,6 +5,8 @@ const actions = {
   initStore({ commit, dispatch }) {
     dispatch('categories/loadCategories');
     dispatch('pins/loadPins');
+    dispatch('events/loadEvents');
+    dispatch('topics/loadTopics');
     dispatch('services/verifyToken')
       .then((response) => {
         dispatch('users/loadCurrentUser', { id: response.id });

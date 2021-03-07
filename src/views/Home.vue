@@ -11,12 +11,8 @@
       >cartografia da cultura</span> -->
     <!-- </div> -->
 
-    <div class="aside column">
-      <logo-card
-        :black-mode="false"
-        size="180"
-      />
-
+    <div class="aside">
+      <logo-card :black-mode="false" />
       <my-menu @callFilter="filterThis($event)" />
     </div>
 
@@ -87,7 +83,7 @@
         <span
           class="body-3 bolder"
           to="/singIn"
-        >Entrar</span>
+        >Participar</span>
       </q-btn>
 
       <q-btn
@@ -363,18 +359,12 @@ export default {
 }
 
 .aside {
-  // display: none;
-  width: 200px;
-  position: absolute;
+  position: fixed;
   top: 16px;
   left: 16px;
   z-index: 2;
   overflow: hidden;
-  flex-wrap: nowrap;
-
-  @media screen and (max-width: 1200px) {
-    display: none;
-  }
+  max-height: calc(100vh - 16px);
 }
 
 .map-container {

@@ -2,31 +2,30 @@
   <div
     class="box"
     :class="{ 'black-mode' : blackMode, 'bordered' : bordered }"
-    :style="{ 'height': `${size}px`, 'width': `${size}px` }"
     @click="goToHome()"
   >
     <div class="top">
-      <span
+      <h1
         id="title"
         class="title-3 bolder"
-      > Cartografia da Cultura. </span>
-      <span
-        id="m-title"
-        class="title-3 bolder"
-      > Carto CG. </span>
-      <!-- <div class="whitespace"></div> -->
+      >
+        Cartografia da Cultura.
+        <span id="m-title"> Carto CG.</span>
+      </h1>
     </div>
 
     <div class="bottom column">
-      <span
+      <h2
         id="forum-info"
         class="body-3 bolder"
-      > Fórum municipal <br> de Cultura <br> de Campo Grande </span>
+      >
+        Fórum municipal <br> de Cultura <br> de Campo Grande
+      </h2>
       <div class="line" />
       <span
         id="sub-info"
         class="overline bolder"
-      > cultura em movimento </span>
+      > Cultura em movimento </span>
     </div>
   </div>
 </template>
@@ -42,10 +41,6 @@ export default {
     bordered: {
       type: Boolean,
       default: false,
-    },
-    size: {
-      type: Number,
-      default: 180,
     },
   },
   data() {
@@ -72,14 +67,12 @@ export default {
 }
 
 .box {
-  //background-color: white;
-  overflow: hidden;
-  padding: 16px;
-  height: 180px;
-  width: 180px;
-  // border: 2px solid black;
   background-color: white;
+  height: 250px;
+  padding: 16px;
   position: relative;
+  overflow: hidden;
+  width: 250px;
 
   @include for-phone-only {
     align-items: left;
@@ -98,7 +91,9 @@ export default {
 }
 
 #title {
-  line-height: 1.6rem;
+  line-height: initial;
+  margin: 0;
+  font-size: 3em;
 
   @include for-phone-only {
     display: none;
@@ -114,6 +109,11 @@ export default {
     line-height: 2.2rem;
     font-weight: 700;
   }
+}
+
+#forum-info {
+  line-height: initial;
+  margin: 0;
 }
 
 .bottom {

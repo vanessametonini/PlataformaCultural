@@ -1,40 +1,33 @@
 <template>
-  <div class="filter">
-    <!-- start categories -->
-    <div class="filter-list">
-      <q-list>
-        <q-item
-          v-for="item in categories"
-          :id="`item-${item.id}`"
-          :key="item.value"
-          class="item"
-          clickable
-          @click="$store.commit('pins/UPDATE_CATEGORIES_SELECTEDS', item.id)"
-        >
-          <q-item-section
-            class="icon-content"
-            avata
-          >
-            <icon-base
-              :id="`icon-${item.value}`"
-              :icon-id="item.value - 1"
-              width="12"
-              :set-white="false"
-              :color="colors(item)"
-            />
-          </q-item-section>
+  <ul class="filter">
+    <li
+      v-for="item in categories"
+      :id="`item-${item.id}`"
+      :key="item.value"
+      class="item"
+      clickable
+      @click="$store.commit('pins/UPDATE_CATEGORIES_SELECTEDS', item.id)"
+    >
+      <div
+        class="icon-content"
+        avata
+      >
+        <icon-base
+          :id="`icon-${item.value}`"
+          :icon-id="item.value - 1"
+          :set-white="false"
+          :color="colors(item)"
+        />
+      </div>
 
-          <q-item-section
-            :id="`category-label-${item.value}`"
-            class="label-content overline bolder"
-            :style="`color: ${colors(item)}`"
-          >
-            {{ item.label }}
-          </q-item-section>
-        </q-item>
-      </q-list>
-    </div>
-  </div>
+      <div
+        :id="`category-label-${item.value}`"
+        :style="`color: ${colors(item)}`"
+      >
+        {{ item.label }}
+      </div>
+    </li>
+  </ul>
 </template>
 
 <script>
@@ -63,23 +56,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .filter {
-  // width: inherit;
-  width: 180px;
-  overflow: hidden;
+  margin: 0;
+  max-height: calc(100vh - 368px);
+  overflow: auto;
 }
 
 .item {
-  height: 20px;
-  padding: 8px 8px 8px 12px;
+  box-sizing: border-box;
+  border-radius: 2px;
+  display: flex;
+  line-height: initial;
+  padding: 8px;
 }
 
 .icon-content {
-  margin-right: 0px;
-  padding: 0px !important;
-  min-width: 22px !important;
-  // border: 2px solid red;
+  padding-right: 14px;
 }
 
 </style>

@@ -35,6 +35,10 @@ const getters = {
     }
     return listFiltered.filter((topic) => topic.title.search(new RegExp(state.search, 'i')) !== -1);
   },
+  getRecents: ({ list }) => {
+    const sortedList = list.sort((a, b) => compare(a.id, b.id));
+    return sortedList.filter((topic) => topic.title).slice(0, 5);
+  },
   getCurrentTopic: (state) => state.currentTopic,
   getCurrentTopicReplyes: (state) => state.currentTopicReplies,
   getField,

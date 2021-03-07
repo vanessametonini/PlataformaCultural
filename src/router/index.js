@@ -55,7 +55,7 @@ const routes = [
     name: 'Schedule',
     component: () => import(/* webpackChunkName: "schedule" */ '../views/Schedule.vue'),
     meta: {
-      requiresAuth: true,
+      requiresAuth: false,
     },
   },
   {
@@ -63,7 +63,7 @@ const routes = [
     name: 'Topics',
     component: () => import(/* webpackChunkName: "Topics" */ '../views/Topics.vue'),
     meta: {
-      requiresAuth: true,
+      requiresAuth: false,
     },
   },
   {

@@ -1,188 +1,193 @@
 <template>
-  <div class="menu-component">
-    <q-list>
-      <!-- item Sobre -->
-      <q-expansion-item
-        v-if="!expand"
-        class="item"
-        group="somegroup"
-        expand-icon-class="text-black"
-      >
-        <template
-          #header
-          class="item-header"
+  <div>
+    <!-- MENU -->
+    <nav
+      class="menu-component"
+      :class="{ 'expanded-filters' : expand }"
+    >
+      <q-list>
+        <!-- item Sobre -->
+        <q-expansion-item
+          group="menu"
+          class="item sobre"
+          expand-icon-class="text-black"
         >
-          <q-item-section>
-            <span class="menu-text body-3">Sobre</span>
-          </q-item-section>
-        </template>
+          <template
+            #header
+            class="item-header"
+          >
+            <q-item-section>
+              <span class="menu-text">Sobre</span>
+            </q-item-section>
+          </template>
 
-        <q-card>
-          <q-card-section class="padding-8">
-            <ul class="navigation-list">
-              <li class="navigation-item">
-                <router-link
-                  class="a"
-                  type="link"
-                  :to="{ name: 'About' }"
-                  exact
-                >
-                  <span class="body-3 effect-underline">Plataforma</span>
-                </router-link>
-              </li>
-              <div class="line" />
-              <li class="navigation-item">
-                <router-link
-                  ref="link"
-                  class="a"
-                  :to="{ name: 'About', hash:'#frm'}"
-                >
-                  <span class="body-3 effect-underline">Fórum</span>
-                </router-link>
-              </li>
-              <div class="line" />
-              <li class="navigation-item">
-                <router-link
-                  ref="link"
-                  class="a"
-                  to="/terms"
-                  exact
-                >
-                  <span class="body-3 effect-underline">Nossos Termos</span>
-                </router-link>
-              </li>
-              <div class="line" />
-              <li class="navigation-item">
-                <router-link
-                  ref="link"
-                  class="a effect-underline"
-                  :to="{ name: 'Faq', hash:'#frm'}"
-                  exact
-                >
-                  <span class="body-3">F.A.Q</span>
-                </router-link>
-              </li>
-              <div class="line" />
-              <li class="navigation-item">
-                <router-link
-                  ref="link"
-                  class="a effect-underline"
-                  to="/about"
-                  exact
-                >
-                  <span class="body-3">Contato</span>
-                </router-link>
-              </li>
-            </ul>
-          </q-card-section>
-        </q-card>
-      </q-expansion-item>
+          <q-card>
+            <q-card-section class="padding-8">
+              <ul class="navigation-list">
+                <li class="navigation-item line">
+                  <router-link
+                    type="link"
+                    :to="{ name: 'About' }"
+                    exact
+                  >
+                    Plataforma
+                  </router-link>
+                </li>
+                <li class="navigation-item line">
+                  <router-link
+                    ref="link"
+                    :to="{ name: 'About', hash:'#frm'}"
+                  >
+                    Fórum
+                  </router-link>
+                </li>
+                <li class="navigation-item line">
+                  <router-link
+                    ref="link"
+                    to="/terms"
+                    exact
+                  >
+                    Nossos Termos
+                  </router-link>
+                </li>
+                <li class="navigation-item line">
+                  <router-link
+                    ref="link"
+                    :to="{ name: 'Faq', hash:'#frm'}"
+                    exact
+                  >
+                    F.A.Q
+                  </router-link>
+                </li>
+                <li class="navigation-item">
+                  <router-link
+                    ref="link"
+                    to="/about"
+                    exact
+                  >
+                    Contato
+                  </router-link>
+                </li>
+              </ul>
+            </q-card-section>
+          </q-card>
+        </q-expansion-item>
 
-      <q-separator
-        v-if="!expand"
-        class="separator"
-      />
-
-      <!-- item Agenda -->
-      <q-expansion-item
-        v-if="!expand"
-        class="item"
-        group="somegroup"
-        expand-icon-class="text-black"
-      >
-        <template
-          #header
-          class="item-header"
+        <!-- item Agenda -->
+        <q-expansion-item
+          group="menu"
+          class="item agenda"
+          expand-icon-class="text-black"
         >
-          <q-item-section>
-            <span class="menu-text body-3">Agenda</span>
-          </q-item-section>
-        </template>
+          <template
+            #header
+            class="item-header"
+          >
+            <q-item-section>
+              <span class="menu-text">Agenda</span>
+            </q-item-section>
+          </template>
 
-        <q-card>
-          <q-card-section>
-            <span class="recents">falta recentes</span>
+          <q-card>
+            <q-card-section>
+              <ol class="recent-events line">
+                <li
+                  v-for="event in listEvents"
+                  :key="event.id"
+                >
+                  <div class="col1">
+                    <span class="day">{{ event.day }}</span>
+                    <span>{{ event.month }}</span>
+                  </div>
+                  <div
+                    class="col2"
+                    :aria-label="event.title"
+                    :title="event.title"
+                  >
+                    <span>{{ event.title }}</span>
+                    <span>{{ event.site }}</span>
+                  </div>
+                </li>
+              </ol>
 
-            <base-button
-              class="submenu-button"
-              :to="{ name: 'Schedule' }"
-            >
-              <!-- <i class="fas fa-pencil-alt reply-icon"></i> -->
-              <span class="body-3 bolder mg-left8"> Ver Agenda </span>
-            </base-button>
-          </q-card-section>
-        </q-card>
-      </q-expansion-item>
+              <router-link
+                class="submenu-button"
+                :to="{ name: 'Schedule' }"
+              >
+                Ver agenda
+              </router-link>
+            </q-card-section>
+          </q-card>
+        </q-expansion-item>
 
-      <q-separator
-        v-if="!expand"
-        class="separator"
-      />
-
-      <!-- item Diálogo -->
-      <q-expansion-item
-        v-if="!expand"
-        class="item"
-        group="somegroup"
-        expand-icon-class="text-black"
-      >
-        <template
-          #header
-          class="item-header"
+        <!-- item Diálogo -->
+        <q-expansion-item
+          group="menu"
+          class="item debate"
+          expand-icon-class="text-black"
         >
-          <q-item-section>
-            <span class="menu-text body-3">Diálogo</span>
-          </q-item-section>
-        </template>
+          <template
+            #header
+            class="item-header"
+          >
+            <q-item-section>
+              <span class="menu-text">Debate</span>
+            </q-item-section>
+          </template>
 
-        <q-card>
-          <q-card-section>
-            <span class="recents">falta recentes</span>
+          <q-card>
+            <q-card-section>
+              <ol class="recent-debates line">
+                <li
+                  v-for="topic in listTopics"
+                  :key="topic.id"
+                >
+                  <h6>{{ topic.title }}</h6>
+                </li>
+              </ol>
 
-            <base-button
-              class="submenu-button"
-              :to="{ name: 'Topics' }"
-            >
-              <!-- <i class="fas fa-pencil-alt reply-icon"></i> -->
-              <span class="body-3 bolder mg-left8"> Ver Diálogos </span>
-            </base-button>
-          </q-card-section>
-        </q-card>
-      </q-expansion-item>
+              <router-link
+                class="submenu-button"
+                :to="{ name: 'Topics' }"
+              >
+                Participe do debate!
+              </router-link>
+            </q-card-section>
+          </q-card>
+        </q-expansion-item>
 
-      <q-separator
-        v-if="!expand"
-        class="separator"
-      />
-
-      <!-- item filtro -->
-      <div class="my-item">
-        <q-card
-          class="my-card"
-          :class="{ 'my-card-expanded' : expand }"
-        >
-          <q-card-section class="my-card-section">
-            <My-filter
-              @callFilter="forwardCall($event)"
-            />
-          </q-card-section>
-        </q-card>
-
-        <div
-          class="my-item-header"
+        <!-- MAPA -->
+        <q-expansion-item
+          group="menu"
+          class="item mapa"
+          expand-icon-class="text-black"
           @click="expand = !expand"
         >
-          <span class="menu-text body-3">Filtro</span>
-        </div>
-      </div>
-    </q-list>
+          <template
+            #header
+            class="item-header"
+          >
+            <q-item-section>
+              <span class="menu-text">Mapa</span>
+            </q-item-section>
+          </template>
+
+          <q-card>
+            <q-card-section>
+              <My-filter
+                @callFilter="forwardCall($event)"
+              />
+            </q-card-section>
+          </q-card>
+        </q-expansion-item>
+      </q-list>
+    </nav>
   </div>
 </template>
 
 <script>
 import { createHelpers } from 'vuex-map-fields';
 import MyFilter from './Filter.vue';
-import BaseButton from './BaseButton.vue';
 
 const { mapFields } = createHelpers({
   getterType: 'pins/getField',
@@ -193,16 +198,16 @@ export default {
   name: 'MenuComponent',
   components: {
     MyFilter,
-    BaseButton,
   },
   emits: ['call-filter'],
-  data() {
-    return {
-      // expand: false,
-    };
-  },
   computed: {
     ...mapFields(['expand']),
+    listEvents() {
+      return this.$store.getters['events/getRecents'];
+    },
+    listTopics() {
+      return this.$store.getters['topics/getRecents'];
+    },
   },
   methods: {
     forwardCall(el) {
@@ -213,149 +218,60 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 @import '../styles/variables.scss';
 @import '../styles/mixins.scss';
 @import '../styles/typo.scss';
 
-$itemHeight : 40px;
-
-* {
-  font-family: 'Helvetica';
-  letter-spacing: 1px;
-}
-
 .menu-component {
-  width: 100%;
-  max-width: 180px;
-  margin-top: 8px;
-  margin-bottom: 8px;
+  width: 250px;
 }
 
 .item {
   background-color: black;
-  transition: filter 0.3s;
-  z-index: 1;
-  position: relative;
-
-  &:hover {
-    background-color: #1d1e22;
-    // background-color:#fa7f72;
-
-    .menu-text {
-      color: white;
-    }
-  }
+  margin-top: 4px;
 }
 
-.q-item {
-  height: $itemHeight;
-  padding: 4px;
+.menu-text {
+  color: white;
+  font-weight: bold;
+  font-size: 2em;
 }
 
 .card-section {
   padding: 8px 0px 4px 0px;
 }
 
-.my-item {
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-
-  .my-item-header {
-    background-color: black;
-    height: $itemHeight;
-    padding: 8px 16px 8px 16px;
-    display: flex;
-    z-index: 1;
-    position: relative;
-
-    &:hover {
-      background-color: #1d1e22;
-      cursor: pointer;
-
-      .menu-text {
-        color: white;
-      }
-    }
-  }
-
-  .my-item-header span {
-    align-self: center;
-  }
-
-  .my-card {
-    border-radius: 0px;
-    box-shadow: none;
-    z-index: 2;
-    position: relative;
-    display: none;
-
-    .my-card-section {
-      padding: 8px 0px 4px 0px;
-      display: none;
-    }
-  }
-
-  .my-card-expanded {
-    display: block;
-    transition: 0.8s linear;
-
-    .my-card-section {
-      padding: 8px 0px 4px 0px;
-      display: block;
-    }
-  }
-
+.agenda,
+.debate,
+.mapa {
+  transition: transform 300ms ease-out;
 }
 
-.menu-text {
-  color: white;
-  font-weight: bold;
+.expanded-filters {
+  .agenda {
+    transform: translateY(-62px);
+  }
+  .debate {
+    transform: translateY(-124px);
+  }
+  .mapa {
+    transform: translateY(-186px);
+  }
 }
 
 .navigation-list {
-  width: 90%;
   list-style: none;
-  padding-left: 8px;
-  margin: 0px;
-}
+  margin: 20px 0 0;
 
-.a {
-  font-weight: bold;
-  text-decoration: none;
-  color: black;
-}
+  .navigation-item.line {
+    margin-bottom: 5px;
+  }
 
-.effect-underline:after {
-  content: '';
-  position: absolute;
-  left: 24px;
-  display: inline-block;
-  height: 1em;
-  width: 70%;
-  border-bottom: 2px solid;
-  margin-top: 10px;
-  opacity: 0;
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  -webkit-transform: scale(0,1);
-  transform: scale(0,1);
-}
-
-.effect-underline:hover:after {
-  opacity: 1;
-  -webkit-transform: scale(1);
-  transform: scale(1);
-}
-
-.line {
-  //background-color: black;
-  height: 2px;
-  width: 75%;
-  margin-top: 4px;
-  margin-bottom: 4px;
+  a {
+    color: black;
+    display: block;
+    text-decoration: none;
+  }
 }
 
 .separator {
@@ -363,4 +279,71 @@ $itemHeight : 40px;
   height: 4px;
 }
 
+.submenu-button {
+  color: black;
+  display: block;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline
+  }
+}
+
+.line::after {
+  content: '';
+  display: block;
+  background-color: black;
+  height: 2px;
+  width: 70%;
+}
+
+ol {
+  margin: 0 0 10px 0;
+  li {
+    list-style-type: none;
+  }
+}
+
+.recent-events {
+
+  li {
+    display: flex;
+    line-height: 1.3em;
+    margin-bottom: 10px;
+
+    span {
+      display: block;
+    }
+  }
+  .col1 {
+    margin-right: 10px;
+    width: 30px;
+  }
+
+  .day {
+    font-weight: bold;
+    font-size: 1.6em;
+  }
+
+  .col2 {
+    width: calc(100% - 40px);
+  }
+}
+
+.recent-debates li:last-child {
+  padding-bottom: 10px;
+}
+
+.recent-debates h6 {
+  margin: 0;
+  font-size: 1em;
+}
+
+.mapa {
+  overflow: hidden;
+}
+
+.mapa .q-card__section--vert {
+  padding: 8px;
+}
 </style>
