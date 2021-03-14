@@ -2,7 +2,7 @@
   <div class="container">
     <!-- <logo-card class="fixed-logo" :blackMode="true"/> -->
     <div
-      id="privacity"
+      id="privacy"
       class="content-center column"
     >
       <header>
@@ -59,7 +59,7 @@
       </section>
 
       <section
-        id="terms"
+        id="use"
         class="column"
       >
         <div class="scroll-offset" />

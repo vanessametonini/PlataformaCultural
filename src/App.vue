@@ -47,7 +47,10 @@
 * {
   box-sizing: border-box;
   padding: 0;
-  font-family: "Helvetica";
+}
+
+body {
+  font-family: "Helvetica", sans-serif;
 }
 
 .txt-al-jus {

@@ -2,24 +2,33 @@ $font-path: '/assets/fonts/';
 
 @font-face {
     font-family: 'Helvetica';
-    src:  local('Helvetica Bold'), local('Helvetica-Bold'),
-      url($font_path + 'Helvetica-Bold.ttf') format('ttf');
+    src:
+      local('Helvetica Bold'),
+      local('Helvetica-Bold'),
+      url($font_path + 'Helvetica-Bold.ttf') format('ttf'),
+      url($font_path + 'Helvetica-Bold.otf') format('otf');
     font-weight: bold;
     font-style: normal;
 }
 
 @font-face {
   font-family: 'Helvetica';
-  src:  local('Helvetica Normal'), local('Helvetica-Normal'),
-    url($font_path + 'Helvetica-Normal.ttf') format('ttf');
+  src:
+    local('Helvetica Normal'),
+    local('Helvetica-Normal'),
+    url($font_path + 'Helvetica-Normal.ttf') format('ttf'),
+    url($font_path + 'Helvetica-Normal.otf') format('otf');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Helvetica';
-  src:  local('Helvetica Ligth'), local('Helvetica-Ligth'),
-    url($font_path + 'Helvetica-Ligth.ttf') format('ttf');
+  src:
+    local('Helvetica Ligth'),
+    local('Helvetica-Ligth'),
+    url($font_path + 'Helvetica-Ligth.ttf') format('ttf'),
+    url($font_path + 'Helvetica-Ligth.otf') format('otf');
   font-weight: lighter;
   font-style: normal;
 }

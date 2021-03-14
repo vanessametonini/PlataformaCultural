@@ -18,10 +18,9 @@
       >{{ message }}</span>
     </div>
 
-    <div
-      id="content"
-      class="content-center column"
-      :class="{ 'bg-change' : active }"
+    <form
+      ref="content"
+      class="content-center column bg-change"
     >
       <!-- identity (seal) -->
       <logo-card
@@ -46,32 +45,42 @@
 
         <div class="whitespace" />
 
-        <div class="">
-          <span class="headline-2 bolder">O cadastro permitirá:</span>
+        <h3 class="headline-2 bolder">
+          O cadastro permitirá:
+        </h3>
+
+        <div class="context column">
+          <h4 class="headline-3 bolder">No mapa</h4>
+          <p class="body-3">
+            Adicionar um pin no mapa. O pin significa que a sua
+            localização aparecerá no mapa, indicado pela legenda da
+            categoria a qual se identifica. Além da localização, ao
+            clicar no pin, suas informações de contato serão exibidas.
+          </p>
         </div>
 
         <div class="context column">
-          <span class="headline-3 bolder">mapa</span>
-          <span class="body-3">
-            Adicionar um pin no mapa (sua localização e informações que inserir serão vistos por todos).
-            Cada cadastro permitirá que você insira um pin.
-          </span>
+          <h4 class="headline-3 bolder">Na agenda</h4>
+          <p class="body-3">
+            Inserir os eventos que você irá participar ou produzir em Campo Grande.
+            A agenda é o local de divulgação dos eventos culturais do
+            município (shows, feiras, festas, espetáculos, performances,
+            exposições, exibições, etc.) que você queira divulgar, além
+            de reuniões, audiências públicas, chamadas.
+          </p>
         </div>
 
         <div class="context column">
-          <span class="headline-3 bolder">agenda cultural</span>
-          <span class="body-3">
-            Inserir na agenda os eventos que você irá participar ou produzir em Campo Grande. Além de ser mais um local de divulgação
-            do seu trabalho, o visitante ao acessar a plataforma, poderá visualizar os eventos que acontecerão nos próximos dias, reunidos num só lugar.
-          </span>
-        </div>
-
-        <div class="context column">
-          <span class="headline-3 bolder">diálogos</span>
-          <span class="body-3">
-            Propor ou participar de debates que acontecem online, proposto pelo Fórum Municipal de Cultura ou pelos participantes, entre produtores
-            artísticos e culturais da cidade.
-          </span>
+          <h4 class="headline-3 bolder">No debate</h4>
+          <p class="body-3">
+            Propor um assunto a ser debatido ou participar de um debate que acontece na plataforma através dos comentários e apoios.
+            É muito importante que você, sendo um agente cultural,
+            participe dos debates, dê sua opinião sobre os temas
+            relacionados à cultura municipal.
+            A plataforma permite dar voz e visibilidade a todos que
+            produzem arte e cultura em Campo Grande, sem hierarquias e
+            com transparência.
+          </p>
         </div>
       </div>
 
@@ -79,7 +88,7 @@
 
       <!-- form -->
       <div class="form column">
-        <span class="headline-2 bolder">Insira suas informações:</span>
+        <h3 class="headline-2 bolder">Insira suas informações:</h3>
 
         <div
           class="row field"
@@ -113,6 +122,64 @@
             @blur="$v.lastname.$touch"
           />
         </div>
+
+        <!-- gender -->
+        <div
+          class="row field gender"
+          style="justify-content: space-between"
+        >
+          <q-select
+            class="input"
+            dense
+            square
+            filled
+            v-model="gender"
+            :options="genderOptions"
+            label="Com qual gênero você se identifica?"
+            :error="$v.gender.$error"
+            :error-message="genderErrorMessage"
+            @blur="$v.gender.$touch"
+          />
+
+          <q-input
+            :disable="isNotOtherGender"
+            v-model="otherGender"
+            class="input"
+            dense
+            square
+            filled
+            label="Outro"
+            bottom-slots
+          />
+        </div>
+
+        <!-- age range -->
+        <q-select
+          class="input"
+          dense
+          square
+          filled
+          v-model="ageRange"
+          :options="ageRangeOptions"
+          label="Qual sua faixa etária?"
+          :error="$v.ageRange.$error"
+          :error-message="ageRangeErrorMessage"
+          @blur="$v.ageRange.$touch"
+        />
+
+        <!-- education -->
+        <q-select
+          class="input"
+          dense
+          square
+          filled
+          v-model="education"
+          :options="educationOptions"
+          label="Qual o grau de educação formal?"
+          :error="$v.education.$error"
+          :error-message="educationErrorMessage"
+          @blur="$v.education.$touch"
+        />
 
         <!-- email -->
         <q-input
@@ -152,11 +219,20 @@
             dense
             square
             filled
+            :type="isPwd ? 'password' : 'text'"
             label="senha*"
             :error="$v.password.$error"
             :error-message="passwordErrorMessage"
             @blur="$v.password.$touch"
-          />
+          >
+            <template v-slot:append>
+            <q-icon
+              :name="isPwd ? 'visibility_off' : 'visibility'"
+              class="cursor-pointer"
+              @click="isPwd = !isPwd"
+            />
+            </template>
+          </q-input>
 
           <!-- confirm password -->
           <q-input
@@ -165,11 +241,20 @@
             dense
             square
             filled
+            :type="isPwd ? 'password' : 'text'"
             label="confirme a senha*"
             :error="$v.confirmPassword.$error"
             :error-message="confirmPasswordErrorMessage"
             @blur="$v.confirmPassword.$touch"
-          />
+          >
+            <template v-slot:append>
+            <q-icon
+              :name="isPwd ? 'visibility_off' : 'visibility'"
+              class="cursor-pointer"
+              @click="isPwd = !isPwd"
+            />
+            </template>
+          </q-input>
         </div>
         <!-- end row -->
       </div>
@@ -181,7 +266,7 @@
         id="target"
         class="category column"
       >
-        <span class="headline-2 bolder">Identifique sua categoria</span>
+        <h3 class="headline-2 bolder">Identifique sua categoria</h3>
         <span class="body-3">A categoria escolhida aparecerá no mapa quando você criar seu pin.
           Escolha sabiamente, não será possível mudar posteriormente.</span>
 
@@ -193,21 +278,21 @@
           >
             <q-item
               clickable
-              @click="emit(item)"
+              @click="selectCategory(item)"
             >
               <q-item-section avatar>
                 <!-- iconId -1 : index of array of icons (0 a 17) -->
                 <icon-base
                   :icon-id="item.value -1"
                   width="16"
-                  :set-white="active"
+                  :set-white="selected"
                 />
               </q-item-section>
 
               <q-item-section
                 :id="item.value"
                 class="body-3 bolder"
-                :class="{ 'white' : active }"
+                :class="{ 'white' : selected }"
               >
                 {{ item.label }}
               </q-item-section>
@@ -226,27 +311,26 @@
             true-value="item.category"
           />
 
-          <span class="body-3 altoc">Eu li e concordo com os
+          <span class="body-3 altoc">Ao clicar em concluir cadastro, você concorda com a <br>
             <router-link
               class="link"
-              :to="{ path: '/terms', hash: '#terms'}"
+              :to="{ path: '/terms', hash: '#privacy'}"
             >
-              <span
-                class="body-3 bolder"
-                :class="{ white: active}"
-              >Termos de Uso</span>
+            <span
+              class="body-3 bolder"
+              :class="{ white: selected}"
+              >política de privacidade</span>
             </router-link>
-            e
+            e as
             <router-link
               class="link"
-              :to="{ path: '/terms', hash: '#privacity'}"
-            >
+              :to="{ path: '/terms', hash: '#use'}"
+              >
               <span
                 class="body-3 bolder"
-                :class="{ white: active}"
-              >Privacidade.</span>
+                :class="{ white: selected}"
+              >condições de uso.</span>
             </router-link>
-
           </span>
         </div>
 
@@ -274,13 +358,13 @@
       </div>
 
       <div class="bottom-space" />
-    </div>
+    </form>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
-import { mapGetters, mapState, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 import iconBase from '../components/iconBase.vue';
 import { required, email, minLength, maxLength, sameAs } from 'vuelidate/lib/validators';
 import { gsap, TweenMax, Expo } from 'gsap';
@@ -296,15 +380,39 @@ export default {
     return {
       loading: false,
       message: null,
+      isPwd: true,
       username: '',
       lastname: '',
       email: '',
       emailConfirmation: '',
+      gender: '',
+      otherGender: '',
+      ageRange: '',
+      education: '',
       password: '',
       confirmPassword: '',
+      genderOptions: [
+        'Feminino',
+        'Masculino',
+        'Outros'
+      ],
+      ageRangeOptions: [
+        'Menos de 20 anos',
+        'Entre 20 e 30 anos',
+        'Entre 30 e 40 anos',
+        'Entre 40 e 50 anos',
+        'Entre 50 e 60 anos',
+        'Mais de 60 anos'
+      ],
+      educationOptions: [
+        'Fundamental completo',
+        'Ensino médio completo',
+        'Superior incompleto',
+        'Superior completo',
+        'Pós-graduado'
+      ],
       selected: null, // --- selected category?
       lastSelected: 0,
-      active: false,
       terms: false, // ----- accept terms?
     };
   },
@@ -324,6 +432,11 @@ export default {
       ease: Expo.easeInOut,
     });
 
+  },
+  updated () {
+    if(this.isNotOtherGender == true) {
+      this.otherGender = '';
+    }
   },
   validations: {
     username: {
@@ -356,6 +469,15 @@ export default {
     confirmPassword: {
       required,
       sameAsPassword: sameAs('password')
+    },
+    gender: {
+      required,
+    },
+    ageRange: {
+      required,
+    },
+    education: {
+      required,
     }
   },
   computed: {
@@ -415,26 +537,42 @@ export default {
         return 'Senha não confere'
       }
     },
+    genderErrorMessage () {
+      if (!this.$v.gender.required) {
+        return 'Informe seu gênero'
+      }
+    },
+    ageRangeErrorMessage () {
+      if (!this.$v.ageRange.required) {
+        return 'Informe sua faixa etária'
+      }
+    },
+    educationErrorMessage () {
+      if (!this.$v.education.required) {
+        return 'Informe seu grau de escolaridade'
+      }
+    },
+    isNotOtherGender () {
+      return this.gender != this.genderOptions[2]
+    },
   },
   methods: {
-    emit(el) {
-      this.selected = el;
-      this.active = true;
-      // let teste = document.getElementById(`svg${el.value}`);
-      // let val2 = teste.getElementsByTagName('g');
-      // console.log(val2);
+    selectCategory(el) {
+      const { content } = this.$refs;
+
       if (el.value !== this.lastSelected) {
-        document.getElementById('content').style.backgroundColor = this.selected.color;
-        document.getElementById(`${this.lastSelected}`).style.color = '#fff';
-        document.getElementById(`${el.value}`).style.color = '#000';
+        this.selected = el;
+        content.style.backgroundColor = this.selected.color;
         this.lastSelected = this.selected.value;
       } else {
+        content.style.backgroundColor = '#f5f5f5'
+        this.selected = null
         this.lastSelected = 0;
       }
     },
     loadingTransition() {
       const { overlay, message } = this.$refs;
-      
+
       if(overlay && message) {
         window.scrollTo({
           top: 0,
@@ -511,11 +649,6 @@ export default {
 @import '../styles/variables.scss';
 @import '../styles/mixins.scss';
 
-* {
-  font-family: 'Helvetica';
-  box-sizing: border-box;
-}
-
 .white {
   color: #ffffff;
 }
@@ -571,7 +704,6 @@ export default {
   width: 100%;
   text-align: center;
   color: black;
-  font-family: 'Helvetica';
   font-size: 1.2rem;
   letter-spacing: 8px;
   font-weight: 900;
@@ -587,7 +719,6 @@ export default {
   width: 650px;
   margin: 32px;
   padding: 32px;
-  // clip-path: circle(30px at 90% 40px);
   z-index: 0;
   align-items: flex-start;
 
@@ -605,7 +736,6 @@ export default {
 }
 
 .clip-path {
-  // background-color: pink;
   clip-path: circle(100%);
   -webkit-transition: -webkit-clip-path 1s ease-out;
   transition: -webkit-clip-path 1s ease-out;
@@ -633,12 +763,7 @@ export default {
 }
 
 .terms {
-  align-items: center;
-  margin-left: -8px;
-
-  @include for-phone-only {
-    margin-left: 0px;
-  }
+  align-items: start;
 }
 
 .headline {
@@ -653,10 +778,6 @@ export default {
     margin-left: 0px;
   }
 }
-
-// .body, .line, .form {
-//   width: 600px;
-// }
 
 .terms {
   @include for-phone-only {
@@ -679,7 +800,6 @@ export default {
   color: black;
   text-decoration: none;
   font-size: 16px;
-  font-family: 'Courier New', Courier, monospace;
 }
 
 .btn-custom {
@@ -712,7 +832,7 @@ export default {
 }
 
 .input {
-  font-family: 'Helvetica-Normal';
+  font-family: 'Helvetica', sans-serif;
   font-size: 1.02rem;
   min-width: 49%;
   max-height: 50px;
@@ -766,6 +886,17 @@ export default {
   @include for-tablet-portrait-only {
     height: 32px;
   }
+}
+
+h3.headline-2,
+p.body-3,
+h4.headline-3 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+h3.headline-2 {
+  line-height: 1.5em;
 }
 
 </style>
