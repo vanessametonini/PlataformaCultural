@@ -1,22 +1,5 @@
 <template>
   <div class="app-page">
-    <div
-      ref="overlay"
-      class="overlay"
-    >
-      <h1
-        v-if="!loading"
-        ref="presentation"
-        class="presentation"
-      >
-        Faça Parte
-      </h1>
-      <span
-        v-if="message !== null"
-        ref="message"
-        class="message"
-      >{{ message }}</span>
-    </div>
 
     <form
       ref="content"
@@ -285,7 +268,7 @@
                 <icon-base
                   :icon-id="item.value -1"
                   width="16"
-                  :set-white="selected"
+                  :set-white="!!selected"
                 />
               </q-item-section>
 
@@ -624,8 +607,11 @@ export default {
           password: this.password,
           confirmPassword: this.confirmPassword,
           isValid: true,
-          isAdmin: false,
           categoryId: this.selected.id,
+          gender: this.gender,
+          otherGender: this.otherGender,
+          ageRange: this.ageRange,
+          education: this.education,
         }})
           .then((response) => {
             this.message = 'Só uns segundinhos';
@@ -655,60 +641,6 @@ export default {
 
 .bg-change {
   transition: .6s ease-in;
-}
-
-@keyframes fadeInOpacity {
-	0% {
-		opacity: 0.8;
-	}
-	100% {
-		opacity: 1;
-	}
-}
-
-.app-page {
-  width: 100%;
-  height: 100%;
-  overflow-y: hidden;
-}
-
-.overlay {
-  z-index: 3;
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-  background: #fff;
-  top: 0%;
-}
-
-.overlay h1 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  text-align: center;
-  color: black;
-  font-size: 30px;
-  font-weight: 900;
-  letter-spacing: 14px;
-  text-transform: uppercase;
-  overflow: hidden;
-}
-
-.overlay span {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  text-align: center;
-  color: black;
-  font-size: 1.2rem;
-  letter-spacing: 8px;
-  font-weight: 900;
-  text-transform: uppercase;
-  overflow: hidden;
 }
 
 .content-center {
@@ -841,15 +773,6 @@ export default {
   @include for-phone-only {
     width: 100%;
   }
-}
-
-@keyframes fadeInOpacity {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
 }
 
 .btn-custom:hover {
