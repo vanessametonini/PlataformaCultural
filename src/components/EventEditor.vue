@@ -68,6 +68,17 @@
 
         <!-- address -->
         <div class="column mg-top8">
+          <span class="subheading-2">local do evento</span>
+          <q-input
+            v-model="site"
+            class="input"
+            dense
+            input-class="text-white"
+            color="white"
+          />
+        </div>
+
+        <div class="column mg-top8">
           <span class="subheading-2">rua - logradouro</span>
           <q-input
             v-model="street"
@@ -279,10 +290,6 @@
 </template>
 
 <script>
-// import { gsap, TweenMax, Expo } from 'gsap/all';
-// gsap.registerPlugin(TweenMax, Expo);
-
-// import { mapState } from 'vuex';
 import { mapGetters } from 'vuex';
 import { createHelpers } from 'vuex-map-fields';
 
@@ -326,6 +333,7 @@ export default {
       date: 'eventForm.date',
       time: 'eventForm.time',
       ticket: 'eventForm.ticket',
+      site: 'eventForm.site',
       street: 'eventForm.street',
       neighborhood: 'eventForm.neighborhood',
       number: 'eventForm.number',
@@ -431,13 +439,6 @@ export default {
 @import '../styles/variables.scss';
 @import '../styles/mixins.scss';
 
-* {
-  font-family: 'Helvetica';
-}
-
-.bg-ice {
-  background-color: red;
-}
 
 .box {
   transition: 2s cubic-bezier(0.075, 0.82, 0.165, 1);

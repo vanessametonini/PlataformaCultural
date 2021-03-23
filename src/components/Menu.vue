@@ -27,7 +27,7 @@
                 <li class="navigation-item line">
                   <router-link
                     type="link"
-                    :to="{ name: 'About' }"
+                    :to="{ name: 'Plataforma' }"
                     exact
                   >
                     Plataforma
@@ -36,7 +36,7 @@
                 <li class="navigation-item line">
                   <router-link
                     ref="link"
-                    :to="{ name: 'About', hash:'#frm'}"
+                    :to="{ name: 'Forum' }"
                   >
                     Fórum
                   </router-link>
@@ -44,25 +44,16 @@
                 <li class="navigation-item line">
                   <router-link
                     ref="link"
-                    to="/terms"
+                    :to="{ name: 'Terms' }"
                     exact
                   >
                     Nossos Termos
                   </router-link>
                 </li>
-                <li class="navigation-item line">
-                  <router-link
-                    ref="link"
-                    :to="{ name: 'Faq', hash:'#frm'}"
-                    exact
-                  >
-                    F.A.Q
-                  </router-link>
-                </li>
                 <li class="navigation-item">
                   <router-link
                     ref="link"
-                    to="/about"
+                    :to="{ name: 'Contato' }"
                     exact
                   >
                     Contato
@@ -142,7 +133,13 @@
                   v-for="topic in listTopics"
                   :key="topic.id"
                 >
-                  <h6>{{ topic.title }}</h6>
+                  <h6>
+                    <router-link
+                      :to="{ path: `/topics/${topic.id}` }"
+                    >
+                      {{ topic.title }}
+                    </router-link>
+                  </h6>
                 </li>
               </ol>
 
@@ -337,6 +334,15 @@ ol {
 .recent-debates h6 {
   margin: 0;
   font-size: 1em;
+
+  a {
+    color: black;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 .mapa {

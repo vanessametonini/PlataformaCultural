@@ -1,6 +1,5 @@
 <template>
   <div class="app-page">
-
     <form
       ref="content"
       class="content-center column bg-change"
@@ -33,7 +32,9 @@
         </h3>
 
         <div class="context column">
-          <h4 class="headline-3 bolder">No mapa</h4>
+          <h4 class="headline-3 bolder">
+            No mapa
+          </h4>
           <p class="body-3">
             Adicionar um pin no mapa. O pin significa que a sua
             localização aparecerá no mapa, indicado pela legenda da
@@ -43,7 +44,9 @@
         </div>
 
         <div class="context column">
-          <h4 class="headline-3 bolder">Na agenda</h4>
+          <h4 class="headline-3 bolder">
+            Na agenda
+          </h4>
           <p class="body-3">
             Inserir os eventos que você irá participar ou produzir em Campo Grande.
             A agenda é o local de divulgação dos eventos culturais do
@@ -54,7 +57,9 @@
         </div>
 
         <div class="context column">
-          <h4 class="headline-3 bolder">No debate</h4>
+          <h4 class="headline-3 bolder">
+            No debate
+          </h4>
           <p class="body-3">
             Propor um assunto a ser debatido ou participar de um debate que acontece na plataforma através dos comentários e apoios.
             É muito importante que você, sendo um agente cultural,
@@ -71,7 +76,9 @@
 
       <!-- form -->
       <div class="form column">
-        <h3 class="headline-2 bolder">Insira suas informações:</h3>
+        <h3 class="headline-2 bolder">
+          Insira suas informações:
+        </h3>
 
         <div
           class="row field"
@@ -112,11 +119,11 @@
           style="justify-content: space-between"
         >
           <q-select
+            v-model="gender"
             class="input"
             dense
             square
             filled
-            v-model="gender"
             :options="genderOptions"
             label="Com qual gênero você se identifica?"
             :error="$v.gender.$error"
@@ -125,8 +132,8 @@
           />
 
           <q-input
-            :disable="isNotOtherGender"
             v-model="otherGender"
+            :disable="isNotOtherGender"
             class="input"
             dense
             square
@@ -138,11 +145,11 @@
 
         <!-- age range -->
         <q-select
+          v-model="ageRange"
           class="input"
           dense
           square
           filled
-          v-model="ageRange"
           :options="ageRangeOptions"
           label="Qual sua faixa etária?"
           :error="$v.ageRange.$error"
@@ -152,11 +159,11 @@
 
         <!-- education -->
         <q-select
+          v-model="education"
           class="input"
           dense
           square
           filled
-          v-model="education"
           :options="educationOptions"
           label="Qual o grau de educação formal?"
           :error="$v.education.$error"
@@ -208,12 +215,12 @@
             :error-message="passwordErrorMessage"
             @blur="$v.password.$touch"
           >
-            <template v-slot:append>
-            <q-icon
-              :name="isPwd ? 'visibility_off' : 'visibility'"
-              class="cursor-pointer"
-              @click="isPwd = !isPwd"
-            />
+            <template #append>
+              <q-icon
+                :name="isPwd ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="isPwd = !isPwd"
+              />
             </template>
           </q-input>
 
@@ -230,12 +237,12 @@
             :error-message="confirmPasswordErrorMessage"
             @blur="$v.confirmPassword.$touch"
           >
-            <template v-slot:append>
-            <q-icon
-              :name="isPwd ? 'visibility_off' : 'visibility'"
-              class="cursor-pointer"
-              @click="isPwd = !isPwd"
-            />
+            <template #append>
+              <q-icon
+                :name="isPwd ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="isPwd = !isPwd"
+              />
             </template>
           </q-input>
         </div>
@@ -249,7 +256,9 @@
         id="target"
         class="category column"
       >
-        <h3 class="headline-2 bolder">Identifique sua categoria</h3>
+        <h3 class="headline-2 bolder">
+          Identifique sua categoria
+        </h3>
         <span class="body-3">A categoria escolhida aparecerá no mapa quando você criar seu pin.
           Escolha sabiamente, não será possível mudar posteriormente.</span>
 
@@ -299,16 +308,16 @@
               class="link"
               :to="{ path: '/terms', hash: '#privacy'}"
             >
-            <span
-              class="body-3 bolder"
-              :class="{ white: selected}"
+              <span
+                class="body-3 bolder"
+                :class="{ white: selected}"
               >política de privacidade</span>
             </router-link>
             e as
             <router-link
               class="link"
               :to="{ path: '/terms', hash: '#use'}"
-              >
+            >
               <span
                 class="body-3 bolder"
                 :class="{ white: selected}"
@@ -607,6 +616,7 @@ export default {
           password: this.password,
           confirmPassword: this.confirmPassword,
           isValid: true,
+          isAdmin: false,
           categoryId: this.selected.id,
           gender: this.gender,
           otherGender: this.otherGender,

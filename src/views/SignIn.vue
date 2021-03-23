@@ -30,8 +30,6 @@
             class="input"
             square
             filled
-            clearable
-            clear-icon="close"
             color="black"
             type="email"
             label="Email"
@@ -46,26 +44,16 @@
             class="input"
             square
             filled
-            cleareble
-            clear-icon="close"
-            color="black"
             :type="isPwd ? 'password' : 'text'"
             label="Senha"
             :error="$v.password.$error"
             :error-message="passwordErrorMessage"
-            lazy-rules
-            hint="Mínimo de 8 caracteres"
             @blur="$v.password.$touch"
           >
             <template #append>
-              <!-- <q-icon
-                :name="isPwd ? 'visibility' : 'visibility_off'"
-                size="18px"
+              <q-icon
+                :name="isPwd ? 'visibility_off' : 'visibility'"
                 class="cursor-pointer"
-                @click="isPwd = !isPwd"
-              /> -->
-              <i
-                :class="{'far fa-eye': isPwd, 'far fa-eye-slash': !isPwd}"
                 @click="isPwd = !isPwd"
               />
             </template>
@@ -95,8 +83,6 @@
 </template>
 
 <script>
-/* eslint-disable */
-import { mapActions } from 'vuex';
 import { email, required, minLength, maxLength } from 'vuelidate/lib/validators';
 
 export default {
@@ -105,7 +91,7 @@ export default {
     return {
       email: '',
       password: '',
-      isPwd: true,
+      isPwd: false,
       errorMessage: null,
     }
   },
@@ -116,6 +102,7 @@ export default {
       maxLength: maxLength(30)
     },
     password: {
+      required,
       minLength: minLength(8),
       maxLength: maxLength(20)
     },
@@ -123,17 +110,23 @@ export default {
   computed: {
     emailErrorMessage () {
       if (!this.$v.email.required) {
-        return 'Email é requerido'
+        return 'Preencha seu email'
       } else if (!this.$v.email.email) {
         return 'Por favor insira um email válido'
       }
+
+      return ''
     },
     passwordErrorMessage () {
-      if (!this.$v.password.minLength) {
+      if (!this.$v.email.required) {
+        return 'Informe sua senha'
+      } else if (!this.$v.password.minLength) {
         return 'Mínimo de 8 dígitos'
       } else if (!this.$v.password.maxLength) {
         return 'Máximo de 15 dígitos'
       }
+
+      return ''
     },
   },
   methods: {
@@ -175,7 +168,6 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Helvetica';
 }
 
 .app-page {

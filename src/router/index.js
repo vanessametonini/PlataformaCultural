@@ -8,35 +8,47 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue'),
+    component: () => import('../views/Home.vue'),
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    path: '/plataforma',
+    name: 'Plataforma',
+    component: () => import('../views/Plataforma.vue'),
+  },
+  {
+    path: '/forum',
+    name: 'Forum',
+    component: () => import('../views/Forum.vue'),
+  },
+  {
+    path: '/terms',
+    name: 'Terms',
+    component: () => import('../views/Terms.vue'),
+  },
+  {
+    path: '/contato',
+    name: 'Contato',
+    component: () => import('../views/Contato.vue'),
   },
   {
     path: '/signIn',
     name: 'SignIn',
-    component: () => import(/* webpackChunkName: "signIn" */ '../views/SignIn.vue'),
+    component: () => import('../views/SignIn.vue'),
   },
   {
     path: '/signUp',
     name: 'SignUp',
-    component: () => import(/* webpackChunkName: "signUp" */ '../views/SignUp.vue'),
+    component: () => import('../views/SignUp.vue'),
   },
   {
     path: '/recover',
     name: 'Recover',
-    component: () => import(/* webpackChunkName: "recover" */ '../views/Recover.vue'),
+    component: () => import('../views/Recover.vue'),
   },
   {
     path: '/profile',
     name: 'Profile',
-    component: () => import(/* webpackChunkName: "profile" */ '../views/Profile.vue'),
+    component: () => import('../views/Profile.vue'),
     meta: {
       requiresAuth: true,
     },
@@ -44,7 +56,7 @@ const routes = [
   {
     path: '/dashboard',
     name: 'Dashboard',
-    component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue'),
+    component: () => import('../views/Dashboard.vue'),
     meta: {
       requiresAuth: true,
       adminAuth: true,
@@ -53,7 +65,7 @@ const routes = [
   {
     path: '/schedule',
     name: 'Schedule',
-    component: () => import(/* webpackChunkName: "schedule" */ '../views/Schedule.vue'),
+    component: () => import('../views/Schedule.vue'),
     meta: {
       requiresAuth: false,
     },
@@ -61,7 +73,7 @@ const routes = [
   {
     path: '/topics', // todos os tópicos (debates)
     name: 'Topics',
-    component: () => import(/* webpackChunkName: "Topics" */ '../views/Topics.vue'),
+    component: () => import('../views/Topics.vue'),
     meta: {
       requiresAuth: false,
     },
@@ -69,7 +81,7 @@ const routes = [
   {
     path: '/topics/createTopic', // todos os tópicos (debates)
     name: 'CreateTopic',
-    component: () => import(/* webpackChunkName: "Topics" */ '../views/CreateTopic.vue'),
+    component: () => import('../views/CreateTopic.vue'),
     meta: {
       requiresAuth: true,
     },
@@ -77,30 +89,15 @@ const routes = [
   {
     path: '/topics/:topicId', // página de um tópico
     name: 'TopicPage',
-    component: () => import(/* webpackChunkName: "topic" */ '../views/TopicPage.vue'),
+    component: () => import('../views/TopicPage.vue'),
     meta: {
       requiresAuth: true,
     },
   },
   {
-    path: '/terms',
-    name: 'Terms',
-    component: () => import(/* webpackChunkName: "terms" */ '../views/Terms.vue'),
-  },
-  {
-    path: '/faq',
-    name: 'Faq',
-    component: () => import(/* webpackChunkName: "faq" */ '../views/Faq.vue'),
-  },
-  {
-    path: '/test',
-    name: 'ViewTest',
-    component: () => import(/* webpackChunkName: "teste" */ '../views/ViewTest.vue'),
-  },
-  {
     path: '/buffer',
     name: 'Buffer',
-    component: () => import(/* webpackChunkName: "teste" */ '../views/buffer.vue'),
+    component: () => import('../views/buffer.vue'),
   },
 ];
 

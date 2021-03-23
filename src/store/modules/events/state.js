@@ -4,6 +4,7 @@ const state = {
     title: '',
     date: '',
     time: '',
+    site: '',
     street: '',
     neighborhood: '',
     number: '',

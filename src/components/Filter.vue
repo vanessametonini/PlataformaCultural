@@ -65,6 +65,7 @@ export default {
 .item {
   box-sizing: border-box;
   border-radius: 2px;
+  cursor: pointer;
   display: flex;
   line-height: initial;
   padding: 8px;

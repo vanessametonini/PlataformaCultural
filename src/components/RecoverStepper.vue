@@ -9,6 +9,7 @@
       />
       <color-line class="color-line" />
     </div>
+
     <!-- content -->
     <div class="stepper-content">
       <!-- SECTION 1 - EMAIL FINDER -->
@@ -30,14 +31,6 @@
           :error-message="emailErrorMessage"
           @blur="$v.email.$touch"
         />
-        <div class="recover-status">
-          <div class="error">
-            {{ errorMessage }}
-          </div>
-          <div class="loading-spinner">
-            colocar o spinner
-          </div>
-        </div>
       </section>
       <!-- SECTION 2 - VERIFY EMAIL -->
       <section
@@ -86,8 +79,14 @@
         theme="secondary"
         @click="submit()"
       >
-        <!-- <i class="fas fa-plus reply-icon"></i> -->
-        <span class="body-3 bolder text-uppercase"> Ir ao Mapa </span>
+        <router-link
+          type="link"
+          :to="{ name: 'Home' }"
+          exact
+          class="body-3 bolder text-uppercase"
+        >
+          Ir ao Mapa
+        </router-link>
       </base-button>
     </div>
   </div>
@@ -288,6 +287,11 @@ section {
 .stepper-btn-span {
   color: $primaryColor !important;
   letter-spacing: 1px;
+}
+
+a.body-3.bolder.text-uppercase {
+  color: black;
+  text-decoration: none;
 }
 
 </style>

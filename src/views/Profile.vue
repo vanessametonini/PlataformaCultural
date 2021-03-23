@@ -10,23 +10,12 @@
       </button>
       <!-- FIRST COLUMN -->
       <div class="column">
-        <!-- IDENTITY & USER IMG -->
+        <!-- IDENTITY -->
         <div class="profile-brand row">
           <logo-card
             class="logo"
             :black-mode="true"
-            size="200"
           />
-
-          <div class="img-box">
-            <img
-              class="user-img"
-              src="../assets/statics/avatar01.jpg"
-              alt="Imagen não encontrada"
-              height="200px"
-              width="200px"
-            >
-          </div>
         </div>
 
         <!-- USER INFO -->
