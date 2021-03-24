@@ -1,10 +1,7 @@
 <template>
   <div class="app-page column">
     <div class="identity">
-      <logo-card
-        class="logo"
-        :black-mode="true"
-      />
+      <logo-card class="logo" />
     </div>
 
     <div class="content column">

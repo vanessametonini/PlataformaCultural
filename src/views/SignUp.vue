@@ -5,10 +5,7 @@
       class="content-center column bg-change"
     >
       <!-- identity (seal) -->
-      <logo-card
-        class="header"
-        :black-mode="true"
-      />
+      <logo-card class="header" />
 
       <!-- color line -->
       <multicolor-line class="line mg-top8" />
@@ -650,31 +647,11 @@ export default {
 }
 
 .bg-change {
-  transition: .6s ease-in;
+  transition: background-color .6s ease-in;
 }
 
 .content-center {
-  background-color: #f5f5f5;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 650px;
-  margin: 32px;
-  padding: 32px;
-  z-index: 0;
-  align-items: flex-start;
-
-  @include for-phone-only {
-    width: 100%;
-    margin: 0px;
-    padding: 32px;
-  }
-
-  @include for-tablet-portrait-only {
-    width: 650px;
-    margin-top: 16px;
-    padding: 32px;
-  }
+  @include centered-column;
 }
 
 .clip-path {

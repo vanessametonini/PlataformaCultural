@@ -12,10 +12,7 @@
       <div class="column">
         <!-- IDENTITY -->
         <div class="profile-brand row">
-          <logo-card
-            class="logo"
-            :black-mode="true"
-          />
+          <logo-card />
         </div>
 
         <!-- USER INFO -->

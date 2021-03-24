@@ -1,9 +1,9 @@
 <template>
-  <div class="contact-page">
-    <div class="content">
+  <div class="container">
+    <div class="content-center column">
       <!-- start header section -->
       <header>
-        <logo-card :black-mode="true" />
+        <logo-card />
 
         <multicolor-line class="line mg-top32" />
       </header>
@@ -61,29 +61,8 @@ export default {
   font-family: 'Helvetica';
 }
 
-.contact-page {
-  background-color: white;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.content {
-  width: 650px;
-  padding: 32px;
-  z-index: 0;
-  align-items: flex-start;
-
-  @include for-phone-only {
-    padding: 32px;
-  }
-
-  @include for-tablet-portrait-only {
-    padding: 32px;
-  }
+.content-center {
+  @include centered-column;
 }
 
 span, p, a {

@@ -2,11 +2,7 @@
   <div class="app-page topics-page">
     <!-- ASIDE -->
     <div class="topics-page-aside">
-      <logo-card
-        :black-mode="true"
-        class="identity"
-        size="180"
-      />
+      <logo-card />
 
       <div
         v-if="handleResize"

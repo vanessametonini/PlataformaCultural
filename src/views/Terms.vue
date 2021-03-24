@@ -1,9 +1,6 @@
 <template>
   <div class="container">
-    <div
-      id="privacy"
-      class="content-center column"
-    >
+    <div id="privacy" class="content-center column">
       <header>
         <logo-card />
         <multicolor-line class="line mg-top32" />
@@ -316,32 +313,15 @@ export default {
   font-family: 'Helvetica';
 }
 
-.container {
-  background-color: white;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  text-align: justify;
-}
-
 .content-center {
-  width: 800px;
-  padding: 32px;
-  z-index: 0;
-  align-items: flex-start;
-
-  @include for-phone-only {
-    padding: 24px;
-  }
+  @include centered-column;
 }
 
 header {
   width: 100%;
 }
 
-span, p, a {
+span, p, a, li {
   color: black;
   font-family: 'Helvetica';
   text-align: justify;
@@ -395,7 +375,6 @@ h2.body-3 {
 #use {
   counter-reset: sublist;
 }
-
 
 #use > ol > li:nth-child(5) .sub-ordered-list > li {
   counter-increment: sublist;

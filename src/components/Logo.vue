@@ -57,6 +57,7 @@ export default {
   flex-direction: column;
   height: 180px;
   justify-content: space-between;
+  max-width: 180px;
   padding: 16px;
   position: relative;
   overflow: hidden;
@@ -73,14 +74,17 @@ export default {
 
   @include for-tablet-landscape-up {
     height: 200px;
+    max-width: 200px;
   }
 
   @include for-desktop-up {
     height: 225px;
+    max-width: 225px;
   }
 
   @include for-big-desktop-up {
     height: 250px;
+    max-width: 250px;
   }
 
 }

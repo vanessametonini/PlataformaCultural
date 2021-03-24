@@ -1,9 +1,9 @@
 <template>
-  <div class="plataforma-page">
-    <div class="content">
+  <div class="container">
+    <div class="content-center column">
       <!-- start header section -->
       <header>
-        <logo-card :black-mode="true" />
+        <logo-card />
         <multicolor-line class="line mg-top32" />
       </header>
 
@@ -196,6 +196,8 @@
         </div>
       </section>
 
+      <div class="white-space" />
+
       <!-- start section colaboradores -->
       <section class="colab mg-top32">
         <h2 class="title-3 bolder">Colaboradores</h2>
@@ -345,29 +347,12 @@ export default {
   font-family: 'Helvetica';
 }
 
-.plataforma-page {
-  background-color: white;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.content-center {
+  @include centered-column;
 }
 
-.content {
-  width: 650px;
-  padding: 32px;
-  z-index: 0;
-  align-items: flex-start;
-
-  @include for-phone-only {
-    padding: 32px;
-  }
-
-  @include for-tablet-portrait-only {
-    padding: 32px;
-  }
+header {
+  width: 100%;
 }
 
 span, p, a {
@@ -394,8 +379,8 @@ a:hover {
   height: 32px;
 }
 
-.plat, .team, .contato, .creation {
-  width: 100%;
+.contato, .creation, .team, .colab {
+  width: 80%;
 }
 
 .colab-box {

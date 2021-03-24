@@ -1,9 +1,6 @@
 <template>
   <div class="app-page recover-page">
-    <logo-card
-      :black-mode="true"
-      class="identity"
-    />
+    <logo-card class="identity" />
 
     <div class="recover-content">
       <recover-stepper />

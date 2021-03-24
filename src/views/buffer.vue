@@ -38,10 +38,7 @@
         v-if="opemNav"
         class="nav-menu"
       >
-        <logo-card
-          class="logo"
-          :black-mode="true"
-        />
+        <logo-card class="logo" />
 
         <div class="routes column">
           <router-link

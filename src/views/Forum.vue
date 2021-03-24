@@ -1,9 +1,9 @@
 <template>
-  <div class="forum-page">
-    <div class="content">
+  <div class="container">
+    <div class="content-center column">
       <!-- start header section -->
       <header>
-        <logo-card :black-mode="true" />
+        <logo-card />
         <multicolor-line class="line mg-top32" />
       </header>
 
@@ -14,20 +14,20 @@
           civil que tem como finalidade discutir, refletir e praticar ações
           referente a política cultural do município de Campo Grande.
         </p>
-        <h4>Você sabe o que é uma sociedade civil organizada?</h4>
+        <h4 class="body-3 text bolder">Você sabe o que é uma sociedade civil organizada?</h4>
         <p class="body-3 text">
           É um grupo de pessoas que não pertencem ao estado e que se organizam de
           forma independente e voluntária para desenvolver ações que interfiram na
           política pública. Também é a possibilidade de exercer a cidadania
           democrática nas esferas sociais e políticas.
         </p>
-        <h4>Mas e o Fórum Municipal de Cultura o que é?</h4>
+        <h4 class="body-3 text bolder">Mas e o Fórum Municipal de Cultura o que é?</h4>
         <p class="body-3 text">
           É uma sociedade civil organizada, devidamente reconhecida por outros
           espaços participativos, e que tem como objetivo principal mediar o
           debate entre a sociedade civil e o poder público.
         </p>
-        <h4>De que forma?</h4>
+        <h4 class="body-3 text bolder">De que forma?</h4>
         <p class="body-3 text">
           É um espaço de participação, onde todas e todos podem participar do
           debate através das assembleias, reuniões e convocatórias. É um canal
@@ -38,7 +38,7 @@
           Ou seja, é um espaço amplo para discutir, propor, acompanhar e avaliar
           as políticas públicas para a cultura no município.
         </p>
-        <h4>Acesse os links para mais informações:</h4>
+        <h4 class="body-3 text bolder">Acesse os links para mais informações:</h4>
         <p class="body-3 text">
           <a
             class="body-3 bolder mg-left16"
@@ -95,47 +95,24 @@ export default {
   font-family: 'Helvetica';
 }
 
-.forum-page {
-  background-color: white;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.content-center {
+  @include centered-column;
 }
 
-.content {
-  width: 650px;
-  padding: 32px;
-  z-index: 0;
-  align-items: flex-start;
-
-  @include for-phone-only {
-    padding: 32px;
-  }
-
-  @include for-tablet-portrait-only {
-    padding: 32px;
-  }
-
-  h4 {
-    font-size: 1.4em;
-    font-weight: bold;
-    margin: 0;
-  }
+header {
+  width: 100%;
 }
 
 span, p, a {
   color: black;
 }
 
-.text {
-  text-align: justify;
-}
-
 a {
   text-decoration: none;
+}
+
+p {
+  text-align: justify;
 }
 
 .line {

@@ -2,11 +2,7 @@
   <div class="app-page events-page">
     <!-- ASIDE -->
     <div class="events-page-aside">
-      <logo-card
-        :black-mode="true"
-        class="identity"
-        :size="180"
-      />
+      <logo-card />
 
       <div
         v-if="handleResize"
