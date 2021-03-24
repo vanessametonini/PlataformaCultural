@@ -1,31 +1,23 @@
 <template>
   <div
-    class="box"
-    :class="{ 'black-mode' : blackMode, 'bordered' : bordered }"
+    class="logo-box"
+    :class="{ 'white': inverted }"
     @click="goToHome()"
   >
     <div class="top">
-      <h1
-        id="title"
-        class="title-3 bolder"
-      >
+      <h1 class="title">
         Cartografia da Cultura.
-        <span id="m-title"> Carto CG.</span>
       </h1>
     </div>
 
-    <div class="bottom column">
-      <h2
-        id="forum-info"
-        class="body-3 bolder"
-      >
+    <div class="bottom">
+      <h2 class="forum-info">
         Fórum municipal <br> de Cultura <br> de Campo Grande
       </h2>
       <div class="line" />
-      <span
-        id="sub-info"
-        class="overline bolder"
-      > Cultura em movimento </span>
+      <span class="sub-info">
+        Cultura em movimento
+      </span>
     </div>
   </div>
 </template>
@@ -34,18 +26,10 @@
 export default {
   name: 'LogoCard',
   props: {
-    blackMode: {
+    inverted: {
       type: Boolean,
       default: false,
-    },
-    bordered: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  data() {
-    return {
-    };
+    }
   },
   methods: {
     goToHome() {
@@ -61,95 +45,115 @@ export default {
 @import '../styles/typo.scss';
 
 * {
-  font-family: 'Helvetica';
   box-sizing: border-box;
-  color: black;
+  font-family: 'Helvetica';
 }
 
-.box {
-  background-color: white;
-  height: 250px;
+.logo-box {
+  background-color: black;
+  display: flex;
+  color: white;
+  cursor: pointer;
+  flex-direction: column;
+  height: 180px;
+  justify-content: space-between;
   padding: 16px;
   position: relative;
   overflow: hidden;
-  width: 250px;
+  width: 100%;
 
-  @include for-phone-only {
-    align-items: left;
-    height: 120px;
-    width: 120px;
-    padding: 32px 16px 8px 16px;
+  &.white {
+    background-color: white;
+    color: black;
+
+    .line {
+      background-color: black;
+    }
   }
 
-  &:hover {
-    cursor: pointer;
+  @include for-tablet-landscape-up {
+    height: 200px;
   }
+
+  @include for-desktop-up {
+    height: 225px;
+  }
+
+  @include for-big-desktop-up {
+    height: 250px;
+  }
+
 }
 
-.top, .bottom {
-  text-align: left;
-}
-
-#title {
+.logo-box .title {
+  font-size: 1.8em;
+  font-weight: bold;
   line-height: initial;
   margin: 0;
-  font-size: 3em;
 
-  @include for-phone-only {
-    display: none;
+  @include for-tablet-landscape-up {
+    font-size: 2.2em;
   }
-}
 
-#m-title {
-  display: none;
-
-  @include for-phone-only {
-    display: block;
-    font-size: 2rem;
-    line-height: 2.2rem;
-    font-weight: 700;
+  @include for-desktop-up {
+    font-size: 2.5em;
   }
-}
 
-#forum-info {
-  line-height: initial;
-  margin: 0;
+  @include for-big-desktop-up {
+    font-size: 3em;
+  }
 }
 
 .bottom {
   flex-wrap: nowrap;
-  line-height: 16px;
-  position: absolute;
-  bottom: 16px;
+  line-height: initial;
+  width: 80%;
+}
 
-  @include for-phone-only {
-    justify-content: flex-end;
-    display: none;
+.forum-info {
+  font-size: 0.8em;
+  font-weight: 700;
+  line-height: initial;
+  margin: 0;
+
+  @include for-tablet-landscape-up {
+    font-size: 1em;
+  }
+
+  @include for-desktop-up {
+    font-size: 1.1em;
+  }
+
+  @include for-big-desktop-up {
+    font-size: 1.2em;
+  }
+}
+
+.sub-info {
+  font-weight: 700;
+  font-size: 0.7em;
+  letter-spacing: 0.05em;
+
+  @include for-tablet-landscape-up {
+    font-size: 0.8em;
+  }
+
+  @include for-desktop-up {
+    font-size: 0.8em;
+    letter-spacing: 0.08em;
+  }
+
+  @include for-big-desktop-up {
+    font-size: 1em;
   }
 }
 
 .line {
+  background-color: white;
   height: 2px;
   margin-top: 4px;
   margin-bottom: 4px;
-  // background-color: black;
   width: 100%;
-  background-color: black;
 }
 
-.black-mode {
-  background-color: black;
-
-  .line {
-    background-color: white;
-  }
-
-  #title, #forum-info, #sub-info, .nd-sub {
-    color: white;
-  }
-}
-
-.bordered {
-  border: 2px solid black;
-}
 </style>

@@ -56,10 +56,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../styles/mixins.scss';
 .filter {
   margin: 0;
-  max-height: calc(100vh - 368px);
+  max-height: calc(100vh - 272px);
   overflow: auto;
+
+  @include for-tablet-landscape-up {
+    max-height: calc(100vh - 300px);
+  }
+
+  @include for-desktop-up {
+    max-height: calc(100vh - 338px);
+  }
+
+  @include for-big-desktop-up {
+    max-height: calc(100vh - 368px);
+  }
 }
 
 .item {

@@ -1,12 +1,11 @@
 <template>
   <div class="container">
-    <!-- <logo-card class="fixed-logo" :blackMode="true"/> -->
     <div
       id="privacy"
       class="content-center column"
     >
       <header>
-        <logo-card :black-mode="true" />
+        <logo-card />
         <multicolor-line class="line mg-top32" />
       </header>
 

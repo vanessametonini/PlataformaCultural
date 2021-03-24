@@ -4,73 +4,16 @@
       ref="overlay"
       class="overlay"
     > -->
-    <!-- <img class="imgPresentation" src="../assets/esboco.png" alt=""> -->
     <!-- <span
         ref="presentation"
         class="presentation"
       >cartografia da cultura</span> -->
     <!-- </div> -->
 
-    <div class="aside">
-      <logo-card :black-mode="false" />
+    <header class="aside">
+      <logo-card inverted />
       <my-menu @callFilter="filterThis($event)" />
-    </div>
-
-    <!-- MOBILE MENU -->
-    <div
-      class="nav-phone"
-      :class="{ 'opemNav' : opemNav }"
-    >
-      <div
-        id="nav-icon"
-        :class="{ 'open' : opemNav }"
-        @click="opem()"
-      >
-        <span />
-        <span />
-        <span />
-      </div>
-
-      <div
-        v-if="opemNav"
-        class="nav-menu"
-      >
-        <logo-card
-          class="logo"
-          :black-node="true"
-        />
-
-        <div class="routes column">
-          <router-link
-            class="link mg-top32"
-            to="/about"
-          >
-            <span class="body-2">Sobre</span>
-          </router-link>
-
-          <router-link
-            class="link mg-top32"
-            to="/schedule"
-          >
-            <span class="body-2">Agenda</span>
-          </router-link>
-
-          <router-link
-            class="link mg-top32"
-            to="/topics"
-          >
-            <span class="body-2">Debates</span>
-          </router-link>
-
-          <router-link
-            class="link mg-top32"
-            to="/about"
-          >
-            <span class="body-2">sei lá</span>
-          </router-link>
-        </div>
-      </div>
-    </div>
+    </header>
 
     <!-- BUTTON LOGIN/PROFILE -->
     <div class="button-area">
@@ -100,7 +43,7 @@
     </div>
 
     <!-- MAP -->
-    <div class="map-container">
+    <main class="map-container">
       <l-map
         style="width: 100%, height: 100%"
         :zoom="zoom"
@@ -152,7 +95,7 @@
 
         <!-- <l-control-attribution position="topleft" prefix="Algo+Ritmo - Research Group" /> -->
       </l-map>
-    </div>
+    </main>
     <!--END MAP -->
 
     <!-- <div class="show" style="position: absolute; top: 150px; left: 40%; z-index: 3;">
@@ -347,24 +290,29 @@ export default {
   font-weight: 900;
   letter-spacing: 14px;
   text-transform: uppercase;
-  // font-size: 3.25rem;
-  // font-weight: 900;
-  // padding: 0.5em 1em;
-  // color: #1d1e22;
-  // background-color: #f4f4f4;
-  // mix-blend-mode: screen;
-  // border-radius: 0.2em;
-  // pointer-events: none;
-  // user-select: none;
 }
 
 .aside {
+  font-size: 14px;
+  left: 16px;
+  max-height: calc(100vh - 16px);
+  overflow: hidden;
   position: fixed;
   top: 16px;
-  left: 16px;
+  width: 180px;
   z-index: 2;
-  overflow: hidden;
-  max-height: calc(100vh - 16px);
+
+  @include for-tablet-landscape-up {
+    width: 200px;
+  }
+
+  @include for-desktop-up {
+    width: 225px;
+  }
+
+  @include for-big-desktop-up {
+    width: 250px;
+  }
 }
 
 .map-container {
@@ -423,172 +371,5 @@ export default {
     color: white;
   }
 }
-
-// -------------------------------------- for phone view -------------------
-.nav-phone {
-  width: 50px;
-  height: 50px;
-  z-index: 3;
-  position: absolute;
-
-  @include for-phone-only {
-    top: 0px;
-    left: 0px;
-  }
-
-  @media (min-width: 600px) and (max-width: 1200px) {
-    top: 16px;
-    left: 16px;
-  }
-
-  @media screen and (min-width: 1200px) {
-    display: none;
-  }
-  // border: 2px solid pink;
-}
-
-.opemNav {
-  width: 100%;
-  height: 100vh;
-  top: 0px;
-  left: 0px;
-  overflow: hidden;
-  background-color: #f5f5f5;
-  animation: 0.2s fadeInOpacity ease-in;
-}
-
-@keyframes fadeInOpacity {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-#nav-icon {
-  position: relative;
-  top: 8px;
-  left: 8px;
-  width: 32px;
-  height: 32px;
-  -webkit-transform: rotate(0deg);
-  -moz-transform: rotate(0deg);
-  -o-transform: rotate(0deg);
-  transform: rotate(0deg);
-  -webkit-transition: .5s ease-in-out;
-  -moz-transition: .5s ease-in-out;
-  -o-transition: .5s ease-in-out;
-  transition: .5s ease-in-out;
-  cursor: pointer;
-}
-
-#nav-icon span {
-  display: block;
-  position: absolute;
-  height: 5px;
-  width: 100%;
-  background: black;
-  border-radius: 0px;
-  opacity: 1;
-  left: 0;
-  -webkit-transform: rotate(0deg);
-  -moz-transform: rotate(0deg);
-  -o-transform: rotate(0deg);
-  transform: rotate(0deg);
-  -webkit-transition: .25s ease-in-out;
-  -moz-transition: .25s ease-in-out;
-  -o-transition: .25s ease-in-out;
-  transition: .25s ease-in-out;
-}
-
-#nav-icon span:nth-child(1) {
-  top: 0px;
-  -webkit-transform-origin: left center;
-  -moz-transform-origin: left center;
-  -o-transform-origin: left center;
-  transform-origin: left center;
-}
-
-#nav-icon span:nth-child(2) {
-  top: 10px;
-  -webkit-transform-origin: left center;
-  -moz-transform-origin: left center;
-  -o-transform-origin: left center;
-  transform-origin: left center;
-}
-
-#nav-icon span:nth-child(3) {
-  top: 20px;
-  -webkit-transform-origin: left center;
-  -moz-transform-origin: left center;
-  -o-transform-origin: left center;
-  transform-origin: left center;
-}
-
-#nav-icon.open span:nth-child(1) {
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
-  top: 10px;
-  left: 8px;
-
-  @media (min-width: 600px) and (max-width: 1200px) {
-    top: 16px;
-    left: 24px;
-  }
-}
-
-#nav-icon.open span:nth-child(2) {
-  width: 0%;
-  opacity: 0;
-}
-
-#nav-icon.open span:nth-child(3) {
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  top: 32px;
-  left: 8px;
-
-  @media (min-width: 600px) and (max-width: 1200px) {
-    top: 38px;
-    left: 24px;
-  }
-}
-
-.nav-menu {
-  position: relative;
-  top: 64px;
-  left: 0px;
-  width: inherit;
-  padding: 0px 32px 32px 32px;
-  animation: 0.8s fadeInOpacity ease-in;
-
-  .logo {
-    position: relative;
-    left: 0px;
-  }
-
-  @media (min-width: 600px) and (max-width: 1200px) {
-    position: relative;
-    top: 64px;
-    left: 64px;
-  }
-}
-
-.link {
-  text-decoration: none;
-
-  span {
-    font-size: 2rem;
-    font-weight: bolder;
-    color: black;
-  }
-}
-
-// ---------------------------------- end nav-menu for phone ----------------
 
 </style>

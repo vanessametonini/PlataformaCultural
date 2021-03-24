@@ -220,7 +220,7 @@ export default {
 @import '../styles/typo.scss';
 
 .menu-component {
-  width: 250px;
+  width: 100%;
 }
 
 .item {
@@ -231,7 +231,19 @@ export default {
 .menu-text {
   color: white;
   font-weight: bold;
-  font-size: 2em;
+  font-size: 1.2em;
+
+  @include for-tablet-landscape-up {
+    font-size: 1.4em;
+  }
+
+  @include for-desktop-up {
+    font-size: 1.8em;
+  }
+
+  @include for-big-desktop-up {
+    font-size: 2em;
+  }
 }
 
 .card-section {
@@ -245,14 +257,51 @@ export default {
 }
 
 .expanded-filters {
+
   .agenda {
-    transform: translateY(-62px);
+    transform: translateY(-45px);
   }
   .debate {
-    transform: translateY(-124px);
+    transform: translateY(-90px);
   }
   .mapa {
-    transform: translateY(-186px);
+    transform: translateY(-135px);
+  }
+
+  @include for-tablet-landscape-up {
+    .agenda {
+      transform: translateY(-49px);
+    }
+    .debate {
+      transform: translateY(-98px);
+    }
+    .mapa {
+      transform: translateY(-147px);
+    }
+  }
+
+  @include for-desktop-up {
+    .agenda {
+      transform: translateY(-57px);
+    }
+    .debate {
+      transform: translateY(-114px);
+    }
+    .mapa {
+      transform: translateY(-171px);
+    }
+  }
+
+  @include for-big-desktop-up {
+    .agenda {
+      transform: translateY(-62px);
+    }
+    .debate {
+      transform: translateY(-124px);
+    }
+    .mapa {
+      transform: translateY(-186px);
+    }
   }
 }
 
