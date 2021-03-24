@@ -47,27 +47,33 @@ $breakpoints: (
 ) !default;
 
 // ----------------- typograph styleguide ---------------------------------
-  
+
 .big-title {
-  font-size: 2.5rem;  // 40 px
+  font-size: 2.5rem;
   letter-spacing: -0.5px;
   line-height: 2rem;
 }
 
+.title-1, .title-2, .title-3, .title-4 {
+  line-height: inherit;
+  margin: 0;
+  padding: 0;
+}
+
 .title-1 {
-  font-size: 2.125rem;  // 34 px
+  font-size: 2.125rem;
 }
 
 .title-2 {
-  font-size: 1.75rem;  // 28 px
+  font-size: 1.75rem;
 }
 
 .title-3 {
-  font-size: 1.5rem; // 24px
+  font-size: 1.5rem;
 }
 
 .title-4 {
-  font-size: 1.125rem; // 18 px
+  font-size: 1.125rem;
 }
 
 .headline {

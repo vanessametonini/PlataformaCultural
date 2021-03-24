@@ -185,7 +185,7 @@
 <script>
 
 export default {
-  name: 'AboutPage',
+  name: 'ContactPage',
   data() {
     return {
       team: [

@@ -1,5 +1,5 @@
 <template>
-  <div class="about-page about-page">
+  <div class="plataforma-page">
     <div class="content">
       <!-- start header section -->
       <header>
@@ -8,7 +8,7 @@
       </header>
 
       <section class="plat mg-top32">
-        <span class="title-2 bolder"> Plataforma</span>
+        <h1 class="title-1 bolder">Plataforma</h1>
         <p class="body-3 mg-top16 text">
           Cartografia da Cultura é uma plataforma online de participação
           cidadã que auxilia na construção de políticas públicas e projetos
@@ -66,7 +66,7 @@
 
       <!-- start section criação -->
       <section class="creation mg-top32">
-        <span class="title-3 bolder">Criação</span>
+        <h2 class="title-3 bolder">Criação</h2>
 
         <div class="row">
           <div class="colab-box column">
@@ -162,7 +162,7 @@
 
       <!-- start section equipe -->
       <section class="team mg-top32">
-        <span class="title-3 bolder">Equipe</span>
+        <h2 class="title-3 bolder">Equipe</h2>
         <div class="row">
           <div
             v-for="item in team"
@@ -197,7 +197,7 @@
 
       <!-- start section colaboradores -->
       <section class="colab mg-top32">
-        <span class="title-3 bolder">Colaboradores</span>
+        <h2 class="title-3 bolder">Colaboradores</h2>
         <ul class="row">
           <li
             v-for="colab in colaborators"
@@ -227,9 +227,8 @@
 </template>
 
 <script>
-
 export default {
-  name: 'AboutPage',
+  name: 'PlataformaPage',
   data() {
     return {
       team: [
@@ -334,12 +333,6 @@ export default {
       ]
     };
   },
-  computed: {
-  },
-  watch: {
-  },
-  methods: {
-  },
 };
 </script>
 
@@ -351,7 +344,7 @@ export default {
   font-family: 'Helvetica';
 }
 
-.about-page {
+.plataforma-page {
   background-color: white;
   width: 100%;
   height: 100%;
@@ -392,18 +385,6 @@ a:hover {
   text-decoration: none;
 }
 
-#color-email {
-  color: #f58529;
-}
-
-#color-f {
-  color: #3b5998;
-}
-
-#color-ig {
-  color: #dd2a7b;
-}
-
 .align-center {
   align-items: center;
 }
@@ -412,7 +393,7 @@ a:hover {
   height: 32px;
 }
 
-header, .plat, .team, .contato, .creation {
+.plat, .team, .contato, .creation {
   width: 100%;
 }
 
@@ -454,10 +435,6 @@ header, .plat, .team, .contato, .creation {
 
 #line-height {
   line-height: 1.2rem;
-}
-
-.text-white {
-  color: white;
 }
 
 .line {
