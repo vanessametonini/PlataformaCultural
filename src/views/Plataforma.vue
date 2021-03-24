@@ -76,7 +76,6 @@
             </div>
 
             <div class="colab-links row">
-              <span class="caption bolder">.email</span>
               <a
                 class="caption bolder mg-left16"
                 target="blank"
@@ -98,7 +97,6 @@
             </div>
 
             <div class="links row align-center">
-              <span class="caption bolder">email</span>
               <a
                 class="caption bolder mg-left16"
                 target="blank"
@@ -121,7 +119,11 @@
             </div>
 
             <div class="colab-links row">
-              <span class="caption bolder">.email</span>
+              <a
+                class="caption bolder mg-left16"
+                href="mailto:forumdeculturacg@gmail.com">
+                .email
+              </a>
               <a
                 class="caption bolder mg-left16"
                 target="blank"
@@ -142,7 +144,6 @@
               <span class="body-2 bolder">coletivo.labor</span>
             </div>
             <div class="links row align-center">
-              <span class="caption bolder">email</span>
               <a
                 class="caption bolder mg-left16"
                 target="blank"

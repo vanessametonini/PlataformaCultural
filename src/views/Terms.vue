@@ -171,51 +171,57 @@
               <li>Aceitação das condições de uso da Plataforma Cartografia da Cultura</li>
             </ul>
             <p>O usuário cadastrado pode interagir com a plataforma das seguintes maneiras:</p>
-            <h4 class="body-3 text">
-              5.1 Debate
-            </h4>
-            <p>Na seção de debate, o usuário pode participar:</p>
-            <ul>
-              <li>Criando um debate. Cada usuário pode abrir um ou mais debates. As discussões serão publicadas automaticamente.</li>
-              <li>Opção de votar em “concordo” ou “discordo” para debates criados por outros usuários. As discussões aparecerão com votos positivos e negativos recebidos. Cada usuário pode votar exclusivamente em concordo ou discordo somente uma vez no mesmo debate.</li>
-              <li>Comentando as discussões de outros usuários. Cada debate pode ser comentado por outros usuários.</li>
-              <li>Uma vez inserido um comentário ou debate, ele não poderá ser deletado pelo usuário.</li>
-            </ul>
-            <h4 class="body-3 text">
-              5.2 Mapa e Agenda
-            </h4>
-            <p>
-              Uma vez feito o cadastro, o usuário poderá acessar seu perfil e inserir dados para:
-            </p>
-            <ul>
-              <li>Criar um card e um pin que serão  inseridos no mapa. Cada usuário poderá inserir somente um pin no mapa.</li>
-              <li>Adicionar um evento que será inserido na agenda. Cada usuário poderá inserir quantos eventos desejar na agenda.</li>
-              <li>Adicionar imagem ao seu perfil.</li>
-            </ul>
-            <p>
-              Para criar um card e um pin no mapa, o usuário deverá inserir as seguintes informações:
-            </p>
-            <ol>
-              <li>Nome do pin. Caso queira, poderá usar o mesmo nome do perfil ou colocar um nome fantasia. (obrigatório)</li>
-              <li>E-mail profissional (opcional)</li>
-              <li>Endereço: Rua, número e CEP (obrigatório)</li>
-              <li>Descrição da atividade artística e/ou cultural (obrigatório)</li>
-              <li>Links para redes sociais (opcional)</li>
-              <li>Imagem que irá aparecer no card (opcional)</li>
-            </ol>
-            <p>
-              Para adicionar um evento na agenda, o usuário deverá inserir as seguintes informações:
-            </p>
-            <ol>
-              <li>Nome do evento (obrigatório)</li>
-              <li>Data do evento (obrigatório)</li>
-              <li>Horário de início (obrigatório)</li>
-              <li>Local (obrigatório)</li>
-              <li>Valor da entrada (obrigatório)</li>
-              <li>Link para o evento (opcional)</li>
-              <li>Descrição do evento (obrigatório)</li>
-              <li>Categoria do evento (obrigatório)</li>
-              <li>Imagem de divulgação do evento (opcional)</li>
+            <ol class="sub-ordered-list">
+              <li>
+                <h4 class="body-3 text">
+                  Debate
+                </h4>
+                <p>Na seção de debate, o usuário pode participar:</p>
+                <ul>
+                  <li>Criando um debate. Cada usuário pode abrir um ou mais debates. As discussões serão publicadas automaticamente.</li>
+                  <li>Opção de votar em “concordo” ou “discordo” para debates criados por outros usuários. As discussões aparecerão com votos positivos e negativos recebidos. Cada usuário pode votar exclusivamente em concordo ou discordo somente uma vez no mesmo debate.</li>
+                  <li>Comentando as discussões de outros usuários. Cada debate pode ser comentado por outros usuários.</li>
+                  <li>Uma vez inserido um comentário ou debate, ele não poderá ser deletado pelo usuário.</li>
+                </ul>
+              </li>
+              <li>
+                <h4 class="body-3 text">
+                  Mapa e Agenda
+                </h4>
+                <p>
+                  Uma vez feito o cadastro, o usuário poderá acessar seu perfil e inserir dados para:
+                </p>
+                <ul>
+                  <li>Criar um card e um pin que serão  inseridos no mapa. Cada usuário poderá inserir somente um pin no mapa.</li>
+                  <li>Adicionar um evento que será inserido na agenda. Cada usuário poderá inserir quantos eventos desejar na agenda.</li>
+                  <li>Adicionar imagem ao seu perfil.</li>
+                </ul>
+                <p>
+                  Para criar um card e um pin no mapa, o usuário deverá inserir as seguintes informações:
+                </p>
+                <ol>
+                  <li>Nome do pin. Caso queira, poderá usar o mesmo nome do perfil ou colocar um nome fantasia. (obrigatório)</li>
+                  <li>E-mail profissional (opcional)</li>
+                  <li>Endereço: Rua, número e CEP (obrigatório)</li>
+                  <li>Descrição da atividade artística e/ou cultural (obrigatório)</li>
+                  <li>Links para redes sociais (opcional)</li>
+                  <li>Imagem que irá aparecer no card (opcional)</li>
+                </ol>
+                <p>
+                  Para adicionar um evento na agenda, o usuário deverá inserir as seguintes informações:
+                </p>
+                <ol>
+                  <li>Nome do evento (obrigatório)</li>
+                  <li>Data do evento (obrigatório)</li>
+                  <li>Horário de início (obrigatório)</li>
+                  <li>Local (obrigatório)</li>
+                  <li>Valor da entrada (obrigatório)</li>
+                  <li>Link para o evento (opcional)</li>
+                  <li>Descrição do evento (obrigatório)</li>
+                  <li>Categoria do evento (obrigatório)</li>
+                  <li>Imagem de divulgação do evento (opcional)</li>
+                </ol>
+              </li>
             </ol>
           </li>
           <li>
@@ -385,6 +391,20 @@ ol li li {
 h3.body-3,
 h2.body-3 {
   margin-bottom: 16px;
+}
+
+#use {
+  counter-reset: sublist;
+}
+
+
+#use > ol > li:nth-child(5) .sub-ordered-list > li {
+  counter-increment: sublist;
+  list-style-type: none;
+
+  h4::before {
+    content: '5.' counter(sublist);
+  }
 }
 
 </style>
