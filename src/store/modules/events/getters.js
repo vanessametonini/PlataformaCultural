@@ -12,7 +12,7 @@ const getters = {
       day: data.getDate().toString().padStart(2, '0'),
       month: monthNames[data.getMonth()],
       title: event.title,
-      site: 'MIS',
+      site: event.site,
     };
   }),
 };
