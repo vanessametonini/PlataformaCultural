@@ -128,6 +128,7 @@ gsap.registerPlugin(TweenMax, Expo);
 
 export default {
   name: 'HomePage',
+  title: 'Cartografia da Cultura de Campo Grande',
   components: {
     LMap,
     LTileLayer,

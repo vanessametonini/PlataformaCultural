@@ -9,4 +9,13 @@ module.exports = {
     },
   },
   transpileDependencies: ['quasar'],
+  pwa: {
+    name: "Cartografia da Cultura - Campo Grande",
+    themeColor: "#000000",
+    msTileColor: "#FFFFFF",
+    appleMobileWebAppStatusBarStyle: "black",
+    manifestOptions: {
+      background_color: "#000000"
+    }
+  },
 };

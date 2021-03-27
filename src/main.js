@@ -22,6 +22,8 @@ import './quasar';
 import LogoCard from './components/Logo.vue'; // logo da plataforma
 import MulticolorLine from './components/ColorLine.vue';
 
+import titleMixin from './mixins/title'
+
 Vue.component('LogoCard', LogoCard);
 Vue.component('MulticolorLine', MulticolorLine);
 
@@ -29,7 +31,8 @@ Vue.component('MulticolorLine', MulticolorLine);
 library.add(faUserSecret);
 Vue.component('FontAwesomeIcon', FontAwesomeIcon);
 
-// window.eventBus = new Vue();
+
+Vue.mixin(titleMixin)
 
 // my packages
 Vue.use(VueMasonry);
