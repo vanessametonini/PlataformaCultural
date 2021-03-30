@@ -194,18 +194,40 @@
         <div class="column mg-top8">
           <span class="subheading-2">Insira uma imagem</span>
           <q-file
-            v-model="file"
+            :value="files"
             class="input"
             dense
-            outlined
             square
+            outlined
+            counter
             use-chips
-            :max-file-size="2048"
-            input-style="{ color: #000 }"
-            color="white"
+            multiple
+            max-files="3"
+            @input="updateFiles"
           >
-            <!-- <template v-slot:selected-item>
-              <span class="caption bold"> {{ file }}</span>
+            <template #append>
+              <q-icon
+                v-if="files !== null"
+                name="close"
+                class="cursor-pointer"
+                @click.stop="files = null"
+              />
+              <q-icon
+                name="create_new_folder"
+                @click.stop
+              />
+            </template>
+            <template #hint>
+              Tamanho máximo de 5MB
+            </template>
+            <!-- <template #after>
+              <q-btn
+                round
+                dense
+                flat
+                icon="send"
+                @click="sendImages"
+              />
             </template> -->
           </q-file>
         </div>
@@ -310,6 +332,7 @@ export default {
   },
   data() {
     return {
+      files: null,
       valid: false, // confirma se o form de edição é válido (totalmente preenchido)
       active: false, // ativa transitions (mudar essa implementação)
       creating: false,
@@ -343,6 +366,7 @@ export default {
       link: 'eventForm.link',
       imgUrl: 'eventForm.imgUrl',
       categoryId: 'eventForm.categoryId',
+      images: 'eventForm.images'
     }),
     ...mapGetters({
       categories: 'categories/loadCategories',
@@ -350,6 +374,24 @@ export default {
     }),
   },
   methods: {
+    updateFiles(files) {
+      if (Array.isArray(files) === false || files.length === 0) {
+        this.files = null
+      }
+      else if (Array.isArray(this.files) === true) {
+        const diff = this.files.filter(file => files.indexOf(file) === -1)
+        
+        if (diff.length === 1 && this.files.length > 1) {
+          this.files = files.slice()
+        }
+        else {
+          this.files = diff.concat(files)
+        }
+      }
+      else {
+        this.files = files.slice()
+      }
+    },
     createEvent() { // abre criação do evento
       this.status.push('creating');
       if (this.step === 0) {
@@ -379,7 +421,14 @@ export default {
       }
     },
     confirmCreate() { // confirma criação de evento ou ediçao de shortEvent
-      this.$store.dispatch('events/createNewEvent');
+      this.$store.dispatch('images/uploadArray', { files: this.files })
+        .then((filenames) => {
+          this.images = JSON.stringify(filenames);
+          this.$store.dispatch('events/createNewEvent');
+        })
+        .catch ((error) => {
+            console.log(error);
+        });
       // this.completed = true;
       // const newEvent = {
       //   // id: this.eventId, // não precisa, o banco cria

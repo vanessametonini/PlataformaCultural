@@ -33,7 +33,7 @@ const actions = {
   POST({ state, commit, getters }, { uri, data = {}, httpConfigs = {} }) {
     // commit('SET_WAITING');
     return new Promise((resolve, reject) => {
-      axios.post(`${state.url}${uri}`, data, { ...httpConfigs, ...getters.httpConfigs })
+      axios.post(`${state.url}${uri}`, data, { headers: {...httpConfigs.headers, ...getters.httpConfigs.headers } })
         .then((response) => {
           // commit('SUCCESS', { response });
           // commit('RESET_WAITING');

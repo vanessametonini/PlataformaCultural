@@ -6,7 +6,11 @@
     >
       <div class="reply-tag row no-wrap">
         <div class="left-line" />
-
+        <div class="avatar">
+          <base-avatar
+            :avatar="rejoinder.user.avatar"
+          />
+        </div>
         <div class="reply-content column">
           <div class="row">
             <span class="caption bolder">{{ rejoinder.user.name }} </span>
@@ -23,11 +27,13 @@
 
 <script>
 import RejoinderForm from './RejoinderForm.vue';
+import BaseAvatar from './BaseAvatar.vue';
 
 export default {
   name: 'Rejoinder',
   components: {
     RejoinderForm,
+    BaseAvatar
   },
   props: {
     reply: {

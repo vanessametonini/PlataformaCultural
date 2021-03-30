@@ -244,6 +244,50 @@
           </q-input>
         </div>
         <!-- end row -->
+        <!-- file picker -->
+        <q-file
+          v-model="model"
+          class="input"
+          dense
+          square
+          filled
+          bottom-slots
+          label="Foto"
+          counter
+          max-files="1"
+          @input="encode64"
+        >
+          <template #before>
+            <q-avatar size="42px">
+              <img :src="avatar">
+            </q-avatar>
+          </template>
+
+          <template #append>
+            <q-icon
+              v-if="model !== null"
+              name="close"
+              class="cursor-pointer"
+              @click.stop="model = null; img = null"
+            />
+            <q-icon
+              name="create_new_folder"
+              @click.stop
+            />
+          </template>
+          <template #hint>
+            Tamanho máximo de 5MB
+          </template>
+          <!-- <template #after>
+            <q-btn
+              round
+              dense
+              flat
+              icon="send"
+              @click="sendImage"
+            />
+          </template> -->
+        </q-file>
       </div>
 
       <div class="whitespace" />
@@ -357,6 +401,7 @@ import { mapGetters } from 'vuex';
 import iconBase from '../components/iconBase.vue';
 import { required, email, minLength, maxLength, sameAs } from 'vuelidate/lib/validators';
 import { gsap, TweenMax, Expo } from 'gsap';
+const fs = require('fs');
 
 gsap.registerPlugin(TweenMax, Expo);
 
@@ -367,6 +412,8 @@ export default {
   },
   data() {
     return {
+      model: null,
+      img: null,
       loading: false,
       message: null,
       isPwd: true,
@@ -473,6 +520,16 @@ export default {
     ...mapGetters({
       options: 'categories/loadCategories',
     }),
+    avatar: {
+      get () {
+        if (this.img === null)
+          return this.$store.getters['services/getDefaultImage'];
+        return this.img;
+      },
+      set (url) {
+        this.img = url;
+      }
+    },
     formIsValid() {
       if (this.$v.$anyError || this.selected === null || this.terms === false ) {
         return false
@@ -546,6 +603,16 @@ export default {
     },
   },
   methods: {
+    async encode64(){
+      await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(this.model);
+        reader.onload = () => {
+          this.avatar = reader.result
+        };
+        reader.onerror = error => reject(error);
+      });
+    },
     selectCategory(el) {
       const { content } = this.$refs;
 
@@ -606,20 +673,23 @@ export default {
     submit(){
       if (!this.$v.$anyError) {
         this.loading = true;
-        this.$store.dispatch('users/signUp', { credentials: {
-          firstName: this.username,
-          lastName: this.lastname,
-          email: this.email,
-          password: this.password,
-          confirmPassword: this.confirmPassword,
-          isValid: true,
-          isAdmin: false,
-          categoryId: this.selected.id,
-          gender: this.gender,
-          otherGender: this.otherGender,
-          ageRange: this.ageRange,
-          education: this.education,
-        }})
+        this.$store.dispatch('images/upload', { file: this.model })
+        .then((response) => {
+          this.$store.dispatch('users/signUp', { credentials: {
+            firstName: this.username,
+            lastName: this.lastname,
+            email: this.email,
+            password: this.password,
+            confirmPassword: this.confirmPassword,
+            isValid: true,
+            isAdmin: false,
+            categoryId: this.selected.id,
+            gender: this.gender,
+            otherGender: this.otherGender,
+            ageRange: this.ageRange,
+            education: this.education,
+            avatar: response.filename,
+          }})
           .then((response) => {
             this.message = 'Só uns segundinhos';
             this.loadingTransition();
@@ -631,6 +701,10 @@ export default {
             }
             this.loadingTransition();
           });
+        })
+        .catch ((error) => {
+            console.log(error);
+        });
       }
     },
   },

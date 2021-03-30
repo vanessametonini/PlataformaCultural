@@ -39,7 +39,7 @@ const getters = {
   },
   getMarkers(state) {
     const markers = [];
-    state.listFiltered.forEach((item) => markers.push({ ...item, coordinates: [item.lat, item.long], image: images[(item.categoryId - 1) / 10] }));
+    state.listFiltered.forEach((item) => markers.push({ ...item, coordinates: [item.lat, item.long], image: images[item.categoryId - 1] }));
     return markers;
   },
 

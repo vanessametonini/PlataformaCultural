@@ -22,7 +22,10 @@ const actions = {
       .then((response) => {
         commit('ADD_EVENT_LIST', {
           ...event,
+          images:JSON.parse(event.images),
           id: response.data[0],
+          date: rootGetters.formatDate(event.dateTime),
+          time: rootGetters.formatTime(event.dateTime),
         });
       })
       .catch((error) => error);
@@ -36,6 +39,7 @@ const actions = {
           const time = rootGetters.formatTime(event.dateTime);
           return {
             ...event,
+            images:JSON.parse(event.images),
             date,
             time,
           };

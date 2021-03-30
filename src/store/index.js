@@ -7,6 +7,7 @@ import ModuleTopics from './modules/topics/index';
 import ModulePins from './modules/pins/index';
 import ModuleEvents from './modules/events/index';
 import ModuleServices from './modules/services';
+import ModuleImages from './modules/images/index';
 import ModuleMaps from './modules/maps/index';
 import STATE from './state';
 import GETTERS from './getters';
@@ -28,6 +29,7 @@ const store = new Store({
     users: ModuleUsers,
     services: ModuleServices,
     maps: ModuleMaps,
+    images: ModuleImages,
   },
   state: STATE,
   getters: GETTERS,

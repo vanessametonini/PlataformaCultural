@@ -2,9 +2,7 @@
   <div class="reply-component row no-wrap">
     <div class="avatar">
       <base-avatar
-        class="author-left"
-        :name="reply.user.name"
-        :src="reply.user.avatarUrl"
+        :avatar="reply.user.avatar"
       />
     </div>
 
@@ -82,9 +80,6 @@
             class="action-icon far fa-heart"
             :class="{ 'liked': hasBeenLiked }"
             @click="likeReply()"
-          />
-          <i
-            class="action-icon no-pointer far fa-heart"
           />
 
           <span class="caption bolder no-pointer text-black mg-left8">{{ numberOfReplyLikes(reply.id) }}</span>
