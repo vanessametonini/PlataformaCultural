@@ -1,128 +1,82 @@
 <template>
   <div class="app-page profile-page">
     <div class="content row no-wrap">
-      <button
-        class=""
-        style="height: 60px; width: 150px; background-color: black;"
-        @click="logout()"
-      >
-        <span class="body-2 text-white">sair</span>
-      </button>
-      <!-- FIRST COLUMN -->
-      <div class="column">
-        <!-- IDENTITY -->
-        <div class="profile-brand row">
-          <logo-card />
-        </div>
-
-        <!-- USER INFO -->
-        <div class="user-info">
+      <div class="col-auto">
+        <logo-card />
+        <avatar-card :user="currentUser" />
+        <out-card />
+      </div>
+      <div class="col-auto">
+        <div class="row no-wrap ">
           <user-card
-            class="profile-card"
-            :theme="theme"
             :user="currentUser"
-            @emitLogout="logout()"
+            @card-click="form = 'user'" 
           />
+          <pin-card @card-click="form = 'pin'" />
+          <event-card @card-click="form = 'event'" />
         </div>
+        <forms-profile :form="form" />
       </div>
-
-      <!-- PIN -->
-      <div class="pin">
-        <pin-editor v-if="!1" />
-        <pin-teste
-          :fetch="myPinState"
-          :item="myPin"
-        />
+      <div class="col-auto">
+        <events-profile />
       </div>
-
-      <!-- EVENT (CREATE/EDIT) -->
-      <div class="event">
-        <event-editor />
-      </div>
-
-      <!--  EVENTS GRID -->
-      <div class="events">
-        <q-scroll-area
-          class="scrollArea"
-          :thumb-style="thumbStyle"
-          :bar-style="barStyle"
-        >
-          <div
-            v-for="item in myEvents"
-            :key="item.id"
-            class="event-item"
-          >
-            <collaped-event-view :item="item" />
-            <!-- <span> {{ item.newEvent }} </span> -->
-          </div>
-        </q-scroll-area>
-      </div>
-    </div>
-
-    <div class="show column">
-      <!-- <q-btn outlined @click="login()" label="login" style="heigth: 30px; width: 60px; background-color: white;"/> -->
-      <!-- <q-btn outlined @click="logout()" label="logout" style="heigth: 30px; width: 60px; background-color: white;"/> -->
-      <!-- show pin status and data -->
-      <!-- <span class="status"> pin:store:status = {{ userPinStatus }} </span> -->
-      <!-- <span class="pin-status"> {{ getPinUser }} </span> -->
-
-      <!-- show my events lenght and data -->
-      <!-- <span class="status"> store -> token = {{ getStateToken }} <br> </span> -->
-      <!-- <span class="status"> store -> key = {{ getKeyToken }} <br> </span> -->
-      <!-- <span class="status"> myEvents size = {{ myEventsSize }} <br> </span> -->
-      <!-- <span class="pin-status"> {{ getMyEvents }} </span> -->
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import UserCard from '../components/UserCard.vue';
-import PinEditor from '../components/PinEditor.vue';
-import EventEditor from '../components/EventEditor.vue';
-import CollapedEventView from '../components/CollapsedEvent.vue';
-import PinTeste from '../components/pinTeste.vue';
+import { mapGetters } from "vuex";
+import UserCard from "../components/UserCard.vue";
+import EventCard from "../components/EventCard.vue";
+import PinCard from "../components/PinCard.vue";
+import AvatarCard from "../components/AvatarCard.vue";
+import OutCard from "../components/OutCard.vue";
+import EventsProfile from "../components/EventsProfile.vue";
+import FormsProfile from "../components/FormsProfile.vue";
 
 export default {
-  name: 'ProfilePage',
+  name: "ProfilePage",
   components: {
+    EventCard,
     UserCard,
-    PinEditor,
-    EventEditor,
-    CollapedEventView,
-    PinTeste,
+    PinCard,
+    AvatarCard,
+    OutCard,
+    EventsProfile,
+    FormsProfile,
   },
   data() {
     return {
+      form: 'user',
       theme: {
-        label: 'none',
-        value: '0',
-        color: '#AD3B3B',
+        label: "none",
+        value: "0",
+        color: "#AD3B3B",
       },
-      userImg: '../assets/statics/avatar01.jpg',
+      userImg: "../assets/statics/avatar01.jpg",
       thumbStyle: {
-        right: '0px',
-        borderRadius: '0px',
-        backgroundColor: '#111111',
-        width: '9px',
-        heigth: '5px',
+        right: "0px",
+        borderRadius: "0px",
+        backgroundColor: "#111111",
+        width: "9px",
+        heigth: "5px",
         opacity: 0.75,
       },
       barStyle: {
-        right: '0px',
-        borderRadius: '0px',
-        backgroundColor: '#f5f5f5',
-        width: '9px',
+        right: "0px",
+        borderRadius: "0px",
+        backgroundColor: "#f5f5f5",
+        width: "9px",
         opacity: 0.2,
       },
     };
   },
   computed: {
     ...mapGetters({
-      currentUser: 'users/getCurrentUser',
-      myPin: 'users/getMyPin',
-      myPinState: 'users/getMyPinState',
-      myEvents: 'users/getMyEvents',
+      currentUser: "users/getCurrentUser",
+      myPin: "users/getMyPin",
+      myPinState: "users/getMyPinState",
+      myEvents: "users/getMyEvents",
     }),
   },
   created() {},
@@ -131,37 +85,43 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.dispatch('users/destroyToken')
-        .then(
-          this.$router.push({ name: 'Home' }),
-        ).catch((error) => {
+      this.$store
+        .dispatch("users/destroyToken")
+        .then(this.$router.push({ name: "Home" }))
+        .catch((error) => {
           console.log(error);
         });
     },
     setNewkey() {
-      this.$store.dispatch('setKey');
-      console.log('setNewKey');
+      this.$store.dispatch("setKey");
+      console.log("setNewKey");
     },
     showEditInfo() {
       this.opemEditInfo = !this.opemEditInfo;
     },
     async getPageTheme() {
       const id = this.currentUser.categoryId;
-      console.log('id', id);
-      this.theme = await this.$store.dispatch('categories/getCategoryTheme', { id });
-      console.log('theme', this.theme);
+      console.log("id", id);
+      this.theme = await this.$store.dispatch("categories/getCategoryTheme", {
+        id,
+      });
+      console.log("theme", this.theme);
     },
   },
 };
 </script>
 <style lang="scss" scoped>
-
-@import '../styles/variables.scss';
-@import '../styles/mixins.scss';
+@import "../styles/variables.scss";
+@import "../styles/mixins.scss";
+@import "../styles/typo.scss";
 
 * {
-  font-family: 'Helvetica-Bold';
+  font-family: "Helvetica-Bold";
   box-sizing: border-box;
+}
+
+.margin{
+  margin: 2px;
 }
 
 .show {
@@ -183,17 +143,7 @@ export default {
 }
 
 .profile-page {
-  display: flex;
-  align-items: flex-start;
-  border-radius: 0px;
-  background-color: white;
-  padding: 24px;
-  width: 100%;
-
-  @media screen and (min-width: 1200px) {
-    align-items: center;
-    justify-content: center;
-  }
+  padding: 16px;
 }
 
 .content {
@@ -202,7 +152,7 @@ export default {
 }
 
 span {
-  font-family: 'Helvetica-Normal';
+  font-family: "Helvetica-Normal";
   font-weight: bolder;
   font-size: 2em;
   color: white;
@@ -212,8 +162,8 @@ span {
 // ------------------------- components -----------------------------------------------------
 
 .profile-brand {
-  height: 200px;
-  width: 400px;
+  // height: 200px;
+  // width: 400px;
   margin: 2px;
   overflow: hidden;
 }
@@ -229,7 +179,7 @@ span {
 }
 
 .event {
-    margin: 2px;
+  margin: 2px;
 }
 
 .events {
@@ -249,7 +199,6 @@ span {
     margin-bottom: 4px;
     margin-right: 4px;
   }
-
 }
 
 // ---------------------------------- others ---------------------------------------------
@@ -273,5 +222,4 @@ span {
   height: 100%;
   padding: 0px;
 }
-
 </style>

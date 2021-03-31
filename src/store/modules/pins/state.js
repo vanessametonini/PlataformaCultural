@@ -1,4 +1,9 @@
 const state = {
+  categorySelected: {
+    label: '',
+    value: '',
+    color: '#b8cad4',
+  },
   expand: false,
   selectedPinId: null,
   selecteds: [],

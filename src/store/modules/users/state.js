@@ -1,4 +1,15 @@
 const state = {
+  userForm: {
+    ageRange:'',
+    avatar:'',
+    categoryId: null,
+    education:'',
+    email:'',
+    firstName:'',
+    gender:'',
+    lastName:'',
+    otherGender:'',
+  },
   key: null,
   currentUser: {
     name: 'none',

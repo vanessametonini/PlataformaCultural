@@ -1,4 +1,7 @@
+import { getField } from 'vuex-map-fields';
+
 const getters = {
+  getField,
   isLoggedIn(state) {
     const token = localStorage.getItem('access_token');
     return (state.currentUser !== null) && (token !== null);

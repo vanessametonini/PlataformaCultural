@@ -3,6 +3,7 @@ import { getField } from 'vuex-map-fields';
 const getters = {
   loadEvents: (state) => state.list,
   getEventForm: (state) => state.eventForm,
+  getCategorySelected: (state) => state.categorySelected,
   getField,
   getRecents: ({ list }) => list.reverse().slice(0, 5).map((event) => {
     const monthNames = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];

@@ -2,11 +2,10 @@
     <div
     class="logo-box"
     :class="{ 'white': true }"
-    @click="$emit('card-click')"
   >
     <div class="top">
       <h1 class="title">
-        {{ `${user.firstName} ${user.lastName}` }}
+        Eventos
       </h1>
     </div>
   </div>
@@ -16,18 +15,9 @@
 // import { mapGetters } from 'vuex';
 
 export default {
-  name: 'UserCard',
-  props: {
-    user: {
-      type: Object,
-      default: () => {},
-    },
-    theme: {
-      type: Object,
-      default: () => {},
-    },
-  },
-  emits: ['card-click'],
+  name: 'EventCard',
+  props: { },
+  emits: ['emit-logout'],
   data() {
     return {};
   },
@@ -55,16 +45,17 @@ export default {
   color: white;
   cursor: pointer;
   flex-direction: column;
-  height: 180px;
+  height: 360px;
   justify-content: space-between;
-  max-width: 180px;
+//   max-width: 180px;
   padding: 16px;
   position: relative;
   overflow: hidden;
-  width: 100%;
+  width: 180px;
+  
 
   &.white {
-    background-color: #254C26;
+    background-color: black;
     color: white;
 
     .line {
@@ -72,20 +63,20 @@ export default {
     }
   }
 
-  @include for-tablet-landscape-up {
-    height: 200px;
-    max-width: 200px;
-  }
+//   @include for-tablet-landscape-up {
+//     height: 200px;
+//     max-width: 200px;
+//   }
 
-  @include for-desktop-up {
-    height: 225px;
-    max-width: 225px;
-  }
+//   @include for-desktop-up {
+//     height: 225px;
+//     max-width: 225px;
+//   }
 
-  @include for-big-desktop-up {
-    height: 250px;
-    max-width: 250px;
-  }
+//   @include for-big-desktop-up {
+//     height: 250px;
+//     max-width: 250px;
+//   }
 
 }
 
@@ -95,17 +86,17 @@ export default {
   line-height: initial;
   margin: 0;
 
-  @include for-tablet-landscape-up {
-    font-size: 2.2em;
-  }
+//   @include for-tablet-landscape-up {
+//     font-size: 2.2em;
+//   }
 
-  @include for-desktop-up {
-    font-size: 2.5em;
-  }
+//   @include for-desktop-up {
+//     font-size: 2.5em;
+//   }
 
-  @include for-big-desktop-up {
-    font-size: 3em;
-  }
+//   @include for-big-desktop-up {
+//     font-size: 3em;
+//   }
 }
 
 

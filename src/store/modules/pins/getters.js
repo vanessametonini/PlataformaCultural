@@ -25,6 +25,7 @@ const getters = {
   getSelectedPinId(state) {
     return state.selectedPinId;
   },
+  getCategorySelected: (state) => state.categorySelected,
   loadPins(state) {
     return state.list;
   },
