@@ -128,7 +128,7 @@
       <div class="column mg-top8">
         <span class="subheading-2">facebook</span>
         <q-input
-          v-model="face"
+          v-model="facebook"
           class="input f-size"
           dense
           input-class="text-black"
@@ -139,7 +139,7 @@
       <div class="column mg-top8">
         <span class="subheading-2">instagram</span>
         <q-input
-          v-model="insta"
+          v-model="instagram"
           class="input f-size"
           dense
           input-class="text-black"
@@ -230,7 +230,7 @@
       <q-btn
         outline
         color="black"
-        @click="createPin()"
+        @click="$store.dispatch('pins/postPin', { $router });"
       >
         <span class="caption">Finalizar</span>
       </q-btn>
@@ -247,19 +247,19 @@ const { mapFields } = createHelpers({
   mutationType: 'pins/updateField',
 });
 
-// import { gsap, TweenMax, Expo } from 'gsap/all';
-
-// gsap.registerPlugin(TweenMax, Expo);
-
 export default {
   name: 'PinProfile',
   components: {
   },
   props: {
-    // info: {
-    //   type: Object,
-    //   default: null,
-    // },
+    item: {
+      type: Object,
+      default: null,
+    },
+    fetch: {
+      type: Boolean,
+      default: false,
+    },
     bgColor: {
       type: String,
       default: '#254C26',
@@ -267,40 +267,37 @@ export default {
   },
   data() {
     return {
-      files: null,
-      categoryId: null,
       valid: true,
       step: 0,
-      lastStep: '',
+      lastStep: 0,
       active: false,
       background: this.bgColor,
-      title: '',
-      email: '',
-      phone: '',
-      street: '',
-      neighborhood: '',
-      number: '',
-      city: '',
-      cep: '',
-      address: {},
-      lat: '',
-      long: '',
-      description: '',
-      link: '',
-      insta: '',
-      face: '',
-      links: {},
-      imgUrl: 'https://placeimg.com/500/300/nature',
       file: null,
     };
   },
   computed: {
-    ...mapFields({
-      category: 'categorySelected'
-    }),
     ...mapGetters({
       categories: 'categories/loadCategories',
     }),
+    ...mapFields({
+      category: 'categorySelected',
+      title: 'pinForm.title',
+      email: 'pinForm.email',
+      phone: 'pinForm.phone',
+      street: 'pinForm.street',
+      number: 'pinForm.number',
+      neighborhood: 'pinForm.neighborhood',
+      city: 'pinForm.city',
+      cep: 'pinForm.zipcode',
+      description: 'pinForm.description',
+      image: 'pinForm.image',
+      facebook: 'pinForm.facebook',
+      instagram: 'pinForm.instagram',
+      twitter: 'pinForm.twitter',
+      whatsapp: 'pinForm.whatsapp',
+      categoryId: 'pinForm.categoryId',
+    }),
+    // mascara para telefone
     phoneMask() {
       if (this.phone === null || this.phone === undefined) {
         console.log('phone undefined');
@@ -317,98 +314,16 @@ export default {
       console.log(str);
       return str;
     },
-    getPinStatus() {
-      const status = this.$store.state.currentUser.pinCompleted; // verifica se o usuário possui um pin
-      return status;
-    },
   },
-  created() {
-    this.fetchStorage();
-  },
-  updated() {
-    // this.fetcLocalStorage();
-  },
+  created() {},
   methods: {
-    updateFiles(files) {
-      if (Array.isArray(files) === false || files.length === 0) {
-        this.files = null
-      }
-      else if (Array.isArray(this.files) === true) {
-        const diff = this.files.filter(file => files.indexOf(file) === -1)
-        
-        if (diff.length === 1 && this.files.length > 1) {
-          this.files = files.slice()
-        }
-        else {
-          this.files = diff.concat(files)
-        }
-      }
-      else {
-        this.files = files.slice()
-      }
-    },
-    fetchStorage() {
-      console.log('pin-profile : fetchStorage');
-      if (this.getPinStatus === false) { //  se não existe pin
-        console.log('null_Fetch');
-        this.title = '';
-        this.email = '';
-        this.phone = '';
-        this.street = '';
-        this.number = '';
-        this.neighborhood = '';
-        this.city = '';
-        this.cep = '';
-        this.description = '';
-        this.link = '';
-        this.insta = '';
-        this.face = '';
-        this.imgUrl = '';
-        this.step = 0;
+    showForm() {
+      if (this.step === 0) {
         this.lastStep = 0;
-      } else if (this.getPinStatus === true) { // há pin, get myPin na store.
-        console.log('state_fetch');
-        const info = this.$store.getters.myPin;
-        console.log('info', this.$store.getters.myPin);
-        this.title = info.title;
-        this.email = info.email;
-        this.phone = info.phone;
-        console.log('number', info.title);
-        // this.number = info.address.number;
-        // this.street = info.address.street;
-        // this.neighborhood = info.address.neighborhood;
-        // this.city = info.address.city;
-        // this.cep = info.address.cep;
-        this.address = info.address;
-        this.description = info.description;
-        // this.link = info.links.otherLink;
-        // this.linkF = info.links.linkF;
-        // this.linkIG = info.links.linkIG;
-        this.links = info.links;
-        this.imgUrl = info.imgUrl;
-        this.step = 2;
-        this.lastStep = 2;
-      }
-    },
-    fetcLocalStorage() {
-      if (this.getPinStatus === true) {
-        console.log('localStorage_fetch'); // há pin, get myPin na localStorage
-        const info = localStorage.getItem('myPin');
-        this.title = info.title;
-        this.email = info.email;
-        this.phone = info.phone;
-        this.street = info.address.street;
-        this.number = info.address.number;
-        this.neighborhood = info.address.neighborhood;
-        this.city = info.address.city;
-        this.cep = info.address.cep;
-        this.description = info.description;
-        this.link = info.links.otherLink;
-        this.linkF = info.links.linkF;
-        this.linkIG = info.links.linkIG;
-        this.imgUrl = info.imgUrl;
-        this.step = 2;
-        this.lastStep = 2;
+        this.active = true;
+        const a = this;
+        setTimeout(() => { a.step = 1; }, 800);
+        console.log('iniciando primeira edição', this.lastStep, this.step);
       }
     },
     reEdit() {
@@ -420,6 +335,7 @@ export default {
     cancelEdit() {
       console.log('cancelando', this.lastStep, this.step);
       if (this.lastStep === 0) {
+        this.active = false;
         const a = this;
         setTimeout(() => { a.step = 0; }, 1000);
         this.lastStep = 1;
@@ -431,39 +347,6 @@ export default {
         console.log('cancelando reedição');
         this.lastStep = 2;
       }
-    },
-    createPin() {
-      console.log('pin-profile:create-pin');
-      const payload = {
-        userRef: this.getKeyUser,
-        title: this.title,
-        email: this.email,
-        phone: this.phone,
-        address: {
-          street: this.street,
-          neighborhood: this.neighborhood,
-          number: this.number,
-          city: this.city,
-          cep: this.cep,
-        },
-        coordinates: {
-          lat: this.lat,
-          long: this.long,
-        },
-        description: this.description,
-        links: {
-          linkF: this.face,
-          linkIG: this.insta,
-          otherLink: this.link,
-        },
-        imgUrl: this.imgUrl, // fazer post da imagem recuperar url
-      };
-      this.lastStep = 1;
-      this.step = 2;
-      // const a = this;
-      // setTimeout(() => { a.step = 2; }, 1000);
-      console.log('funfou');
-      this.$store.dispatch({ type: 'addPin', payload });
     },
     expand() {
       this.state = !this.state;

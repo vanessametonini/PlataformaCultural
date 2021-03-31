@@ -19,6 +19,7 @@
       </div>
       <div class="col-auto">
         <events-profile />
+        <pins-profile />
       </div>
     </div>
   </div>
@@ -33,6 +34,8 @@ import AvatarCard from "../components/AvatarCard.vue";
 import OutCard from "../components/OutCard.vue";
 import EventsProfile from "../components/EventsProfile.vue";
 import FormsProfile from "../components/FormsProfile.vue";
+import PinsProfile from "../components/PinsProfile.vue";
+
 
 export default {
   name: "ProfilePage",
@@ -44,6 +47,7 @@ export default {
     OutCard,
     EventsProfile,
     FormsProfile,
+    PinsProfile,
   },
   data() {
     return {
