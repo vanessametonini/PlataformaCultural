@@ -2,7 +2,7 @@
   <div class="box">
     <div class="input-content">
 
-      <span class="body-2 bolder">Edite seu Pin</span>
+      <h4 class="title-3 bolder">Edite seu Pin</h4>
 
       <!-- pin name -->
       <div class="column mg-top16">
@@ -366,7 +366,6 @@ export default {
 
 .input {
   width: 100%;
-  // height: 40px;
   font-size: 1.2rem;
   font-weight: bold;
   margin-top: -8px;
@@ -379,6 +378,10 @@ export default {
 
 span {
   color: black;
+}
+
+.row.justify-between .column {
+  width: 48%;
 }
 
 </style>

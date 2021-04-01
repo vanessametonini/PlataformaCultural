@@ -1,53 +1,61 @@
 <template>
   <div class="app-page profile-page">
     <div class="row no-wrap">
-      <div class="col-auto">
+      <header class="col-auto">
         <logo-card />
         <avatar-card :user="currentUser" />
-        <out-card @logout-click="$store.dispatch('users/destroyToken'); $router.push({ name: 'Home' });" />
-      </div>
+        <base-button
+            class="btn-logout"
+            theme="primary"
+            @click="$store.dispatch('users/destroyToken'); $router.push({ name: 'Home' });"
+        >
+          sair
+        </base-button>
+      </header>
       <div class="col-auto">
-        <div class="row no-wrap ">
+        <nav class="row no-wrap">
           <user-card
             :user="currentUser"
-            @card-click="form = 'user'" 
+            @card-click="form = 'user'"
           />
-          <pin-card @card-click="form = 'pin'" />
+          <pin-card @card-click="form = 'pin'" class="pin-card" />
           <event-card @card-click="form = 'event'" />
-        </div>
-        <forms-profile :form="form" />
+        </nav>
+        <main>
+          <forms-profile class="forms" :form="form" />
+        </main>
       </div>
-      <div class="col-auto">
+      <!-- <aside class="col-auto">
         <events-profile />
         <pins-profile />
-      </div>
+      </aside> -->
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import BaseButton from "../components/BaseButton.vue";
+import AvatarCard from "../components/AvatarCard.vue";
 import UserCard from "../components/UserCard.vue";
 import EventCard from "../components/EventCard.vue";
 import PinCard from "../components/PinCard.vue";
-import AvatarCard from "../components/AvatarCard.vue";
-import OutCard from "../components/OutCard.vue";
-import EventsProfile from "../components/EventsProfile.vue";
 import FormsProfile from "../components/FormsProfile.vue";
-import PinsProfile from "../components/PinsProfile.vue";
+// import EventsProfile from "../components/EventsProfile.vue";
+// import PinsProfile from "../components/PinsProfile.vue";
 
 
 export default {
   name: "ProfilePage",
   components: {
-    EventCard,
-    UserCard,
-    PinCard,
+    BaseButton,
     AvatarCard,
-    OutCard,
-    EventsProfile,
+    UserCard,
+    EventCard,
+    PinCard,
     FormsProfile,
-    PinsProfile,
+    //EventsProfile,
+    //PinsProfile,
   },
   data() {
     return {
@@ -68,6 +76,26 @@ export default {
 
 .profile-page {
   padding: 16px;
+}
+
+.avatar,
+.logo-box {
+  margin-bottom: 10px;
+}
+
+.btn-logout {
+  font-size: 16px;
+  width: 100%;
+}
+
+.pin-card,
+nav.row {
+  margin: 0 10px;
+}
+
+.forms {
+  margin: 10px auto;
+  width: 90%;
 }
 
 </style>

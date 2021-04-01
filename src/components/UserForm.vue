@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div class="input-content">
-      <span class="body-2 bolder">Edite seu perfil</span>
+      <h4 class="title-3 bolder">Edite seu perfil</h4>
 
       <div class="row justify-between mg-top8">
         <div class="column">
@@ -315,4 +315,7 @@ span {
   color: black;
 }
 
+.row.justify-between .column {
+  width: 48%;
+}
 </style>

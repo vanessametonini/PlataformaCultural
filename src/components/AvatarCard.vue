@@ -1,8 +1,5 @@
 <template>
-  <q-img
-    class="logo-box"
-    :src="`${$store.getters['services/getImagePath']}${user.avatar}`"
-  />
+  <q-img class="avatar" :src="`${$store.getters['services/getImagePath']}${user.avatar}`" />
 </template>
 
 <script>
@@ -19,45 +16,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/variables.scss";
 @import "../styles/mixins.scss";
 
-.logo-box {
-  background-color: white;
-  display: flex;
-  color: white;
-  cursor: pointer;
-  flex-direction: column;
+.avatar {
+  box-sizing: border-box;
   height: 180px;
-  justify-content: space-between;
-  width: 180px;
-  padding: 16px;
-  position: relative;
-  overflow: hidden;
+  max-width: 180px;
   width: 100%;
 
-  &.white {
-    background-color: black;
-    color: white;
-
-    .line {
-      background-color: black;
-    }
+  @include for-tablet-landscape-up {
+    height: 200px;
+    max-width: 200px;
   }
 
-  // @include for-tablet-landscape-up {
-  //   height: 200px;
-  //   max-width: 200px;
-  // }
-
-  // @include for-desktop-up {
-  //   height: 225px;
-  //   max-width: 225px;
-  // }
-
-  // @include for-big-desktop-up {
-  //   height: 250px;
-  //   max-width: 250px;
-  // }
+  @include for-big-desktop-up {
+    height: 225px;
+    max-width: 225px;
+  }
 }
+
 </style>

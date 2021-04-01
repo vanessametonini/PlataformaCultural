@@ -41,3 +41,46 @@
         margin-top: 32px;
     }
 }
+
+@mixin profile-box {
+    background-color: black;
+    color: white;
+    height: 180px;
+    font-family: Helvetica, sans-serif;
+    font-size: 2em;
+    font-weight: bold;
+    max-width: 180px;
+    padding: 16px;
+    position: relative;
+    width: 100%;
+
+    @include for-tablet-landscape-up {
+        height: 200px;
+        max-width: 200px;
+    }
+
+    @include for-big-desktop-up {
+        height: 225px;
+        max-width: 225px;
+    }
+
+    &::after {
+        content: "+";
+        bottom: 16px;
+        display: block;
+        font-weight: bolder;
+        font-size: 1em;
+        line-height: .8em;
+        margin: 0;
+        position: absolute;
+        right: 16px;
+    }
+
+    h3 {
+        font-size: 1.3em;
+        font-weight: bolder;
+        line-height: 1.1em;
+        margin: 0;
+    }
+
+}

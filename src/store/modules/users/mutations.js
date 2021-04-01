@@ -4,7 +4,7 @@ const mutations = {
   updateField,
   SET_CURRENT_USER(state, user) {
     state.currentUser = user;
-    state.userForm = user
+    state.userForm = {...user}
   },
   DESTROY_CURRENT_USER(state) {
     state.currentUser = null;

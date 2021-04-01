@@ -77,14 +77,9 @@ export default {
     max-width: 200px;
   }
 
-  @include for-desktop-up {
+  @include for-big-desktop-up {
     height: 225px;
     max-width: 225px;
-  }
-
-  @include for-big-desktop-up {
-    height: 250px;
-    max-width: 250px;
   }
 
 }
@@ -99,12 +94,8 @@ export default {
     font-size: 2.2em;
   }
 
-  @include for-desktop-up {
-    font-size: 2.5em;
-  }
-
   @include for-big-desktop-up {
-    font-size: 3em;
+    font-size: 2.5em;
   }
 }
 
@@ -124,12 +115,8 @@ export default {
     font-size: 1em;
   }
 
-  @include for-desktop-up {
-    font-size: 1.1em;
-  }
-
   @include for-big-desktop-up {
-    font-size: 1.2em;
+    font-size: 1.1em;
   }
 }
 
@@ -142,14 +129,11 @@ export default {
     font-size: 0.8em;
   }
 
-  @include for-desktop-up {
+  @include for-big-desktop-up {
     font-size: 0.8em;
     letter-spacing: 0.08em;
   }
 
-  @include for-big-desktop-up {
-    font-size: 1em;
-  }
 }
 
 .line {

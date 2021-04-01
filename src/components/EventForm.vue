@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div class="input-content">
-      <span class="body-2 bolder">Crie seu evento</span>
+      <h4 class="title-3 bolder">Crie seu evento</h4>
       <!-- event name -->
       <div class="column mg-top16">
         <span class="subheading-2">nome do evento</span>
@@ -343,6 +343,10 @@ export default {
 
 span {
   color: black;
+}
+
+.row.justify-between .column {
+  width: 48%;
 }
 
 </style>

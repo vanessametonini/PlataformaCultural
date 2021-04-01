@@ -307,12 +307,8 @@ export default {
     width: 200px;
   }
 
-  @include for-desktop-up {
-    width: 225px;
-  }
-
   @include for-big-desktop-up {
-    width: 250px;
+    width: 225px;
   }
 }
 
