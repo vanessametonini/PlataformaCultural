@@ -2,10 +2,17 @@ const actions = {
   upload({ dispatch }, { file }) {
     var bodyFormData = new FormData();
     bodyFormData.append('file', file);
-    return dispatch('services/POST', { uri: 'images', data: bodyFormData, httpConfigs: { headers: { "Content-Type": "multipart/form-data" }}}, { root: true })
+    return dispatch('services/POSTH', { uri: 'images', data: bodyFormData, httpConfigs: { headers: { "Content-Type": "multipart/form-data" }}}, { root: true })
       .then((response) => response.data)
       .catch((error) => error);
   },
+  // upload({ dispatch }, { file }) {
+  //   var bodyFormData = new FormData();
+  //   bodyFormData.append('file', file);
+  //   return dispatch('services/POST', { uri: 'images', data: bodyFormData, httpConfigs: { headers: { "Content-Type": "multipart/form-data" }}}, { root: true })
+  //     .then((response) => response.data)
+  //     .catch((error) => error);
+  // },
   async uploadArray({ dispatch }, { files }){
     const promiseArray = files.map((file) => dispatch('upload', { file: file }));
     try {

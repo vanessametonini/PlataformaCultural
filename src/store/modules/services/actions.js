@@ -30,6 +30,22 @@ const actions = {
         });
     });
   },
+  POSTH({ commit, getters }, { uri, data = {}, httpConfigs = {} }) {
+    // commit('SET_WAITING');
+    return new Promise((resolve, reject) => {
+      axios.post(`http://cartografiadaculturacg.herokuapp.com/api/${uri}`, data, { headers: {...httpConfigs.headers, ...getters.httpConfigs.headers } })
+        .then((response) => {
+          // commit('SUCCESS', { response });
+          // commit('RESET_WAITING');
+          resolve(response);
+        })
+        .catch((error) => {
+          commit('ERROR', { error });
+          // commit('RESET_WAITING');
+          reject(error);
+        });
+    });
+  },
   POST({ state, commit, getters }, { uri, data = {}, httpConfigs = {} }) {
     // commit('SET_WAITING');
     return new Promise((resolve, reject) => {
