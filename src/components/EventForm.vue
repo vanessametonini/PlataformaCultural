@@ -1,9 +1,7 @@
 <template>
   <div class="box">
     <div class="input-content">
-
       <span class="body-2 bolder">Crie seu evento</span>
-
       <!-- event name -->
       <div class="column mg-top16">
         <span class="subheading-2">nome do evento</span>
@@ -122,7 +120,7 @@
         />
       </div>
 
-       <!-- ticket -->
+      <!-- ticket -->
       <div class="column mg-top8">
         <span class="subheading-2">valor</span>
         <q-input
@@ -212,7 +210,6 @@
         </q-file>
       </div>
     </div>
-
     <!-- actions edit -->
     <div
       class="mg-top32"

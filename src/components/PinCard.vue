@@ -5,7 +5,9 @@
     @click="$emit('card-click')"
   >
     <div class="top">
-      <h1 class="title">Adicionar PIN</h1>
+      <h1 class="title">
+        Adicionar PIN
+      </h1>
     </div>
   </div>
 </template>
@@ -17,14 +19,6 @@ export default {
   name: "PinCard",
   props: {},
   emits: ['card-click'],
-  data() {
-    return {};
-  },
-  computed: {},
-  methods: {},
-  created() {
-    console.log(this.user);
-  },
 };
 </script>
 

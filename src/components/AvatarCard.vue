@@ -1,9 +1,11 @@
 <template>
-  <q-img class="logo-box" :src="`${$store.getters['services/getImagePath']}${user.avatar}`" />
+  <q-img
+    class="logo-box"
+    :src="`${$store.getters['services/getImagePath']}${user.avatar}`"
+  />
 </template>
 
 <script>
-// import { mapGetters } from 'vuex';
 
 export default {
   name: "AvatarCard",
@@ -13,14 +15,6 @@ export default {
       default: () => {},
     },
   },
-  data() {
-    return {};
-  },
-  computed: {},
-  methods: {},
-  created() {
-    console.log(this.user);
-  },
 };
 </script>
 
@@ -29,7 +23,7 @@ export default {
 @import "../styles/mixins.scss";
 
 .logo-box {
-  background-color: black;
+  background-color: white;
   display: flex;
   color: white;
   cursor: pointer;

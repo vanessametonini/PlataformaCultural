@@ -33,16 +33,6 @@ export default {
     },
   },
   emits: ["emit-logout"],
-  data() {
-    return {
-      
-    };
-  },
-  computed: {},
-  methods: {},
-  created() {
-    console.log(this.user);
-  },
 };
 </script>
 

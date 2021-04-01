@@ -1,5 +1,5 @@
 <template>
-    <div
+  <div
     class="logo-box"
     :class="{ 'white': true }"
     @click="$emit('card-click')"
@@ -17,16 +17,7 @@
 
 export default {
   name: 'EventCard',
-  props: { },
   emits: ['card-click'],
-  data() {
-    return {};
-  },
-  computed: {},
-  methods: {},
-  created(){
-    console.log(this.user);
-  }
 };
 </script>
 

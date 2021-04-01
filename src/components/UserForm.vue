@@ -1,7 +1,6 @@
 <template>
   <div class="box">
     <div class="input-content">
-
       <span class="body-2 bolder">Edite seu perfil</span>
 
       <div class="row justify-between mg-top8">
@@ -195,7 +194,6 @@
         <span class="caption">Finalizar</span>
       </q-btn>
     </div>
-    
   </div>
 </template>
 

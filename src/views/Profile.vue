@@ -4,7 +4,7 @@
       <div class="col-auto">
         <logo-card />
         <avatar-card :user="currentUser" />
-        <out-card />
+        <out-card @logout-click="$store.dispatch('users/destroyToken')" />
       </div>
       <div class="col-auto">
         <div class="row no-wrap ">

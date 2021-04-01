@@ -1,7 +1,8 @@
 <template>
-    <div
+  <div
     class="logo-box"
     :class="{ 'white': true }"
+    @click="$emit('logout-click')"
   >
     <div class="top">
       <h1 class="title">
@@ -12,19 +13,10 @@
 </template>
 
 <script>
-// import { mapGetters } from 'vuex';
 
 export default {
   name: 'OutCard',
-  props: { },
-  data() {
-    return {};
-  },
-  computed: {},
-  methods: {},
-  created(){
-    console.log(this.user);
-  }
+  emits: ['logout-click']
 };
 </script>
 
