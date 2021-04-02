@@ -197,11 +197,6 @@ export default {
 @import '../styles/variables.scss';
 @import '../styles/mixins.scss';
 
-* {
-  font-family: 'Helvetica-Bold';
-  box-sizing: border-box;
-}
-
 .container {
   display: flex;
   flex-direction: row;
@@ -271,7 +266,6 @@ export default {
 }
 
 span {
-  font-family: 'Helvetica';
   font-weight: bolder;
   font-size: 2em;
   color: white;

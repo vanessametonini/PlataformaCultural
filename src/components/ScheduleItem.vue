@@ -160,10 +160,7 @@ export default {
     ...mapGetters({
       category: 'categories/getCategoryById',
     }),
-  },
-  // created(){
-  //   console.log(this.item.date);
-  // },
+  }
 };
 </script>
 
@@ -175,65 +172,3 @@ export default {
   width: 100%
   max-width: 100px
 </style>
-
-// <style lang="scss" scoped>
-// @import '../styles/variables.scss';
-// @import '../styles/mixins.scss';
-
-// $cardWidth: 320px;
-
-// * {
-//   font-family: 'Helvetica';
-//   box-sizing: border-box;
-// }
-
-// .app-component {
-//   overflow: hidden;
-//   width: $cardWidth;
-//   margin: 0px 8px 8px 4px;
-//   transition: transform .2s;
-//   overflow: hidden;
-
-//   @include for-desktop-up {
-//     width: 400px;
-//     min-width: 350px;
-//   }
-
-//   @include for-phone-only {
-//     width: 350px;
-//     margin: 8px 4px 24px 4px;
-//   }
-// }
-
-// .card {
-//   padding: 24px 32px;
-//   max-width: $cardWidth;
-// }
-
-// .line-h16 {
-//   line-height: 1em;
-// }
-
-// .img-box {
-//   padding: 0px;
-//   margin: 0px;
-//   width: $cardWidth;
-//   max-height: 250px;
-//   overflow: hidden;
-
-//   .img {
-//     height: auto;
-//     width: 100%;
-//   }
-// }
-
-// span {
-//   color: white;
-// }
-
-// .link {
-//   text-decoration: none;
-//   color: white;
-// }
-
-// </style>

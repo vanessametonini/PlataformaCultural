@@ -2,14 +2,10 @@
   <div class="pin-component">
     <div
       class="content"
-      :style="{ 'background-color' : getColor.color }"
+      :style="{ 'background-color' : getColor }"
     >
-      <!-- <span>{{ options }}</span> -->
-      <!-- <span>{{ getColor }}</span> -->
-      <!-- <span>{{ pinView }}</span> -->
 
       <span class="title-1 bolder line-h16"> {{ pinView.title }} </span>
-      <!-- <span class="body-2 bold mg-n-8"> {{ category.value.toLowerCase() }} </span> -->
 
       <span class="body-2 bolder spaced-32"> {{ pinView.description }} </span>
 
@@ -64,26 +60,19 @@ export default {
       default: null,
     },
   },
-  data() {
-    return {};
-  },
-  // mounted() {
-  //   this.setCategory();
-  // },
   computed: {
     ...mapGetters({
-      options: 'categories/loadCategories',
+      categories: 'categories/loadCategories',
     }),
     getColor() {
-      const target = this.options.find((item) => item.id === this.pinView.categoryId);
-      return target;
+      const target = this.categories.find((category) => category.id === this.pinView.categoryId);
+      if(target) {
+        return target.color
+      }
+      return "#000";
+
     },
-  },
-  methods: {
-    // setColor() {
-    //   const target = this.options.find((item) => item.categoryId === this.item.categoryId);
-    // },
-  },
+  }
 };
 </script>
 

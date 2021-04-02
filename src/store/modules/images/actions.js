@@ -2,7 +2,7 @@ const actions = {
   upload({ dispatch }, { file }) {
     var bodyFormData = new FormData();
     bodyFormData.append('file', file);
-    return dispatch('services/POSTH', { uri: 'images', data: bodyFormData, httpConfigs: { headers: { "Content-Type": "multipart/form-data" }}}, { root: true })
+    return dispatch('services/POST', { uri: 'images', data: bodyFormData, httpConfigs: { headers: { "Content-Type": "multipart/form-data" }}}, { root: true })
       .then((response) => response.data)
       .catch((error) => error);
   },

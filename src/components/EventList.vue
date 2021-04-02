@@ -176,7 +176,6 @@ export default {
 <style lang="scss" scoped>
 @import '../styles/variables.scss';
 @import '../styles/mixins.scss';
-@import '../styles/typo.scss';
 
 .topics-list {
   width: 100%;

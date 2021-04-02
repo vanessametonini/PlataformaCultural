@@ -825,7 +825,6 @@ export default {
 }
 
 .input {
-  font-family: 'Helvetica', sans-serif;
   font-size: 1.02rem;
   min-width: 49%;
   max-height: 50px;

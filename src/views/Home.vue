@@ -248,16 +248,13 @@ export default {
 <style lang="scss" scoped>
 @import '../styles/variables.scss';
 @import '../styles/mixins.scss';
-@import '../styles/typo.scss';
 
 * {
   box-sizing: border-box;
-  font-family: 'Helvetica';
 }
 
 .home-page {
   position: relative;
-  font-family: 'Poppins';
   height: 100vh;
   width: 100%;
   overflow: hidden;
@@ -362,7 +359,6 @@ export default {
   }
 
   span {
-    font-family: 'Helvetica';
     text-transform: none;
     font-weight: 700;
     color: white;

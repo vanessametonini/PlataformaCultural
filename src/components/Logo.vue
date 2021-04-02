@@ -42,11 +42,9 @@ export default {
 <style lang="scss" scoped>
 @import '../styles/variables.scss';
 @import '../styles/mixins.scss';
-@import '../styles/typo.scss';
 
 * {
   box-sizing: border-box;
-  font-family: 'Helvetica';
 }
 
 .logo-box {

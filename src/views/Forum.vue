@@ -91,10 +91,6 @@ export default {
 @import '../styles/variables.scss';
 @import '../styles/mixins.scss';
 
-* {
-  font-family: 'Helvetica';
-}
-
 .content-center {
   @include centered-column;
 }

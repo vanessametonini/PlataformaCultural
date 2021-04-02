@@ -12,12 +12,12 @@ import Vuelidate from 'vuelidate';
 
 import 'leaflet/dist/leaflet.css';
 
+import './registerServiceWorker';
+import './quasar';
 import router from './router';
 import store from './store';
-import './registerServiceWorker';
 import App from './App.vue';
 
-import './quasar';
 
 import LogoCard from './components/Logo.vue'; // logo da plataforma
 import MulticolorLine from './components/ColorLine.vue';

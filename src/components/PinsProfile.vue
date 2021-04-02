@@ -35,7 +35,6 @@ export default {
 @import '../styles/mixins.scss';
 
 * {
-  font-family: 'Helvetica';
   box-sizing: border-box;
 }
 
@@ -47,7 +46,6 @@ export default {
   flex-direction: column;
   height: 360px;
   justify-content: space-between;
-//   max-width: 180px;
   padding: 16px;
   position: relative;
   overflow: hidden;

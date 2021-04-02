@@ -155,10 +155,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 @import '../styles/variables.scss';
 @import '../styles/mixins.scss';
-@import '../styles/typo.scss';
 
 .events-page {
   z-index: 0;

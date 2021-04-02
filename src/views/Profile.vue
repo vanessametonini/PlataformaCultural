@@ -72,7 +72,6 @@ export default {
 <style lang="scss" scoped>
 @import "../styles/variables.scss";
 @import "../styles/mixins.scss";
-@import "../styles/typo.scss";
 
 .profile-page {
   padding: 16px;

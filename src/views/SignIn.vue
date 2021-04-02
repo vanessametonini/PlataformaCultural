@@ -290,7 +290,6 @@ export default {
 }
 
 .link {
-  font-family: 'Helvetica';
   font-weight: bold;
   text-decoration: none !important;
   text-transform: lowercase;

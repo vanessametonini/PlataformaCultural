@@ -9,12 +9,6 @@
 @import "./styles/mixins.scss";
 @import "./styles/typo.scss";
 
-#app {
-  // font-family: Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 // ----------------- leaflet reset popup --------------------
 .leaflet-popup-content-wrapper {
   box-shadow: none !important;
@@ -44,14 +38,6 @@
 }
 
 // ----------------- typograph styleguide -------------------
-* {
-  box-sizing: border-box;
-  padding: 0;
-}
-
-body {
-  font-family: "Helvetica", sans-serif;
-}
 
 .txt-al-jus {
   text-align: justify;

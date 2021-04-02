@@ -352,10 +352,6 @@ export default {
 @import '../styles/variables.scss';
 @import '../styles/mixins.scss';
 
-* {
-  font-family: 'Helvetica';
-}
-
 .show-steps {
   position: relative;
   top: 16px;

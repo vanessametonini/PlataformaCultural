@@ -22,7 +22,7 @@
           </template>
 
           <q-card>
-            <q-card-section class="padding-8">
+            <q-card-section>
               <ul class="navigation-list">
                 <li class="navigation-item line">
                   <router-link
@@ -217,7 +217,17 @@ export default {
 <style lang="scss" scoped>
 @import '../styles/variables.scss';
 @import '../styles/mixins.scss';
-@import '../styles/typo.scss';
+
+ol {
+  margin: 0 0 10px 0;
+  li {
+    list-style-type: none;
+  }
+}
+
+ul, ol {
+  padding: 0;
+}
 
 .menu-component {
   width: 100%;
@@ -226,23 +236,26 @@ export default {
 .item {
   background-color: black;
   margin-top: 4px;
+
 }
+
 
 .menu-text {
   color: white;
   font-weight: bold;
   font-size: 1.2em;
+  padding: 4px 4px 0;
 
   @include for-tablet-landscape-up {
     font-size: 1.4em;
   }
 
   @include for-desktop-up {
-    font-size: 1.8em;
+    font-size: 1.5em;
   }
 
   @include for-big-desktop-up {
-    font-size: 2em;
+    font-size: 1.6em;
   }
 }
 
@@ -259,16 +272,40 @@ export default {
 .expanded-filters {
 
   .agenda {
-    transform: translateY(-45px);
+    transform: translateY(-41px);
   }
   .debate {
-    transform: translateY(-90px);
+    transform: translateY(-82px);
   }
   .mapa {
-    transform: translateY(-135px);
+    transform: translateY(-123px);
   }
 
   @include for-tablet-landscape-up {
+    .agenda {
+      transform: translateY(-46px);
+    }
+    .debate {
+      transform: translateY(-91px);
+    }
+    .mapa {
+      transform: translateY(-136px);
+    }
+  }
+
+  @include for-desktop-up {
+    .agenda {
+      transform: translateY(-47px);
+    }
+    .debate {
+      transform: translateY(-94px);
+    }
+    .mapa {
+      transform: translateY(-142px);
+    }
+  }
+
+  @include for-big-desktop-up {
     .agenda {
       transform: translateY(-49px);
     }
@@ -277,30 +314,6 @@ export default {
     }
     .mapa {
       transform: translateY(-147px);
-    }
-  }
-
-  @include for-desktop-up {
-    .agenda {
-      transform: translateY(-57px);
-    }
-    .debate {
-      transform: translateY(-114px);
-    }
-    .mapa {
-      transform: translateY(-171px);
-    }
-  }
-
-  @include for-big-desktop-up {
-    .agenda {
-      transform: translateY(-62px);
-    }
-    .debate {
-      transform: translateY(-124px);
-    }
-    .mapa {
-      transform: translateY(-186px);
     }
   }
 }
@@ -341,13 +354,6 @@ export default {
   background-color: black;
   height: 2px;
   width: 70%;
-}
-
-ol {
-  margin: 0 0 10px 0;
-  li {
-    list-style-type: none;
-  }
 }
 
 .recent-events {

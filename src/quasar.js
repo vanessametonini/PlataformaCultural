@@ -3,7 +3,7 @@ import Vue from 'vue';
 import './styles/quasar.scss';
 import '@quasar/extras/fontawesome-v5/fontawesome-v5.css';
 import '@quasar/extras/material-icons/material-icons.css';
-// import iconSet from 'quasar/icon-set/material-icons';
+
 import {
   ClosePopup,
   QAvatar,
@@ -67,28 +67,6 @@ import {
 } from 'quasar';
 
 Vue.use(Quasar, {
-  // iconSet: { iconSet },
-  config: {
-    notify: {},
-    extras: [
-      'material-icons',
-      'fontawesome-v5',
-    ],
-    brand: {
-      // definir aqui suas cores padroes
-      primary: '#050302',
-      secondary: '#00ff00',
-      accent: '#E6B545',
-      // dark: '',
-      positive: '#E6B545',
-      negative: '#bb0000',
-      // info: '#E6B545',
-      // warning: '',
-    },
-    directives: {
-      Intersection,
-    },
-  },
   components: {
     ClosePopup,
     QAvatar,

@@ -102,19 +102,12 @@ export default {
 @import '../styles/variables.scss';
 @import '../styles/mixins.scss';
 
-* {
-  font-family: 'Helvetica';
-  color: white;
-}
 
 .box {
   transition: 2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .active {
-  // width: 350px;
-  // height: 100%;
-  // transition: 2s cubic-bezier(0.075, 0.82, 0.165, 1);
   animation: expand 1s linear;
 }
 

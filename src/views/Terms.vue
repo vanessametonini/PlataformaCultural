@@ -307,11 +307,6 @@ export default {
 <style lang="scss" scoped>
 @import '../styles/variables.scss';
 @import '../styles/mixins.scss';
-@import '../styles/typo.scss';
-
-* {
-  font-family: 'Helvetica';
-}
 
 .content-center {
   @include centered-column;
@@ -323,7 +318,6 @@ header {
 
 span, p, a, li {
   color: black;
-  font-family: 'Helvetica';
   text-align: justify;
 }
 

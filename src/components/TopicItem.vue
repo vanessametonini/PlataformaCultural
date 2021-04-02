@@ -106,7 +106,6 @@ export default {
 @import '../styles/mixins.scss';
 
 * {
-  font-family: 'Helvetica';
   box-sizing: border-box;
 }
 

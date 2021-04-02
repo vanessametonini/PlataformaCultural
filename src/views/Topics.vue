@@ -159,7 +159,6 @@ export default {
 
 @import '../styles/variables.scss';
 @import '../styles/mixins.scss';
-@import '../styles/typo.scss';
 
 .topics-page {
   z-index: 0;
