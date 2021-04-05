@@ -1,5 +1,5 @@
 <template>
-  <q-img class="avatar" :src="`${$store.getters['services/getImagePath']}${user.avatar}`" />
+  <q-img class="avatar" :src="`${$store.getters['services/getImagePath']}${user.avatarId}`" />
 </template>
 
 <script>

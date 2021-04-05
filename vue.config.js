@@ -1,7 +1,7 @@
 const path = require("path");
 
 module.exports = {
-  outputDir: path.resolve(__dirname, "../plataforma_cultural_api/static"),
+  outputDir: path.resolve(__dirname, "../plataforma-cultural-api-nestjs/client"),
   pluginOptions: {
     quasar: {
       importStrategy: 'manual',

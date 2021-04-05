@@ -5,7 +5,7 @@ import api from '../../../apiClient';
 const actions = {
   // OK
   signUp({ dispatch }, { credentials }) {
-    dispatch('services/POST', { uri: 'signup', data: credentials }, { root: true })
+    dispatch('services/POST', { uri: 'users', data: credentials }, { root: true })
       .then((response) => response)
       .catch((error) => error);
   },
@@ -13,13 +13,12 @@ const actions = {
   // Ok
   retrieveToken({ commit, dispatch }, { credentials }) {
     return new Promise((resolve, reject) => {
-      dispatch('services/POST', { uri: 'signin', data: credentials }, { root: true })
+      dispatch('services/POST', { uri: 'auth/login', data: credentials }, { root: true })
         .then((response) => {
-          commit('SET_AUTHENTICATION', {}, { root: true });
-          commit('SET_CURRENT_USER', response.data);
-          commit('services/STORAGE_TOKEN', response.data.token, { root: true });
-          // dispatch('pins/loadMyPin', {}, { root: true });
           resolve(response);
+          commit('SET_AUTHENTICATION', {}, { root: true });
+          commit('SET_CURRENT_USER', response.data.user);
+          commit('services/STORAGE_TOKEN', response.data.token, { root: true });
         })
         .catch((error) => reject(error));
     });
@@ -29,7 +28,8 @@ const actions = {
     return new Promise((resolve, reject) => {
       dispatch('services/GET', { uri: `users/${id}` }, { root: true })
         .then((response) => {
-          commit('SET_CURRENT_USER', response.data[0]);
+          console.log(response);
+          commit('SET_CURRENT_USER', response.data);
           // dispatch('pins/loadMyPin', {}, { root: true });
           resolve(response);
         })

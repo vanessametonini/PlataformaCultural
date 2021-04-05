@@ -240,7 +240,7 @@ export default {
     ...mapFields({
       firstName: 'userForm.firstName',
       ageRange:'userForm.ageRange',
-      avatar:'userForm.avatar',
+      avatar:'userForm.avatarId',
       categoryId: 'userForm.categoryId',
       education:'userForm.education',
       email:'userForm.email',

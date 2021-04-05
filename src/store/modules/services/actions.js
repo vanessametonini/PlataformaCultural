@@ -1,17 +1,10 @@
 import axios from 'axios';
-import jwt from 'jsonwebtoken';
 
 const actions = {
-  verifyToken({ getters }) {
-    return new Promise((resolve, reject) => {
-      jwt.verify(getters.getToken, getters.getSuperSecretKey, (err, decode) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-        resolve(decode);
-      });
-    });
+  verifyToken({ dispatch }) {
+    return dispatch('GET', { uri: 'profile'})
+      .then((response) => response.data)
+      .catch((error) => error);
   },
 
   GET({ state, commit, getters }, { uri, httpConfigs = {} }) {

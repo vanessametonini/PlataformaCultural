@@ -675,6 +675,7 @@ export default {
         this.loading = true;
         this.$store.dispatch('images/upload', { file: this.model })
         .then((response) => {
+          console.log("response: ", response);
           this.$store.dispatch('users/signUp', { credentials: {
             firstName: this.username,
             lastName: this.lastname,
@@ -688,7 +689,7 @@ export default {
             otherGender: this.otherGender,
             ageRange: this.ageRange,
             education: this.education,
-            avatar: response.filename,
+            avatarId: response[0],
           }})
           .then((response) => {
             this.message = 'Só uns segundinhos';

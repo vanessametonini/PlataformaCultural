@@ -2,7 +2,7 @@
   <div class="reply-component row no-wrap">
     <div class="avatar">
       <base-avatar
-        :avatar="reply.user.avatar"
+        :avatar="reply.user.avatarId"
       />
     </div>
 

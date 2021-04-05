@@ -9,7 +9,7 @@ const actions = {
     dispatch('topics/loadTopics');
     dispatch('services/verifyToken')
       .then((response) => {
-        dispatch('users/loadCurrentUser', { id: response.id });
+        dispatch('users/loadCurrentUser', { id: response });
         commit('SET_AUTHENTICATION');
       })
       .catch(() => commit('RESET_AUTHENTICATION'));

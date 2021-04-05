@@ -8,7 +8,7 @@
         <div class="left-line" />
         <div class="avatar">
           <base-avatar
-            :avatar="rejoinder.user.avatar"
+            :avatar="rejoinder.user.avatarId"
           />
         </div>
         <div class="reply-content column">
