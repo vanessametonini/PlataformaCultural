@@ -19,7 +19,7 @@ const state = {
     city: '',
     zipcode: '',
     description: '',
-    image: '',
+    imageIds: [],
     facebook: '',
     instagram: '',
     twitter: '',

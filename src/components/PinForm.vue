@@ -36,10 +36,8 @@
           v-model="phone"
           class="input"
           dense
-          type="tel"
           mask="(##) ##### - ####"
           unmasked-value
-          input-class="text-black"
           color="black"
         />
       </div>
@@ -171,7 +169,7 @@
         </q-select>
       </div>
 
-      <!-- file picker -->
+            <!-- file picker -->
       <div class="column mg-top8">
         <span class="subheading-2">Insira uma imagem</span>
         <q-file
@@ -230,7 +228,7 @@
       <q-btn
         outline
         color="black"
-        @click="$store.dispatch('pins/postPin', { $router });"
+        @click="confirmCreate()"
       >
         <span class="caption">Finalizar</span>
       </q-btn>
@@ -272,6 +270,7 @@ export default {
       lastStep: 0,
       active: false,
       background: this.bgColor,
+      files: null,
       file: null,
     };
   },
@@ -290,7 +289,7 @@ export default {
       city: 'pinForm.city',
       cep: 'pinForm.zipcode',
       description: 'pinForm.description',
-      image: 'pinForm.image',
+      images: 'pinForm.imageIds',
       facebook: 'pinForm.facebook',
       instagram: 'pinForm.instagram',
       twitter: 'pinForm.twitter',
@@ -317,6 +316,35 @@ export default {
   },
   created() {},
   methods: {
+    confirmCreate(){
+      this.$store.dispatch('images/uploadArray', { files: this.files })
+        .then((fileIds) => {
+          this.images = fileIds;
+          this.$store.dispatch('pins/postPin',  { $router: this.$router} );
+        })
+        .catch ((error) => {
+            console.log(error);
+        });
+
+    },
+    updateFiles(files) {
+      if (Array.isArray(files) === false || files.length === 0) {
+        this.files = null
+      }
+      else if (Array.isArray(this.files) === true) {
+        const diff = this.files.filter(file => files.indexOf(file) === -1)
+        
+        if (diff.length === 1 && this.files.length > 1) {
+          this.files = files.slice()
+        }
+        else {
+          this.files = diff.concat(files)
+        }
+      }
+      else {
+        this.files = files.slice()
+      }
+    },
     showForm() {
       if (this.step === 0) {
         this.lastStep = 0;
