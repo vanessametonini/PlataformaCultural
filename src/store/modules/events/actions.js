@@ -12,21 +12,24 @@ const actions = {
     const event = {
       ...getters.getEventForm,
       userId: rootGetters['users/getCurrentUser'].id,
-      createdAt: rootGetters.date,
+      // createdAt: rootGetters.date,
     };
     const datearray = event.date.split('/');
-    event.dateTime = `${datearray[2]}/${datearray[1]}/${datearray[0]} ${event.time}:00`;
-    delete event.date;
-    delete event.time;
+    event.date = new Date(`${datearray[2]}/${datearray[1]}/${datearray[0]} ${event.time}:00`)
+    // event.dateTime = `${datearray[2]}/${datearray[1]}/${datearray[0]} ${event.time}:00`;
+    // delete event.date;
+    // delete event.time;
     dispatch('services/POST', { uri: 'events', data: event }, { root: true })
       .then((response) => {
-        commit('ADD_EVENT_LIST', {
+        const payload = {
           ...event,
-          images:JSON.parse(event.images),
-          id: response.data[0],
-          date: rootGetters.formatDate(event.dateTime),
-          time: rootGetters.formatTime(event.dateTime),
-        });
+          images: event.imageIds,
+          id: response,
+          date: rootGetters.formatDate(event.date),
+          time: rootGetters.formatTime(event.date),
+          dateTime: event.date
+        }
+        commit('ADD_EVENT_LIST', payload );
       })
       .catch((error) => error);
   },
@@ -35,13 +38,14 @@ const actions = {
     dispatch('services/GET', { uri: 'events' }, { root: true })
       .then((response) => {
         const events = response.data.map((event) => {
-          const date = rootGetters.formatDate(event.dateTime);
-          const time = rootGetters.formatTime(event.dateTime);
+          const date = rootGetters.formatDate(event.date);
+          const time = rootGetters.formatTime(event.date);
           return {
             ...event,
-            images:JSON.parse(event.images),
+            images: event.imageIds,
             date,
             time,
+            dateTime: event.date
           };
         });
         commit('SET_EVENTS_LIST', events);

@@ -17,7 +17,7 @@ const actions = {
     const promiseArray = files.map((file) => dispatch('upload', { file: file }));
     try {
       return (await Promise.all(promiseArray))
-        .map((response) => response.filename );
+        .map((response) => response[0] );
     } catch(error) {
       console.error(error)
     }

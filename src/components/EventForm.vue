@@ -270,7 +270,7 @@ export default {
       link: 'eventForm.link',
       imgUrl: 'eventForm.imgUrl',
       categoryId: 'eventForm.categoryId',
-      images: 'eventForm.images',
+      images: 'eventForm.imageIds',
       category: 'categorySelected'
     }),
     ...mapGetters({
@@ -307,8 +307,8 @@ export default {
     },
     confirmCreate() { // confirma criação de evento ou ediçao de shortEvent
       this.$store.dispatch('images/uploadArray', { files: this.files })
-        .then((filenames) => {
-          this.images = JSON.stringify(filenames);
+        .then((fileIds) => {
+          this.images = fileIds;
           this.$store.dispatch('events/createNewEvent');
           this.$router.push({ name: 'Schedule' });
         })

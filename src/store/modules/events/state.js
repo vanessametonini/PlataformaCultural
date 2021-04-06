@@ -20,7 +20,7 @@ const state = {
     description: '',
     categoryId: null,
     imgUrl: '',
-    images: [],
+    imageIds: [],
   },
 };
 

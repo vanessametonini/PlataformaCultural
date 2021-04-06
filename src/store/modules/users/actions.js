@@ -3,14 +3,12 @@ import api from '../../../apiClient';
 // import permissions from './Permissions';
 
 const actions = {
-  // OK
   signUp({ dispatch }, { credentials }) {
     dispatch('services/POST', { uri: 'users', data: credentials }, { root: true })
       .then((response) => response)
       .catch((error) => error);
   },
 
-  // Ok
   retrieveToken({ commit, dispatch }, { credentials }) {
     return new Promise((resolve, reject) => {
       dispatch('services/POST', { uri: 'auth/login', data: credentials }, { root: true })
@@ -28,9 +26,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       dispatch('services/GET', { uri: `users/${id}` }, { root: true })
         .then((response) => {
-          console.log(response);
           commit('SET_CURRENT_USER', response.data);
-          // dispatch('pins/loadMyPin', {}, { root: true });
           resolve(response);
         })
         .catch((error) => reject(error));
