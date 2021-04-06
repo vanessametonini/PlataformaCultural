@@ -10,12 +10,12 @@ const GETTERS = {
       negativeSupports,
     };
   },
-  getMyVoteCurrentTopic: (state, getters, rootState) => {
+  getMyVoteCurrentTopic: (state, getters, rootState, rootGetters) => {
     const hasBeen = state.currentTopicSupports
-      .map((support) => support.userId === rootState.users.currentUser.id)
-      .reduce((a, b) => a + b, 0) === 1;
+      .map((support) => support.userId === rootGetters['users/getCurrentUser'].id)
+      .reduce((a, b) => a + b, 0) > 0;
     const mysupport = state.currentTopicSupports
-      .filter((support) => support.userId === rootState.users.currentUser.id)[0];
+      .filter((support) => support.userId === rootGetters['users/getCurrentUser'].id)[0];
     return {
       hasBeen,
       status: mysupport?.status,

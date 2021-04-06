@@ -11,7 +11,7 @@
       <div class="reply-header">
         <div class="author-right">
           <span class="author-name body-3 bolder">
-            {{ reply.user.name }}
+            {{ `${reply.user.firstName} ${reply.user.lastName}` }}
           </span>
           <span class="date caption bold">
             {{ $store.getters.formatDate(reply.createdAt) }}
@@ -82,7 +82,7 @@
             @click="likeReply()"
           />
 
-          <span class="caption bolder no-pointer text-black mg-left8">{{ numberOfReplyLikes(reply.id) }}</span>
+          <!-- <span class="caption bolder no-pointer text-black mg-left8">{{ numberOfReplyLikes(reply.id) }}</span> -->
         </div>
         <!-- end reply action -->
       </div>
@@ -91,11 +91,11 @@
       <div class="reply-content body-3">
         <template v-if="!editing">
           <span class="body-2 bolder">{{ reply.content }}</span>
-          <rejoinders
+          <!-- <rejoinders
             v-if="comment"
             :rejoinders="rejoinders(reply.id)"
             :reply="reply"
-          />
+          /> -->
           <!-- <div>
             <span class="content-text">formulário de resposta</span>
           </div> -->
@@ -151,7 +151,7 @@ export default {
   components: {
     BaseAvatar,
     BaseButton,
-    Rejoinders,
+    // Rejoinders,
     // BaseConfirmDialog,
   },
   props: {
@@ -184,7 +184,7 @@ export default {
       // return this.myLikes.some((el) => el.replyId === this.reply.id);
     },
   },
-  created() {},
+  created() { },
   methods: {
     deleteReply() {
       console.log('reply/deleteReply', this.reply.id);

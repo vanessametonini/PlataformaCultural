@@ -49,6 +49,10 @@ export default {
       });
     },
   },
+  mounted(){
+        console.log( 'topicpage', this.replyes );
+
+  }
 };
 </script>
 

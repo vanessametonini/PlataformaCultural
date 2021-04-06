@@ -14,14 +14,15 @@ const actions = {
     };
     dispatch('services/POST', { uri: 'supports', data: support }, { root: true })
       .then((response) => {
-        commit('ADD_CURRENT_TOPIC_SUPPORT', { id: response.data[0], ...support });
+        console.log(response);
+        commit('ADD_CURRENT_TOPIC_SUPPORT', { id: response.data, ...support });
         commit('topics/INCREMENT_TOPIC_LIST_SUPPORT', support, { root: true });
         return response.data;
       })
       .catch((error) => error);
   },
   loadSupportsByTopicId({ commit, dispatch, rootState }) {
-    dispatch('services/GET', { uri: `supports/${rootState.topics.currentTopic.id}` }, { root: true })
+    dispatch('services/GET', { uri: `supports/topics/${rootState.topics.currentTopic.id}` }, { root: true })
       .then((response) => {
         commit('SET_CURRENT_TOPIC_SUPPORTS', response.data);
         return response.data;

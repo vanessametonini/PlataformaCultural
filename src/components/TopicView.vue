@@ -42,7 +42,7 @@
       <multicolor-line class="multicolor-line-top" />
 
       <div class="author row mg-top8">
-        <span class="body-3 bolder text-gray"> {{ topic.user.name }} </span>
+        <!-- <span class="body-3 bolder text-gray"> {{ topic.user.name }} </span>  -->
         <span class="body-3 text-gray mg-left8"> - </span>
         <span class="body-3 text-gray mg-left8"> {{ $store.getters.formatDate(topic.createdAt) }} </span>
       </div>
@@ -243,12 +243,13 @@ export default {
     }),
   },
   mounted() {
+    console.log( 'topicview', this.replyes);
     this.$store.dispatch('topics/loadTopicId', { id: this.$route.params.topicId })
       .then(() => {
         this.$store.dispatch('topics/supports/loadSupportsByTopicId');
         this.$store.dispatch('topics/replies/loadRepliesByTopicId');
-        this.$store.dispatch('topics/replies/likes/loadLikesByTopicId');
-        this.$store.dispatch('topics/replies/rejoinders/loadRejoindersByTopicId');
+        // this.$store.dispatch('topics/replies/likes/loadLikesByTopicId');
+        // this.$store.dispatch('topics/replies/rejoinders/loadRejoindersByTopicId');
       });
   },
   methods: {
