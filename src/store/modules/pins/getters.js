@@ -38,9 +38,9 @@ const getters = {
     }
     return '#b8bfc2';
   },
-  getMarkers(state) {
+  getMarkers(state, getters, rootState, rootGetters) {
     const markers = [];
-    state.listFiltered.forEach((item) => markers.push({ ...item, coordinates: [item.lat, item.long], image: images[item.categoryId - 1] }));
+    state.listFiltered.forEach((item) => markers.push({ ...item, coordinates: [item.lat, item.long], image: images[rootGetters['categories/getCategoryById'](item.categoryId).value - 1 ]}));
     return markers;
   },
 
