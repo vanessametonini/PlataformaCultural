@@ -5,8 +5,17 @@ const actions = {
 
   loadTopics({ dispatch, commit }) {
     dispatch('services/GET', { uri: 'topics' }, { root: true })
-      .then((response) => {
-        const topics = response.data;
+      .then(async (response) => {
+        const topicsArray = response.data.map((topic)=> {
+            return dispatch('services/GET', { uri: `users/${topic.userId}` }, { root: true })
+              .then((response) => {
+                return {
+                  ...topic,
+                  user: response.data,
+                }
+              })
+        });
+        const topics = await Promise.all(topicsArray);
         commit('SET_TOPICS_LIST', topics);
       })
       .catch((error) => error);
@@ -25,21 +34,23 @@ const actions = {
     rootState,
     rootGetters,
   }) {
+    const user = {...rootGetters['users/getCurrentUser']};
     const topic = {
       ...getters.topicForm,
-      userId: rootState.users.currentUser.id,
-      createdAt: rootGetters.date,
+      userId: user.id,
+      createdAt: new Date(),
     };
     dispatch('services/POST', { uri: 'topics', data: { ...topic } }, { root: true })
       .then((response) => {
-        commit('ADD_NEW_TOPIC', {
+        const payload = {
           ...topic,
-          id: response.data[0],
+          id: response.data,
           user: {
-            ...rootState.users.currentUser,
-            name: `${rootState.users.currentUser.firstName} ${rootState.users.currentUser.lastName}`,
-          },
-        });
+            ...user,
+            name: `${user.firstName} ${user.lastName}`,
+          }
+        };
+        commit('ADD_NEW_TOPIC', payload);
       })
       .catch((error) => error);
   },
