@@ -13,7 +13,7 @@
         </div>
         <div class="reply-content column">
           <div class="row">
-            <span class="caption bolder">{{ rejoinder.user.name }} </span>
+            <span class="caption bolder">{{ `${rejoinder.user.firstName} ${rejoinder.user.lastName}` }} </span>
             <span class="caption bold mg-left8"> {{ $store.getters.formatDate(rejoinder.createdAt) }} </span>
           </div>
 
@@ -51,6 +51,9 @@ export default {
   },
   computed: {},
   methods: {},
+  created(){
+    console.log('rejoinders: ', this.rejoinders);
+  }
 };
 </script>
 

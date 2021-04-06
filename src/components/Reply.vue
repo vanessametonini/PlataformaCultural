@@ -82,7 +82,7 @@
             @click="likeReply()"
           />
 
-          <!-- <span class="caption bolder no-pointer text-black mg-left8">{{ numberOfReplyLikes(reply.id) }}</span> -->
+          <span class="caption bolder no-pointer text-black mg-left8">{{ numberOfReplyLikes(reply.id) }}</span>
         </div>
         <!-- end reply action -->
       </div>
@@ -91,11 +91,11 @@
       <div class="reply-content body-3">
         <template v-if="!editing">
           <span class="body-2 bolder">{{ reply.content }}</span>
-          <!-- <rejoinders
+          <rejoinders
             v-if="comment"
             :rejoinders="rejoinders(reply.id)"
             :reply="reply"
-          /> -->
+          />
           <!-- <div>
             <span class="content-text">formulário de resposta</span>
           </div> -->
@@ -151,7 +151,7 @@ export default {
   components: {
     BaseAvatar,
     BaseButton,
-    // Rejoinders,
+    Rejoinders,
     // BaseConfirmDialog,
   },
   props: {

@@ -1,10 +1,21 @@
 const actions = {
 
   loadRejoindersByTopicId({ commit, dispatch, rootState }) {
-    dispatch('services/GET', { uri: `rejoinders/${rootState.topics.currentTopic.id}` }, { root: true })
-      .then((response) => {
-        commit('SET_CURRENT_TOPIC_REJOINDERS', response.data);
-        return response.data;
+    dispatch('services/GET', { uri: `rejoinders/topic/${rootState.topics.currentTopic.id}` }, { root: true })
+      .then(async (response) => {
+        const rejoindersArray = response.data.map((rejoinder) => {
+          return dispatch('services/GET', { uri: `users/${rejoinder.userId}` }, { root: true })
+            .then((response) => {
+              return {
+                ...rejoinder,
+                user: response.data,
+              }
+            })
+        });
+        const rejoinders = await Promise.all(rejoindersArray);
+
+        commit('SET_CURRENT_TOPIC_REJOINDERS', rejoinders);
+        return rejoinders;
       })
       .catch((error) => error);
   },

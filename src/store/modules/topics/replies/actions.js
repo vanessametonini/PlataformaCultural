@@ -12,7 +12,6 @@ const actions = {
             })
         });
         const replies = await Promise.all(repliesArray);
-        console.log(replies);
         commit('SET_CURRENT_TOPIC_REPLYES', replies);
         commit('rejoinders/INIT_CURRENT_TOPIC_REJOINDERS_FORM', replies);
         return replies;
@@ -30,11 +29,11 @@ const actions = {
       .then((response) => {
         commit('topics/INCREMENT_TOPIC_LIST_REPLY', data, { root: true });
         commit('rejoinders/ADD_CURRENT_TOPIC_REPLY_REJOINDER_FORM', {
-          replyId: response.data[0],
+          replyId: response.data,
           content: '',
         });
         commit('ADD_CURRENT_TOPIC_REPLY', {
-          ...{ id: response.data[0] },
+          ...{ id: response.data },
           ...data,
           user: {
             ...rootState.users.currentUser,

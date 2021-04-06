@@ -14,7 +14,7 @@ const actions = {
     };
     dispatch('services/POST', { uri: 'likes', data: { ...info } }, { root: true })
       .then((response) => {
-        commit('ADD_CURRENT_TOPIC_REPLY_LIKE', { id: response.data[0], ...info });
+        commit('ADD_CURRENT_TOPIC_REPLY_LIKE', { id: response.data, ...info });
       })
       .catch((error) => console.log(error.message));
   },
@@ -25,7 +25,7 @@ const actions = {
       .catch((error) => console.log(error.message));
   },
   loadLikesByTopicId({ commit, dispatch, rootState }) {
-    dispatch('services/GET', { uri: `likes/${rootState.topics.currentTopic.id}` }, { root: true })
+    dispatch('services/GET', { uri: `likes/topic/${rootState.topics.currentTopic.id}` }, { root: true })
       .then((response) => {
         commit('SET_CURRENT_TOPIC_LIKES', response.data);
         return response.data;

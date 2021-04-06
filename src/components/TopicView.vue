@@ -248,8 +248,8 @@ export default {
       .then(() => {
         this.$store.dispatch('topics/supports/loadSupportsByTopicId');
         this.$store.dispatch('topics/replies/loadRepliesByTopicId');
-        // this.$store.dispatch('topics/replies/likes/loadLikesByTopicId');
-        // this.$store.dispatch('topics/replies/rejoinders/loadRejoindersByTopicId');
+        this.$store.dispatch('topics/replies/likes/loadLikesByTopicId');
+        this.$store.dispatch('topics/replies/rejoinders/loadRejoindersByTopicId');
       });
   },
   methods: {

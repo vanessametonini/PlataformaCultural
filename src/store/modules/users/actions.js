@@ -14,9 +14,8 @@ const actions = {
       dispatch('services/POST', { uri: 'auth/login', data: credentials }, { root: true })
         .then((response) => {
           resolve(response);
-          commit('SET_AUTHENTICATION', {}, { root: true });
-          commit('SET_CURRENT_USER', response.data.user);
           commit('services/STORAGE_TOKEN', response.data.token, { root: true });
+          dispatch('initStore', { }, { root: true })
         })
         .catch((error) => reject(error));
     });
