@@ -127,18 +127,13 @@ export default {
     },
   },
   methods: {
-    submit() {
+    async submit() {
       if (!this.$v.$anyError) {
-        this.$store.dispatch('users/retrieveToken', { credentials: {
+        await this.$store.dispatch('users/retrieveToken', { credentials: {
           email: this.email,
           password: this.password,
         }}).then((response) => {
-          console.log('SIGN_IN', response);
-          if (response.data.isAdmin) {
-            this.$router.push({ name: 'Dashboard' });
-          } else {
             this.$router.push({ name: 'Profile' });
-          }
         }).catch((error) => {
           if(error.message === 'Request failed with status code 400') {
             this.errorMessage = 'Não encontramos uma conta com esse email';

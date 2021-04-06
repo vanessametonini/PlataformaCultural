@@ -37,6 +37,7 @@
       >
         <span
           class="subheading-2 bolder"
+          v-if="$store.getters['getAuth']"
           to="/singIn"
         >Perfil</span>
       </q-btn>

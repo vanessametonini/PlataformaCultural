@@ -3,7 +3,7 @@ import axios from 'axios';
 const actions = {
   verifyToken({ dispatch }) {
     return dispatch('GET', { uri: 'profile'})
-      .then((response) => response.data)
+      .then((response) => response)
       .catch((error) => error);
   },
 

@@ -12,10 +12,11 @@ const actions = {
   retrieveToken({ commit, dispatch }, { credentials }) {
     return new Promise((resolve, reject) => {
       dispatch('services/POST', { uri: 'auth/login', data: credentials }, { root: true })
-        .then((response) => {
-          resolve(response);
+        .then(async (response) => {
+          commit('SET_AUTHENTICATION',{}, {root: true});
           commit('services/STORAGE_TOKEN', response.data.token, { root: true });
-          dispatch('initStore', { }, { root: true })
+          await dispatch('initStore', { }, { root: true })
+          resolve(response);
         })
         .catch((error) => reject(error));
     });
