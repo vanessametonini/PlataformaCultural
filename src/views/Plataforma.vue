@@ -36,7 +36,7 @@
           Para dúvidas e contato: <a href="mailto:cartografiadaculturacg@gmail.com">cartografiadaculturacg@gmail.com</a>
         </p>
         <p class="body-3 text">
-          Para participar e colaborar com a plataforma, <router-link to="signUp">CADASTRE-SE</router-link>.
+          Para participar e colaborar com a plataforma, <router-link to="signUp"><b>CADASTRE-SE</b></router-link>.
         </p>
         <p class="body-3 text">
           Clique aqui para ler nossos termos:<router-link :to="{ path: '/terms', hash: '#privacy'}">Políticas de privacidade</router-link> e <router-link :to="{ path: '/terms', hash: '#use'}">condições de uso</router-link>.
@@ -68,6 +68,7 @@
       <div class="white-space" />
 
       <!-- start section criação -->
+      
       <section class="creation mg-top32">
         <h2 class="title-3 bolder">Criação</h2>
 
@@ -111,6 +112,7 @@
       <div class="white-space" />
 
       <!-- start section equipe -->
+      
       <section class="team mg-top32">
         <h2 class="title-3 bolder">Equipe</h2>
         <div class="row">
@@ -128,18 +130,7 @@
               > {{ item.name }} <br> {{ item.lastName }} </span>
               <span class="caption"> {{ item.category }} </span>
 
-              <div class="social-media row">
-                <a
-                  class="caption bolder mg-left8"
-                  target="blank"
-                  :href="item.face"
-                > .f </a>
-                <a
-                  class="caption bolder mg-left8"
-                  target="blank"
-                  :href="item.insta"
-                > .ig </a>
-              </div>
+ 
             </div>
           </div>
         </div>
