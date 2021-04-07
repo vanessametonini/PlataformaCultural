@@ -50,7 +50,8 @@
           <a
             class="body-3 bolder mg-left16"
             target="_blank"
-            href="https://linktr.ee/cartografiadaculturacg"
+            href="https://linktr.ee/cartografiadaculturacg">
+            Link Tree
           </a>
         </p>
       </section>

@@ -74,7 +74,7 @@
       <section id="use" class="column body-3 text">
         <div class="scroll-offset" />
 
-        <h1 class="title-1 bolder">Condições de uso/h1>
+        <h1 class="title-1 bolder">Condições de uso</h1>
         <h2 class="body-3 text">
           Aviso legal sobre as condições de uso, privacidade e proteção de
           dados pessoais da plataforma Cartografia da Cultura
