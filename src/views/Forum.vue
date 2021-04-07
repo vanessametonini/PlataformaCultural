@@ -45,14 +45,12 @@
             target="_blank"
             href=""
           >
-            Repositório
+            Repositório do Fórum
           </a> - documentos públicos, atas de reuniões, convocatórias. <br>
           <a
             class="body-3 bolder mg-left16"
             target="_blank"
-            href=""
-          >
-          Leis referente à cultura
+            href="https://linktr.ee/cartografiadaculturacg"
           </a>
         </p>
       </section>
@@ -63,12 +61,12 @@
             class="body-3 bolder mg-left16"
             target="_blank"
             href="https://www.facebook.com/forumdeculturac"
-          >.facebook</a>
+          >Facebook Fórum</a>
           <a
             class="body-3 bolder mg-left16"
             target="_blank"
             href="https://www.instagram.com/nossoforumcg/"
-          >.instagram</a>
+          >Instagram Fórum</a>
         </div>
       </section>
 
