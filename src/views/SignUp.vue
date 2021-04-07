@@ -255,6 +255,11 @@
           label="Foto"
           counter
           max-files="1"
+          accept=".jpg,.jpeg,.png,.gif"
+          max-file-size=2097152
+          :error-message="avatarErrorMessage"
+          :error="$v.model.$error"
+          @blur="$v.model.$touch"
           @input="encode64"
         >
           <template #before>
@@ -276,7 +281,7 @@
             />
           </template>
           <template #hint>
-            Tamanho máximo de 5MB
+            Tamanho máximo de 2MB
           </template>
           <!-- <template #after>
             <q-btn
@@ -514,6 +519,9 @@ export default {
     },
     education: {
       required,
+    },
+    model: {
+      required,
     }
   },
   computed: {
@@ -601,6 +609,11 @@ export default {
     isNotOtherGender () {
       return this.gender != this.genderOptions[2]
     },
+    avatarErrorMessage () {
+    if (!this.$v.education.required) {
+      return 'É necessário um avatar'
+    }
+    },
   },
   methods: {
     async encode64(){
@@ -671,6 +684,7 @@ export default {
 
     },
     submit(){
+      this.$v.$touch();
       if (!this.$v.$anyError) {
         this.loading = true;
         this.$store.dispatch('images/upload', { file: this.model })
