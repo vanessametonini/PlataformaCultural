@@ -130,7 +130,6 @@ import { gsap, TweenMax, Expo } from 'gsap';
 import { createHelpers } from 'vuex-map-fields';
 import PinView from '../components/PinView.vue';
 import MyMenu from '../components/Menu.vue';
-
 const { mapFields } = createHelpers({
   getterType: 'maps/getField',
   mutationType: 'maps/updateField',

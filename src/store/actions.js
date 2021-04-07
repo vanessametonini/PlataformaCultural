@@ -1,8 +1,11 @@
+import { event } from 'vue-analytics'
+
 const actions = {
   setNextRoute({ commit }, { route }) {
     commit('SET_NEXT_ROUTE', { route });
   },
   initStore({ commit, dispatch }) {
+    event('user-enter', 'increase', 'counter')
     dispatch('categories/loadCategories');
     dispatch('pins/loadPins');
     dispatch('events/loadEvents');

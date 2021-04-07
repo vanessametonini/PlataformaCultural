@@ -102,7 +102,7 @@ const routes = [
   {
     path: '/documentation',
     redirect: () => {
-      window.location.replace(`${process.env.VUE_APP_BASE_URL}documentation`)
+      window.location.replace(`${process.env.VUE_APP_BASE_URL||''}documentation`)
     }
   }
 ];
