@@ -89,8 +89,7 @@
             v-model="number"
             class="input"
             dense
-            :rules="[ val => val.length <= 5 || 'Máximo de 5 caracteres']"
-            mask="#####"
+            mask="########"
             input-class="text-black"
             color="black"
             :error="$v.number.$error"
@@ -105,8 +104,7 @@
             v-model="cep"
             class="input"
             dense
-            :rules="[ val => val.length <= 8 || 'Máximo de 5 caracteres']"
-            mask="##-######"
+            mask="##.###-###"
             unmasked-value
             input-class="text-black"
             color="black"
@@ -126,7 +124,6 @@
           class="f-size"
           dense
           hint="Máximo 200 caracteres"
-          :rules="[ val => val.length <= 200 || 'Máximo de 200 caracteres']"
           input-class="text-black"
           color="black"
           :error="$v.description.$error"
@@ -275,7 +272,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import { createHelpers } from 'vuex-map-fields';
-import { required } from 'vuelidate/lib/validators';
+import { required, url, minLength } from 'vuelidate/lib/validators';
 
 const { mapFields } = createHelpers({
   getterType: 'pins/getField',
@@ -322,7 +319,7 @@ export default {
       required,
     },
     phone: {
-      required,
+      minLength: minLength(11)
     },
     street: {
       required,
@@ -338,25 +335,24 @@ export default {
     },
     cep: {
       required,
+      minLength: minLength(8)
     },
     description: {
       required,
     },
     link: {
-      required,
+      url
     },
     facebook: {
-      required,
+      url
     },
     instagram: {
-      required,
+      url
     },
     twitter: {
-      required,
+      url
     },
-    whatsapp: {
-      required,
-    },
+    whatsapp: { },
   },
   computed: {
     ...mapGetters({
@@ -400,9 +396,9 @@ export default {
       return '';
     },
     phoneErrorMessage () {
-      if (!this.$v.phone.required) {
-        return 'Esse campo é requerido'
-      }
+      if (!this.$v.phone.minLength) {
+        return 'Entre com um telefone válido'
+      } 
       return '';
     },
     streetErrorMessage () {
@@ -432,6 +428,8 @@ export default {
     cepErrorMessage () {
       if (!this.$v.cep.required) {
         return 'Esse campo é requerido'
+       }else if (!this.$v.cep.minLength) {
+        return 'Entre com um cep válido'
       }
       return '';
     },
@@ -442,33 +440,30 @@ export default {
       return '';
     },
     linkErrorMessage () {
-      if (!this.$v.link.required) {
-        return 'Esse campo é requerido'
+      if (!this.$v.link.url) {
+        return 'Entre com uma url válida'
       }
       return '';
     },
     facebookErrorMessage () {
-      if (!this.$v.facebook.required) {
-        return 'Esse campo é requerido'
+      if (!this.$v.facebook.url) {
+        return 'Entre com uma url válida'
       }
       return '';
     },
     instagramErrorMessage () {
-      if (!this.$v.instagram.required) {
-        return 'Esse campo é requerido'
+      if (!this.$v.instagram.url) {
+        return 'Entre com uma url válida'
       }
       return '';
     },
     twitterErrorMessage () {
-      if (!this.$v.twitter.required) {
-        return 'Esse campo é requerido'
+      if (!this.$v.twitter.url) {
+        return 'Entre com uma url válida'
       }
       return '';
     },
     whatsappErrorMessage () {
-      if (!this.$v.whatsapp.required) {
-        return 'Esse campo é requerido'
-      }
       return '';
     },
     // mascara para telefone

@@ -26,6 +26,7 @@
             class="input"
             dense
             mask="##/##/####"
+            unmasked-value
             input-class="text-black"
             color="black"
             :error-message="dateErrorMessage"
@@ -41,6 +42,7 @@
             class="input"
             dense
             mask="##:##"
+            unmasked-value
             input-class="text-black"
             color="black"
             :error-message="timeErrorMessage"
@@ -102,7 +104,8 @@
             class="input"
             dense
             :rules="[ val => val.length <= 5 || 'Máximo de 5 caracteres']"
-            mask="#####"
+            mask="#######"
+            unmasked-value
             input-class="text-black"
             color="black"
             :error-message="numberErrorMessage"
@@ -117,8 +120,7 @@
             v-model="zipcode"
             class="input"
             dense
-            :rules="[ val => val.length <= 8 || 'Máximo de 5 caracteres']"
-            mask="##-######"
+            mask="##.####-##"
             unmasked-value
             input-class="text-black"
             color="black"
@@ -156,6 +158,8 @@
           dense
           input-class="text-black"
           color="black"
+          mask="R$ ##,##"
+          unmasked-value
           :error-message="ticketErrorMessage"
           :error="$v.ticket.$error"
           @blur="$v.ticket.$touch"
@@ -274,7 +278,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import { createHelpers } from 'vuex-map-fields';
-import { required } from 'vuelidate/lib/validators';
+import { required, url, minLength } from 'vuelidate/lib/validators';
 
 
 const { mapFields } = createHelpers({
@@ -301,9 +305,11 @@ export default {
     },
     date: {
       required,
+      minLength: minLength(8)
     },
     time: {
       required,
+      minLength: minLength(4)
     },
     local: {
       required,
@@ -319,15 +325,17 @@ export default {
     },
     zipcode: {
       required,
+      minLength: minLength(8)
     },
     description: {
       required,
     },
     ticket: {
       required,
+      minLength: minLength(4)
     },
     link: {
-      required,
+      url,
     },
   },
   computed: {
@@ -367,12 +375,16 @@ export default {
     dateErrorMessage () {
       if (!this.$v.date.required) {
         return 'Esse campo é requerido'
+      } else if (!this.$v.date.minLength) {
+        return 'Entre com uma data válida'
       }
       return '';
     },
     timeErrorMessage () {
       if (!this.$v.time.required) {
         return 'Esse campo é requerido'
+      } else if (!this.$v.time.minLength) {
+        return 'Entre com uma hora válida'
       }
       return '';
     },
@@ -403,6 +415,8 @@ export default {
     zipcodeErrorMessage () {
       if (!this.$v.zipcode.required) {
         return 'Esse campo é requerido'
+      } else if (!this.$v.zipcode.minLength) {
+        return 'Entre com um cep válido'
       }
       return '';
     },
@@ -415,12 +429,14 @@ export default {
     ticketErrorMessage () {
       if (!this.$v.ticket.required) {
         return 'Esse campo é requerido'
+      } else if (!this.$v.ticket.minLength) {
+        return 'Entre com um valor válido'
       }
       return '';
     },
     linkErrorMessage () {
-      if (!this.$v.link.required) {
-        return 'Esse campo é requerido'
+      if (!this.$v.link.url) {
+        return 'Entre com uma url válida'
       }
       return '';
     },
