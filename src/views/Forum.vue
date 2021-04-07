@@ -51,7 +51,7 @@
             class="body-3 bolder mg-left16"
             target="_blank"
             href="https://linktr.ee/cartografiadaculturacg">
-            Link Tree
+            linktr.ee/cartografiadaculturacg
           </a>
         </p>
       </section>
