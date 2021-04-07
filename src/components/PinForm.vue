@@ -501,15 +501,17 @@ export default {
   created() {},
   methods: {
     confirmCreate(){
-      this.$store.dispatch('images/uploadArray', { files: this.files })
-        .then((fileIds) => {
-          this.images = fileIds;
-          this.$store.dispatch('pins/postPin',  { $router: this.$router} );
-        })
-        .catch ((error) => {
-            console.log(error);
-        });
-
+      this.$v.$touch();
+      if (!this.$v.$anyError) {
+        this.$store.dispatch('images/uploadArray', { files: this.files })
+          .then((fileIds) => {
+            this.images = fileIds;
+            this.$store.dispatch('pins/postPin',  { $router: this.$router} );
+          })
+          .catch ((error) => {
+              console.log(error);
+          });
+      }
     },
     updateFiles(files) {
       if (Array.isArray(files) === false || files.length === 0) {

@@ -481,7 +481,9 @@ export default {
       }
       
     },
-    confirmCreate() { // confirma criação de evento ou ediçao de shortEvent
+    confirmCreate() {
+      this.$v.$touch();
+      if (!this.$v.$anyError) {
       this.$store.dispatch('images/uploadArray', { files: this.files })
         .then((fileIds) => {
           this.images = fileIds;
@@ -491,6 +493,7 @@ export default {
         .catch ((error) => {
             console.log(error);
         });
+      }
     }
   },
 };
