@@ -99,6 +99,12 @@ const routes = [
     name: 'Buffer',
     component: () => import('../views/buffer.vue'),
   },
+  {
+    path: '/documentation',
+    redirect: () => {
+      window.location.replace(`${process.env.VUE_APP_BASE_URL}documentation`)
+    }
+  }
 ];
 
 const scrollBehavior = (to, from, savedPosition) => {

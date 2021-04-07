@@ -38,8 +38,19 @@
         <span
           class="subheading-2 bolder"
           v-if="$store.getters['getAuth']"
-          to="/singIn"
+          to="/profile"
         >Perfil</span>
+      </q-btn>
+
+      <q-btn
+        flat
+        class="btn-custom"
+        @click="$router.push('/documentation')"
+      >
+        <span
+          class="subheading-2 bolder"
+          to="/documentation"
+        >Documentation</span>
       </q-btn>
     </div>
 
