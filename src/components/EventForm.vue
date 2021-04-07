@@ -4,7 +4,7 @@
       <h4 class="title-3 bolder">Crie seu evento</h4>
       <!-- event name -->
       <div class="column mg-top16">
-        <span class="subheading-2">nome do evento</span>
+        <span class="subheading-2">Nome do evento</span>
         <q-input
           v-model="name"
           class="input"
@@ -20,7 +20,7 @@
       <!-- date & time -->
       <div class="row justify-between mg-top8">
         <div class="column">
-          <span class="subheading-2">data</span>
+          <span class="subheading-2">Data</span>
           <q-input
             v-model="date"
             class="input"
@@ -36,7 +36,7 @@
         </div>
 
         <div class="column">
-          <span class="subheading-2">hora</span>
+          <span class="subheading-2">Hora</span>
           <q-input
             v-model="time"
             class="input"
@@ -54,7 +54,7 @@
 
       <!-- address -->
       <div class="column mg-top8">
-        <span class="subheading-2">local do evento</span>
+        <span class="subheading-2">Local do evento</span>
         <q-input
           v-model="local"
           class="input"
@@ -68,7 +68,7 @@
       </div>
 
       <div class="column mg-top8">
-        <span class="subheading-2">rua - logradouro</span>
+        <span class="subheading-2">Rua - logradouro</span>
         <q-input
           v-model="street"
           class="input"
@@ -82,7 +82,7 @@
       </div>
 
       <div class="column mg-top8">
-        <span class="subheading-2">bairro</span>
+        <span class="subheading-2">Bairro</span>
         <q-input
           v-model="neighborhood"
           class="input"
@@ -98,7 +98,7 @@
       <!-- number & zipcode -->
       <div class="row justify-between mg-top8">
         <div class="column">
-          <span class="subheading-2">número</span>
+          <span class="subheading-2">Número</span>
           <q-input
             v-model="number"
             class="input"
@@ -115,7 +115,7 @@
         </div>
 
         <div class="column">
-          <span class="subheading-2">cep</span>
+          <span class="subheading-2">CEP</span>
           <q-input
             v-model="zipcode"
             class="input"
@@ -134,7 +134,7 @@
      
       <!-- description -->
       <div class="column mg-top8">
-        <span class="subheading-2">descrição</span>
+        <span class="subheading-2">Descrição</span>
         <q-input
           v-model="description"
           autogrow
@@ -151,7 +151,7 @@
 
       <!-- ticket -->
       <div class="column mg-top8">
-        <span class="subheading-2">valor</span>
+        <span class="subheading-2">Valor</span>
         <q-input
           v-model="ticket"
           class="input"
@@ -168,7 +168,7 @@
 
       <!-- link -->
       <div class="column mg-top8">
-        <span class="subheading-2">link do evento</span>
+        <span class="subheading-2">Link</span>
         <q-input
           v-model="link"
           class="input"
@@ -184,7 +184,7 @@
 
       <!-- category -->
       <div class="column mg-top8">
-        <span class="subheading-2">categoria</span>
+        <span class="subheading-2">Categoria</span>
         <q-select
           v-model="categoryId"
           option-value="id"
@@ -220,7 +220,12 @@
           counter
           use-chips
           multiple
-          max-files="3"
+          :max-files="3"
+          accept=".jpg,.jpeg,.png,.gif"
+          max-file-size=2097152
+          :error-message="filesErrorMessage"
+          :error="$v.files.$error"
+          @blur="$v.files.$touch"
           @input="updateFiles"
         >
           <template #append>
@@ -236,7 +241,7 @@
             />
           </template>
           <template #hint>
-            Tamanho máximo de 5MB
+            Tamanho máximo de 2MB
           </template>
           <!-- <template #after>
             <q-btn
@@ -336,6 +341,9 @@ export default {
     },
     link: {
       url,
+    },
+    files: {
+      required,
     },
   },
   computed: {
@@ -440,6 +448,12 @@ export default {
       }
       return '';
     },
+    filesErrorMessage () {
+      if (!this.$v.files.required) {
+        return 'É necessário uma imagem.'
+      }
+      return '';
+    },
   },
   methods: {
     updateFiles(files) {
@@ -448,11 +462,10 @@ export default {
       }
       else if (Array.isArray(this.files) === true) {
         const diff = this.files.filter(file => files.indexOf(file) === -1)
-        
         if (diff.length === 1 && this.files.length > 1) {
           this.files = files.slice()
         }
-        else {
+        else if (this.files.length < 3) {
           this.files = diff.concat(files)
         }
       }
