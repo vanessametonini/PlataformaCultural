@@ -164,20 +164,11 @@
         v-for="reply in replyes"
         :key="reply.id"
         :reply="reply"
-        @callReply="replyThis($event)"
       />
     </div>
 
     <q-separator />
 
-    <!-- <q-scroll-area
-      class="scroll-area"
-      :thumb-style="thumbStyle"
-      :bar-style="barStyle"
-    >
-    </q-scroll-area> -->
-
-    <!-- reply-form -->
     <div class="reply-form">
       <reply-form />
     </div>
@@ -185,9 +176,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
-// import Reply from './Reply';
-
+import { mapGetters } from 'vuex';
 import BaseButton from './BaseButton.vue';
 import BaseConfirmDialog from './BaseConfirmDialog.vue';
 import ReplyForm from './ReplyForm.vue';
@@ -202,48 +191,21 @@ export default {
     ReplyForm,
     Reply,
   },
-  props: {
-    topic: {
-      type: Object,
-      default: () => ({}),
-    },
-    replyes: {
-      type: Array,
-      default: () => [],
-    },
-  },
-  emits: ['delete'],
   data() {
     return {
       showConfirmDialog: true,
-      thumbStyle: {
-        right: '0px',
-        top: '16px',
-        borderRadius: '0px',
-        backgroundColor: '#111111',
-        width: '9px',
-        heigth: '8px',
-        opacity: 0.75,
-      },
-      barStyle: {
-        right: '0px',
-        top: '16px',
-        borderRadius: '0px',
-        backgroundColor: '#eeeeee',
-        width: '9px',
-        opacity: 0.2,
-      },
     };
   },
   computed: {
     ...mapGetters({
       currentUser: 'users/getCurrentUser',
+      topic: 'topics/getCurrentTopic',
       supports: 'topics/supports/getInfoCurrentTopicSupports',
+      replyes: 'topics/replies/getCurrentTopicReplyes',
       myVote: 'topics/supports/getMyVoteCurrentTopic',
     }),
   },
   mounted() {
-    console.log( 'topicview', this.replyes);
     this.$store.dispatch('topics/loadTopicId', { id: this.$route.params.topicId })
       .then(() => {
         this.$store.dispatch('topics/supports/loadSupportsByTopicId');
@@ -253,42 +215,8 @@ export default {
       });
   },
   methods: {
-    ...mapActions(['setNextRoute']),
-    onReply() {
-      // if (this.isLoggedIn) {
-      this.jumpToReplyForm();
-      // } else {
-      //   this.setNextRoute({ route: this.$route.fullPath }); // seta a nextRoute para redirecionar o usuário para cá
-      //   this.$router.push({ name: 'SignIn' });
-      // }
-    },
-    jumpToReplyForm() {
-      if (this.$refs.replyForm) {
-        this.$refs.replyForm.$el.scrollIntoView();
-        this.$refs.replyForm.focus();
-      }
-    },
-    canEditTopic(userId, ownerId) {
-      if (userId === ownerId) {
-        return true;
-      }
-      return false;
-    },
-    replyThis() {},
     supportThis(triggerType) {
       this.$store.dispatch('topics/supports/supportCurrentTopic', { supportType: triggerType })
-        .then(() => {
-          console.log('topicsView/supportThis', this.topic.id);
-        }).catch((error) => {
-          console.log('topicView/supportThis - ERROR', error);
-        });
-
-      // this.$store.dispatch('users/supportThis', { topicId: this.topic.id, supportType: triggerType })
-      //   .then(() => {
-      //     console.log('topicsView/supportThis', this.topic.id);
-      //   }).catch((error) => {
-      //     console.log('topicView/supportThis - ERROR', error);
-      //   });
     },
     supportsPercentage(type) {
       const posAmount = parseInt(this.supports.positiveSupports, 10);

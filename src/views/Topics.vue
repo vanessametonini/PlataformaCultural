@@ -82,7 +82,7 @@
     <!-- end content -->
   </div>
 </template>
-z
+
 <script>
 import { createHelpers } from 'vuex-map-fields';
 import TopicsList from '../components/TopicsList.vue';

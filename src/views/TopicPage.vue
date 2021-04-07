@@ -8,8 +8,6 @@
 
       <template v-else>
         <topic-view
-          :topic="topic"
-          :replyes="replyes"
           @delete="onDeleteTopic"
         />
       </template>
@@ -31,12 +29,7 @@ export default {
       loading: false,
     };
   },
-  computed: {
-    ...mapGetters({
-      topic: 'topics/getCurrentTopic',
-      replyes: 'topics/replies/getCurrentTopicReplyes',
-    }),
-  },
+  computed: { },
   methods: {
     ...mapActions([
       'topics/deleteTopic',
