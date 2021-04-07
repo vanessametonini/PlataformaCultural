@@ -20,6 +20,7 @@ const state = {
     zipcode: '',
     description: '',
     imageIds: [],
+    link: '',
     facebook: '',
     instagram: '',
     twitter: '',

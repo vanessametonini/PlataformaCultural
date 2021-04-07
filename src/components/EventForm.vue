@@ -11,6 +11,9 @@
           dense
           input-class="text-black"
           color="black"
+          :error-message="nameErrorMessage"
+          :error="$v.name.$error"
+          @blur="$v.name.$touch"
         />
       </div>
 
@@ -25,6 +28,9 @@
             mask="##/##/####"
             input-class="text-black"
             color="black"
+            :error-message="dateErrorMessage"
+            :error="$v.date.$error"
+            @blur="$v.date.$touch"
           />
         </div>
 
@@ -37,6 +43,9 @@
             mask="##:##"
             input-class="text-black"
             color="black"
+            :error-message="timeErrorMessage"
+            :error="$v.time.$error"
+            @blur="$v.time.$touch"
           />
         </div>
       </div>
@@ -45,11 +54,14 @@
       <div class="column mg-top8">
         <span class="subheading-2">local do evento</span>
         <q-input
-          v-model="site"
+          v-model="local"
           class="input"
           dense
           input-class="text-black"
           color="black"
+          :error-message="localErrorMessage"
+          :error="$v.local.$error"
+          @blur="$v.local.$touch"
         />
       </div>
 
@@ -61,6 +73,9 @@
           dense
           input-class="text-black"
           color="black"
+          :error-message="streetErrorMessage"
+          :error="$v.street.$error"
+          @blur="$v.street.$touch"
         />
       </div>
 
@@ -72,6 +87,9 @@
           dense
           input-class="text-black"
           color="black"
+          :error-message="neighborhoodErrorMessage"
+          :error="$v.neighborhood.$error"
+          @blur="$v.neighborhood.$touch"
         />
       </div>
 
@@ -87,6 +105,9 @@
             mask="#####"
             input-class="text-black"
             color="black"
+            :error-message="numberErrorMessage"
+            :error="$v.number.$error"
+            @blur="$v.number.$touch"
           />
         </div>
 
@@ -101,6 +122,9 @@
             unmasked-value
             input-class="text-black"
             color="black"
+            :error-message="zipcodeErrorMessage"
+            :error="$v.zipcode.$error"
+            @blur="$v.zipcode.$touch"
           />
         </div>
       </div>
@@ -117,6 +141,9 @@
           :rules="[ val => val.length <= 200 || 'Máximo de 200 caracteres']"
           input-class="text-black"
           color="black"
+          :error-message="descriptionErrorMessage"
+          :error="$v.description.$error"
+          @blur="$v.description.$touch"
         />
       </div>
 
@@ -129,6 +156,9 @@
           dense
           input-class="text-black"
           color="black"
+          :error-message="ticketErrorMessage"
+          :error="$v.ticket.$error"
+          @blur="$v.ticket.$touch"
         />
       </div>
 
@@ -141,6 +171,9 @@
           dense
           input-class="text-black"
           color="black"
+          :error-message="linkErrorMessage"
+          :error="$v.link.$error"
+          @blur="$v.link.$touch"
         />
       </div>
 
@@ -161,6 +194,9 @@
           options-dense
           options-selected-class
           color="black"
+          :error-message="categoryErrorMessage"
+          :error="$v.categoryId.$error"
+          @blur="$v.categoryId.$touch"
           @input="category = $store.getters['categories/getCategoryById'](categoryId)"
         >
           <template #selected>
@@ -238,6 +274,8 @@
 <script>
 import { mapGetters } from 'vuex';
 import { createHelpers } from 'vuex-map-fields';
+import { required } from 'vuelidate/lib/validators';
+
 
 const { mapFields } = createHelpers({
   getterType: 'events/getField',
@@ -254,13 +292,53 @@ export default {
       file: null,
     };
   },
+   validations: {
+    categoryId: {
+      required,
+    },
+    name: {
+      required,
+    },
+    date: {
+      required,
+    },
+    time: {
+      required,
+    },
+    local: {
+      required,
+    },
+    street: {
+      required,
+    },
+    neighborhood: {
+      required,
+    },
+    number: {
+      required,
+    },
+    zipcode: {
+      required,
+    },
+    description: {
+      required,
+    },
+    ticket: {
+      required,
+    },
+    link: {
+      required,
+    },
+  },
   computed: {
     ...mapFields({
+      category: 'categorySelected',
+      categoryId: 'eventForm.categoryId',
       name: 'eventForm.title',
       date: 'eventForm.date',
       time: 'eventForm.time',
       ticket: 'eventForm.ticket',
-      site: 'eventForm.site',
+      local: 'eventForm.local',
       street: 'eventForm.street',
       neighborhood: 'eventForm.neighborhood',
       number: 'eventForm.number',
@@ -268,15 +346,84 @@ export default {
       zipcode: 'eventForm.zipcode',
       description: 'eventForm.description',
       link: 'eventForm.link',
-      imgUrl: 'eventForm.imgUrl',
-      categoryId: 'eventForm.categoryId',
       images: 'eventForm.imageIds',
-      category: 'categorySelected'
     }),
     ...mapGetters({
       categories: 'categories/loadCategories',
       user: 'users/getCurrentUser',
     }),
+    categoryErrorMessage () {
+      if (!this.$v.categoryId.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
+    nameErrorMessage () {
+      if (!this.$v.name.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
+    dateErrorMessage () {
+      if (!this.$v.date.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
+    timeErrorMessage () {
+      if (!this.$v.time.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
+    localErrorMessage () {
+      if (!this.$v.local.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
+    streetErrorMessage () {
+      if (!this.$v.street.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
+    neighborhoodErrorMessage () {
+      if (!this.$v.neighborhood.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
+    numberErrorMessage () {
+      if (!this.$v.number.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
+    zipcodeErrorMessage () {
+      if (!this.$v.zipcode.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
+    descriptionErrorMessage () {
+      if (!this.$v.description.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
+    ticketErrorMessage () {
+      if (!this.$v.ticket.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
+    linkErrorMessage () {
+      if (!this.$v.link.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
   },
   methods: {
     updateFiles(files) {

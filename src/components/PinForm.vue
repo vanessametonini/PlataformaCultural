@@ -1,9 +1,9 @@
 <template>
   <div class="box">
     <div class="input-content">
-
-      <h4 class="title-3 bolder">Edite seu Pin</h4>
-
+      <h4 class="title-3 bolder">
+        Edite seu Pin
+      </h4>
       <!-- pin name -->
       <div class="column mg-top16">
         <span class="subheading-2">nome do pin</span>
@@ -13,6 +13,9 @@
           dense
           input-class="text-black"
           color="black"
+          :error="$v.title.$error"
+          :error-message="titleErrorMessage"
+          @blur="$v.title.$touch"
         />
       </div>
 
@@ -26,6 +29,9 @@
           type="email"
           input-class="text-black"
           color="black"
+          :error="$v.email.$error"
+          :error-message="emailErrorMessage"
+          @blur="$v.email.$touch"
         />
       </div>
 
@@ -39,6 +45,9 @@
           mask="(##) ##### - ####"
           unmasked-value
           color="black"
+          :error="$v.phone.$error"
+          :error-message="phoneErrorMessage"
+          @blur="$v.phone.$touch"
         />
       </div>
 
@@ -51,6 +60,9 @@
           dense
           input-class="text-black"
           color="black"
+          :error="$v.street.$error"
+          :error-message="streetErrorMessage"
+          @blur="$v.street.$touch"
         />
       </div>
 
@@ -62,6 +74,9 @@
           dense
           input-class="text-black"
           color="black"
+          :error="$v.neighborhood.$error"
+          :error-message="neighborhoodErrorMessage"
+          @blur="$v.neighborhood.$touch"
         />
       </div>
 
@@ -78,6 +93,9 @@
             mask="#####"
             input-class="text-black"
             color="black"
+            :error="$v.number.$error"
+            :error-message="numberErrorMessage"
+            @blur="$v.number.$touch"
           />
         </div>
 
@@ -92,6 +110,9 @@
             unmasked-value
             input-class="text-black"
             color="black"
+            :error="$v.cep.$error"
+            :error-message="cepErrorMessage"
+            @blur="$v.cep.$touch"
           />
         </div>
       </div>
@@ -108,6 +129,9 @@
           :rules="[ val => val.length <= 200 || 'Máximo de 200 caracteres']"
           input-class="text-black"
           color="black"
+          :error="$v.description.$error"
+          :error-message="descriptionErrorMessage"
+          @blur="$v.description.$touch"
         />
       </div>
 
@@ -120,6 +144,9 @@
           dense
           input-class="text-black"
           color="black"
+          :error-message="linkErrorMessage"
+          :error="$v.link.$error"
+          @blur="$v.link.$touch"
         />
       </div>
 
@@ -131,6 +158,9 @@
           dense
           input-class="text-black"
           color="black"
+          :error-message="facebookErrorMessage"
+          :error="$v.facebook.$error"
+          @blur="$v.facebook.$touch"
         />
       </div>
 
@@ -142,6 +172,9 @@
           dense
           input-class="text-black"
           color="black"
+          :error="$v.instagram.$error"
+          :error-message="instagramErrorMessage"
+          @blur="$v.instagram.$touch"
         />
       </div>
 
@@ -161,6 +194,9 @@
           options-dense
           options-selected-class
           color="black"
+          :error="$v.categoryId.$error"
+          :error-message="categoryErrorMessage"
+          @blur="$v.categoryId.$touch"
           @input="category = $store.getters['categories/getCategoryById'](categoryId); "
         >
           <template #selected>
@@ -169,7 +205,7 @@
         </q-select>
       </div>
 
-            <!-- file picker -->
+      <!-- file picker -->
       <div class="column mg-top8">
         <span class="subheading-2">Insira uma imagem</span>
         <q-file
@@ -239,6 +275,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import { createHelpers } from 'vuex-map-fields';
+import { required } from 'vuelidate/lib/validators';
 
 const { mapFields } = createHelpers({
   getterType: 'pins/getField',
@@ -274,12 +311,60 @@ export default {
       file: null,
     };
   },
+  validations: {
+    categoryId: {
+      required,
+    },
+    title: {
+      required,
+    },
+    email: {
+      required,
+    },
+    phone: {
+      required,
+    },
+    street: {
+      required,
+    },
+    number: {
+      required,
+    },
+    neighborhood: {
+      required,
+    },
+    city: {
+      required,
+    },
+    cep: {
+      required,
+    },
+    description: {
+      required,
+    },
+    link: {
+      required,
+    },
+    facebook: {
+      required,
+    },
+    instagram: {
+      required,
+    },
+    twitter: {
+      required,
+    },
+    whatsapp: {
+      required,
+    },
+  },
   computed: {
     ...mapGetters({
       categories: 'categories/loadCategories',
     }),
     ...mapFields({
       category: 'categorySelected',
+      categoryId: 'pinForm.categoryId',
       title: 'pinForm.title',
       email: 'pinForm.email',
       phone: 'pinForm.phone',
@@ -290,12 +375,102 @@ export default {
       cep: 'pinForm.zipcode',
       description: 'pinForm.description',
       images: 'pinForm.imageIds',
+      link: 'pinForm.link',
       facebook: 'pinForm.facebook',
       instagram: 'pinForm.instagram',
       twitter: 'pinForm.twitter',
       whatsapp: 'pinForm.whatsapp',
-      categoryId: 'pinForm.categoryId',
     }),
+    categoryErrorMessage () {
+      if (!this.$v.categoryId.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
+    titleErrorMessage () {
+      if (!this.$v.title.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
+    emailErrorMessage () {
+      if (!this.$v.email.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
+    phoneErrorMessage () {
+      if (!this.$v.phone.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
+    streetErrorMessage () {
+      if (!this.$v.street.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
+    numberErrorMessage () {
+      if (!this.$v.number.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
+    neighborhoodErrorMessage () {
+      if (!this.$v.neighborhood.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
+    cityErrorMessage () {
+      if (!this.$v.city.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
+    cepErrorMessage () {
+      if (!this.$v.cep.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
+    descriptionErrorMessage () {
+      if (!this.$v.description.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
+    linkErrorMessage () {
+      if (!this.$v.link.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
+    facebookErrorMessage () {
+      if (!this.$v.facebook.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
+    instagramErrorMessage () {
+      if (!this.$v.instagram.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
+    twitterErrorMessage () {
+      if (!this.$v.twitter.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
+    whatsappErrorMessage () {
+      if (!this.$v.whatsapp.required) {
+        return 'Esse campo é requerido'
+      }
+      return '';
+    },
     // mascara para telefone
     phoneMask() {
       if (this.phone === null || this.phone === undefined) {

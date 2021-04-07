@@ -6,6 +6,8 @@ const state = {
   },
   list: [],
   eventForm: {
+    categoryId: null,
+    imageIds: [],
     title: '',
     date: '',
     time: '',
@@ -17,10 +19,8 @@ const state = {
     city: '',
     ticket: '',
     link: '',
+    local: '',
     description: '',
-    categoryId: null,
-    imgUrl: '',
-    imageIds: [],
   },
 };
 
