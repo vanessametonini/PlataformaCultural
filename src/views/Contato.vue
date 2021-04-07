@@ -13,27 +13,22 @@
         <p class="body-3 mg-top16 text">
           E-mail plataforma: <a href="mailto:cartografiadaculturacg@gmail.com">cartografiadaculturacg@gmail.com</a>
         </p>
-        <p>
-          E-mail forum: <a href="mailto:forumdeculturacg@gmail.com">forumdeculturacg@gmail.com</a>
-        </p>
-        <p>
-          E-mail coordenação geral: <a href="mailto:juliana.trujillo@ufms.br">juliana.trujillo@ufms.br</a>
-        </p>
+
       </section>
 
       <section class="contato mg-top16">
         <a
           class="body-3 bolder mg-left16"
           target="_blank"
-          href="https://www.facebook.com/AlgoRitmo.ufms/"
-        >.facebook</a>
+          href="https://www.facebook.com/CartografiadaCulturaCG"
+        >Facebook Cartografia da Cultura CG</a>
         <!-- <span class="mg-left8">|</span> -->
 
         <a
           class="body-3 bolder mg-left16"
           target="_blank"
-          href="https://www.instagram.com/algo.ritmo_/"
-        >.instagram</a>
+          href="https://www.instagram.com/cartografiadaculturacg/"
+        >Instagram Cartografia da Cultura CG</a>
       </section>
 
       <div class="white-space" />
