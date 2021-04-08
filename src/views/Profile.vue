@@ -5,9 +5,9 @@
         <logo-card />
         <avatar-card :user="currentUser" />
         <base-button
-            class="btn-logout"
-            theme="primary"
-            @click="$store.dispatch('users/destroyToken'); $router.push({ name: 'Home' });"
+          class="btn-logout"
+          theme="primary"
+          @click="$store.dispatch('users/destroyToken'); $router.push({ name: 'Home' });"
         >
           sair
         </base-button>
@@ -18,11 +18,17 @@
             :user="currentUser"
             @card-click="form = 'user'"
           />
-          <pin-card @card-click="form = 'pin'" class="pin-card" />
+          <pin-card
+            class="pin-card"
+            @card-click="form = 'pin'"
+          />
           <event-card @card-click="form = 'event'" />
         </nav>
         <main>
-          <forms-profile class="forms" :form="form" />
+          <forms-profile
+            class="forms"
+            :form="form"
+          />
         </main>
       </div>
       <!-- <aside class="col-auto">

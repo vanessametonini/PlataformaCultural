@@ -1,5 +1,5 @@
 <template>
-    <div
+  <div
     class="logo-box"
     :class="{ 'white': true }"
   >
@@ -22,10 +22,10 @@ export default {
     return {};
   },
   computed: {},
-  methods: {},
   created(){
     console.log(this.user);
-  }
+  },
+  methods: {}
 };
 </script>
 

@@ -17,6 +17,7 @@ import MulticolorLine from './components/ColorLine.vue';
 import titleMixin from './mixins/title'
 import VueAnalytics from 'vue-analytics'
 import money from 'v-money'
+import './quasar'
 
 Vue.use(VueAnalytics, {
   id: 'UA-162276539-1',

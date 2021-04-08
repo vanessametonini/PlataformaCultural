@@ -213,9 +213,9 @@
           counter
           use-chips
           multiple
-          :max-files=3
+          :max-files="3"
           accept=".jpg,.jpeg,.png,.gif"
-          max-file-size=2097152
+          max-file-size="2097152"
           :error-message="filesErrorMessage"
           :error="$v.files.$error"
           @blur="$v.files.$touch"

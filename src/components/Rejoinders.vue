@@ -50,10 +50,10 @@ export default {
     };
   },
   computed: {},
-  methods: {},
   created(){
     console.log('rejoinders: ', this.rejoinders);
-  }
+  },
+  methods: {}
 };
 </script>
 

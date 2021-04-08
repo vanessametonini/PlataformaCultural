@@ -4,7 +4,7 @@ module.exports = {
   outputDir: path.resolve(__dirname, "../plataforma-cultural-api-nestjs/client"),
   pluginOptions: {
     quasar: {
-      importStrategy: 'manual',
+      importStrategy: 'kebab',
       rtlSupport: false,
     },
   },

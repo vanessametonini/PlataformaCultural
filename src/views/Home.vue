@@ -36,8 +36,8 @@
         to="/profile"
       >
         <span
-          class="subheading-2 bolder"
           v-if="$store.getters['getAuth']"
+          class="subheading-2 bolder"
           to="/profile"
         >Perfil</span>
       </q-btn>

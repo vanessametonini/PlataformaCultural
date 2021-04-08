@@ -13,7 +13,6 @@
         <p class="body-3 mg-top16 text">
           E-mail plataforma: <a href="mailto:cartografiadaculturacg@gmail.com">cartografiadaculturacg@gmail.com</a>
         </p>
-
       </section>
 
       <section class="contato mg-top16">

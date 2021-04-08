@@ -1,14 +1,21 @@
 <template>
   <div class="container">
-    <div id="privacy" class="content-center column">
+    <div
+      id="privacy"
+      class="content-center column"
+    >
       <header>
         <logo-card />
         <multicolor-line class="line mg-top32" />
       </header>
 
       <section class="column mg-top16 body-3 text">
-        <h1 class="title-1 bolder"> Política de Privacidade </h1>
-        <h2 class="body-3 text">Aviso de proteção de dados</h2>
+        <h1 class="title-1 bolder">
+          Política de Privacidade
+        </h1>
+        <h2 class="body-3 text">
+          Aviso de proteção de dados
+        </h2>
         <ol>
           <li>
             A navegação pelas informações disponíveis na Plataforma Cartografia da Cultura é
@@ -71,10 +78,15 @@
         </ol>
       </section>
 
-      <section id="use" class="column body-3 text">
+      <section
+        id="use"
+        class="column body-3 text"
+      >
         <div class="scroll-offset" />
 
-        <h1 class="title-1 bolder">Condições de uso</h1>
+        <h1 class="title-1 bolder">
+          Condições de uso
+        </h1>
         <h2 class="body-3 text">
           Aviso legal sobre as condições de uso, privacidade e proteção de
           dados pessoais da plataforma Cartografia da Cultura
@@ -269,7 +281,12 @@
               </li>
               <li>
                 <em>Proteção de dados:</em>
-                Os dados pessoais fornecidos pelos usuários que se cadastram na Plataforma Cartografia da Cultura serão tratados conforme a <router-link class="link" :to="{ path: '/terms', hash: '#privacy'}">Política de Privacidade</router-link> desta plataforma.
+                Os dados pessoais fornecidos pelos usuários que se cadastram na Plataforma Cartografia da Cultura serão tratados conforme a <router-link
+                  class="link"
+                  :to="{ path: '/terms', hash: '#privacy'}"
+                >
+                  Política de Privacidade
+                </router-link> desta plataforma.
               </li>
             </ul>
           </li>

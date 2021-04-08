@@ -1,7 +1,9 @@
 <template>
   <div class="box">
     <div class="input-content">
-      <h4 class="title-3 bolder">Edite seu perfil</h4>
+      <h4 class="title-3 bolder">
+        Edite seu perfil
+      </h4>
 
       <div class="row justify-between mg-top8">
         <div class="column">

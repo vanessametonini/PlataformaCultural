@@ -8,7 +8,9 @@
       </header>
 
       <section class="plat mg-top32">
-        <h1 class="title-1 bolder">Plataforma</h1>
+        <h1 class="title-1 bolder">
+          Plataforma
+        </h1>
         <p class="body-3 mg-top16 text">
           Cartografia da Cultura é uma plataforma online de participação
           cidadã que auxilia na construção de políticas públicas e projetos
@@ -29,17 +31,25 @@
           </ul>
         </p>
         <p class="body-3 text">
-          A plataforma Cartografia da Cultura é um espaço de comunicação e informação online proposta pelo grupo de pesquisa <a href="https://www.instagram.com/algo.ritmo_/" target="_blank">algo+ritmo</a> UFMS, sob coordenação da Profa. Juliana Trujillo, em parceria com a diretoria do <a href="https://www.facebook.com/forumdeculturacg/?ref=page_internal">Fórum Municipal de Cultura de Campo Grande</a> - Gestão Chapa Quente.
-
+          A plataforma Cartografia da Cultura é um espaço de comunicação e informação online proposta pelo grupo de pesquisa <a
+            href="https://www.instagram.com/algo.ritmo_/"
+            target="_blank"
+          >algo+ritmo</a> UFMS, sob coordenação da Profa. Juliana Trujillo, em parceria com a diretoria do <a href="https://www.facebook.com/forumdeculturacg/?ref=page_internal">Fórum Municipal de Cultura de Campo Grande</a> - Gestão Chapa Quente.
         </p>
         <p class="body-3 text">
           Para dúvidas e contato: <a href="mailto:cartografiadaculturacg@gmail.com">cartografiadaculturacg@gmail.com</a>
         </p>
         <p class="body-3 text">
-          Para participar e colaborar com a plataforma, <router-link to="signUp"><b>CADASTRE-SE</b></router-link>.
+          Para participar e colaborar com a plataforma, <router-link to="signUp">
+            <b>CADASTRE-SE</b>
+          </router-link>.
         </p>
         <p class="body-3 text">
-          Clique aqui para ler nossos termos:<router-link :to="{ path: '/terms', hash: '#privacy'}">Políticas de privacidade</router-link> e <router-link :to="{ path: '/terms', hash: '#use'}">condições de uso</router-link>.
+          Clique aqui para ler nossos termos:<router-link :to="{ path: '/terms', hash: '#privacy'}">
+            Políticas de privacidade
+          </router-link> e <router-link :to="{ path: '/terms', hash: '#use'}">
+            condições de uso
+          </router-link>.
         </p>
         <p class="body-3 text">
           Siga Cartografia da Cultura CG nas redes sociais!
@@ -70,7 +80,9 @@
       <!-- start section criação -->
       
       <section class="creation mg-top32">
-        <h2 class="title-3 bolder">Criação</h2>
+        <h2 class="title-3 bolder">
+          Criação
+        </h2>
 
         <div class="row">
           <div class="colab-box column">
@@ -95,7 +107,6 @@
             <div class="colab-item mg-top8">
               <span class="body-2 bolder">Fórum de Cultura CG</span>
             </div>
-
           </div>
 
           <div class="colab-box column">
@@ -104,7 +115,6 @@
             <div class="colab-item mg-top8">
               <span class="body-2 bolder">coletivo.labor</span>
             </div>
-           
           </div>
         </div>
       </section>
@@ -114,7 +124,9 @@
       <!-- start section equipe -->
       
       <section class="team mg-top32">
-        <h2 class="title-3 bolder">Equipe</h2>
+        <h2 class="title-3 bolder">
+          Equipe
+        </h2>
         <div class="row">
           <div
             v-for="item in team"
@@ -129,8 +141,6 @@
                 class="body-2 bolder"
               > {{ item.name }} <br> {{ item.lastName }} </span>
               <span class="caption"> {{ item.category }} </span>
-
- 
             </div>
           </div>
         </div>
@@ -140,7 +150,9 @@
 
       <!-- start section colaboradores -->
       <section class="colab mg-top32">
-        <h2 class="title-3 bolder">Colaboradores</h2>
+        <h2 class="title-3 bolder">
+          Colaboradores
+        </h2>
         <ul class="row">
           <li
             v-for="colab in colaborators"

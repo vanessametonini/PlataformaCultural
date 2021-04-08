@@ -4,25 +4,34 @@
     :style="{ 'background-color': category(item.categoryId).color }"
   >
     <q-card-section>
-      <div class="text-h6 text-white">{{ item.title }}</div>
-      <div class="text-subtitle2 text-white">{{`Dia ${$store.getters['formatDate'](item.dateTime)}`}}</div>
-      <div class="text-subtitle3 text-white">{{`Às ${$store.getters['formatTime'](item.dateTime)}`}}</div>
+      <div class="text-h6 text-white">
+        {{ item.title }}
+      </div>
+      <div class="text-subtitle2 text-white">
+        {{ `Dia ${$store.getters['formatDate'](item.dateTime)}` }}
+      </div>
+      <div class="text-subtitle3 text-white">
+        {{ `Às ${$store.getters['formatTime'](item.dateTime)}` }}
+      </div>
     </q-card-section>
 
     <q-card-section class="q-pt-none text-white">
-      {{item.description}}
+      {{ item.description }}
     </q-card-section>
 
     <q-card-section class="q-pt-none text-white">
-      {{`${item.street}, ${item.number}, ${item.neighborhood}`}}
+      {{ `${item.street}, ${item.number}, ${item.neighborhood}` }}
     </q-card-section>
     <q-card-section class="q-pt-none text-white">
-      {{`R$ ${moeda((item.ticket).toString().replace(".", ""))}`}}
+      {{ `R$ ${moeda((item.ticket).toString().replace(".", ""))}` }}
     </q-card-section>
-    <q-card-section  class="q-pt-none text-white">
-      <a class="q-pt-none text-white" :href="item.link">{{`${item.link}`}}</a>
+    <q-card-section class="q-pt-none text-white">
+      <a
+        class="q-pt-none text-white"
+        :href="item.link"
+      >{{ `${item.link}` }}</a>
     </q-card-section>
-      <!-- <q-item-section>
+    <!-- <q-item-section>
         <q-item-label>{{`${item.user.firstName} ${item.user.lastName}`}}</q-item-label>
         <q-item-label caption>{{`${$store.getters['categories/getCategoryById'](item.categoryId).label}`}}</q-item-label>
       </q-item-section> -->
@@ -63,7 +72,6 @@
         </q-carousel-control>
       </template>
     </q-carousel>
-    
   </q-card>
   <!-- <div class="app-component">
     <div

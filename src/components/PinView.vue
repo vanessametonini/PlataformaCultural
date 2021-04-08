@@ -4,7 +4,6 @@
       class="content"
       :style="{ 'background-color' : getColor }"
     >
-
       <span class="title-1 bolder line-h16"> {{ pinView.title }} </span>
 
       <span class="body-2 bolder spaced-32"> {{ pinView.description }} </span>

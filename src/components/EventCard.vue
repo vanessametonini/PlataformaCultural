@@ -1,5 +1,9 @@
 <template>
-  <div class="user-card" @click="$emit('card-click')" role="button">
+  <div
+    class="user-card"
+    role="button"
+    @click="$emit('card-click')"
+  >
     <h3>
       Adicionar Evento
     </h3>

@@ -1,7 +1,9 @@
 <template>
   <div class="box">
     <div class="input-content">
-      <h4 class="title-3 bolder">Crie seu evento</h4>
+      <h4 class="title-3 bolder">
+        Crie seu evento
+      </h4>
       <!-- event name -->
       <div class="column mg-top16">
         <span class="subheading-2">Nome do evento</span>
@@ -16,26 +18,28 @@
           @blur="$v.name.$touch"
         />
       </div>
-
-      <q-datetime v-model="date" float-label="Date" />
-
-      <!-- date & time -->
-      <!-- <div class="row justify-between mg-top8">
+      <div class="row justify-between mg-top8">
         <div class="column">
           <span class="subheading-2">Data</span>
           <q-input
             v-model="date"
             class="input"
             dense
-            type="date"
-            maxlength="8"
-            mask="YYYY-MM-DD"
             input-class="text-black"
             color="black"
-            :error-message="dateErrorMessage"
-            :error="$v.date.$error"
-            @blur="$v.date.$touch"
-          />
+          >
+            <template v-slot:prepend>
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy transition-show="scale" transition-hide="scale">
+                  <q-date v-model="date" mask="YYYY-MM-DD">
+                    <div class="row items-center justify-end">
+                      <q-btn v-close-popup label="Close" color="primary" flat />
+                    </div>
+                  </q-date>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
         </div>
 
         <div class="column">
@@ -44,16 +48,23 @@
             v-model="time"
             class="input"
             dense
-            mask="##:##"
-            unmasked-value
             input-class="text-black"
             color="black"
-            :error-message="timeErrorMessage"
-            :error="$v.time.$error"
-            @blur="$v.time.$touch"
-          />
+          >
+            <template v-slot:prepend>
+              <q-icon name="access_time" class="cursor-pointer">
+                <q-popup-proxy transition-show="scale" transition-hide="scale">
+                  <q-time v-model="time" mask="HH:mm" color="black" format24h>
+                    <div class="row items-center justify-end">
+                      <q-btn v-close-popup label="Close" color="dark" flat />
+                    </div>
+                  </q-time>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
         </div>
-      </div> -->
+      </div>
 
       <!-- address -->
       <div class="column mg-top8">
@@ -162,15 +173,15 @@
           input-class="text-black"
           color="black"
         >
-          <template v-slot:control="{ id, floatingLabel, value, emitValue }">
+          <template #control="{ id, floatingLabel, value, emitValue }">
             <money
+              v-show="floatingLabel"
               :id="id"
               class="q-field__input text-left"
               v-bind="money"
               :value="value"
               @input="emitValue"
-              v-show="floatingLabel"
-            ></money>
+            />
           </template>
         </q-field>
       </div>
@@ -231,7 +242,7 @@
           multiple
           :max-files="3"
           accept=".jpg,.jpeg,.png,.gif"
-          max-file-size=2097152
+          max-file-size="2097152"
           :error-message="filesErrorMessage"
           :error="$v.files.$error"
           @blur="$v.files.$touch"
@@ -293,26 +304,23 @@
 import { mapGetters } from 'vuex';
 import { createHelpers } from 'vuex-map-fields';
 import { required, url, minLength } from 'vuelidate/lib/validators';
-
 import {Money} from 'v-money'
 import { QField } from 'quasar';
-import { QDatetime } from 'quasar'
 const { mapFields } = createHelpers({
   getterType: 'events/getField',
   mutationType: 'events/updateField',
 });
 
 export default {
-  el: '#q-app',
   name: 'EventProfile',
   components: {
     Money,
     QField,
-    QDatetime
   },
   data() {
     return {
       date: '2019/02/01',
+      time: '14:25',
       startDate: null,
       endDate: null,
       files: null,
@@ -374,7 +382,7 @@ export default {
       categoryId: 'eventForm.categoryId',
       name: 'eventForm.title',
       // date: 'eventForm.date',
-      time: 'eventForm.time',
+      // time: 'eventForm.time',
       ticket: 'eventForm.ticket',
       local: 'eventForm.local',
       street: 'eventForm.street',

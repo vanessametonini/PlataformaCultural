@@ -52,7 +52,7 @@
     "eslint-plugin-vue": "^7.8.0",
     "node-sass": "^4.14.1",
     "sass-loader": "^8.0.2",
-    "vue-cli-plugin-quasar": "^2.0.2",
+    "vue-cli-plugin-quasar": "~2.0.2",
     "vue-template-compiler": "^2.6.12",
     "webpack": "^4.46.0"
   }

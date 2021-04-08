@@ -1,5 +1,9 @@
 <template>
-  <div class="user-card" @click="$emit('card-click')" role="button">
+  <div
+    class="user-card"
+    role="button"
+    @click="$emit('card-click')"
+  >
     <h3>
       {{ `${user.firstName} ${user.lastName}` }}
     </h3>
@@ -9,7 +13,6 @@
 <script>
 export default {
   name: 'UserCard',
-  emits: ['card-click'],
   props: {
     user: {
       type: Object,
@@ -20,6 +23,7 @@ export default {
       default: () => {},
     },
   },
+  emits: ['card-click'],
 };
 </script>
 

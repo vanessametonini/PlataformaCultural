@@ -256,7 +256,7 @@
           counter
           max-files="1"
           accept=".jpg,.jpeg,.png,.gif"
-          max-file-size=2097152
+          max-file-size="2097152"
           :error-message="avatarErrorMessage"
           :error="$v.model.$error"
           @blur="$v.model.$touch"
