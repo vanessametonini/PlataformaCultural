@@ -36,7 +36,7 @@
                 <q-popup-proxy transition-show="scale" transition-hide="scale">
                   <q-date v-model="date" mask="DD/MM/YYYY" unmasked-value color="black">
                     <div class="row items-center justify-end">
-                      <q-btn v-close-popup label="Close" color="black" flat />
+                      <q-btn v-close-popup label="Fechar" color="black" flat />
                     </div>
                   </q-date>
                 </q-popup-proxy>
@@ -62,7 +62,7 @@
                 <q-popup-proxy transition-show="scale" transition-hide="scale">
                   <q-time v-model="time" mask="HH:mm" unmasked-value color="black" format24h>
                     <div class="row items-center justify-end">
-                      <q-btn v-close-popup label="Close" color="black" flat />
+                      <q-btn v-close-popup label="Fechar" color="black" flat />
                     </div>
                   </q-time>
                 </q-popup-proxy>
