@@ -16,12 +16,13 @@ import LogoCard from './components/Logo.vue'; // logo da plataforma
 import MulticolorLine from './components/ColorLine.vue';
 import titleMixin from './mixins/title'
 import VueAnalytics from 'vue-analytics'
+import money from 'v-money'
 
 Vue.use(VueAnalytics, {
   id: 'UA-162276539-1',
   router
 })
-
+Vue.use(money, {precision: 4})
 
 library.add(faUserSecret);
 gsap.config({
@@ -38,6 +39,7 @@ Vue.use(Vuelidate);
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
 Vue.config.devtools = true;
+
 
 new Vue({
   router,

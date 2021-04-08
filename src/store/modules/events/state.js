@@ -9,7 +9,7 @@ const state = {
     categoryId: null,
     imageIds: [],
     title: '',
-    date: '',
+    date: '2019/02/01',
     time: '',
     site: '',
     street: '',

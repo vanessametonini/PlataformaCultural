@@ -3,27 +3,38 @@
     class="my-card"
     :style="{ 'background-color': category(item.categoryId).color }"
   >
-    <!-- <q-item>
-      <q-item-section avatar>
-        <q-avatar>
-          <img src="https://cdn.quasar.dev/img/avatar2.jpg">
-        </q-avatar>
-      </q-item-section>
+    <q-card-section>
+      <div class="text-h6 text-white">{{ item.title }}</div>
+      <div class="text-subtitle2 text-white">{{`Dia ${$store.getters['formatDate'](item.dateTime)}`}}</div>
+      <div class="text-subtitle3 text-white">{{`Às ${$store.getters['formatTime'](item.dateTime)}`}}</div>
+    </q-card-section>
 
-      <q-item-section>
-        <q-item-label>{{item.date}}</q-item-label>
-        <q-item-label caption>Subhead</q-item-label>
-      </q-item-section>
-    </q-item> -->
+    <q-card-section class="q-pt-none text-white">
+      {{item.description}}
+    </q-card-section>
+
+    <q-card-section class="q-pt-none text-white">
+      {{`${item.street}, ${item.number}, ${item.neighborhood}`}}
+    </q-card-section>
+    <q-card-section class="q-pt-none text-white">
+      {{`R$ ${moeda((item.ticket).toString().replace(".", ""))}`}}
+    </q-card-section>
+    <q-card-section  class="q-pt-none text-white">
+      <a class="q-pt-none text-white" :href="item.link">{{`${item.link}`}}</a>
+    </q-card-section>
+      <!-- <q-item-section>
+        <q-item-label>{{`${item.user.firstName} ${item.user.lastName}`}}</q-item-label>
+        <q-item-label caption>{{`${$store.getters['categories/getCategoryById'](item.categoryId).label}`}}</q-item-label>
+      </q-item-section> -->
     <q-carousel
       v-model="slide"
       swipeable
       animated
       arrows
       navigation
+      height="200px"
       :fullscreen="fullscreen"
       infinite
-      :autoplay="autoplay"
       transition-prev="slide-right"
       transition-next="slide-left"
       @mouseenter="autoplay = false"
@@ -52,17 +63,7 @@
         </q-carousel-control>
       </template>
     </q-carousel>
-    <q-card-section>
-      <div class="text-h6">
-        {{ item.title }}
-      </div>
-      <!-- <div class="text-subtitle2">
-        by John Doe
-      </div> -->
-    </q-card-section>
-    <q-card-section class="q-pt-none">
-      {{ lorem }}
-    </q-card-section>
+    
   </q-card>
   <!-- <div class="app-component">
     <div
@@ -160,6 +161,16 @@ export default {
     ...mapGetters({
       category: 'categories/getCategoryById',
     }),
+  },
+  methods:{
+    moeda(valor){
+      const v = ((valor.replace(/\D/g, '') / 100).toFixed(2) + '').split('.');
+      const m = v[0].split('').reverse().join('').match(/.{1,3}/g);
+      for (let i = 0; i < m.length; i++)
+          m[i] = m[i].split('').reverse().join('') + '.';
+      const r = m.reverse().join('');
+      return r.substring(0, r.lastIndexOf('.')) + ',' + v[1];
+    }
   }
 };
 </script>

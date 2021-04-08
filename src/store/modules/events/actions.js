@@ -36,18 +36,34 @@ const actions = {
 
   loadEvents({ commit, dispatch, rootGetters }) {
     dispatch('services/GET', { uri: 'events' }, { root: true })
-      .then((response) => {
-        const events = response.data.map((event) => {
-          const date = rootGetters.formatDate(event.date);
-          const time = rootGetters.formatTime(event.date);
-          return {
-            ...event,
-            images: event.imageIds,
-            date,
-            time,
-            dateTime: event.date
-          };
-        });
+      .then(async (response) => {
+        const eventsArray = response.data.map((event)=> {
+          return dispatch('services/GET', { uri: `users/${event.userId}` }, { root: true })
+            .then((response) => {
+              const date = rootGetters.formatDate(event.date);
+              const time = rootGetters.formatTime(event.date);
+              return {
+                ...event,
+                user: response.data,
+                images: event.imageIds,
+                date,
+                time,
+                dateTime: event.date
+              }
+            })
+          });
+        const events = await Promise.all(eventsArray);
+        // const events = response.data.map((event) => {
+        //   const date = rootGetters.formatDate(event.date);
+        //   const time = rootGetters.formatTime(event.date);
+        //   return {
+        //     ...event,
+        //     images: event.imageIds,
+        //     date,
+        //     time,
+        //     dateTime: event.date
+        //   };
+        // });
         commit('SET_EVENTS_LIST', events);
       })
       .catch((error) => error);

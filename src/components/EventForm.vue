@@ -17,16 +17,19 @@
         />
       </div>
 
+      <q-datetime v-model="date" float-label="Date" />
+
       <!-- date & time -->
-      <div class="row justify-between mg-top8">
+      <!-- <div class="row justify-between mg-top8">
         <div class="column">
           <span class="subheading-2">Data</span>
           <q-input
             v-model="date"
             class="input"
             dense
-            mask="##/##/####"
-            unmasked-value
+            type="date"
+            maxlength="8"
+            mask="YYYY-MM-DD"
             input-class="text-black"
             color="black"
             :error-message="dateErrorMessage"
@@ -50,7 +53,7 @@
             @blur="$v.time.$touch"
           />
         </div>
-      </div>
+      </div> -->
 
       <!-- address -->
       <div class="column mg-top8">
@@ -152,18 +155,24 @@
       <!-- ticket -->
       <div class="column mg-top8">
         <span class="subheading-2">Valor</span>
-        <q-input
+        <q-field
           v-model="ticket"
           class="input"
           dense
           input-class="text-black"
           color="black"
-          mask="R$ ##,##"
-          unmasked-value
-          :error-message="ticketErrorMessage"
-          :error="$v.ticket.$error"
-          @blur="$v.ticket.$touch"
-        />
+        >
+          <template v-slot:control="{ id, floatingLabel, value, emitValue }">
+            <money
+              :id="id"
+              class="q-field__input text-left"
+              v-bind="money"
+              :value="value"
+              @input="emitValue"
+              v-show="floatingLabel"
+            ></money>
+          </template>
+        </q-field>
       </div>
 
       <!-- link -->
@@ -285,20 +294,37 @@ import { mapGetters } from 'vuex';
 import { createHelpers } from 'vuex-map-fields';
 import { required, url, minLength } from 'vuelidate/lib/validators';
 
-
+import {Money} from 'v-money'
+import { QField } from 'quasar';
+import { QDatetime } from 'quasar'
 const { mapFields } = createHelpers({
   getterType: 'events/getField',
   mutationType: 'events/updateField',
 });
 
 export default {
+  el: '#q-app',
   name: 'EventProfile',
   components: {
+    Money,
+    QField,
+    QDatetime
   },
   data() {
     return {
+      date: '2019/02/01',
+      startDate: null,
+      endDate: null,
       files: null,
       file: null,
+      money: {
+        decimal: ',',
+        thousands: '.',
+        prefix: 'R$ ',
+        precision: 2,
+        maxlength: 14,
+        masked: false
+      }
     };
   },
    validations: {
@@ -309,8 +335,8 @@ export default {
       required,
     },
     date: {
-      required,
-      minLength: minLength(8)
+      // required,
+      // minLength: minLength(8)
     },
     time: {
       required,
@@ -335,10 +361,6 @@ export default {
     description: {
       required,
     },
-    ticket: {
-      required,
-      minLength: minLength(4)
-    },
     link: {
       url,
     },
@@ -351,7 +373,7 @@ export default {
       category: 'categorySelected',
       categoryId: 'eventForm.categoryId',
       name: 'eventForm.title',
-      date: 'eventForm.date',
+      // date: 'eventForm.date',
       time: 'eventForm.time',
       ticket: 'eventForm.ticket',
       local: 'eventForm.local',
@@ -431,14 +453,6 @@ export default {
     descriptionErrorMessage () {
       if (!this.$v.description.required) {
         return 'Esse campo é requerido'
-      }
-      return '';
-    },
-    ticketErrorMessage () {
-      if (!this.$v.ticket.required) {
-        return 'Esse campo é requerido'
-      } else if (!this.$v.ticket.minLength) {
-        return 'Entre com um valor válido'
       }
       return '';
     },
