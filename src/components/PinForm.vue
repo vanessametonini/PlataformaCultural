@@ -277,7 +277,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import { createHelpers } from 'vuex-map-fields';
-import { required, url, minLength } from 'vuelidate/lib/validators';
+import { required, url, minLength, email } from 'vuelidate/lib/validators';
 
 const { mapFields } = createHelpers({
   getterType: 'pins/getField',
@@ -321,7 +321,8 @@ export default {
       required,
     },
     email: {
-      required,
+      // required,
+      email
     },
     phone: {
       minLength: minLength(11)
@@ -398,8 +399,8 @@ export default {
       return '';
     },
     emailErrorMessage () {
-      if (!this.$v.email.required) {
-        return 'Esse campo é requerido'
+      if (!this.$v.email.email) {
+        return 'Entre com um email válido'
       }
       return '';
     },

@@ -27,13 +27,16 @@
             dense
             input-class="text-black"
             color="black"
+            readonly
+            :error-message="dateErrorMessage"
+            :error="$v.date.$error"
           >
             <template v-slot:prepend>
               <q-icon name="event" class="cursor-pointer">
                 <q-popup-proxy transition-show="scale" transition-hide="scale">
-                  <q-date v-model="date" mask="DD/MM/YYYY">
+                  <q-date v-model="date" mask="DD/MM/YYYY" unmasked-value color="black">
                     <div class="row items-center justify-end">
-                      <q-btn v-close-popup label="Close" color="primary" flat />
+                      <q-btn v-close-popup label="Close" color="black" flat />
                     </div>
                   </q-date>
                 </q-popup-proxy>
@@ -50,13 +53,16 @@
             dense
             input-class="text-black"
             color="black"
+            readonly
+            :error-message="timeErrorMessage"
+            :error="$v.time.$error"
           >
             <template v-slot:prepend>
               <q-icon name="access_time" class="cursor-pointer">
                 <q-popup-proxy transition-show="scale" transition-hide="scale">
-                  <q-time v-model="time" mask="HH:mm" color="black" format24h>
+                  <q-time v-model="time" mask="HH:mm" unmasked-value color="black" format24h>
                     <div class="row items-center justify-end">
-                      <q-btn v-close-popup label="Close" color="dark" flat />
+                      <q-btn v-close-popup label="Close" color="black" flat />
                     </div>
                   </q-time>
                 </q-popup-proxy>
@@ -117,8 +123,7 @@
             v-model="number"
             class="input"
             dense
-            :rules="[ val => val.length <= 5 || 'Máximo de 5 caracteres']"
-            mask="#######"
+            mask="#####"
             unmasked-value
             input-class="text-black"
             color="black"
@@ -319,10 +324,6 @@ export default {
   },
   data() {
     return {
-      date: '02/01/2019',
-      time: '14:25',
-      startDate: null,
-      endDate: null,
       files: null,
       file: null,
       money: {
@@ -343,12 +344,10 @@ export default {
       required,
     },
     date: {
-      // required,
-      // minLength: minLength(8)
+      required,
     },
     time: {
       required,
-      minLength: minLength(4)
     },
     local: {
       required,
@@ -381,8 +380,8 @@ export default {
       category: 'categorySelected',
       categoryId: 'eventForm.categoryId',
       name: 'eventForm.title',
-      // date: 'eventForm.date',
-      // time: 'eventForm.time',
+      date: 'eventForm.date',
+      time: 'eventForm.time',
       ticket: 'eventForm.ticket',
       local: 'eventForm.local',
       street: 'eventForm.street',
@@ -413,16 +412,12 @@ export default {
     dateErrorMessage () {
       if (!this.$v.date.required) {
         return 'Esse campo é requerido'
-      } else if (!this.$v.date.minLength) {
-        return 'Entre com uma data válida'
       }
       return '';
     },
     timeErrorMessage () {
       if (!this.$v.time.required) {
         return 'Esse campo é requerido'
-      } else if (!this.$v.time.minLength) {
-        return 'Entre com uma hora válida'
       }
       return '';
     },
