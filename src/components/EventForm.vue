@@ -139,7 +139,7 @@
             v-model="zipcode"
             class="input"
             dense
-            mask="##.####-##"
+            mask="##.###-###"
             unmasked-value
             input-class="text-black"
             color="black"

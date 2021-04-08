@@ -23,7 +23,7 @@
       {{ `${item.street}, ${item.number}, ${item.neighborhood}` }}
     </q-card-section>
     <q-card-section class="q-pt-none text-white">
-      {{ `R$ ${moeda((item.ticket).toString().replace(".", ""))}` }}
+      {{ `R$ ${moeda(item.ticket)}` }}
     </q-card-section>
     <q-card-section class="q-pt-none text-white">
       <a
@@ -172,7 +172,8 @@ export default {
   },
   methods:{
     moeda(valor){
-      const v = ((valor.replace(/\D/g, '') / 100).toFixed(2) + '').split('.');
+      console.log(valor);
+      const v = (((valor*100).toString().replace(".", "").replace(/\D/g, '') / 100).toFixed(2) + '').split('.');
       const m = v[0].split('').reverse().join('').match(/.{1,3}/g);
       for (let i = 0; i < m.length; i++)
           m[i] = m[i].split('').reverse().join('') + '.';
