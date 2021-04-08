@@ -31,7 +31,7 @@
             <template v-slot:prepend>
               <q-icon name="event" class="cursor-pointer">
                 <q-popup-proxy transition-show="scale" transition-hide="scale">
-                  <q-date v-model="date" mask="YYYY-MM-DD">
+                  <q-date v-model="date" mask="DD/MM/YYYY">
                     <div class="row items-center justify-end">
                       <q-btn v-close-popup label="Close" color="primary" flat />
                     </div>
@@ -319,7 +319,7 @@ export default {
   },
   data() {
     return {
-      date: '2019/02/01',
+      date: '02/01/2019',
       time: '14:25',
       startDate: null,
       endDate: null,
