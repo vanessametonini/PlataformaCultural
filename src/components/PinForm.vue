@@ -336,8 +336,8 @@ export default {
     neighborhood: {
       required,
     },
-    city: {
-      required,
+    city: { 
+      
     },
     cep: {
       required,
@@ -502,10 +502,16 @@ export default {
   created() {},
   methods: {
     confirmCreate(){
+        console.log('uppp 1');
+
       this.$v.$touch();
+      console.log(this.$v);
       if (!this.$v.$anyError) {
+        console.log('uppp 2');
+
         this.$store.dispatch('images/uploadArray', { files: this.files })
           .then((fileIds) => {
+            console.log('image: ', fileIds);
             this.images = fileIds;
             this.$store.dispatch('pins/postPin',  { $router: this.$router} );
           })

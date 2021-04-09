@@ -27,6 +27,7 @@ const actions = {
       ...rootState.pins.pinForm,
       userId: rootState.users.currentUser.id,
     };
+    console.log(data);
     dispatch('services/POST', { uri: 'pins', data }, { root: true })
       .then((response) => {
         commit('ADD_PIN', { ...data, ...response.data });
