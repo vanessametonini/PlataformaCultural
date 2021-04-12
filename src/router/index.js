@@ -95,6 +95,14 @@ const routes = [
     },
   },
   {
+    path: '/reset-password/:recoverToken', // página de um tópico
+    name: 'ResetPasswordPage',
+    component: () => import('../views/ResetPassword.vue'),
+    meta: {
+      requiresAuth: false,
+    },
+  },
+  {
     path: '/buffer',
     name: 'Buffer',
     component: () => import('../views/buffer.vue'),
@@ -148,7 +156,7 @@ const scrollBehavior = (to, from, savedPosition) => {
 
 const Router = new VueRouter({
   mode: 'history',
-  base: process.env.BASE_URL,
+  base: '/',
   routes,
   scrollBehavior,
 });

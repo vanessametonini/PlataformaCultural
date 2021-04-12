@@ -6,8 +6,7 @@
 
     <div class="content column">
       <div class="card column">
-        <span class="title title-3 bolder"> Digite seu email </span>
-
+        <span class="title title-3 bolder"> Redefina sua Senha </span>
         <div
           v-if="errorMessage !== null"
           class="error-field"
@@ -16,20 +15,48 @@
         </div>
 
         <div class="input-field">
+          <div class="input-field">
+
+            <q-input
+              v-model="password"
+              class="input"
+              square
+              filled
+              :type="isPwd ? 'password' : 'text'"
+              label="Senha"
+              :error="$v.password.$error"
+              :error-message="passwordErrorMessage"
+              @blur="$v.password.$touch"
+            >
+              <template #append>
+                <q-icon
+                  :name="isPwd ? 'visibility_off' : 'visibility'"
+                  class="cursor-pointer"
+                  @click="isPwd = !isPwd"
+                />
+              </template>
+            </q-input>
+          </div>
+
           <q-input
-            v-model="email"
+            v-model="passwordConfirmation"
             class="input"
             square
             filled
-            color="black"
-            type="email"
-            label="Email"
-            :error="$v.email.$error"
-            :error-message="emailErrorMessage"
-            lazy-rules
-            @blur="$v.email.$touch"
-          />
-
+            :type="isPwdC ? 'password' : 'text'"
+            label="Senha"
+            :error="$v.passwordConfirmation.$error"
+            :error-message="passwordConfirmationErrorMessage"
+            @blur="$v.passwordConfirmation.$touch"
+          >
+            <template #append>
+              <q-icon
+                :name="isPwdC ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="isPwdC = !isPwdC"
+              />
+            </template>
+          </q-input>
         </div>
 
         <div class="links column">
@@ -39,7 +66,7 @@
             color="white"
             @click="submit()"
           >
-            <span class="body-3 bold">Recuperar</span>
+            <span class="body-3 bold">entrar</span>
           </q-btn>
         </div>
       </div>
@@ -48,46 +75,79 @@
 </template>
 
 <script>
+
 import { createHelpers } from 'vuex-map-fields';
 const { mapFields } = createHelpers({
   getterType: 'users/getField',
   mutationType: 'users/updateField',
 });
-import { email, required } from 'vuelidate/lib/validators';
+
+import { required, minLength, maxLength } from 'vuelidate/lib/validators';
 
 export default {
-  name: 'RecoverPage',
+  name: 'ResetPasswordPage',
   data() {
     return {
+      isPwd: false,
+      isPwdC: false,
       errorMessage: null,
     }
   },
   validations: {
-    email: {
+    password: {
       required,
-      email,
-    }
+      minLength: minLength(8),
+      maxLength: maxLength(20)
+    },
+    passwordConfirmation: {
+      required,
+      minLength: minLength(8),
+      maxLength: maxLength(20)
+    },
   },
   computed: {
     ...mapFields({
-      email: 'emailRecover'
+      password: 'resetPassword.password',
+      passwordConfirmation: 'resetPassword.passwordConfirmation',
     }),
-    emailErrorMessage () {
-      if (!this.$v.email.required) {
-        return 'Preencha seu email'
-      } else if (!this.$v.email.email) {
-        return 'Por favor insira um email válido'
+    passwordErrorMessage () {
+      if (!this.$v.password.required) {
+        return 'Informe sua senha'
+      } else if (!this.$v.password.minLength) {
+        return 'Mínimo de 8 dígitos'
+      } else if (!this.$v.password.maxLength) {
+        return 'Máximo de 15 dígitos'
       }
       return ''
-    }
+    },
+    passwordConfirmationErrorMessage () {
+      if (!this.$v.passwordConfirmation.required) {
+        return 'Informe sua senha'
+      } else if (!this.$v.passwordConfirmation.minLength) {
+        return 'Mínimo de 8 dígitos'
+      } else if (!this.$v.passwordConfirmation.maxLength) {
+        return 'Máximo de 15 dígitos'
+      }
+      return ''
+    },
   },
   methods: {
     async submit() {
       if (!this.$v.$anyError) {
-        this.$store.dispatch('users/sendEmailRecover')
+        console.log('recover Token: ', this.$route.params.recoverToken);
+        this.$store.dispatch('users/resetPassword', {token: this.$route.params.recoverToken})
+        .then((response) => {
+          this.$router.push({ name: 'SignIn' });
+        })
+        .catch((error)=>{
+          console.log(error);
+        })
       }
     },
   },
+  created(){
+    console.log('Recover Token: ', this.$route.params.recoverToken);
+  }
 }
 </script>
 

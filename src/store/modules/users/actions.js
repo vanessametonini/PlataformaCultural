@@ -3,6 +3,20 @@ import api from '../../../apiClient';
 // import permissions from './Permissions';
 
 const actions = {
+
+  sendEmailRecover({ state, dispatch }) {
+    dispatch('services/POST', { uri: 'auth/send-recover-email', data: { email: state.emailRecover } }, { root: true })
+      .then((response) => response)
+      .catch((error) => error);
+  },
+  
+
+  resetPassword({ state, dispatch }, { token }) {
+    dispatch('services/POST', { uri: `auth/reset-password/${token}`, data: state.resetPassword }, { root: true })
+      .then((response) => response)
+      .catch((error) => error);
+  },
+
   signUp({ dispatch }, { credentials }) {
     dispatch('services/POST', { uri: 'users', data: credentials }, { root: true })
       .then((response) => response)

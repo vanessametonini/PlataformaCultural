@@ -1,4 +1,9 @@
 const state = {
+  resetPassword : {
+    password: '',
+    passwordConfirmation: ''
+  },
+  emailRecover: '',
   userForm: {
     ageRange:'',
     avatar:'',

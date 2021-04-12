@@ -58,16 +58,20 @@
       <base-button
         v-if="currentStep === 1"
         class="stepper-btn"
-        :theme="this.$v.email.email && this.$v.email.required ? 'flat' : 'disabled'"
+        :theme="$v.email.email && $v.email.required ? 'flat' : 'disabled'"
         @click="nextStep()"
       >
-        <span class="body-3 bolder stepper-btn-span text-uppercase"> Continuar </span>
+        <span
+          class="body-3 bolder stepper-btn-span text-uppercase"
+        >
+          Continuar 
+        </span>
         <i class="fas fa-arrow-right btn-icon mg-left16" />
       </base-button>
       <base-button
         v-if="currentStep === numberOfSteps"
         class="stepper-btn"
-        :theme="this.$v.email.email && this.$v.email.required ? 'flat' : 'disabled'"
+        :theme="$v.email.email && $v.email.required ? 'flat' : 'disabled'"
         @click="prevStep()"
       >
         <i class="fas fa-arrow-left btn-icon" />
@@ -100,6 +104,12 @@ import {
   email,
   sameAs,
 } from 'vuelidate/lib/validators';
+import { createHelpers } from 'vuex-map-fields';
+
+const { mapFields } = createHelpers({
+  getterType: 'users/getField',
+  mutationType: 'users/updateField',
+});
 
 import ProgressBar from './BaseStepProgressBar.vue';
 import ColorLine from './ColorLine.vue';
@@ -118,7 +128,7 @@ export default {
       count: 0,
       numberOfSteps: 2,
       stepsTitle: ['', ''],
-      email: null,
+      // email: null,
     };
   },
   validations: {
@@ -138,6 +148,9 @@ export default {
     },
   },
   computed: {
+    ...mapFields({
+      email: 'emailRecover'
+    }),
     emailErrorMessage() {
       if (!this.$v.email.required) {
         return 'Email é requerido';
@@ -156,11 +169,22 @@ export default {
       this.$router.push({ name: 'SignIn' });
     },
     nextStep() {
+
       if (this.count <= (this.numberOfSteps)) {
         this.currentStep += 1;
         this.count += 1;
       }
       this.scrollToTop();
+      this.$store.dispatch('users/sendEmailRecover')
+        .then((response)=>{
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+
+
+
     },
     prevStep() {
       if (this.count >= 0) {
