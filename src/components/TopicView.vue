@@ -194,7 +194,23 @@ export default {
   data() {
     return {
       showConfirmDialog: true,
+      isConnected: false,
+      socketMessage: ''
     };
+  },
+  sockets: {
+    // connect() {
+    //   // Fired when the socket connects.
+    //   console.log('connected');
+    // },
+
+    // disconnect() {
+    //   console.log('disconnected');
+    // },
+
+    // msgToClient(data) {
+    //   // console.log(data);
+    // }
   },
   computed: {
     ...mapGetters({
@@ -205,7 +221,16 @@ export default {
       myVote: 'topics/supports/getMyVoteCurrentTopic',
     }),
   },
+  created(){
+    // this.$socket.on('msgToClient', (message) => {
+    //   console.log(message);
+    // })
+  },
   mounted() {
+    this.$socket.emit('msgToServer', 'messageee');
+    // this.$socket.on('msgToClient', (message) => {
+    //   console.log(message);
+    // })
     this.$store.dispatch('topics/loadTopicId', { id: this.$route.params.topicId })
       .then(() => {
         this.$store.dispatch('topics/supports/loadSupportsByTopicId');

@@ -1,4 +1,5 @@
 const mutations = {
+
   setKey(state, payload) {
     state.newKey = payload;
   },

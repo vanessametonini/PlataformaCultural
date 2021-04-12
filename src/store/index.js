@@ -9,6 +9,7 @@ import ModuleEvents from './modules/events/index';
 import ModuleServices from './modules/services';
 import ModuleImages from './modules/images/index';
 import ModuleMaps from './modules/maps/index';
+import ModuleSocket from './modules/sockets/index';
 import STATE from './state';
 import GETTERS from './getters';
 import ACTIONS from './actions';
@@ -30,6 +31,7 @@ const store = new Store({
     services: ModuleServices,
     maps: ModuleMaps,
     images: ModuleImages,
+    sockets: ModuleSocket,
   },
   state: STATE,
   getters: GETTERS,

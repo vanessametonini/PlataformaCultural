@@ -18,6 +18,18 @@ import titleMixin from './mixins/title'
 import VueAnalytics from 'vue-analytics'
 import money from 'v-money'
 import './quasar'
+import VueSocketIO from 'vue-socket.io'
+
+Vue.use(new VueSocketIO({
+  debug: true,
+  connection: 'http://localhost:3000',
+  vuex: {
+      store,
+      actionPrefix: 'SOCKET_',
+      mutationPrefix: 'SOCKET_'
+  },
+  // options: { path: "/my-app/" } //Optional options
+}))
 
 Vue.use(VueAnalytics, {
   id: 'UA-162276539-1',
