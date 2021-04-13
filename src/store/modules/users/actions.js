@@ -18,7 +18,7 @@ const actions = {
   },
 
   signUp({ dispatch }, { credentials }) {
-    dispatch('services/POST', { uri: 'users', data: credentials }, { root: true })
+    dispatch('services/POST', { uri: 'auth/signup', data: credentials }, { root: true })
       .then((response) => response)
       .catch((error) => error);
   },
