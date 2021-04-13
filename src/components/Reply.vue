@@ -61,7 +61,6 @@
 
         <!-- reply-this and like -->
         <div
-          v-if="!canEditTopic()"
           class="action-replying row"
         >
           <base-button

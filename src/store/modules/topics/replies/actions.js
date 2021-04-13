@@ -19,18 +19,18 @@ const actions = {
       .catch((error) => error);
   },
 
-  SOCKET_newReplyToClient({ commit }, reply) {
+  SOCKET_newReplyToClient({ commit, rootGetters }, reply) {
+    if (rootGetters['topics/getCurrentTopic']?.id === reply.topicId){
+      commit('ADD_CURRENT_TOPIC_REPLY', reply);
+      commit('rejoinders/ADD_CURRENT_TOPIC_REPLY_REJOINDER_FORM', {
+        replyId: reply.id, 
+        content: '',
+      });
+    }
     commit('topics/INCREMENT_TOPIC_LIST_REPLY', reply, { root: true });
-    commit('rejoinders/ADD_CURRENT_TOPIC_REPLY_REJOINDER_FORM', {
-      replyId: reply.id,
-      content: '',
-    });
-    commit('ADD_CURRENT_TOPIC_REPLY', reply);
   },
   
-  addReply({ getters }, { $socket }) {
-    $socket.emit('newReplyToServer', { ...getters.getCurrentReply } );
-  },
+  addReply: ({ getters }, { $socket }) => $socket.emit('newReplyToServer', { ...getters.getCurrentReply } )
 };
 
 export default actions;
