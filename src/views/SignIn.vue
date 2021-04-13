@@ -140,7 +140,7 @@ export default {
               color: 'Black'
             })
           }
-          // this.$router.push({ name: 'Profile' });
+          this.$router.push({ name: 'Profile' });
         }).catch((error) => {
           if(error.message === 'Request failed with status code 400') {
             this.$q.notify({
