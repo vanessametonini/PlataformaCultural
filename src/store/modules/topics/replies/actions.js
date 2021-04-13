@@ -27,7 +27,7 @@ const actions = {
         content: '',
       });
     }
-    commit('topics/INCREMENT_TOPIC_LIST_REPLY', reply, { root: true });
+    commit('topics/INCREMENT_TOPIC_LIST_REPLY', reply.topicId, { root: true });
   },
   
   addReply: ({ getters }, { $socket }) => $socket.emit('newReplyToServer', { ...getters.getCurrentReply } )

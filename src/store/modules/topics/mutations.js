@@ -21,9 +21,9 @@ const mutations = {
     state.list.push(data);
   },
 
-  INCREMENT_TOPIC_LIST_REPLY(state, reply) {
+  INCREMENT_TOPIC_LIST_REPLY(state, topicId) {
     state.list = state.list.map((topic) => {
-      if (reply.topicId === topic.id) {
+      if (topicId === topic.id) {
         return {
           ...topic,
           ...{ numberOfReplies: topic.numberOfReplies + 1 },

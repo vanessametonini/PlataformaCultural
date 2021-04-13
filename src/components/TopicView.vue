@@ -131,7 +131,7 @@
     <div class="topic-footer">
       <div class="topic-footer-reply">
         <q-icon name="far fa-comment" />
-        <span class="headline-3 text-gray bolder mg-left8">{{ replyes.length !== 0 ? `${replyes.length} comentários` : 'seja o primero a comentar.' }}</span>
+        <span class="headline-3 text-gray bolder mg-left8">{{ topic.numberOfReplies !== 0 ? `${topic.numberOfReplies} comentários` : 'seja o primero a comentar.' }}</span>
         <!-- <span class="topic-footer-title headline-2 bolder">Comentários</span> -->
       </div>
 
