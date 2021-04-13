@@ -1,29 +1,27 @@
 const actions = {
 
-  createLike({
-    commit,
-    dispatch,
-    rootState,
-    rootGetters,
-  }, { replyId }) {
-    const info = {
+  SOCKET_newLikeToClient({ commit, rootGetters }, like) {
+    if (rootGetters['topics/getCurrentTopic']?.id === like.topicId) {
+      commit('ADD_CURRENT_TOPIC_REPLY_LIKE', like);
+    }
+  },
+
+  createLike: ({ rootState }, { replyId, $socket }) => $socket.emit('newLikeToServer', {
       userId: rootState.users.currentUser.id,
       topicId: rootState.topics.currentTopic.id,
       replyId,
-      createdAt: rootGetters.date,
-    };
-    dispatch('services/POST', { uri: 'likes', data: { ...info } }, { root: true })
-      .then((response) => {
-        commit('ADD_CURRENT_TOPIC_REPLY_LIKE', { id: response.data, ...info });
-      })
-      .catch((error) => console.log(error.message));
+      createdAt: new Date(),
+    }),
+
+  SOCKET_removeLikeToClient({ commit, rootGetters }, like) {
+    if (rootGetters['topics/getCurrentTopic']?.id === like.topicId) {
+      commit('REMOVE_LIKE_ID', like.id)
+    }
   },
-  removeLike({ commit, getters, dispatch }, { replyId }) {
-    const likeId = getters.getMyLikeId(replyId);
-    dispatch('services/DELETE', { uri: `likes/${likeId}` }, { root: true })
-      .then(() => commit('REMOVE_LIKE_ID', likeId))
-      .catch((error) => console.log(error.message));
-  },
+
+  removeLike: ({ getters }, { replyId, $socket }) => $socket.emit('removeLikeToServer', { id:  getters.getMyLikeId(replyId) }),
+
+
   loadLikesByTopicId({ commit, dispatch, rootState }) {
     dispatch('services/GET', { uri: `likes/topic/${rootState.topics.currentTopic.id}` }, { root: true })
       .then((response) => {

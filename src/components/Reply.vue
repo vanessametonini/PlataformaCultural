@@ -75,10 +75,20 @@
             >{{ comment ? 'ocultar comentários' : 'ver comentários' }}</span>
           </base-button>
 
-          <i
+          <!-- <i
             class="action-icon far fa-heart"
             :class="{ 'liked': hasBeenLiked }"
             @click="likeReply()"
+          /> -->
+          <q-rating
+            v-model="like"
+            max="1"
+            size="1.3em"
+            color="red"
+            color-selected="red-9"
+            icon="favorite_border"
+            icon-selected="favorite"
+            no-dimming
           />
 
           <span class="caption bolder no-pointer text-black mg-left8">{{ numberOfReplyLikes(reply.id) }}</span>
@@ -172,6 +182,18 @@ export default {
     };
   },
   computed: {
+    like:{
+      get(){
+        return this.myLike(this.reply.id).length
+      },
+      set(){
+        if (this.myLike(this.reply.id).length) {
+          this.$store.dispatch('topics/replies/likes/removeLike', { replyId: this.reply.id, $socket: this.$socket });
+        } else {
+          this.$store.dispatch('topics/replies/likes/createLike', { replyId: this.reply.id, $socket: this.$socket });
+        }
+      }
+    },
     ...mapGetters({
       currentUser: 'users/getCurrentUser',
       numberOfReplyLikes: 'topics/replies/likes/getNumberOfReplyLikes',
@@ -183,7 +205,9 @@ export default {
       // return this.myLikes.some((el) => el.replyId === this.reply.id);
     },
   },
-  created() { },
+  created() { 
+    console.log(this.myLike(this.reply.id));
+  },
   methods: {
     deleteReply() {
       console.log('reply/deleteReply', this.reply.id);
@@ -211,7 +235,6 @@ export default {
       // });
     },
     likeReply() {
-      console.log(this.myLike(this.reply.id).length);
       if (this.myLike(this.reply.id).length) {
         this.$store.dispatch('topics/replies/likes/removeLike', { replyId: this.reply.id });
       } else {
@@ -253,6 +276,8 @@ export default {
 @import '../styles/mixins.scss';
 
 $primaryColor: #000;
+$textBlack: #000;
+
 $textBlack: #000;
 
 .reply-component {
