@@ -708,6 +708,10 @@ export default {
             this.message = 'Só uns segundinhos';
             this.loadingTransition();
             this.$router.push({ name: 'SignIn' });
+            this.$q.notify({
+              message: 'Verifique sua caixa de entrada',
+              color: 'Black'
+            })
           })
           .catch ((error) => {
             if(error.message === 'Request failed with status code 400') {
