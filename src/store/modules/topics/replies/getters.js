@@ -7,7 +7,7 @@ const GETTERS = {
     reply.topicId = rootState.topics.currentTopic.id;
     reply.userId = rootState.users.currentUser.id;
     reply.numberOfLikes = 0;
-    reply.createdAt = rootGetters.date;
+    reply.createdAt = new Date();
     return reply;
   },
   getField,

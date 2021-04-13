@@ -1,6 +1,10 @@
 import { updateField } from 'vuex-map-fields';
 
 const mutations = {
+  SOCKET_newTopicToClient(state, topic) {
+    state.list.push(topic);
+  },
+  
   SET_TOPICS_LIST(state, list) {
     state.list = list;
   },

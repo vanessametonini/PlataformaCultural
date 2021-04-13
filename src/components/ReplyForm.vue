@@ -67,7 +67,7 @@ export default {
       this.loading = true;
       this.$v.$touch();
       if (!this.$v.$anyError && this.content !== '') {
-        this.$store.dispatch('topics/replies/addReply')
+        this.$store.dispatch('topics/replies/addReply', { $socket: this.$socket })
           .then(() => {
             this.content = '';
             this.$v.$reset();

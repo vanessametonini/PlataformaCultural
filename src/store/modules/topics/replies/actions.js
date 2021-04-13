@@ -18,30 +18,18 @@ const actions = {
       })
       .catch((error) => error);
   },
-  addReply({
-    getters,
-    commit,
-    dispatch,
-    rootState,
-  }) {
-    const data = { ...getters.getCurrentReply };
-    dispatch('services/POST', { uri: 'replies', data }, { root: true })
-      .then((response) => {
-        commit('topics/INCREMENT_TOPIC_LIST_REPLY', data, { root: true });
-        commit('rejoinders/ADD_CURRENT_TOPIC_REPLY_REJOINDER_FORM', {
-          replyId: response.data,
-          content: '',
-        });
-        commit('ADD_CURRENT_TOPIC_REPLY', {
-          ...{ id: response.data },
-          ...data,
-          user: {
-            ...rootState.users.currentUser,
-            name: `${rootState.users.currentUser.firstName} ${rootState.users.currentUser.lastName}`,
-          },
-        });
-      })
-      .catch((error) => error);
+
+  SOCKET_newReplyToClient({ commit }, reply) {
+    commit('topics/INCREMENT_TOPIC_LIST_REPLY', reply, { root: true });
+    commit('rejoinders/ADD_CURRENT_TOPIC_REPLY_REJOINDER_FORM', {
+      replyId: reply.id,
+      content: '',
+    });
+    commit('ADD_CURRENT_TOPIC_REPLY', reply);
+  },
+  
+  addReply({ getters }, { $socket }) {
+    $socket.emit('newReplyToServer', { ...getters.getCurrentReply } );
   },
 };
 

@@ -198,20 +198,6 @@ export default {
       socketMessage: ''
     };
   },
-  sockets: {
-    // connect() {
-    //   // Fired when the socket connects.
-    //   console.log('connected');
-    // },
-
-    // disconnect() {
-    //   console.log('disconnected');
-    // },
-
-    // msgToClient(data) {
-    //   // console.log(data);
-    // }
-  },
   computed: {
     ...mapGetters({
       currentUser: 'users/getCurrentUser',
@@ -227,7 +213,7 @@ export default {
     // })
   },
   mounted() {
-    this.$socket.emit('msgToServer', 'messageee');
+    // this.$socket.emit('msgToServer', 'messageee');
     // this.$socket.on('msgToClient', (message) => {
     //   console.log(message);
     // })
@@ -241,7 +227,7 @@ export default {
   },
   methods: {
     supportThis(triggerType) {
-      this.$store.dispatch('topics/supports/supportCurrentTopic', { supportType: triggerType })
+      this.$store.dispatch('topics/supports/supportCurrentTopic', { supportType: triggerType, $socket: this.$socket })
     },
     supportsPercentage(type) {
       const posAmount = parseInt(this.supports.positiveSupports, 10);

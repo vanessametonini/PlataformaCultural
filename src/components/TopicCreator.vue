@@ -425,15 +425,15 @@ export default {
       return '';
     },
   },
-  mounted() {
+  created() {
     this.options = [...this.categories];
   },
   methods: {
-    showDate() {
-      console.log('data', new Date());
-    },
-    submit() {
-      this.$store.dispatch('topics/createNewTopic')
+    async submit() {
+      // await this.$store.dispatch('topics/createNewTopic')
+      // this.$socket.emit('newTopicToServer',  );
+      // this.$router.push('/topics');
+      this.$store.dispatch('topics/createNewTopic', { $socket: this.$socket })
         .then(() => {
           this.content = '';
           this.title = '';
@@ -450,6 +450,7 @@ export default {
       this.$router.push({ name: 'Topics' });
     },
     tagEvent(sel) {
+
       if (this.categoryId === null && this.categoriesTagged.length === 0) {
         this.tagMain(sel);
       } else if (this.categoriesTagged.some((tag) => tag === sel)) {
@@ -483,6 +484,9 @@ export default {
       this.categoryId = null;
     },
     nextStep() {
+      if(this.options.length === 0){
+        this.options = [...this.categories];
+      }
       if (this.currentStep === 2 && this.rulesAccepted === false) {
         this.rulesError = true;
       } else if (this.count <= (this.numberOfSteps)) {

@@ -39,7 +39,8 @@ const getters = {
     const sortedList = list.sort((a, b) => compare(a.id, b.id));
     return sortedList.filter((topic) => topic.title).slice(0, 5);
   },
-  getCurrentTopic: (state) => state.currentTopic,
+  // getCurrentTopic: (state) => state.currentTopic,
+  getCurrentTopic: (state) => state.list.filter((topic) => topic?.id === state.currentTopic?.id)[0],
   getCurrentTopicReplyes: (state) => state.currentTopicReplies,
   getField,
 };

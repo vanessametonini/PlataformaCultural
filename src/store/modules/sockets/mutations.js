@@ -11,9 +11,6 @@ const mutations = {
     state.socketMessage = message
   },
 
-  SOCKET_newTopicToClient(state, topic) {
-    state.socketMessage = topic
-  }
 };
 
 export default mutations;

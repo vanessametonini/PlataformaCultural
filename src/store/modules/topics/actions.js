@@ -33,26 +33,27 @@ const actions = {
     dispatch,
     rootState,
     rootGetters,
-  }) {
+  }, { $socket }) {
     const user = {...rootGetters['users/getCurrentUser']};
     const topic = {
       ...getters.topicForm,
       userId: user.id,
       createdAt: new Date(),
     };
-    dispatch('services/POST', { uri: 'topics', data: { ...topic } }, { root: true })
-      .then((response) => {
-        const payload = {
-          ...topic,
-          id: response.data,
-          user: {
-            ...user,
-            name: `${user.firstName} ${user.lastName}`,
-          }
-        };
-        commit('ADD_NEW_TOPIC', payload);
-      })
-      .catch((error) => error);
+    $socket.emit('newTopicToServer',  topic);
+    // dispatch('services/POST', { uri: 'topics', data: { ...topic } }, { root: true })
+    //   .then((response) => {
+    //     const payload = {
+    //       ...topic,
+    //       id: response.data,
+    //       user: {
+    //         ...user,
+    //         name: `${user.firstName} ${user.lastName}`,
+    //       }
+    //     };
+    //     commit('ADD_NEW_TOPIC', payload);
+    //   })
+    //   .catch((error) => error);
   },
 
   loadInitialTopics({ commit }, { type, pagination }) {
