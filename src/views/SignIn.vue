@@ -139,8 +139,9 @@ export default {
               message: 'É necessário confirmar o email',
               color: 'Black'
             })
+          } else {
+            this.$router.push({ name: 'Profile' });
           }
-          this.$router.push({ name: 'Profile' });
         }).catch((error) => {
           if(error.message === 'Request failed with status code 400') {
             this.$q.notify({
