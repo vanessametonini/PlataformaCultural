@@ -373,7 +373,7 @@
         </div>
 
         <div class="btn-field">
-          <q-btn
+          <!-- <q-btn
             v-if="!formIsValid"
             flat
             disable
@@ -381,10 +381,9 @@
             color="black"
           >
             <span class="span-btn">Preencha todos os campos</span>
-          </q-btn>
+          </q-btn> -->
 
           <q-btn
-            v-if="formIsValid"
             flat
             class="btn-custom"
             color="black"

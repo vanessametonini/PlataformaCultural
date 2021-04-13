@@ -22,7 +22,7 @@ import VueSocketIO from 'vue-socket.io'
 
 Vue.use(new VueSocketIO({
   debug: true,
-  connection: 'http://localhost:3000',
+  connection: process.env.VUE_APP_BASE_URL,
   vuex: {
       store,
       actionPrefix: 'SOCKET_',
