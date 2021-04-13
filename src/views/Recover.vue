@@ -85,6 +85,13 @@ export default {
     async submit() {
       if (!this.$v.$anyError) {
         this.$store.dispatch('users/sendEmailRecover')
+          .then(()=>{
+            this.$q.notify({
+              message: 'Confira sua caixa de entrada',
+              color: 'Black'
+            })
+          })
+        
       }
     },
   },

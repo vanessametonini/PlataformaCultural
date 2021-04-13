@@ -129,20 +129,36 @@ export default {
   methods: {
     async submit() {
       if (!this.$v.$anyError) {
+
         await this.$store.dispatch('users/retrieveToken', { credentials: {
           email: this.email,
           password: this.password,
         }}).then((response) => {
-            this.$router.push({ name: 'Profile' });
+          if(response.data.user.confirmToken !== null){
+            this.$q.notify({
+              message: 'É necessário confirmar o email',
+              color: 'Black'
+            })
+          }
+          // this.$router.push({ name: 'Profile' });
         }).catch((error) => {
           if(error.message === 'Request failed with status code 400') {
-            this.errorMessage = 'Não encontramos uma conta com esse email';
+            this.$q.notify({
+              message: 'Não encontramos uma conta com esse email',
+              color: 'Black'
+            })
           }
           if (error.message === 'Request failed with status code 401') {
-            this.errorMessage = 'Email ou senha inválidos';
+            this.$q.notify({
+              message: 'Email ou senha inválidos',
+              color: 'Black'
+            })
           }
           if (error.message === 'timeout of 5000ms exceeded') {
-            this.errorMessage = 'Houve um Problema, tente novamente';
+            this.$q.notify({
+              message: 'Houve um Problema, tente novamente',
+              color: 'Black'
+            })
           }
           console.log('signIn/submit', error.message);
         })

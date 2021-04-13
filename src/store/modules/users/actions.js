@@ -27,9 +27,13 @@ const actions = {
     return new Promise((resolve, reject) => {
       dispatch('services/POST', { uri: 'auth/login', data: credentials }, { root: true })
         .then(async (response) => {
-          commit('SET_AUTHENTICATION',{}, {root: true});
-          commit('services/STORAGE_TOKEN', response.data.token, { root: true });
-          await dispatch('initStore', { }, { root: true })
+          const user = response.data.user
+
+          if(user.confirmToken === null){
+            commit('SET_AUTHENTICATION',{}, {root: true});
+            commit('services/STORAGE_TOKEN', response.data.token, { root: true });
+            await dispatch('initStore', { }, { root: true })
+          }
           resolve(response);
         })
         .catch((error) => reject(error));
