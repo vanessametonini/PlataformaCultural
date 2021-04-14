@@ -417,7 +417,7 @@ export default {
   data() {
     return {
       model: null,
-      img: null,
+      img: require('../assets/default.png'),
       loading: false,
       message: null,
       isPwd: true,
