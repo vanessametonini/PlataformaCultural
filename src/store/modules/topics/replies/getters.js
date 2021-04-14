@@ -11,6 +11,9 @@ const GETTERS = {
     return reply;
   },
   getField,
+  getCurrentTopicReplyById: (state) => (replyId) => {
+    return state.currentTopicReplies.filter((reply) => reply.id === replyId )[0]
+  }
 };
 
 export default GETTERS;

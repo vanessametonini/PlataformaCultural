@@ -33,6 +33,18 @@ const mutations = {
     });
   },
 
+  DECREMENT_TOPIC_LIST_REPLY(state, topicId) {
+    state.list = state.list.map((topic) => {
+      if (topicId === topic.id) {
+        return {
+          ...topic,
+          ...{ numberOfReplies: topic.numberOfReplies - 1 },
+        };
+      }
+      return topic;
+    });
+  },
+
   INCREMENT_TOPIC_LIST_SUPPORT(state, support) {
     state.list = state.list.map((topic) => {
       if (support.topicId === topic.id) {

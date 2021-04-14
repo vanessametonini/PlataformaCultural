@@ -1,17 +1,71 @@
+import { Notify } from 'quasar';
+
 const actions = {
 
   SOCKET_newLikeToClient({ commit, rootGetters }, like) {
+    console.log(like);
     if (rootGetters['topics/getCurrentTopic']?.id === like.topicId) {
       commit('ADD_CURRENT_TOPIC_REPLY_LIKE', like);
     }
+    let message =  'default';
+
+    const userLocal = rootGetters['users/getCurrentUser'];
+
+    if((like.userLiked.id===like.user.id) && (userLocal.id!==like.user.id)){
+      message = `${like.user.firstName} curtiu um comentário próprio`;
+    }
+    if((userLocal.id===like.user.id) && (userLocal.id===like.userLiked.id)){
+      message = `Você curtiu um comentário próprio`;
+    }
+    if((userLocal.id===like.user.id) && (userLocal.id!==like.userLiked.id)){
+      message = `Você curtiu um comentário de ${like.userLiked.firstName}`;
+    }
+    if((userLocal.id!==like.user.id) && (userLocal.id===like.userLiked.id)){
+      message = `${like.user.firstName} curtiu seu comentário`;
+    }
+    if((like.userLiked.id!==like.user.id) && (userLocal.id!==like.user.id) && (userLocal.id!==like.userLiked.id)){
+      message = `${like.user.firstName} curtiu um comentário de ${like.userLiked.firstName}`;
+    }
+
+    Notify.create({
+      color: 'black',
+      textColor: 'white',
+      message,
+      position: 'bottom-right',
+    })
+
   },
 
-  createLike: ({ rootState }, { replyId, $socket }) => $socket.emit('newLikeToServer', {
-      userId: rootState.users.currentUser.id,
-      topicId: rootState.topics.currentTopic.id,
+  createLike({ rootGetters }, { replyId, $socket }) {
+    const reply = rootGetters['topics/replies/getCurrentTopicReplyById'](replyId);
+    console.log(reply);
+    // const currentTopic = rootGetters['topics/getCurrentTopic'];
+    const currentUser = rootGetters['users/getCurrentUser'];
+    const { 
+      id,
+      firstName, 
+      lastName,
+      avatarId
+    } = reply.user;
+    $socket.emit('newLikeToServer', {
+      userId: currentUser.id,
+      topicId: reply.topicId,
       replyId,
+      user:{
+        id: currentUser.id,
+        firstName: currentUser.firstName, 
+        lastName: currentUser.lastName,
+        avatarId: currentUser.avatarId
+      },
+      userLiked:{
+        id,
+        firstName, 
+        lastName,
+        avatarId
+      },
       createdAt: new Date(),
-    }),
+    })
+  },
 
   SOCKET_removeLikeToClient({ commit, rootGetters }, like) {
     if (rootGetters['topics/getCurrentTopic']?.id === like.topicId) {

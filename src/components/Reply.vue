@@ -1,9 +1,7 @@
 <template>
   <div class="reply-component row no-wrap">
     <div class="avatar">
-      <base-avatar
-        :avatar="reply.user.avatarId"
-      />
+      <base-avatar :avatar="reply.user.avatarId" />
     </div>
 
     <div class="reply-container column">
@@ -17,8 +15,18 @@
             {{ $store.getters.formatDate(reply.createdAt) }}
           </span>
         </div>
-
-        <div class="owner-actions">
+        <div>
+          <q-btn
+            v-if="$store.getters['users/getCurrentUser'].id === reply.userId"
+            flat
+            round
+            color="gray"
+            icon="delete"
+            size="10px"
+            @click="deleteReply()"
+          />
+        </div>
+        <!-- <div class="owner-actions">
           <div
             v-if="!editing && !deleteAction"
             class="action-content"
@@ -29,7 +37,6 @@
               @click="editing = true"
             />
             <i
-              v-if="canEditTopic()"
               class="action-icon far fa-trash-alt"
               @click="deleteAction = true, editing = false"
             />
@@ -57,29 +64,20 @@
               <span class="caption bolder text-black">sim</span>
             </base-button>
           </div>
-        </div>
+        </div> -->
 
         <!-- reply-this and like -->
-        <div
-          class="action-replying row"
-        >
+        <div class="action-replying row">
           <base-button
-
             class="reply-button"
             theme="transparent"
             @click="comment = !comment"
           >
-            <span
-              class="caption bolder"
-              style="color: black;"
-            >{{ comment ? 'ocultar comentários' : 'ver comentários' }}</span>
+            <span class="caption bolder" style="color: black">{{
+              comment ? "ocultar comentários" : "ver comentários"
+            }}</span>
           </base-button>
 
-          <!-- <i
-            class="action-icon far fa-heart"
-            :class="{ 'liked': hasBeenLiked }"
-            @click="likeReply()"
-          /> -->
           <q-rating
             v-model="like"
             max="1"
@@ -91,7 +89,9 @@
             no-dimming
           />
 
-          <span class="caption bolder no-pointer text-black mg-left8">{{ numberOfReplyLikes(reply.id) }}</span>
+          <span class="caption bolder no-pointer text-black mg-left8">{{
+            numberOfReplyLikes(reply.id)
+          }}</span>
         </div>
         <!-- end reply action -->
       </div>
@@ -139,7 +139,9 @@
               :disabled="loading"
               @click="editReply"
             >
-              <span class="caption bolder"> {{ loading ? 'Salvando...' : 'Salvar' }} </span>
+              <span class="caption bolder">
+                {{ loading ? "Salvando..." : "Salvar" }}
+              </span>
             </base-button>
           </div>
         </template>
@@ -150,11 +152,11 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 // import BaseConfirmDialog from './BaseConfirmDialog.vue';
-import BaseAvatar from './BaseAvatar.vue';
-import BaseButton from './BaseButton.vue';
-import Rejoinders from './Rejoinders.vue';
+import BaseAvatar from "./BaseAvatar.vue";
+import BaseButton from "./BaseButton.vue";
+import Rejoinders from "./Rejoinders.vue";
 
 export default {
   components: {
@@ -169,11 +171,11 @@ export default {
       default: () => ({}),
     },
   },
-  emits: ['call-reply'],
+  emits: ["call-reply"],
   data() {
     return {
       showConfirmDialog: false,
-      content: '',
+      content: "",
       editing: false,
       loading: false,
       comment: false,
@@ -182,87 +184,76 @@ export default {
     };
   },
   computed: {
-    like:{
-      get(){
-        return this.myLike(this.reply.id).length
+    like: {
+      get() {
+        return this.myLike(this.reply.id).length;
       },
-      set(){
+      set() {
         if (this.myLike(this.reply.id).length) {
-          this.$store.dispatch('topics/replies/likes/removeLike', { replyId: this.reply.id, $socket: this.$socket });
+          this.$store.dispatch("topics/replies/likes/removeLike", {
+            replyId: this.reply.id,
+            $socket: this.$socket,
+          });
         } else {
-          this.$store.dispatch('topics/replies/likes/createLike', { replyId: this.reply.id, $socket: this.$socket });
+          this.$store.dispatch("topics/replies/likes/createLike", {
+            replyId: this.reply.id,
+            $socket: this.$socket,
+          });
         }
-      }
+      },
     },
     ...mapGetters({
-      currentUser: 'users/getCurrentUser',
-      numberOfReplyLikes: 'topics/replies/likes/getNumberOfReplyLikes',
-      myLike: 'topics/replies/likes/getMyLikeCurrentTopicByReplyId',
-      rejoinders: 'topics/replies/rejoinders/getMyRejoindersCurrentTopicByReplyId',
+      currentUser: "users/getCurrentUser",
+      numberOfReplyLikes: "topics/replies/likes/getNumberOfReplyLikes",
+      myLike: "topics/replies/likes/getMyLikeCurrentTopicByReplyId",
+      rejoinders:
+        "topics/replies/rejoinders/getMyRejoindersCurrentTopicByReplyId",
     }),
     hasBeenLiked() {
       return 0;
       // return this.myLikes.some((el) => el.replyId === this.reply.id);
     },
   },
-  created() { 
+  created() {
     console.log(this.myLike(this.reply.id));
   },
   methods: {
     deleteReply() {
-      console.log('reply/deleteReply', this.reply.id);
-      // this.$store.dispatch('topics/deleteReply', {
-      //   replyId: this.reply.id,
-      // }).then((response) => {
-      //   console.log(response);
-      // }).catch((error) => {
-      //   console.log('reply/deleteReply ERROR', error);
-      // });
+      console.log("reply/deleteReply", this.reply.id);
+      this.$q.notify({
+        type: "warning",
+        textColor: "black",
+        message: "Tem certeza que deseja excluir esse comentário?",
+        actions: [
+          {
+            label: "Sim",
+            color: "black",
+            handler: () => this.$store.dispatch('topics/replies/deleteReply', { reply: this.reply, $socket: this.$socket, $q: this.$q }),
+          },
+          { label: "Não", color: "black", handler: () => {} },
+        ],
+      });
     },
     editReply() {
       this.loading = true;
-      console.log('reply/updateReply - ID', this.reply.id);
-      // console.log('reply/updateReply - content', this.content);
-      // this.$store.dispatch('topics/updateReply', {
-      //   replyId: this.reply.id,
-      //   data: this.content,
-      // }).then(() => {
-      //   this.editing = false;
-      //   this.loading = false;
-      // }).catch((error) => {
-      //   this.loading = false;
-      //   console.log('reply/updateReply ERROR', error);
-      // });
+      console.log("reply/updateReply - ID", this.reply.id);
     },
     likeReply() {
       if (this.myLike(this.reply.id).length) {
-        this.$store.dispatch('topics/replies/likes/removeLike', { replyId: this.reply.id });
+        this.$store.dispatch("topics/replies/likes/removeLike", {
+          replyId: this.reply.id,
+        });
       } else {
-        this.$store.dispatch('topics/replies/likes/createLike', { replyId: this.reply.id });
+        this.$store.dispatch("topics/replies/likes/createLike", {
+          replyId: this.reply.id,
+        });
       }
-      // this.$store.dispatch('topics/replies/likes/createNewLike', { replyId: this.reply.id });
-      // if (!this.hasBeenLiked()) {
-      //   this.liked = true;
-      //   this.$store.dispatch('users/likeReply', {
-      //     replyId: this.reply.id,
-      //   }).then(() => {
-      //     // console.log('reply/likeReply');
-      //   }).catch((error) => {
-      //     console.log('reply/likeReply ERROR', error);
-      //   });
-      // } else if (this.hasBeenLiked()) {
-      //   this.liked = false;
-      //   this.$store.dispatch('users/unlikeReply', {
-      //     replyId: this.reply.id,
-      //   }).then(() => {
-      //     // console.log('reply/unlikeReply');
-      //   }).catch((error) => {
-      //     console.log('reply/unlikeReply ERROR', error);
-      //   });
-      // }
     },
     canEditTopic() {
-      if (this.currentUser !== null && this.currentUser?.user?.id === this.reply?.user?.id) {
+      if (
+        this.currentUser !== null &&
+        this.currentUser?.user?.id === this.reply?.user?.id
+      ) {
         return true;
       }
       return false;
@@ -272,8 +263,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/variables.scss';
-@import '../styles/mixins.scss';
+@import "../styles/variables.scss";
+@import "../styles/mixins.scss";
 
 $primaryColor: #000;
 $textBlack: #000;
@@ -335,7 +326,7 @@ $textBlack: #000;
 }
 
 .liked {
-  color: #C95B40;
+  color: #c95b40;
 }
 
 .reply-container {
@@ -389,10 +380,8 @@ $textBlack: #000;
 }
 
 .reply-button {
-
- &:hover {
+  &:hover {
     cursor: pointer;
   }
 }
-
 </style>

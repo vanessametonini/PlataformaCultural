@@ -9,6 +9,9 @@ const mutations = {
   ADD_CURRENT_TOPIC_REPLY(state, data) {
     state.currentTopicReplies.push(data);
   },
+  DEL_CURRENT_TOPIC_REPLY(state, replyId) {
+    state.currentTopicReplies = state.currentTopicReplies.filter((reply) => reply.id !== replyId );
+  },
 
   updateField,
 };

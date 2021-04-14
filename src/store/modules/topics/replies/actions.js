@@ -1,3 +1,5 @@
+import { Notify } from 'quasar';
+
 const actions = {
   async loadRepliesByTopicId({ commit, dispatch, rootState }) {
     dispatch('services/GET', { uri: `replies/topic/${rootState.topics.currentTopic.id}` }, { root: true })
@@ -28,9 +30,32 @@ const actions = {
       });
     }
     commit('topics/INCREMENT_TOPIC_LIST_REPLY', reply.topicId, { root: true });
+    Notify.create({
+      color: 'black',
+      textColor: 'white',
+      message: `${(rootGetters['users/getCurrentUser'].id===reply.user.id)?'Você':reply.user.firstName} comentou`,
+      position: 'bottom-right',
+    })
   },
   
-  addReply: ({ getters }, { $socket }) => $socket.emit('newReplyToServer', { ...getters.getCurrentReply } )
+  addReply: ({ getters }, { $socket }) => $socket.emit('newReplyToServer', { ...getters.getCurrentReply } ),
+
+  SOCKET_deleteReplyToClient({ commit, rootGetters }, reply) {
+    if (rootGetters['topics/getCurrentTopic']?.id === reply.topicId){
+      commit('DEL_CURRENT_TOPIC_REPLY', reply.id);
+    }
+    commit('topics/DECREMENT_TOPIC_LIST_REPLY', reply.topicId, { root: true });
+    Notify.create({
+      color: 'black',
+      textColor: 'white',
+      message: `${(rootGetters['users/getCurrentUser'].id===reply.user.id)?'Você':reply.user.firstName} excluiu um comentário`,
+      position: 'bottom-right',
+    })
+  },
+
+  deleteReply({}, { reply, $socket }){
+    $socket.emit('deleteReplyToServer', reply )
+  }
 };
 
 export default actions;
