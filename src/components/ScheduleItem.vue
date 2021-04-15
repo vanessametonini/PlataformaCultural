@@ -137,7 +137,6 @@ export default {
   },
   methods: {
     moeda(valor) {
-      console.log(valor);
       const v = (
         (
           (valor * 100).toString().replace(".", "").replace(/\D/g, "") / 100
