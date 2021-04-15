@@ -1,36 +1,46 @@
 <template>
   <q-card
     class="my-card"
+    square
     :style="{ 'background-color': category(item.categoryId).color }"
   >
     <q-card-section>
-      <div class="text-h6 text-white">
+      <div class="text-h6 text-black  ">
         {{ item.title }}
       </div>
-      <div class="text-subtitle2 text-white">
+      <div class="text-subtitle2 text-black ">
         {{ `Dia ${$store.getters['formatDate'](item.dateTime)}` }}
       </div>
-      <div class="text-subtitle3 text-white">
+      <div class="text-subtitle3 text-black ">
         {{ `Às ${$store.getters['formatTime'](item.dateTime)}` }}
       </div>
     </q-card-section>
 
-    <q-card-section class="q-pt-none text-white">
+    <q-card-section class="q-pt-none text-black ">
       {{ item.description }}
     </q-card-section>
 
-    <q-card-section class="q-pt-none text-white">
+    <q-card-section class="q-pt-none text-black ">
       {{ `${item.street}, ${item.number}, ${item.neighborhood}` }}
     </q-card-section>
-    <q-card-section class="q-pt-none text-white">
+    <q-card-section class="q-pt-none text-black ">
       {{ `R$ ${moeda(item.ticket)}` }}
     </q-card-section>
-    <q-card-section class="q-pt-none text-white">
+    <q-card-section class="q-pt-none text-black ">
       <a
-        class="q-pt-none text-white"
+        class="q-pt-none text-black "
         :href="item.link"
       >{{ `${item.link}` }}</a>
     </q-card-section>
+
+    <i class="fab fa-whatsapp">ddd</i>
+    <q-icon
+      flat
+      round
+      color="gray"
+      class="fab fa-whatsapp"
+      size="10px"
+    />
     <!-- <q-item-section>
         <q-item-label>{{`${item.user.firstName} ${item.user.lastName}`}}</q-item-label>
         <q-item-label caption>{{`${$store.getters['categories/getCategoryById'](item.categoryId).label}`}}</q-item-label>
