@@ -19,6 +19,8 @@ import VueAnalytics from 'vue-analytics'
 import money from 'v-money'
 import './quasar'
 import VueSocketIO from 'vue-socket.io'
+import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/js/all.js'
 
 Vue.use(new VueSocketIO({
   debug: true,
