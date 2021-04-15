@@ -191,12 +191,13 @@ export default {
       set() {
         if (this.myLike(this.reply.id).length) {
           this.$store.dispatch("topics/replies/likes/removeLike", {
-            replyId: this.reply.id,
+            reply: this.reply,
+            like: this.myLike(this.reply.id)[0],
             $socket: this.$socket,
           });
         } else {
           this.$store.dispatch("topics/replies/likes/createLike", {
-            replyId: this.reply.id,
+            reply: this.reply,
             $socket: this.$socket,
           });
         }

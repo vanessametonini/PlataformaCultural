@@ -7,23 +7,23 @@ const actions = {
     if (rootGetters['topics/getCurrentTopic']?.id === like.topicId) {
       commit('ADD_CURRENT_TOPIC_REPLY_LIKE', like);
     }
-    let message =  'default';
+    let message = 'default';
 
     const userLocal = rootGetters['users/getCurrentUser'];
 
-    if((like.userLiked.id===like.user.id) && (userLocal.id!==like.user.id)){
+    if ((like.userLiked.id === like.user.id) && (userLocal.id !== like.user.id)) {
       message = `${like.user.firstName} curtiu um comentário próprio`;
     }
-    if((userLocal.id===like.user.id) && (userLocal.id===like.userLiked.id)){
+    if ((userLocal.id === like.user.id) && (userLocal.id === like.userLiked.id)) {
       message = `Você curtiu um comentário próprio`;
     }
-    if((userLocal.id===like.user.id) && (userLocal.id!==like.userLiked.id)){
+    if ((userLocal.id === like.user.id) && (userLocal.id !== like.userLiked.id)) {
       message = `Você curtiu um comentário de ${like.userLiked.firstName}`;
     }
-    if((userLocal.id!==like.user.id) && (userLocal.id===like.userLiked.id)){
+    if ((userLocal.id !== like.user.id) && (userLocal.id === like.userLiked.id)) {
       message = `${like.user.firstName} curtiu seu comentário`;
     }
-    if((like.userLiked.id!==like.user.id) && (userLocal.id!==like.user.id) && (userLocal.id!==like.userLiked.id)){
+    if ((like.userLiked.id !== like.user.id) && (userLocal.id !== like.user.id) && (userLocal.id !== like.userLiked.id)) {
       message = `${like.user.firstName} curtiu um comentário de ${like.userLiked.firstName}`;
     }
 
@@ -36,30 +36,27 @@ const actions = {
 
   },
 
-  createLike({ rootGetters }, { replyId, $socket }) {
-    const reply = rootGetters['topics/replies/getCurrentTopicReplyById'](replyId);
-    console.log(reply);
-    // const currentTopic = rootGetters['topics/getCurrentTopic'];
+  createLike({ rootGetters }, { reply, $socket }) {
     const currentUser = rootGetters['users/getCurrentUser'];
-    const { 
+    const {
       id,
-      firstName, 
+      firstName,
       lastName,
       avatarId
     } = reply.user;
     $socket.emit('newLikeToServer', {
       userId: currentUser.id,
       topicId: reply.topicId,
-      replyId,
-      user:{
+      replyId: reply.id,
+      user: {
         id: currentUser.id,
-        firstName: currentUser.firstName, 
+        firstName: currentUser.firstName,
         lastName: currentUser.lastName,
         avatarId: currentUser.avatarId
       },
-      userLiked:{
+      userLiked: {
         id,
-        firstName, 
+        firstName,
         lastName,
         avatarId
       },
@@ -71,9 +68,64 @@ const actions = {
     if (rootGetters['topics/getCurrentTopic']?.id === like.topicId) {
       commit('REMOVE_LIKE_ID', like.id)
     }
+    let message = 'default';
+
+    const userLocal = rootGetters['users/getCurrentUser'];
+
+    if ((like.userLiked.id === like.user.id) && (userLocal.id !== like.user.id)) {
+      message = `${like.user.firstName} descurtiu um comentário próprio`;
+    }
+    if ((userLocal.id === like.user.id) && (userLocal.id === like.userLiked.id)) {
+      message = `Você descurtiu um comentário próprio`;
+    }
+    if ((userLocal.id === like.user.id) && (userLocal.id !== like.userLiked.id)) {
+      message = `Você descurtiu um comentário de ${like.userLiked.firstName}`;
+    }
+    if ((userLocal.id !== like.user.id) && (userLocal.id === like.userLiked.id)) {
+      message = `${like.user.firstName} descurtiu seu comentário`;
+    }
+    if ((like.userLiked.id !== like.user.id) && (userLocal.id !== like.user.id) && (userLocal.id !== like.userLiked.id)) {
+      message = `${like.user.firstName} descurtiu um comentário de ${like.userLiked.firstName}`;
+    }
+
+    Notify.create({
+      color: 'black',
+      textColor: 'white',
+      message,
+      position: 'bottom-right',
+    })
+
   },
 
-  removeLike: ({ getters }, { replyId, $socket }) => $socket.emit('removeLikeToServer', { id:  getters.getMyLikeId(replyId) }),
+  removeLike({ rootGetters }, { reply, like, $socket }) {
+    const currentUser = rootGetters['users/getCurrentUser'];
+    const {
+      id,
+      firstName,
+      lastName,
+      avatarId
+    } = reply.user;
+
+    $socket.emit('removeLikeToServer', {
+      id: like.id,
+      userId: currentUser.id,
+      topicId: reply.topicId,
+      replyId: reply.id,
+      user: {
+        id: currentUser.id,
+        firstName: currentUser.firstName,
+        lastName: currentUser.lastName,
+        avatarId: currentUser.avatarId
+      },
+      userLiked: {
+        id,
+        firstName,
+        lastName,
+        avatarId
+      },
+      createdAt: new Date(),
+    })
+  },
 
 
   loadLikesByTopicId({ commit, dispatch, rootState }) {
