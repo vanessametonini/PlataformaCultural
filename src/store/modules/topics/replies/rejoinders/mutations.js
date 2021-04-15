@@ -32,6 +32,10 @@ const mutations = {
     state.currentTopicRejoindersForm.push(data);
   },
 
+  REMOVE_REJOINDER_ID(state, id){
+    state.currentTopicRejoinders = state.currentTopicRejoinders.filter((rejoinder) => rejoinder.id !== id )
+  },
+
   updateField,
 };
 

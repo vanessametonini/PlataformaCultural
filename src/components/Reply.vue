@@ -26,46 +26,7 @@
             @click="deleteReply()"
           />
         </div>
-        <!-- <div class="owner-actions">
-          <div
-            v-if="!editing && !deleteAction"
-            class="action-content"
-          >
-            <i
-              v-if="canEditTopic()"
-              class="action-icon far fa-edit"
-              @click="editing = true"
-            />
-            <i
-              class="action-icon far fa-trash-alt"
-              @click="deleteAction = true, editing = false"
-            />
-          </div>
-
-          <div
-            v-if="deleteAction"
-            class="row"
-          >
-            <span class="caption bold text-black al-self-center"> Deseja excluir este comentário?</span>
-
-            <base-button
-              class="mg-left8"
-              theme="transparent"
-              @click="deleteAction = false"
-            >
-              <span class="caption bolder text-black">não</span>
-            </base-button>
-
-            <base-button
-              class="mg-left8"
-              theme="transparent"
-              @click="deleteReply"
-            >
-              <span class="caption bolder text-black">sim</span>
-            </base-button>
-          </div>
-        </div> -->
-
+      
         <!-- reply-this and like -->
         <div class="action-replying row">
           <base-button
@@ -220,7 +181,6 @@ export default {
   },
   methods: {
     deleteReply() {
-      console.log("reply/deleteReply", this.reply.id);
       this.$q.notify({
         type: "warning",
         textColor: "black",
@@ -237,7 +197,6 @@ export default {
     },
     editReply() {
       this.loading = true;
-      console.log("reply/updateReply - ID", this.reply.id);
     },
     likeReply() {
       if (this.myLike(this.reply.id).length) {

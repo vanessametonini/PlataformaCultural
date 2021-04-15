@@ -83,6 +83,69 @@ const actions = {
       content: rejoinder.content,
       createdAt: new Date(), 
     })
+  },
+
+  SOCKET_deleteRejoinderToClient({ commit, rootGetters }, rejoinder) {
+    if (rootGetters['topics/getCurrentTopic']?.id === rejoinder.topicId){
+      commit('REMOVE_REJOINDER_ID', rejoinder.id)
+    }
+    commit('topics/DECREMENT_ONE_TOPIC_LIST_REPLY', rejoinder.topicId, { root: true });
+
+    let message = 'default';
+
+    const userLocal = rootGetters['users/getCurrentUser'];
+
+    if ((rejoinder.userReplied.id === rejoinder.user.id) && (userLocal.id !== rejoinder.user.id)) {
+      message = `${rejoinder.user.firstName} removeu uma resposta em um comentário próprio`;
+    }
+    if ((userLocal.id === rejoinder.user.id) && (userLocal.id === rejoinder.userReplied.id)) {
+      message = `Você removeu uma resposta em um comentário próprio`;
+    }
+    if ((userLocal.id === rejoinder.user.id) && (userLocal.id !== rejoinder.userReplied.id)) {
+      message = `Você removeu uma resposta em um comentário de ${rejoinder.userReplied.firstName}`;
+    }
+    if ((userLocal.id !== rejoinder.user.id) && (userLocal.id === rejoinder.userReplied.id)) {
+      message = `${rejoinder.user.firstName} removeu seu comentário`;
+    }
+    if ((rejoinder.userReplied.id !== rejoinder.user.id) && (userLocal.id !== rejoinder.user.id) && (userLocal.id !== rejoinder.userReplied.id)) {
+      message = `${rejoinder.user.firstName} removeu uma resposta em um comentário de ${rejoinder.userReplied.firstName}`;
+    }
+
+    Notify.create({
+      color: 'black',
+      textColor: 'white',
+      message,
+      position: 'bottom-right',
+    })
+  },
+
+  deleteRejoinder({ rootState, rootGetters }, { rejoinder, reply, $socket }) {
+    const currentUser = rootGetters['users/getCurrentUser'];
+    const {
+      id,
+      firstName,
+      lastName,
+      avatarId
+    } = reply.user;
+    $socket.emit('deleteRejoinderToServer', {
+      id: rejoinder.id,
+      replyId: rejoinder.replyId,
+      topicId: rootState.topics.currentTopic.id,
+      userId: currentUser.id,
+      user: {
+        id: currentUser.id,
+        firstName: currentUser.firstName,
+        lastName: currentUser.lastName,
+        avatarId: currentUser.avatarId
+      },
+      userReplied: {
+        id,
+        firstName,
+        lastName,
+        avatarId
+      },
+      createdAt: new Date(), 
+    })
   }
 };
 export default actions;
