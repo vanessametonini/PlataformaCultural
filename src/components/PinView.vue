@@ -5,16 +5,17 @@
     :style="{ 'background-color': category(pinView.categoryId).color }"
   >
     <q-card-section>
-      <div class="text-h6 text-black">
+      <div class="big-title bolder text-white">
         {{ pinView.title }}
       </div>
     </q-card-section>
+    <multicolor-line class="multicolor-line-top" />
 
-    <q-card-section class="q-pt-none text-black">
+    <q-card-section class="body-1 text-white">
       {{ pinView.description }}
     </q-card-section>
 
-    <q-card-section class="q-pt-none text-black">
+    <q-card-section class="q-pt-none text-white">
       {{ `${pinView.street}, ${pinView.number}, ${pinView.neighborhood}` }}
     </q-card-section>
 
@@ -44,7 +45,13 @@
             <q-item-label caption>{{ maskPhone(pinView.phone) }}</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item v-if="pinView.facebook" clickable tag="a" target="_blank" :href="pinView.facebook">
+        <q-item
+          v-if="pinView.facebook"
+          clickable
+          tag="a"
+          target="_blank"
+          :href="pinView.facebook"
+        >
           <q-item-section avatar>
             <i class="fab fa-facebook"></i>
           </q-item-section>
@@ -53,7 +60,13 @@
             <q-item-label caption>{{ pinView.facebook }}</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable v-if="pinView.instagram" tag="a" target="_blank" :href="pinView.instagram">
+        <q-item
+          clickable
+          v-if="pinView.instagram"
+          tag="a"
+          target="_blank"
+          :href="pinView.instagram"
+        >
           <q-item-section avatar>
             <i class="fab fa-instagram"></i>
           </q-item-section>
@@ -126,12 +139,13 @@ export default {
       category: "categories/getCategoryById",
     }),
   },
-  methods:{
-    maskPhone(phone){
+  methods: {
+    maskPhone(phone) {
       var BRNumber = phone.toString().match(/(\d{2})(\d{5})(\d{4})/);
-      return BRNumber = "(" + BRNumber[1] + ") " + BRNumber[2] + "-" + BRNumber[3];
-    }
-  }
+      return (BRNumber =
+        "(" + BRNumber[1] + ") " + BRNumber[2] + "-" + BRNumber[3]);
+    },
+  },
 };
 </script>
 
@@ -145,11 +159,11 @@ export default {
   max-width: 100px
 
 .fa-facebook
-  color: rgb(59, 91, 152)
+  color: black
   font-size: 1.5rem
 
 .fa-whatsapp
-  color: green
+  color: black
   font-size: 1.5rem
 
 .fa-instagram

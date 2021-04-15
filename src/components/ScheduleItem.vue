@@ -5,28 +5,28 @@
     :style="{ 'background-color': category(item.categoryId).color }"
   >
     <q-card-section>
-      <div class="text-h6 text-black">
+      <div class="big-title bolder text-white">
         {{ item.title }}
       </div>
-      <div class="text-subtitle2 text-black">
+
+      <div class="text-subtitle2 text-white">
         {{ `Dia ${$store.getters["formatDate"](item.dateTime)}` }}
       </div>
-      <div class="text-subtitle3 text-black">
+      <div class="text-subtitle3 text-white">
         {{ `Às ${$store.getters["formatTime"](item.dateTime)}` }}
       </div>
     </q-card-section>
-
-    <q-card-section class="q-pt-none text-black">
+    <multicolor-line class="multicolor-line-top" />
+    <q-card-section class="body-1 text-white">
       {{ item.description }}
     </q-card-section>
 
-    <q-card-section class="q-pt-none text-black">
+    <q-card-section class="q-pt-none text-white">
       {{ `${item.street}, ${item.number}, ${item.neighborhood}` }}
     </q-card-section>
-    <q-card-section class="q-pt-none text-black">
+    <q-card-section class="q-pt-none text-white">
       {{ `R$ ${moeda(item.ticket)}` }}
     </q-card-section>
-
     <q-card-section class="q-pt-none text-black">
       <q-list>
         <q-item
@@ -53,7 +53,13 @@
             <q-item-label caption>{{ item.whatsapp }}</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item v-if="item.facebook" clickable tag="a" target="_blank" :href="item.facebook">
+        <q-item
+          v-if="item.facebook"
+          clickable
+          tag="a"
+          target="_blank"
+          :href="item.facebook"
+        >
           <q-item-section avatar>
             <i class="fab fa-facebook"></i>
           </q-item-section>
@@ -62,7 +68,13 @@
             <q-item-label caption>{{ item.facebook }}</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable v-if="item.instagram" tag="a" target="_blank" :href="item.instagram">
+        <q-item
+          clickable
+          v-if="item.instagram"
+          tag="a"
+          target="_blank"
+          :href="item.instagram"
+        >
           <q-item-section avatar>
             <i class="fab fa-instagram"></i>
           </q-item-section>
