@@ -33,12 +33,12 @@ const mutations = {
     });
   },
 
-  DECREMENT_TOPIC_LIST_REPLY(state, topicId) {
+  DECREMENT_TOPIC_LIST_REPLY(state, reply) {
     state.list = state.list.map((topic) => {
-      if (topicId === topic.id) {
+      if (reply.topicId === topic.id) {
         return {
           ...topic,
-          ...{ numberOfReplies: topic.numberOfReplies - 1 },
+          ...{ numberOfReplies: topic.numberOfReplies - reply.deletedCount },
         };
       }
       return topic;

@@ -41,10 +41,11 @@ const actions = {
   addReply: ({ getters }, { $socket }) => $socket.emit('newReplyToServer', { ...getters.getCurrentReply } ),
 
   SOCKET_deleteReplyToClient({ commit, rootGetters }, reply) {
+    console.log(reply);
     if (rootGetters['topics/getCurrentTopic']?.id === reply.topicId){
       commit('DEL_CURRENT_TOPIC_REPLY', reply.id);
     }
-    commit('topics/DECREMENT_TOPIC_LIST_REPLY', reply.topicId, { root: true });
+    commit('topics/DECREMENT_TOPIC_LIST_REPLY', reply, { root: true });
     Notify.create({
       color: 'black',
       textColor: 'white',
