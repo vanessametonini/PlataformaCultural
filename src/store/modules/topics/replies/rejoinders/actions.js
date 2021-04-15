@@ -105,7 +105,7 @@ const actions = {
       message = `Você removeu uma resposta em um comentário de ${rejoinder.userReplied.firstName}`;
     }
     if ((userLocal.id !== rejoinder.user.id) && (userLocal.id === rejoinder.userReplied.id)) {
-      message = `${rejoinder.user.firstName} removeu seu comentário`;
+      message = `${rejoinder.user.firstName} removeu uma resposta em um comentário seu`;
     }
     if ((rejoinder.userReplied.id !== rejoinder.user.id) && (userLocal.id !== rejoinder.user.id) && (userLocal.id !== rejoinder.userReplied.id)) {
       message = `${rejoinder.user.firstName} removeu uma resposta em um comentário de ${rejoinder.userReplied.firstName}`;
