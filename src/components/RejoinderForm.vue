@@ -82,7 +82,7 @@ export default {
       this.loading = true;
       this.$v.$touch();
       if (!this.$v.$anyError && this.content !== '') {
-        this.$store.dispatch('topics/replies/rejoinders/addRejoinder', { data: { replyId: this.reply.id, content: this.content }, $socket: this.$socket }).then(() => {
+        this.$store.dispatch('topics/replies/rejoinders/addRejoinder', { rejoinder: { replyId: this.reply.id, content: this.content }, reply: this.reply, $socket: this.$socket }).then(() => {
           this.content = '';
           this.$v.$reset();
           this.loading = false;
