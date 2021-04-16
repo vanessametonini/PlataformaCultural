@@ -27,7 +27,7 @@
         {{ `R$ ${moeda(item.ticket)}` }}
       </span>
     </q-card-section>
-    <q-card-section class="q-pt-none text-black">
+    <q-card-section v-if="item.link" class="mg-left16 q-pt-none text-black">
       <q-list>
         <q-item
           v-if="item.link"
