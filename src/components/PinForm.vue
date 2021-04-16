@@ -304,6 +304,7 @@ export default {
   },
   data() {
     return {
+      waiting: false,
       valid: true,
       step: 0,
       lastStep: 0,
@@ -502,6 +503,8 @@ export default {
   created() {},
   methods: {
     confirmCreate(){
+      if (this.waiting) return;
+      this.waiting = true;
       this.$v.$touch();
       if (!this.$v.$anyError) {
         this.$store.dispatch('images/uploadArray', { files: this.files })
@@ -509,9 +512,11 @@ export default {
             console.log('image: ', fileIds);
             this.images = fileIds;
             this.$store.dispatch('pins/postPin',  { $router: this.$router} );
+            this.waiting = false;
           })
           .catch ((error) => {
-              console.log(error);
+            this.waiting = false;
+            console.log(error);
           });
       }
     },

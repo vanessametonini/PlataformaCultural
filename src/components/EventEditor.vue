@@ -1,28 +1,19 @@
 <template>
   <div class="box">
-    <div
-      v-if="step==0"
-      class="first"
-      :class="{ 'active' : active }"
-    >
+    <div v-if="step == 0" class="first" :class="{ active: active }">
       <div class="header column">
         <span class="title-1 bolder line-h16">Adicionar Evento</span>
       </div>
 
-      <q-btn
-        ref="btnFirst"
-        flat
-        class="reset-btn btn"
-        @click="createEvent()"
-      >
+      <q-btn ref="btnFirst" flat class="reset-btn btn" @click="createEvent()">
         <span class="body2 bolder">+</span>
       </q-btn>
     </div>
 
     <div
-      v-if="step==1"
+      v-if="step == 1"
       class="create"
-      :style="{ 'background-color' : category.color }"
+      :style="{ 'background-color': category.color }"
     >
       <div class="input-content">
         <span class="body-2 bolder">Crie seu evento</span>
@@ -159,7 +150,7 @@
             class="f-size"
             dense
             hint="Máximo 200 caracteres"
-            :rules="[ val => val.length <= 200 || 'Máximo de 2000 caracteres']"
+            :rules="[(val) => val.length <= 200 || 'Máximo de 2000 caracteres']"
             input-class="text-white"
             color="white"
           />
@@ -212,14 +203,9 @@
                 class="cursor-pointer"
                 @click.stop="files = null"
               />
-              <q-icon
-                name="create_new_folder"
-                @click.stop
-              />
+              <q-icon name="create_new_folder" @click.stop />
             </template>
-            <template #hint>
-              Tamanho máximo de 5MB
-            </template>
+            <template #hint> Tamanho máximo de 5MB </template>
             <!-- <template #after>
               <q-btn
                 round
@@ -234,33 +220,21 @@
       </div>
 
       <!-- actions edit -->
-      <div
-        class="mg-top32"
-        align="right"
-      >
-        <q-btn
-          class="mg-right8"
-          flat
-          color="white"
-          @click="cancelCreate()"
-        >
+      <div class="mg-top32" align="right">
+        <q-btn class="mg-right8" flat color="white" @click="cancelCreate()">
           <span class="caption">Cancelar</span>
         </q-btn>
 
-        <q-btn
-          outline
-          color="white"
-          @click="confirmCreate()"
-        >
+        <q-btn outline color="white" @click="confirmCreate()">
           <span class="caption">Finalizar</span>
         </q-btn>
       </div>
     </div>
 
     <div
-      v-if="step==2"
+      v-if="step == 2"
       class="ready"
-      :style="{ 'background-color' : category.color }"
+      :style="{ 'background-color': category.color }"
     >
       <div class="context column">
         <span class="title-1 bolder line-h16"> {{ name }} </span>
@@ -269,27 +243,29 @@
         <span class="body-2 bold spaced-32"> {{ description }} </span>
 
         <div class="row spaced-16">
-          <span class="body-2 bold"> {{ street }} - {{ neighborhood }} - {{ number }} </span>
+          <span class="body-2 bold">
+            {{ street }} - {{ neighborhood }} - {{ number }}
+          </span>
         </div>
 
         <span class="body-2 bold spaced-16"> {{ phoneMask }} </span>
 
         <div class="links row mg-top16">
-          <a
-            class="link caption bold"
-            target="blank"
-            :href="linkFacebook"
-          >.facebook</a>
+          <a class="link caption bold" target="blank" :href="linkFacebook"
+            >.facebook</a
+          >
           <a
             class="link caption bold mg-left16"
             target="blank"
             :href="linkInstagram"
-          >.instagram</a>
+            >.instagram</a
+          >
           <a
             class="link caption bold mg-left16"
             target="blank"
             :href="linkPagina"
-          >.link</a>
+            >.link</a
+          >
         </div>
 
         <!-- <div class="img-box">
@@ -298,12 +274,7 @@
       </div>
 
       <div class="action">
-        <q-btn
-          class="btn-edit"
-          flat
-          color="white"
-          @click="reEdit()"
-        >
+        <q-btn class="btn-edit" flat color="white" @click="reEdit()">
           <span class="overline bold">editar</span>
         </q-btn>
       </div>
@@ -312,18 +283,17 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import { createHelpers } from 'vuex-map-fields';
+import { mapGetters } from "vuex";
+import { createHelpers } from "vuex-map-fields";
 
 const { mapFields } = createHelpers({
-  getterType: 'events/getField',
-  mutationType: 'events/updateField',
+  getterType: "events/getField",
+  mutationType: "events/updateField",
 });
 
 export default {
-  name: 'EventProfile',
-  components: {
-  },
+  name: "EventProfile",
+  components: {},
   props: {
     info: {
       type: Object,
@@ -340,60 +310,58 @@ export default {
       status: [],
       completed: false,
       step: 0,
-      lastStep: '',
+      lastStep: "",
       eventId: null,
       category: {
-        label: '',
-        value: '',
-        color: '#b8cad4',
+        label: "",
+        value: "",
+        color: "#b8cad4",
       },
       file: null,
     };
   },
   computed: {
     ...mapFields({
-      name: 'eventForm.title',
-      date: 'eventForm.date',
-      time: 'eventForm.time',
-      ticket: 'eventForm.ticket',
-      site: 'eventForm.site',
-      street: 'eventForm.street',
-      neighborhood: 'eventForm.neighborhood',
-      number: 'eventForm.number',
-      city: 'eventForm.city',
-      zipcode: 'eventForm.zipcode',
-      description: 'eventForm.description',
-      link: 'eventForm.link',
-      imgUrl: 'eventForm.imgUrl',
-      categoryId: 'eventForm.categoryId',
-      images: 'eventForm.images'
+      name: "eventForm.title",
+      date: "eventForm.date",
+      time: "eventForm.time",
+      ticket: "eventForm.ticket",
+      site: "eventForm.site",
+      street: "eventForm.street",
+      neighborhood: "eventForm.neighborhood",
+      number: "eventForm.number",
+      city: "eventForm.city",
+      zipcode: "eventForm.zipcode",
+      description: "eventForm.description",
+      link: "eventForm.link",
+      imgUrl: "eventForm.imgUrl",
+      categoryId: "eventForm.categoryId",
+      images: "eventForm.images",
     }),
     ...mapGetters({
-      categories: 'categories/loadCategories',
-      user: 'users/getCurrentUser',
+      categories: "categories/loadCategories",
+      user: "users/getCurrentUser",
     }),
   },
   methods: {
     updateFiles(files) {
       if (Array.isArray(files) === false || files.length === 0) {
-        this.files = null
-      }
-      else if (Array.isArray(this.files) === true) {
-        const diff = this.files.filter(file => files.indexOf(file) === -1)
-        
+        this.files = null;
+      } else if (Array.isArray(this.files) === true) {
+        const diff = this.files.filter((file) => files.indexOf(file) === -1);
+
         if (diff.length === 1 && this.files.length > 1) {
-          this.files = files.slice()
+          this.files = files.slice();
+        } else {
+          this.files = diff.concat(files);
         }
-        else {
-          this.files = diff.concat(files)
-        }
-      }
-      else {
-        this.files = files.slice()
+      } else {
+        this.files = files.slice();
       }
     },
-    createEvent() { // abre criação do evento
-      this.status.push('creating');
+    createEvent() {
+      // abre criação do evento
+      this.status.push("creating");
       if (this.step === 0) {
         this.lastStep = 0;
         // this.active = true;
@@ -403,31 +371,54 @@ export default {
         }, 1000);
       }
     },
-    cancelCreate() { // cancela criação do evento ou edição de shortEvent
-      this.status.slice(0, 1, 'cancel');
+    cancelCreate() {
+      // cancela criação do evento ou edição de shortEvent
+      this.status.slice(0, 1, "cancel");
       if (this.lastStep === 0) {
         this.status = []; // reseta status
         const a = this;
-        setTimeout(() => { a.step = 0; }, 1000);
+        setTimeout(() => {
+          a.step = 0;
+        }, 1000);
         this.lastStep = 1;
-        this.category.color = '#b8cad4'; // resetar bg
+        this.category.color = "#b8cad4"; // resetar bg
       }
       if (this.lastStep === 2) {
         this.status = []; // reseta status
         const a = this;
-        setTimeout(() => { a.step = 2; }, 1000);
+        setTimeout(() => {
+          a.step = 2;
+        }, 1000);
         this.lastStep = 2;
-        this.category.color = '#b8cad4'; // resetar bg
+        this.category.color = "#b8cad4"; // resetar bg
       }
     },
-    confirmCreate() { // confirma criação de evento ou ediçao de shortEvent
-      this.$store.dispatch('images/uploadArray', { files: this.files })
+    confirmCreate() {
+      // confirma criação de evento ou ediçao de shortEvent
+      this.$store
+        .dispatch("images/uploadArray", { files: this.files })
         .then((filenames) => {
           this.images = JSON.stringify(filenames);
-          this.$store.dispatch('events/createNewEvent');
+          this.$store.dispatch("events/createNewEvent").then(() => {
+            this.name = "";
+            this.date = "";
+            this.time = "";
+            this.ticket = "";
+            this.site = "";
+            this.street = "";
+            this.neighborhood = "";
+            this.number = "";
+            this.city = "";
+            this.zipcode = "";
+            this.description = "";
+            this.link = "";
+            this.imgUrl = "";
+            this.categoryId = "";
+            this.images = [];
+          });
         })
-        .catch ((error) => {
-            console.log(error);
+        .catch((error) => {
+          console.log(error);
         });
       // this.completed = true;
       // const newEvent = {
@@ -485,9 +476,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/variables.scss';
-@import '../styles/mixins.scss';
-
+@import "../styles/variables.scss";
+@import "../styles/mixins.scss";
 
 .box {
   transition: 2s cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -501,7 +491,7 @@ export default {
 }
 
 @keyframes expand {
-  0%{
+  0% {
     width: 200px;
     height: 200px;
   }
@@ -537,7 +527,8 @@ export default {
   }
 }
 
-.create, .ready {
+.create,
+.ready {
   width: 350px;
   height: 100%;
 }
@@ -626,5 +617,4 @@ export default {
 span {
   color: white;
 }
-
 </style>

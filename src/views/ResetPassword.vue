@@ -88,6 +88,7 @@ export default {
   name: 'ResetPasswordPage',
   data() {
     return {
+      waiting: false,
       isPwd: false,
       isPwdC: false,
       errorMessage: null,
@@ -133,14 +134,19 @@ export default {
   },
   methods: {
     async submit() {
+      if (this.waiting) return;
+      this.waiting = true;
       if (!this.$v.$anyError) {
         console.log('recover Token: ', this.$route.params.recoverToken);
         this.$store.dispatch('users/resetPassword', {token: this.$route.params.recoverToken})
         .then((response) => {
           this.$router.push({ name: 'SignIn' });
+          this.waiting = true;
+
         })
         .catch((error)=>{
           console.log(error);
+          this.waiting = true;
         })
       }
     },

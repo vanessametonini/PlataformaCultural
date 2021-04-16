@@ -1,9 +1,7 @@
 <template>
   <div class="box">
     <div class="input-content">
-      <h4 class="title-3 bolder">
-        Crie seu evento
-      </h4>
+      <h4 class="title-3 bolder">Crie seu evento</h4>
       <!-- event name -->
       <div class="column mg-top16">
         <span class="subheading-2">Nome do evento</span>
@@ -34,7 +32,12 @@
             <template v-slot:prepend>
               <q-icon name="event" class="cursor-pointer">
                 <q-popup-proxy transition-show="scale" transition-hide="scale">
-                  <q-date v-model="date" mask="DD/MM/YYYY" unmasked-value color="black">
+                  <q-date
+                    v-model="date"
+                    mask="DD/MM/YYYY"
+                    unmasked-value
+                    color="black"
+                  >
                     <div class="row items-center justify-end">
                       <q-btn v-close-popup label="Fechar" color="black" flat />
                     </div>
@@ -60,7 +63,13 @@
             <template v-slot:prepend>
               <q-icon name="access_time" class="cursor-pointer">
                 <q-popup-proxy transition-show="scale" transition-hide="scale">
-                  <q-time v-model="time" mask="HH:mm" unmasked-value color="black" format24h>
+                  <q-time
+                    v-model="time"
+                    mask="HH:mm"
+                    unmasked-value
+                    color="black"
+                    format24h
+                  >
                     <div class="row items-center justify-end">
                       <q-btn v-close-popup label="Fechar" color="black" flat />
                     </div>
@@ -150,7 +159,6 @@
         </div>
       </div>
 
-     
       <!-- description -->
       <div class="column mg-top8">
         <span class="subheading-2">Descrição</span>
@@ -159,7 +167,7 @@
           autogrow
           dense
           hint="Máximo 200 caracteres"
-          :rules="[ val => val.length <= 200 || 'Máximo de 200 caracteres']"
+          :rules="[(val) => val.length <= 200 || 'Máximo de 200 caracteres']"
           input-class="text-black"
           color="black"
           :error-message="descriptionErrorMessage"
@@ -206,7 +214,6 @@
         />
       </div>
 
-
       <!-- category -->
       <div class="column mg-top8">
         <span class="subheading-2">Categoria</span>
@@ -226,7 +233,9 @@
           :error-message="categoryErrorMessage"
           :error="$v.categoryId.$error"
           @blur="$v.categoryId.$touch"
-          @input="category = $store.getters['categories/getCategoryById'](categoryId)"
+          @input="
+            category = $store.getters['categories/getCategoryById'](categoryId)
+          "
         >
           <template #selected>
             <span class="caption bold">{{ category.label }}</span>
@@ -260,14 +269,9 @@
               class="cursor-pointer"
               @click.stop="files = null"
             />
-            <q-icon
-              name="create_new_folder"
-              @click.stop
-            />
+            <q-icon name="create_new_folder" @click.stop />
           </template>
-          <template #hint>
-            Tamanho máximo de 2MB
-          </template>
+          <template #hint> Tamanho máximo de 2MB </template>
           <!-- <template #after>
             <q-btn
               round
@@ -281,24 +285,12 @@
       </div>
     </div>
     <!-- actions edit -->
-    <div
-      class="mg-top32"
-      align="right"
-    >
-      <q-btn
-        class="mg-right8"
-        flat
-        color="black"
-        @click="cancelCreate()"
-      >
+    <div class="mg-top32" align="right">
+      <q-btn class="mg-right8" flat color="black" @click="cancelCreate()">
         <span class="caption">Cancelar</span>
       </q-btn>
 
-      <q-btn
-        outline
-        color="black"
-        @click="confirmCreate()"
-      >
+      <q-btn outline color="black" @click="confirmCreate()">
         <span class="caption">Finalizar</span>
       </q-btn>
     </div>
@@ -306,37 +298,38 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import { createHelpers } from 'vuex-map-fields';
-import { required, url, minLength } from 'vuelidate/lib/validators';
-import {Money} from 'v-money'
-import { QField } from 'quasar';
+import { mapGetters } from "vuex";
+import { createHelpers } from "vuex-map-fields";
+import { required, url, minLength } from "vuelidate/lib/validators";
+import { Money } from "v-money";
+import { QField } from "quasar";
 const { mapFields } = createHelpers({
-  getterType: 'events/getField',
-  mutationType: 'events/updateField',
+  getterType: "events/getField",
+  mutationType: "events/updateField",
 });
 
 export default {
-  name: 'EventProfile',
+  name: "EventProfile",
   components: {
     Money,
     QField,
   },
   data() {
     return {
+      waiting: false,
       files: null,
       file: null,
       money: {
-        decimal: ',',
-        thousands: '.',
-        prefix: 'R$ ',
+        decimal: ",",
+        thousands: ".",
+        prefix: "R$ ",
         precision: 2,
         maxlength: 14,
-        masked: false
-      }
+        masked: false,
+      },
     };
   },
-   validations: {
+  validations: {
     categoryId: {
       required,
     },
@@ -363,7 +356,7 @@ export default {
     },
     zipcode: {
       required,
-      minLength: minLength(8)
+      minLength: minLength(8),
     },
     description: {
       required,
@@ -377,149 +370,166 @@ export default {
   },
   computed: {
     ...mapFields({
-      category: 'categorySelected',
-      categoryId: 'eventForm.categoryId',
-      name: 'eventForm.title',
-      date: 'eventForm.date',
-      time: 'eventForm.time',
-      ticket: 'eventForm.ticket',
-      local: 'eventForm.local',
-      street: 'eventForm.street',
-      neighborhood: 'eventForm.neighborhood',
-      number: 'eventForm.number',
-      city: 'eventForm.city',
-      zipcode: 'eventForm.zipcode',
-      description: 'eventForm.description',
-      link: 'eventForm.link',
-      images: 'eventForm.imageIds',
+      category: "categorySelected",
+      categoryId: "eventForm.categoryId",
+      name: "eventForm.title",
+      date: "eventForm.date",
+      time: "eventForm.time",
+      ticket: "eventForm.ticket",
+      local: "eventForm.local",
+      street: "eventForm.street",
+      neighborhood: "eventForm.neighborhood",
+      number: "eventForm.number",
+      city: "eventForm.city",
+      zipcode: "eventForm.zipcode",
+      description: "eventForm.description",
+      link: "eventForm.link",
+      images: "eventForm.imageIds",
     }),
     ...mapGetters({
-      categories: 'categories/loadCategories',
-      user: 'users/getCurrentUser',
+      categories: "categories/loadCategories",
+      user: "users/getCurrentUser",
     }),
-    categoryErrorMessage () {
+    categoryErrorMessage() {
       if (!this.$v.categoryId.required) {
-        return 'Esse campo é requerido'
+        return "Esse campo é requerido";
       }
-      return '';
+      return "";
     },
-    nameErrorMessage () {
+    nameErrorMessage() {
       if (!this.$v.name.required) {
-        return 'Esse campo é requerido'
+        return "Esse campo é requerido";
       }
-      return '';
+      return "";
     },
-    dateErrorMessage () {
+    dateErrorMessage() {
       if (!this.$v.date.required) {
-        return 'Esse campo é requerido'
+        return "Esse campo é requerido";
       }
-      return '';
+      return "";
     },
-    timeErrorMessage () {
+    timeErrorMessage() {
       if (!this.$v.time.required) {
-        return 'Esse campo é requerido'
+        return "Esse campo é requerido";
       }
-      return '';
+      return "";
     },
-    localErrorMessage () {
+    localErrorMessage() {
       if (!this.$v.local.required) {
-        return 'Esse campo é requerido'
+        return "Esse campo é requerido";
       }
-      return '';
+      return "";
     },
-    streetErrorMessage () {
+    streetErrorMessage() {
       if (!this.$v.street.required) {
-        return 'Esse campo é requerido'
+        return "Esse campo é requerido";
       }
-      return '';
+      return "";
     },
-    neighborhoodErrorMessage () {
+    neighborhoodErrorMessage() {
       if (!this.$v.neighborhood.required) {
-        return 'Esse campo é requerido'
+        return "Esse campo é requerido";
       }
-      return '';
+      return "";
     },
-    numberErrorMessage () {
+    numberErrorMessage() {
       if (!this.$v.number.required) {
-        return 'Esse campo é requerido'
+        return "Esse campo é requerido";
       }
-      return '';
+      return "";
     },
-    zipcodeErrorMessage () {
+    zipcodeErrorMessage() {
       if (!this.$v.zipcode.required) {
-        return 'Esse campo é requerido'
+        return "Esse campo é requerido";
       } else if (!this.$v.zipcode.minLength) {
-        return 'Entre com um cep válido'
+        return "Entre com um cep válido";
       }
-      return '';
+      return "";
     },
-    descriptionErrorMessage () {
+    descriptionErrorMessage() {
       if (!this.$v.description.required) {
-        return 'Esse campo é requerido'
+        return "Esse campo é requerido";
       }
-      return '';
+      return "";
     },
-    linkErrorMessage () {
+    linkErrorMessage() {
       if (!this.$v.link.url) {
-        return 'Entre com uma url válida'
+        return "Entre com uma url válida";
       }
-      return '';
+      return "";
     },
-    filesErrorMessage () {
+    filesErrorMessage() {
       if (!this.$v.files.required) {
-        return 'É necessário uma imagem.'
+        return "É necessário uma imagem.";
       }
-      return '';
+      return "";
     },
   },
   methods: {
     updateFiles(files) {
       if (Array.isArray(files) === false || files.length === 0) {
-        this.files = null
-      }
-      else if (Array.isArray(this.files) === true) {
-        const diff = this.files.filter(file => files.indexOf(file) === -1)
+        this.files = null;
+      } else if (Array.isArray(this.files) === true) {
+        const diff = this.files.filter((file) => files.indexOf(file) === -1);
         if (diff.length === 1 && this.files.length > 1) {
-          this.files = files.slice()
+          this.files = files.slice();
+        } else if (this.files.length < 3) {
+          this.files = diff.concat(files);
         }
-        else if (this.files.length < 3) {
-          this.files = diff.concat(files)
-        }
-      }
-      else {
-        this.files = files.slice()
+      } else {
+        this.files = files.slice();
       }
     },
-    cancelCreate() { // cancela criação do evento ou edição de shortEvent
+    cancelCreate() {
+      // cancela criação do evento ou edição de shortEvent
       this.category = {
-        label: '',
-        value: '',
-        color: '#b8cad4',
-      }
-      
+        label: "",
+        value: "",
+        color: "#b8cad4",
+      };
     },
     confirmCreate() {
+      if (this.waiting) return;
+      this.waiting = true;
       this.$v.$touch();
       if (!this.$v.$anyError) {
-      this.$store.dispatch('images/uploadArray', { files: this.files })
-        .then((fileIds) => {
-          this.images = fileIds;
-          this.$store.dispatch('events/createNewEvent');
-          this.$router.push({ name: 'Schedule' });
-        })
-        .catch ((error) => {
+        this.$store
+          .dispatch("images/uploadArray", { files: this.files })
+          .then((fileIds) => {
+            this.images = fileIds;
+            this.$store.dispatch("events/createNewEvent").then(() => {
+              this.name = "";
+              this.date = "";
+              this.time = "";
+              this.ticket = "";
+              this.site = "";
+              this.street = "";
+              this.neighborhood = "";
+              this.number = "";
+              this.city = "";
+              this.zipcode = "";
+              this.description = "";
+              this.link = "";
+              this.imgUrl = "";
+              this.categoryId = "";
+              this.images = [];
+            });
+            this.$router.push({ name: "Schedule" });
+            this.waiting = false;
+          })
+          .catch((error) => {
             console.log(error);
-        });
+            this.waiting = false;
+          });
       }
-    }
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/variables.scss';
-@import '../styles/mixins.scss';
-
+@import "../styles/variables.scss";
+@import "../styles/mixins.scss";
 
 .box {
   padding: 16px;
@@ -544,5 +554,4 @@ span {
 .row.justify-between .column {
   width: 48%;
 }
-
 </style>

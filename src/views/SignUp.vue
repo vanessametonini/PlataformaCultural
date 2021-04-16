@@ -416,6 +416,7 @@ export default {
   },
   data() {
     return {
+      waiting: false,
       model: null,
       img: require('../assets/default.png'),
       loading: false,
@@ -683,6 +684,8 @@ export default {
 
     },
     submit(){
+      if (this.waiting) return;
+      this.waiting = true;
       this.$v.$touch();
       if (!this.$v.$anyError) {
         this.loading = true;
@@ -712,12 +715,14 @@ export default {
               message: 'Verifique sua caixa de entrada',
               color: 'Black'
             })
+            this.waiting = false;
           })
           .catch ((error) => {
             if(error.message === 'Request failed with status code 400') {
               this.message = 'Desculpe, houve um erro. Tente Novamente mais tarde';
             }
             this.loadingTransition();
+            this.waiting = false;
           });
         })
         .catch ((error) => {

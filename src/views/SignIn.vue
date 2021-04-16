@@ -7,17 +7,11 @@
     <div class="content column">
       <div class="card column">
         <span class="title title-3 bolder"> Olá novamente </span>
-        <router-link
-          class="link"
-          to="/signUp"
-        >
+        <router-link class="link" to="/signUp">
           <span class="body-3">Novo Usuário? Cadastre-se</span>
         </router-link>
 
-        <div
-          v-if="errorMessage !== null"
-          class="error-field"
-        >
+        <div v-if="errorMessage !== null" class="error-field">
           <span class="error-message">* {{ errorMessage }}</span>
         </div>
 
@@ -58,19 +52,11 @@
         </div>
 
         <div class="links column">
-          <router-link
-            class="link"
-            to="/recover"
-          >
+          <router-link class="link" to="/recover">
             <span class="body-3">Esqueceu a senha?</span>
           </router-link>
 
-          <q-btn
-            flat
-            class="btn"
-            color="white"
-            @click="submit()"
-          >
+          <q-btn flat class="btn" color="white" @click="submit()">
             <span class="body-3 bold">entrar</span>
           </q-btn>
         </div>
@@ -80,98 +66,112 @@
 </template>
 
 <script>
-import { email, required, minLength, maxLength } from 'vuelidate/lib/validators';
+import {
+  email,
+  required,
+  minLength,
+  maxLength,
+} from "vuelidate/lib/validators";
 
 export default {
-  name: 'SignInPage',
+  name: "SignInPage",
   data() {
     return {
-      email: '',
-      password: '',
+      waiting: false,
+      email: "",
+      password: "",
       isPwd: false,
       errorMessage: null,
-    }
+    };
   },
   validations: {
     email: {
       required,
       email,
-      maxLength: maxLength(30)
+      maxLength: maxLength(30),
     },
     password: {
       required,
       minLength: minLength(8),
-      maxLength: maxLength(20)
+      maxLength: maxLength(20),
     },
   },
   computed: {
-    emailErrorMessage () {
+    emailErrorMessage() {
       if (!this.$v.email.required) {
-        return 'Preencha seu email'
+        return "Preencha seu email";
       } else if (!this.$v.email.email) {
-        return 'Por favor insira um email válido'
+        return "Por favor insira um email válido";
       }
 
-      return ''
+      return "";
     },
-    passwordErrorMessage () {
+    passwordErrorMessage() {
       if (!this.$v.email.required) {
-        return 'Informe sua senha'
+        return "Informe sua senha";
       } else if (!this.$v.password.minLength) {
-        return 'Mínimo de 8 dígitos'
+        return "Mínimo de 8 dígitos";
       } else if (!this.$v.password.maxLength) {
-        return 'Máximo de 15 dígitos'
+        return "Máximo de 15 dígitos";
       }
 
-      return ''
+      return "";
     },
   },
   methods: {
     async submit() {
+      if (this.waiting) return;
+      this.waiting = true;
       if (!this.$v.$anyError) {
-
-        await this.$store.dispatch('users/retrieveToken', { credentials: {
-          email: this.email,
-          password: this.password,
-        }}).then((response) => {
-          if(response.data.user.confirmToken !== null){
-            this.$q.notify({
-              message: 'É necessário confirmar o email',
-              color: 'Black'
-            })
-          } else {
-            this.$router.push({ name: 'Profile' });
-          }
-        }).catch((error) => {
-          if(error.message === 'Request failed with status code 400') {
-            this.$q.notify({
-              message: 'Não encontramos uma conta com esse email',
-              color: 'Black'
-            })
-          }
-          if (error.message === 'Request failed with status code 401') {
-            this.$q.notify({
-              message: 'Email ou senha inválidos',
-              color: 'Black'
-            })
-          }
-          if (error.message === 'timeout of 5000ms exceeded') {
-            this.$q.notify({
-              message: 'Houve um Problema, tente novamente',
-              color: 'Black'
-            })
-          }
-          console.log('signIn/submit', error.message);
-        })
+        await this.$store
+          .dispatch("users/retrieveToken", {
+            credentials: {
+              email: this.email,
+              password: this.password,
+            },
+          })
+          .then((response) => {
+            if (response.data.user.confirmToken !== null) {
+              this.$q.notify({
+                message: "É necessário confirmar o email",
+                color: "Black",
+              });
+            } else {
+              this.$router.push({ name: "Profile" });
+            }
+            this.waiting = false;
+          })
+          .catch((error) => {
+            if (error.message === "Request failed with status code 400") {
+              this.$q.notify({
+                message: "Não encontramos uma conta com esse email",
+                color: "Black",
+              });
+            }
+            if (error.message === "Request failed with status code 401") {
+              this.$q.notify({
+                message: "Email ou senha inválidos",
+                color: "Black",
+              });
+            }
+            if (error.message === "timeout of 5000ms exceeded") {
+              this.$q.notify({
+                message: "Houve um Problema, tente novamente",
+                color: "Black",
+              });
+            }
+            console.log("signIn/submit", error.message);
+            this.waiting = false;
+          });
       }
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/mixins.scss';
-@import '../styles/variables.scss';
+@import "../styles/mixins.scss";
+@import "../styles/variables.scss";
 
 * {
   margin: 0;
@@ -225,12 +225,12 @@ export default {
 }
 
 @keyframes fadeInOpacity {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .card {
@@ -242,7 +242,7 @@ export default {
   margin-top: 32px;
   // border: 2px solid green;
 
-   @include for-phone-only {
+  @include for-phone-only {
     width: 80%;
   }
 
@@ -330,7 +330,6 @@ export default {
 .btn span {
   // text-transform: lowercase;
   font-weight: bolder;
-  font-size: .875rem;
+  font-size: 0.875rem;
 }
-
 </style>

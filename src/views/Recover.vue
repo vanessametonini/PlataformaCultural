@@ -59,6 +59,7 @@ export default {
   name: 'RecoverPage',
   data() {
     return {
+      waiting: false,
       errorMessage: null,
     }
   },
@@ -83,6 +84,8 @@ export default {
   },
   methods: {
     async submit() {
+      if (this.waiting) return;
+      this.waiting = true;
       if (!this.$v.$anyError) {
         this.$store.dispatch('users/sendEmailRecover')
           .then(()=>{
@@ -90,6 +93,10 @@ export default {
               message: 'Confira sua caixa de entrada',
               color: 'Black'
             })
+            this.waiting = false;
+          })
+          .catch(()=>{
+            this.waiting = false;
           })
         
       }
