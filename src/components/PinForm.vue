@@ -2,7 +2,7 @@
   <div class="box">
     <div class="input-content">
       <h4 class="title-3 bolder">
-        Edite seu Pin
+        Adicione um pin
       </h4>
       <!-- pin name -->
       <div class="column mg-top16">

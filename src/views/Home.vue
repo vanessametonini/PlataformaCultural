@@ -43,6 +43,7 @@
       </q-btn>
 
       <q-btn
+        v-if="false"
         flat
         class="btn-custom"
         @click="$router.push('/documentation')"

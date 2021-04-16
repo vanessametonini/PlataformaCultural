@@ -2,7 +2,7 @@
   <div class="box">
     <div class="input-content">
       <h4 class="title-3 bolder">
-        Edite seu perfil
+        Perfil
       </h4>
 
       <div class="row justify-between mg-top8">
@@ -14,6 +14,7 @@
             dense
             input-class="text-black"
             color="black"
+            readonly
           />
         </div>
 
@@ -25,6 +26,7 @@
             dense
             input-class="text-black"
             color="black"
+            readonly
           />
         </div>
       </div>
@@ -45,6 +47,7 @@
             options-dense
             options-selected-class
             color="black"
+            readonly
           >
             <template #selected>
               <span class="caption bold">{{ gender }}</span>
@@ -60,6 +63,7 @@
             dense
             input-class="text-black"
             color="black"
+            readonly
           />
         </div>
       </div>
@@ -79,6 +83,7 @@
           options-dense
           options-selected-class
           color="black"
+          readonly
         >
           <template #selected>
             <span class="caption bold">{{ ageRange }}</span>
@@ -101,6 +106,7 @@
           options-dense
           options-selected-class
           color="black"
+          readonly
         >
           <template #selected>
             <span class="caption bold">{{ education }}</span>
@@ -123,6 +129,7 @@
           options-dense
           options-selected-class
           color="black"
+          readonly
         >
           <template #selected>
             <span class="caption bold">{{ $store.getters['categories/getCategoryById'](categoryId).label }}</span>
@@ -130,7 +137,7 @@
         </q-select>
       </div>
 
-      <div class="column mg-top8">
+      <div v-if="false" class="column mg-top8">
         <span class="subheading-2">Avatar</span>
         <q-file
           v-model="model"
@@ -178,6 +185,7 @@
     <div
       class="mg-top32"
       align="right"
+      v-if="false" 
     >
       <q-btn
         class="mg-right8"
