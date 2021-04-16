@@ -1,31 +1,31 @@
 <template>
   <q-card
-    class="my-card"
     square
     :style="{ 'background-color': category(item.categoryId).color }"
   >
-    <q-card-section>
-      <div class="big-title bolder text-white">
+    <q-card-section class="card">
+      <div id="title" class="big-title bolder text-white">
         {{ item.title }}
       </div>
 
-      <div class="text-subtitle2 text-white">
+      <div class="caption bolder mg-top16 text-white">
         {{ `Dia ${$store.getters["formatDate"](item.dateTime)}` }}
       </div>
-      <div class="text-subtitle3 text-white">
+      <div class="caption bolder text-white">
         {{ `Às ${$store.getters["formatTime"](item.dateTime)}` }}
       </div>
     </q-card-section>
     <multicolor-line class="multicolor-line-top" />
-    <q-card-section class="body-1 text-white">
-      {{ item.description }}
-    </q-card-section>
-
-    <q-card-section class="q-pt-none text-white">
-      {{ `${item.street}, ${item.number}, ${item.neighborhood}` }}
-    </q-card-section>
-    <q-card-section class="q-pt-none text-white">
-      {{ `R$ ${moeda(item.ticket)}` }}
+    <q-card-section class="card col text-white">
+      <span class="row body-2 bolder">
+        {{ item.description }}
+      </span>
+      <span class="row caption bolder mg-top32">
+        {{ `${item.street}, ${item.number}, ${item.neighborhood}` }}
+      </span>
+      <span class="row caption bolder">
+        {{ `R$ ${moeda(item.ticket)}` }}
+      </span>
     </q-card-section>
     <q-card-section class="q-pt-none text-black">
       <q-list>
@@ -168,28 +168,43 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
-.my-card
-  width: 100%
-  max-width: 320px
+<style lang="scss" scoped>
+@import "../styles/variables.scss";
+@import "../styles/mixins.scss";
 
-.my-slide
-  width: 100%
-  max-width: 100px
+#title {
+  margin-left: -4px;
+  margin-top: 0px;
+  line-height: 2.5rem;
+}
 
-.fa-facebook
-  color: rgb(59, 91, 152)
-  font-size: 1.5rem
+.card {
+  padding: 32px;
+  position: relative;
+}
 
-.fa-whatsapp
-  color: #4FCE5D
-  font-size: 1.5rem
+.my-slide {
+  width: 100%;
+  max-width: 100px;
+}
 
-.fa-instagram
-  color: black
-  font-size: 1.5rem
+.fa-facebook {
+  color: black;
+  font-size: 1.5rem;
+}
 
-.fa-link
-  color: black
-  font-size: 1.5rem
+.fa-whatsapp {
+  color: black;
+  font-size: 1.5rem;
+}
+
+.fa-instagram {
+  color: black;
+  font-size: 1.5rem;
+}
+
+.fa-link {
+  color: black;
+  font-size: 1.5rem;
+}
 </style>

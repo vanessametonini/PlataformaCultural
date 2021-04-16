@@ -1,25 +1,24 @@
 <template>
   <q-card
-    class="my-card"
     square
     :style="{ 'background-color': category(pinView.categoryId).color }"
   >
-    <q-card-section>
-      <div class="big-title bolder text-white">
+    <q-card-section class="card">
+      <div id="title" class="big-title bolder text-white">
         {{ pinView.title }}
       </div>
     </q-card-section>
     <multicolor-line class="multicolor-line-top" />
 
-    <q-card-section class="body-1 text-white">
-      {{ pinView.description }}
+    <q-card-section class="card col text-white">
+      <span class="row body-2 bolder">
+        {{ pinView.description }}
+      </span>
+      <span class="row caption bolder mg-top32">
+        {{ `${pinView.street}, ${pinView.number}, ${pinView.neighborhood}` }}
+      </span>
     </q-card-section>
-
-    <q-card-section class="q-pt-none text-white">
-      {{ `${pinView.street}, ${pinView.number}, ${pinView.neighborhood}` }}
-    </q-card-section>
-
-    <q-card-section class="q-pt-none text-black">
+    <q-card-section class="mg-left16 q-pt-none text-black">
       <q-list>
         <q-item
           v-if="pinView.link"
@@ -149,28 +148,40 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
-.my-card
-  width: 100%
-  max-width: 320px
+<style lang="scss" scoped>
+#title {
+  margin-left: -4px;
+  margin-top: 0px;
+  line-height: 2.5rem;
+}
 
-.my-slide
-  width: 100%
-  max-width: 100px
+.card {
+  padding: 32px;
+  position: relative;
+}
 
-.fa-facebook
-  color: black
-  font-size: 1.5rem
+.my-slide {
+  width: 100%;
+  max-width: 100px;
+}
 
-.fa-whatsapp
-  color: black
-  font-size: 1.5rem
+.fa-facebook {
+  color: black;
+  font-size: 1.5rem;
+}
 
-.fa-instagram
-  color: black
-  font-size: 1.5rem
+.fa-whatsapp {
+  color: black;
+  font-size: 1.5rem;
+}
 
-.fa-link
-  color: black
-  font-size: 1.5rem
+.fa-instagram {
+  color: black;
+  font-size: 1.5rem;
+}
+
+.fa-link {
+  color: black;
+  font-size: 1.5rem;
+}
 </style>
