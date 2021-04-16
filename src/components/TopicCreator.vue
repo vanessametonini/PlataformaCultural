@@ -2,10 +2,7 @@
   <div class="app-component stepper">
     <!-- header -->
     <div class="stepper-header">
-      <identity
-        class="identity"
-        :black-mode="true"
-      />
+      <identity class="identity" :black-mode="true" />
       <progress-bar
         class="progressbar"
         :current-step="currentStep"
@@ -16,60 +13,62 @@
     <!-- content -->
     <div class="stepper-content">
       <!-- SECTION 1 -->
-      <section
-        v-if="currentStep === 1"
-        id="section1"
-        class="stepper-section"
-      >
+      <section v-if="currentStep === 1" id="section1" class="stepper-section">
         <span class="title-3 bolder mg-top16">Sobre os Diálogos</span>
         <span class="headline-3 bolder mg-top16">Diálogos abertos</span>
         <p class="body-2 mg-top8 justify-text">
-          Você poderá iniciar um debate, que aqui chamamos de diálogo, para compartilhar pontos de vista com outras pessoas sobre os assuntos
-          que te preocupam em relação à cultura em Campo Grande.
-          O espaço de diálogos abertos é destinado aos gestores, produtores, promotores da cultura local e também à comunidade artística. Sendo um desses agentes,
-          você poderá expor seus argumentos e abrir uma conversa com todos.
-          Considere que o debate não aciona nenhum mecanismo de atuação concreta. Mas alimenta as tomadas de decisão do Fórum Municipal de Cultura,
-          identifica a necessidade de encontros presenciais específicos (assembleias, reuniões) como também contribui para a compreensão das necessidades da
-          comunidade artística de Campo Grande.
+          Você poderá iniciar um debate, que aqui chamamos de diálogo, para
+          compartilhar pontos de vista com outras pessoas sobre os assuntos que
+          te preocupam em relação à cultura em Campo Grande. O espaço de
+          diálogos abertos é destinado aos gestores, produtores, promotores da
+          cultura local e também à comunidade artística. Sendo um desses
+          agentes, você poderá expor seus argumentos e abrir uma conversa com
+          todos. Considere que o debate não aciona nenhum mecanismo de atuação
+          concreta. Mas alimenta as tomadas de decisão do Fórum Municipal de
+          Cultura, identifica a necessidade de encontros presenciais específicos
+          (assembleias, reuniões) como também contribui para a compreensão das
+          necessidades da comunidade artística de Campo Grande.
         </p>
-        <span class="headline-3 bolder mg-top16"> Recomendações para participar de um diálogo aberto</span>
+        <span class="headline-3 bolder mg-top16">
+          Recomendações para participar de um diálogo aberto</span
+        >
         <p class="body-2 mg-top8 justify-text">
           1. Para iniciar um debate é necessário que você faça um cadastro na
-          <router-link
-            class="link body-2"
-            to="/signUp"
-          >
-            <strong>Plataforma Cartografia da Cultura</strong>
-          </router-link>.
-          Os usuários cadastrados também podem participar das discussões já iniciadas através dos comentários e/ ou indicar se concorda ou não concorda
-          clicando nos botões “👍” ou “👎” encontrados em cada debate proposto.
+          <router-link class="link body-2" to="/signUp">
+            <strong>Plataforma Cartografia da Cultura</strong> </router-link
+          >. Os usuários cadastrados também podem participar das discussões já
+          iniciadas através dos comentários e/ ou indicar se concorda ou não
+          concorda clicando nos botões “👍” ou “👎” encontrados em cada debate
+          proposto.
         </p>
         <p class="body-2 mg-top8 justify-text">
-          2. Não escreva o título do debate ou frases inteiras em letras maiúsculas. Na Internet, isso é considerado o mesmo que gritar. E ninguém gosta disso.
+          2. Não escreva o título do debate ou frases inteiras em letras
+          maiúsculas. Na Internet, isso é considerado o mesmo que gritar. E
+          ninguém gosta disso.
         </p>
         <p class="body-2 mg-top8 justify-text">
-          3. Qualquer debate ou comentário que implique em uma ação ilegal será deletado. Também  serão deletados comentários que tenham a intenção de sabotar o espaço de debate.
+          3. Qualquer debate ou comentário que implique em uma ação ilegal será
+          deletado. Também serão deletados comentários que tenham a intenção de
+          sabotar o espaço de debate.
         </p>
         <p class="body-2 mg-top8 justify-text">
-          4. As críticas duras são bem vindas. Este é um espaço de pensamento livre, mas recomendamos que, ainda que a crítica seja dura, também seja gentil e inteligente.
+          4. As críticas duras são bem vindas. Este é um espaço de pensamento
+          livre, mas recomendamos que, ainda que a crítica seja dura, também
+          seja gentil e inteligente.
         </p>
         <p class="body-2 mg-top8 justify-text">
           5. Desfrute deste espaço, das vozes que o preenchem, ele também é seu.
         </p>
       </section>
       <!-- SECTION 2 -->
-      <section
-        v-if="currentStep === 2"
-        id="section2"
-        class="stepper-section"
-      >
+      <section v-if="currentStep === 2" id="section2" class="stepper-section">
         <span class="title-1 bolder">Regras para iniciar um diálogo</span>
         <!-- 1 -->
-        <span class="body-2 bolder mg-top16">1. Uma vez feito o login, você poderá:</span>
+        <span class="body-2 bolder mg-top16"
+          >1. Uma vez feito o login, você poderá:</span
+        >
         <ol>
-          <li class="body-2 justify-text">
-            Iniciar um debate.
-          </li>
+          <li class="body-2 justify-text">Iniciar um debate.</li>
           <li class="body-2 justify-text">
             Participar de um debate já iniciado por outro usuário.
           </li>
@@ -87,11 +86,14 @@
             insira um texto com sua argumentação diretamente na plataforma.
           </li>
           <li class="body-2 justify-text">
-            escolha uma ou mais categorias relacionada ao assunto que quer discutir.
+            escolha uma ou mais categorias relacionada ao assunto que quer
+            discutir.
           </li>
         </ol>
         <!-- 3 -->
-        <span class="body-2 bolder mg-top24">3. Uma vez iniciado o debate, você não poderá: </span>
+        <span class="body-2 bolder mg-top24"
+          >3. Uma vez iniciado o debate, você não poderá:
+        </span>
         <ol class="list">
           <li class="body-2 justify-text">
             deletar o debate que você iniciou;
@@ -104,11 +106,15 @@
         <span class="body-2 bolder mg-top24">4. Serão deletados: </span>
         <ol class="list">
           <li class="body-2 justify-text">
-            os comentários ofensivos, com discurso de ódio ou qualquer ato de comunicação que inferiorize ou incite contra uma pessoa ou grupo,
-            tendo por base características como raça, gênero, etnia, nacionalidade, religião, orientação sexual ou outro aspecto passível de discriminação.
+            os comentários ofensivos, com discurso de ódio ou qualquer ato de
+            comunicação que inferiorize ou incite contra uma pessoa ou grupo,
+            tendo por base características como raça, gênero, etnia,
+            nacionalidade, religião, orientação sexual ou outro aspecto passível
+            de discriminação.
           </li>
           <li class="body-2 justify-text">
-            qualquer comentário que implique em uma ação ilegal ou que tenham a intenção de sabotar o espaço de debate.
+            qualquer comentário que implique em uma ação ilegal ou que tenham a
+            intenção de sabotar o espaço de debate.
           </li>
         </ol>
         <!-- 5 -->
@@ -118,56 +124,53 @@
             Insira um texto revisado por você. Veja se está claro e objetivo.
           </li>
           <li class="body-2 justify-text">
-            Seja gentil ao dialogar com as outras vozes que têm pontos de vista diferente do seu.
+            Seja gentil ao dialogar com as outras vozes que têm pontos de vista
+            diferente do seu.
           </li>
         </ol>
         <!-- ACCEPT TERMS -->
         <div class="stepper-rules row al-items-center">
-          <q-checkbox
-            v-model="rulesAccepted"
-            size="32px"
-            color="black"
-          />
-          <span
-            class="body-2 mg-left8"
-          >
+          <q-checkbox v-model="rulesAccepted" size="32px" color="black" />
+          <span class="body-2 mg-left8">
             Eu li e concordo com as
-            <strong
-              style="cursor: pointer"
-              @click="scrollToTop()"
-            >
-              Regras da Plataforma
-            </strong>.
+            <strong style="cursor: pointer" @click="scrollToTop()">
+              Regras da Plataforma </strong
+            >.
           </span>
           <span
             class="caption mg-left8"
-            :class="{ 'rules-accept-error' : rulesError }"
-          >(Esta opção deve ser marcada*)</span>
+            :class="{ 'rules-accept-error': rulesError }"
+            >(Esta opção deve ser marcada*)</span
+          >
         </div>
       </section>
       <!-- SECTION 3 -->
-      <section
-        v-if="currentStep === 3"
-        class="stepper-section"
-      >
+      <section v-if="currentStep === 3" class="stepper-section">
         <span class="title-3 bolder">Crie seu diálogo.</span>
         <span class="headline-3 bolder mg-top16">Título do seu diálogo</span>
-        <span class="caption mg-top4">Insira um título que represente o assunto principal da discussão.</span>
+        <span class="caption mg-top4"
+          >Insira um título que represente o assunto principal da
+          discussão.</span
+        >
         <!-- TITLE -->
         <q-input
-          v-model.trim="title"
+          v-model="title"
           class="input"
           dense
           square
-          filled
           bottom-slots
+          counter
+          maxlength="100"
           :error="$v.title.$error"
           :error-message="titleErrorMessage"
           @blur="$v.title.$touch"
         />
 
         <span class="headline-3 bolder">Texto do Diálogo</span>
-        <span class="caption mg-top4">Insira um texto revisado por você. Veja se está claro e objetivo.</span>
+        <span class="caption mg-top4"
+          >Insira um texto revisado por você. Veja se está claro e
+          objetivo.</span
+        >
         <!-- CONTENT -->
         <q-input
           v-model="content"
@@ -176,18 +179,24 @@
           counter
           dense
           square
-          filled
           bottom-slots
-          hint="máximo de 2000 caracteres"
+          :max="3"
+          maxlength="2000"
+          hint="Máximo de 2000 caracteres"
           :error="$v.content.$error"
           :error-message="contentErrorMessage"
           @blur="$v.content.$touch"
         />
         <!-- CATEGORY -->
         <span class="headline-3 bolder mg-top16">Categoria do diálogo</span>
-        <span class="caption mg-top8">1. Marque a opção que representa o tema principal do seu diálogo</span>
-        <span class="caption">2. Marque as opções que se relacionam ao seu diálogo</span>
-        <div class="category-field row no-wrap  mg-top8">
+        <span class="caption mg-top8"
+          >1. Marque a opção que representa o tema principal do seu
+          diálogo</span
+        >
+        <span class="caption"
+          >2. Marque as opções que se relacionam ao seu diálogo</span
+        >
+        <div class="category-field row no-wrap mg-top8">
           <q-list class="category-list">
             <q-item
               v-for="item in options"
@@ -197,15 +206,12 @@
               clickable
               @click="tagEvent(item)"
             >
-              <q-item-section
-                class="category-list-item-section"
-                avata
-              >
+              <q-item-section class="category-list-item-section" avata>
                 <!-- iconId -1 : index of array of icons (0 a 17) -->
                 <icon-base
                   :id="`icon-${item.value}`"
                   class="category-list-icon"
-                  :icon-id="item.value -1"
+                  :icon-id="item.value - 1"
                   width="16"
                   :set-white="false"
                 />
@@ -222,14 +228,11 @@
           <!-- show tags -->
           <div class="tag-field">
             <div class="main-tag">
-              <span
-                id="label"
-                class="caption"
-              >categoria principal</span>
+              <span id="label" class="caption">categoria principal</span>
               <div
                 v-if="categoryId !== null"
                 class="main-tag-badge caption bolder"
-                :style="{ 'color': categoryId.color }"
+                :style="{ color: categoryId.color }"
               >
                 <span class="caption bolder">{{ categoryId.label }}</span>
                 <i
@@ -248,10 +251,9 @@
                   class="categorys-tags-badge"
                   :style="{ 'border-color': item.color }"
                 >
-                  <span
-                    class="caption bolder"
-                    :style="{ 'color': item.color }"
-                  > {{ item.label }} </span>
+                  <span class="caption bolder" :style="{ color: item.color }">
+                    {{ item.label }}
+                  </span>
                 </div>
               </div>
             </div>
@@ -259,28 +261,18 @@
         </div>
         <!-- TERMS -->
         <div class="stepper-terms row no-wrap al-items-center">
-          <q-checkbox
-            v-model="termsAccepted"
-            size="32px"
-            color="black"
-          />
-          <span class="body-3 mg-left8">Eu li e concordo com os
-            <router-link
-              class="link"
-              :to="{ path: '/terms', hash: '#terms'}"
-            >
-              <span
-                class="body-3 bolder"
-              >Termos de Uso</span>
+          <q-checkbox v-model="termsAccepted" size="32px" color="black" />
+          <span class="body-3 mg-left8"
+            >Eu li e concordo com os
+            <router-link class="link" :to="{ path: '/terms', hash: '#terms' }">
+              <span class="body-3 bolder">Termos de Uso</span>
             </router-link>
             e
             <router-link
               class="link"
-              :to="{ path: '/terms', hash: '#privacity'}"
+              :to="{ path: '/terms', hash: '#privacity' }"
             >
-              <span
-                class="body-3 bolder"
-              >Privacidade.</span>
+              <span class="body-3 bolder">Privacidade.</span>
             </router-link>
           </span>
         </div>
@@ -306,7 +298,9 @@
         @click="cancel()"
       >
         <i class="fas fa-times btn-icon" />
-        <span class="body-3 bolder stepper-btn-span text-uppercase mg-left16"> cancelar </span>
+        <span class="body-3 bolder stepper-btn-span text-uppercase mg-left16">
+          cancelar
+        </span>
       </base-button>
       <base-button
         v-if="currentStep != numberOfSteps"
@@ -314,7 +308,9 @@
         theme="flat"
         @click="nextStep()"
       >
-        <span class="body-3 bolder stepper-btn-span text-uppercase"> Continuar </span>
+        <span class="body-3 bolder stepper-btn-span text-uppercase">
+          Continuar
+        </span>
         <i class="fas fa-arrow-right btn-icon mg-left16" />
       </base-button>
       <base-button
@@ -336,22 +332,22 @@ import {
   minLength,
   maxLength,
   // alphaNum,
-} from 'vuelidate/lib/validators';
-import { mapGetters } from 'vuex';
-import { createHelpers } from 'vuex-map-fields';
-import Identity from './Logo.vue';
-import ColorLine from './ColorLine.vue';
-import ProgressBar from './BaseStepProgressBar.vue';
-import BaseButton from './BaseButton.vue';
-import iconBase from './iconBase.vue';
+} from "vuelidate/lib/validators";
+import { mapGetters } from "vuex";
+import { createHelpers } from "vuex-map-fields";
+import Identity from "./Logo.vue";
+import ColorLine from "./ColorLine.vue";
+import ProgressBar from "./BaseStepProgressBar.vue";
+import BaseButton from "./BaseButton.vue";
+import iconBase from "./iconBase.vue";
 
 const { mapFields } = createHelpers({
-  getterType: 'topics/getField',
-  mutationType: 'topics/updateField',
+  getterType: "topics/getField",
+  mutationType: "topics/updateField",
 });
 
 export default {
-  name: 'TopicCreator',
+  name: "TopicCreator",
   components: {
     Identity,
     ColorLine,
@@ -364,7 +360,7 @@ export default {
       currentStep: 1,
       count: 0,
       numberOfSteps: 3,
-      stepsTitle: ['O que são os Diálogos', 'Regras', 'Crie seu Diálogo'],
+      stepsTitle: ["O que são os Diálogos", "Regras", "Crie seu Diálogo"],
       rulesAccepted: false,
       rulesError: false,
       termsAccepted: false,
@@ -378,51 +374,58 @@ export default {
     title: {
       required,
       minLength: minLength(5),
-      // alphaNum: (value) => (alphaNum(value)),
-      validChars: (value) => (/^[a-zA-Z0-9\s]+$/ig).test(value),
-
+      maxLength: maxLength(100),
     },
     content: {
       required,
+      minLength: minLength(5),
       maxLength: maxLength(2000),
     },
   },
   computed: {
     ...mapFields({
-      title: 'topicForm.title',
-      content: 'topicForm.content',
-      categoryId: 'topicForm.categoryId',
-      categoriesTagged: 'topicForm.categoriesTagged',
+      title: "topicForm.title",
+      content: "topicForm.content",
+      categoryId: "topicForm.categoryId",
+      categoriesTagged: "topicForm.categoriesTagged",
     }),
     ...mapGetters({
-      categories: 'categories/loadCategories',
+      categories: "categories/loadCategories",
     }),
     formIsValid() {
-      if (this.$v.$anyError || this.rulesAccepted === false || this.termsAccepted === false || this.categoriesTagged.length === 0) {
+      if (
+        this.$v.$anyError ||
+        this.rulesAccepted === false ||
+        this.termsAccepted === false ||
+        this.categoriesTagged.length === 0
+      ) {
         return false;
       }
       return true;
     },
     titleErrorMessage() {
       if (!this.$v.title.required) {
-        return 'Esse campo é requerido';
-      }
-      if (!this.$v.title.validChars) {
-        return 'Este campo deve conter apenas letras e números';
+        return "Esse campo é requerido";
       }
       if (!this.$v.title.minLength) {
-        return 'Mínimo de cinco dígitos';
+        return "Mínimo de 5 dígitos";
       }
-      return '';
+      if (!this.$v.title.maxLength) {
+        return "Máximo de 100 dígitos";
+      }
+      return "";
     },
     contentErrorMessage() {
-      if (!this.$v.title.required) {
-        return 'Esse campo é requerido';
+      if (!this.$v.content.required) {
+        return "Esse campo é requerido";
       }
-      if (!this.$v.title.minLength) {
-        return 'Mínimo de três dígitos';
+      if (!this.$v.content.minLength) {
+        return "Mínimo de 5 dígitos";
       }
-      return '';
+      if (!this.$v.content.maxLength) {
+        return "Mínimo de 2000 dígitos";
+      }
+      return "";
     },
   },
   created() {
@@ -433,48 +436,60 @@ export default {
       // await this.$store.dispatch('topics/createNewTopic')
       // this.$socket.emit('newTopicToServer',  );
       // this.$router.push('/topics');
-      this.$store.dispatch('topics/createNewTopic', { $socket: this.$socket })
+      this.$store
+        .dispatch("topics/createNewTopic", { $socket: this.$socket })
         .then(() => {
-          this.content = '';
-          this.title = '';
+          this.content = "";
+          this.title = "";
           this.categoryId = null;
           this.categoriesTagged = [];
-          this.$router.push('/topics');
+          this.$router.push("/topics");
         });
     },
     cancel() {
-      this.content = '';
-      this.title = '';
+      this.content = "";
+      this.title = "";
       this.categoryId = null;
       this.categoriesTagged = [];
-      this.$router.push({ name: 'Topics' });
+      this.$router.push({ name: "Topics" });
     },
     tagEvent(sel) {
-
       if (this.categoryId === null && this.categoriesTagged.length === 0) {
         this.tagMain(sel);
       } else if (this.categoriesTagged.some((tag) => tag === sel)) {
-        console.log('hasBeenTagged', sel);
-        const index = this.categoriesTagged.findIndex((el) => el.value === sel.value);
+        console.log("hasBeenTagged", sel);
+        const index = this.categoriesTagged.findIndex(
+          (el) => el.value === sel.value
+        );
         const element = this.categoriesTagged[index];
-        document.getElementById(`icon-${sel.value}`).getElementById('g').setAttribute('fill', `${element.color}`);
-        document.getElementById(`category-label-${sel.value}`).style.color = '#000';
-        document.getElementById(`item-${sel.value}`).style.borderRight = 'none';
+        document
+          .getElementById(`icon-${sel.value}`)
+          .getElementById("g")
+          .setAttribute("fill", `${element.color}`);
+        document.getElementById(`category-label-${sel.value}`).style.color =
+          "#000";
+        document.getElementById(`item-${sel.value}`).style.borderRight = "none";
         this.categoriesTagged.splice(index, 1);
-        console.log('tag in array', this.categoriesTagged);
+        console.log("tag in array", this.categoriesTagged);
       } else {
-        console.log('tagged', sel);
+        console.log("tagged", sel);
         const aux = this.categoriesTagged;
         aux.push(sel);
         this.categoriesTagged = aux;
-        document.getElementById(`category-label-${sel.value}`).style.color = `${sel.color}`;
-        document.getElementById(`item-${sel.value}`).style.borderRight = `2px solid ${sel.color}`;
+        document.getElementById(
+          `category-label-${sel.value}`
+        ).style.color = `${sel.color}`;
+        document.getElementById(
+          `item-${sel.value}`
+        ).style.borderRight = `2px solid ${sel.color}`;
       }
     },
     tagMain(sel) {
-      console.log('sel', sel);
+      console.log("sel", sel);
       this.categoryId = sel;
-      document.getElementById(`category-label-${sel.value}`).style.color = `${sel.color}`;
+      document.getElementById(
+        `category-label-${sel.value}`
+      ).style.color = `${sel.color}`;
       this.hasSelected = true;
       const index = this.options.findIndex((el) => el.value === sel.value);
       this.options.splice(index, 1);
@@ -484,12 +499,12 @@ export default {
       this.categoryId = null;
     },
     nextStep() {
-      if(this.options.length === 0){
+      if (this.options.length === 0) {
         this.options = [...this.categories];
       }
       if (this.currentStep === 2 && this.rulesAccepted === false) {
         this.rulesError = true;
-      } else if (this.count <= (this.numberOfSteps)) {
+      } else if (this.count <= this.numberOfSteps) {
         this.currentStep += 1;
         this.count += 1;
         this.scrollToTop();
@@ -507,7 +522,7 @@ export default {
       window.scrollTo({
         top: 0,
         left: 0,
-        behavior: 'smooth',
+        behavior: "smooth",
       });
     },
   },
@@ -515,8 +530,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/variables.scss';
-@import '../styles/mixins.scss';
+@import "../styles/variables.scss";
+@import "../styles/mixins.scss";
 
 $height: 32px;
 $width: 32px;
@@ -582,7 +597,8 @@ li {
   margin-left: 32px;
 }
 
-.stepper-rules, .stepper-terms {
+.stepper-rules,
+.stepper-terms {
   margin-top: 32px;
 }
 
@@ -592,11 +608,21 @@ li {
 }
 
 @keyframes shake {
-  0% { transform: translateX(0px); }
-  25% { transform: translateX(-5px); }
-  50% { transform: translateX(0px); }
-  75% { transform: translateX(5px); }
-  100% { transform: translateX(0px); }
+  0% {
+    transform: translateX(0px);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(0px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
 }
 
 .link {
@@ -653,7 +679,6 @@ li {
     margin-top: -4px;
     color: $gray3;
   }
-
 }
 
 .main-tag-badge {
@@ -739,5 +764,4 @@ li {
   color: $primaryColor !important;
   letter-spacing: 1px;
 }
-
 </style>

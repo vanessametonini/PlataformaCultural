@@ -6,14 +6,14 @@ const actions = {
   loadTopics({ dispatch, commit }) {
     dispatch('services/GET', { uri: 'topics' }, { root: true })
       .then(async (response) => {
-        const topicsArray = response.data.map((topic)=> {
-            return dispatch('services/GET', { uri: `users/${topic.userId}` }, { root: true })
-              .then((response) => {
-                return {
-                  ...topic,
-                  user: response.data,
-                }
-              })
+        const topicsArray = response.data.map((topic) => {
+          return dispatch('services/GET', { uri: `users/${topic.userId}` }, { root: true })
+            .then((response) => {
+              return {
+                ...topic,
+                user: response.data,
+              }
+            })
         });
         const topics = await Promise.all(topicsArray);
         commit('SET_TOPICS_LIST', topics);
@@ -27,34 +27,16 @@ const actions = {
       .catch((error) => error);
   },
 
-  createNewTopic({
-    commit,
-    getters,
-    dispatch,
-    rootState,
-    rootGetters,
-  }, { $socket }) {
-    const user = {...rootGetters['users/getCurrentUser']};
-    const topic = {
-      ...getters.topicForm,
-      userId: user.id,
-      createdAt: new Date(),
-    };
-    $socket.emit('newTopicToServer',  topic);
-    // dispatch('services/POST', { uri: 'topics', data: { ...topic } }, { root: true })
-    //   .then((response) => {
-    //     const payload = {
-    //       ...topic,
-    //       id: response.data,
-    //       user: {
-    //         ...user,
-    //         name: `${user.firstName} ${user.lastName}`,
-    //       }
-    //     };
-    //     commit('ADD_NEW_TOPIC', payload);
-    //   })
-    //   .catch((error) => error);
+  SOCKET_newTopicToClient({ state, commit }, topic) {
+    commit('ADD_NEW_TOPIC', topic, { root: true });
   },
+
+  createNewTopic: ({ getters, rootGetters }, { $socket }) =>
+    $socket.emit('newTopicToServer', {
+      ...getters.topicForm,
+      userId: rootGetters['users/getCurrentUser'].id,
+      createdAt: new Date(),
+    }),
 
   loadInitialTopics({ commit }, { type, pagination }) {
     const loadFunc = new Promise((resolve, reject) => {
