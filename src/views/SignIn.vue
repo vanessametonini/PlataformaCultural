@@ -120,9 +120,9 @@ export default {
   },
   methods: {
     async submit() {
-      if (this.waiting) return;
-      this.waiting = true;
       if (!this.$v.$anyError) {
+        if (this.waiting) return;
+        this.waiting = true;
         await this.$store
           .dispatch("users/retrieveToken", {
             credentials: {

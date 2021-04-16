@@ -1,9 +1,7 @@
 <template>
   <div class="box">
     <div class="input-content">
-      <h4 class="title-3 bolder">
-        Adicione um pin
-      </h4>
+      <h4 class="title-3 bolder">Adicione um pin</h4>
       <!-- pin name -->
       <div class="column mg-top16">
         <span class="subheading-2">Nome do pin</span>
@@ -194,7 +192,9 @@
           :error="$v.categoryId.$error"
           :error-message="categoryErrorMessage"
           @blur="$v.categoryId.$touch"
-          @input="category = $store.getters['categories/getCategoryById'](categoryId); "
+          @input="
+            category = $store.getters['categories/getCategoryById'](categoryId)
+          "
         >
           <template #selected>
             <span class="caption bold">{{ category.label }}</span>
@@ -228,14 +228,9 @@
               class="cursor-pointer"
               @click.stop="files = null"
             />
-            <q-icon
-              name="create_new_folder"
-              @click.stop
-            />
+            <q-icon name="create_new_folder" @click.stop />
           </template>
-          <template #hint>
-            Tamanho máximo de 2MB
-          </template>
+          <template #hint> Tamanho máximo de 2MB </template>
           <!-- <template #after>
             <q-btn
               round
@@ -250,24 +245,12 @@
     </div>
 
     <!-- actions edit -->
-    <div
-      class="mg-top32"
-      align="right"
-    >
-      <q-btn
-        class="mg-right8"
-        flat
-        color="black"
-        @click="cancelEdit()"
-      >
+    <div class="mg-top32" align="right">
+      <q-btn class="mg-right8" flat color="black" @click="cancelEdit()">
         <span class="caption">Cancelar</span>
       </q-btn>
 
-      <q-btn
-        outline
-        color="black"
-        @click="confirmCreate()"
-      >
+      <q-btn outline color="black" @click="confirmCreate()">
         <span class="caption">Finalizar</span>
       </q-btn>
     </div>
@@ -275,19 +258,18 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import { createHelpers } from 'vuex-map-fields';
-import { required, url, minLength, email } from 'vuelidate/lib/validators';
+import { mapGetters } from "vuex";
+import { createHelpers } from "vuex-map-fields";
+import { required, url, minLength, email } from "vuelidate/lib/validators";
 
 const { mapFields } = createHelpers({
-  getterType: 'pins/getField',
-  mutationType: 'pins/updateField',
+  getterType: "pins/getField",
+  mutationType: "pins/updateField",
 });
 
 export default {
-  name: 'PinProfile',
-  components: {
-  },
+  name: "PinProfile",
+  components: {},
   props: {
     item: {
       type: Object,
@@ -299,7 +281,7 @@ export default {
     },
     bgColor: {
       type: String,
-      default: '#254C26',
+      default: "#254C26",
     },
   },
   data() {
@@ -323,10 +305,10 @@ export default {
     },
     email: {
       // required,
-      email
+      email,
     },
     phone: {
-      minLength: minLength(11)
+      minLength: minLength(11),
     },
     street: {
       required,
@@ -337,184 +319,182 @@ export default {
     neighborhood: {
       required,
     },
-    city: { 
-
-    },
+    city: {},
     cep: {
       required,
-      minLength: minLength(8)
+      minLength: minLength(8),
     },
     description: {
       required,
     },
     link: {
-      url
+      url,
     },
     facebook: {
-      url
+      url,
     },
     instagram: {
-      url
+      url,
     },
     twitter: {
-      url
+      url,
     },
-    whatsapp: { },
+    whatsapp: {},
     files: {
       required,
     },
   },
   computed: {
     ...mapGetters({
-      categories: 'categories/loadCategories',
+      categories: "categories/loadCategories",
     }),
     ...mapFields({
-      category: 'categorySelected',
-      categoryId: 'pinForm.categoryId',
-      title: 'pinForm.title',
-      email: 'pinForm.email',
-      phone: 'pinForm.phone',
-      street: 'pinForm.street',
-      number: 'pinForm.number',
-      neighborhood: 'pinForm.neighborhood',
-      city: 'pinForm.city',
-      cep: 'pinForm.zipcode',
-      description: 'pinForm.description',
-      images: 'pinForm.imageIds',
-      link: 'pinForm.link',
-      facebook: 'pinForm.facebook',
-      instagram: 'pinForm.instagram',
-      twitter: 'pinForm.twitter',
-      whatsapp: 'pinForm.whatsapp',
+      category: "categorySelected",
+      categoryId: "pinForm.categoryId",
+      title: "pinForm.title",
+      email: "pinForm.email",
+      phone: "pinForm.phone",
+      street: "pinForm.street",
+      number: "pinForm.number",
+      neighborhood: "pinForm.neighborhood",
+      city: "pinForm.city",
+      cep: "pinForm.zipcode",
+      description: "pinForm.description",
+      images: "pinForm.imageIds",
+      link: "pinForm.link",
+      facebook: "pinForm.facebook",
+      instagram: "pinForm.instagram",
+      twitter: "pinForm.twitter",
+      whatsapp: "pinForm.whatsapp",
     }),
-    categoryErrorMessage () {
+    categoryErrorMessage() {
       if (!this.$v.categoryId.required) {
-        return 'Esse campo é requerido'
+        return "Esse campo é requerido";
       }
-      return '';
+      return "";
     },
-    titleErrorMessage () {
+    titleErrorMessage() {
       if (!this.$v.title.required) {
-        return 'Esse campo é requerido'
+        return "Esse campo é requerido";
       }
-      return '';
+      return "";
     },
-    emailErrorMessage () {
+    emailErrorMessage() {
       if (!this.$v.email.email) {
-        return 'Entre com um email válido'
+        return "Entre com um email válido";
       }
-      return '';
+      return "";
     },
-    phoneErrorMessage () {
+    phoneErrorMessage() {
       if (!this.$v.phone.minLength) {
-        return 'Entre com um telefone válido'
-      } 
-      return '';
+        return "Entre com um telefone válido";
+      }
+      return "";
     },
-    streetErrorMessage () {
+    streetErrorMessage() {
       if (!this.$v.street.required) {
-        return 'Esse campo é requerido'
+        return "Esse campo é requerido";
       }
-      return '';
+      return "";
     },
-    numberErrorMessage () {
+    numberErrorMessage() {
       if (!this.$v.number.required) {
-        return 'Esse campo é requerido'
+        return "Esse campo é requerido";
       }
-      return '';
+      return "";
     },
-    neighborhoodErrorMessage () {
+    neighborhoodErrorMessage() {
       if (!this.$v.neighborhood.required) {
-        return 'Esse campo é requerido'
+        return "Esse campo é requerido";
       }
-      return '';
+      return "";
     },
-    cityErrorMessage () {
+    cityErrorMessage() {
       if (!this.$v.city.required) {
-        return 'Esse campo é requerido'
+        return "Esse campo é requerido";
       }
-      return '';
+      return "";
     },
-    cepErrorMessage () {
+    cepErrorMessage() {
       if (!this.$v.cep.required) {
-        return 'Esse campo é requerido'
-       }else if (!this.$v.cep.minLength) {
-        return 'Entre com um cep válido'
+        return "Esse campo é requerido";
+      } else if (!this.$v.cep.minLength) {
+        return "Entre com um cep válido";
       }
-      return '';
+      return "";
     },
-    descriptionErrorMessage () {
+    descriptionErrorMessage() {
       if (!this.$v.description.required) {
-        return 'Esse campo é requerido'
+        return "Esse campo é requerido";
       }
-      return '';
+      return "";
     },
-    linkErrorMessage () {
+    linkErrorMessage() {
       if (!this.$v.link.url) {
-        return 'Entre com uma url válida'
+        return "Entre com uma url válida";
       }
-      return '';
+      return "";
     },
-    facebookErrorMessage () {
+    facebookErrorMessage() {
       if (!this.$v.facebook.url) {
-        return 'Entre com uma url válida'
+        return "Entre com uma url válida";
       }
-      return '';
+      return "";
     },
-    instagramErrorMessage () {
+    instagramErrorMessage() {
       if (!this.$v.instagram.url) {
-        return 'Entre com uma url válida'
+        return "Entre com uma url válida";
       }
-      return '';
+      return "";
     },
-    twitterErrorMessage () {
+    twitterErrorMessage() {
       if (!this.$v.twitter.url) {
-        return 'Entre com uma url válida'
+        return "Entre com uma url válida";
       }
-      return '';
+      return "";
     },
-    whatsappErrorMessage () {
-      return '';
+    whatsappErrorMessage() {
+      return "";
     },
-    filesErrorMessage () {
+    filesErrorMessage() {
       if (!this.$v.files.required) {
-        return 'É necessário uma imagem.'
+        return "É necessário uma imagem.";
       }
-      return '';
+      return "";
     },
     // mascara para telefone
     phoneMask() {
       if (this.phone === null || this.phone === undefined) {
-        console.log('phone undefined');
+        console.log("phone undefined");
         return false;
       }
-      let str = '';
+      let str = "";
       const p = this.phone;
-      console.log('p', this.phone);
+      console.log("p", this.phone);
       const ddd = p.slice(0, 2);
       const prefix = p.slice(2, 7);
       const sufix = p.slice(7, 11);
-      str = str.concat(ddd).concat('').concat(prefix).concat(' ')
-        .concat(sufix);
+      str = str.concat(ddd).concat("").concat(prefix).concat(" ").concat(sufix);
       console.log(str);
       return str;
     },
   },
   created() {},
   methods: {
-    confirmCreate(){
-      if (this.waiting) return;
-      this.waiting = true;
+    confirmCreate() {
       this.$v.$touch();
       if (!this.$v.$anyError) {
-        this.$store.dispatch('images/uploadArray', { files: this.files })
+        if (this.waiting) return;
+        this.waiting = true;
+        this.$store
+          .dispatch("images/uploadArray", { files: this.files })
           .then((fileIds) => {
-            console.log('image: ', fileIds);
+            console.log("image: ", fileIds);
             this.images = fileIds;
-            this.$store.dispatch('pins/postPin',  { $router: this.$router} );
+            this.$store.dispatch("pins/postPin", { $router: this.$router });
             this.waiting = false;
           })
-          .catch ((error) => {
+          .catch((error) => {
             this.waiting = false;
             console.log(error);
           });
@@ -522,20 +502,17 @@ export default {
     },
     updateFiles(files) {
       if (Array.isArray(files) === false || files.length === 0) {
-        this.files = null
-      }
-      else if (Array.isArray(this.files) === true) {
-        const diff = this.files.filter(file => files.indexOf(file) === -1)
-        
+        this.files = null;
+      } else if (Array.isArray(this.files) === true) {
+        const diff = this.files.filter((file) => files.indexOf(file) === -1);
+
         if (diff.length === 1 && this.files.length > 1) {
-          this.files = files.slice()
+          this.files = files.slice();
+        } else if (this.files.length < 3) {
+          this.files = diff.concat(files);
         }
-        else if (this.files.length < 3) {
-          this.files = diff.concat(files)
-        }
-      }
-      else {
-        this.files = files.slice()
+      } else {
+        this.files = files.slice();
       }
     },
     showForm() {
@@ -543,29 +520,37 @@ export default {
         this.lastStep = 0;
         this.active = true;
         const a = this;
-        setTimeout(() => { a.step = 1; }, 800);
-        console.log('iniciando primeira edição', this.lastStep, this.step);
+        setTimeout(() => {
+          a.step = 1;
+        }, 800);
+        console.log("iniciando primeira edição", this.lastStep, this.step);
       }
     },
     reEdit() {
       this.lastStep = 2;
       const a = this;
-      setTimeout(() => { a.step = 1; }, 1000);
-      console.log('reeditando', this.lastStep, this.step);
+      setTimeout(() => {
+        a.step = 1;
+      }, 1000);
+      console.log("reeditando", this.lastStep, this.step);
     },
     cancelEdit() {
-      console.log('cancelando', this.lastStep, this.step);
+      console.log("cancelando", this.lastStep, this.step);
       if (this.lastStep === 0) {
         this.active = false;
         const a = this;
-        setTimeout(() => { a.step = 0; }, 1000);
+        setTimeout(() => {
+          a.step = 0;
+        }, 1000);
         this.lastStep = 1;
-        console.log('cancelando primeira edição', this.lastStep);
+        console.log("cancelando primeira edição", this.lastStep);
       }
       if (this.lastStep === 2) {
         const a = this;
-        setTimeout(() => { a.step = 2; }, 1000);
-        console.log('cancelando reedição');
+        setTimeout(() => {
+          a.step = 2;
+        }, 1000);
+        console.log("cancelando reedição");
         this.lastStep = 2;
       }
     },
@@ -577,13 +562,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/variables.scss';
-@import '../styles/mixins.scss';
+@import "../styles/variables.scss";
+@import "../styles/mixins.scss";
 
-.box{
+.box {
   padding: 16px;
 }
-
 
 .input {
   width: 100%;
@@ -591,7 +575,6 @@ export default {
   font-weight: bold;
   margin-top: -8px;
 }
-
 
 .f-size {
   font-size: 0.9rem;
@@ -604,5 +587,4 @@ span {
 .row.justify-between .column {
   width: 48%;
 }
-
 </style>

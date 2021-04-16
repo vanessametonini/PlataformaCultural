@@ -489,10 +489,10 @@ export default {
       };
     },
     confirmCreate() {
-      if (this.waiting) return;
-      this.waiting = true;
       this.$v.$touch();
       if (!this.$v.$anyError) {
+        if (this.waiting) return;
+        this.waiting = true;
         this.$store
           .dispatch("images/uploadArray", { files: this.files })
           .then((fileIds) => {

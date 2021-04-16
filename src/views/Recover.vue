@@ -8,10 +8,7 @@
       <div class="card column">
         <span class="title title-3 bolder"> Digite seu email </span>
 
-        <div
-          v-if="errorMessage !== null"
-          class="error-field"
-        >
+        <div v-if="errorMessage !== null" class="error-field">
           <span class="error-message">* {{ errorMessage }}</span>
         </div>
 
@@ -29,16 +26,10 @@
             lazy-rules
             @blur="$v.email.$touch"
           />
-
         </div>
 
         <div class="links column">
-          <q-btn
-            flat
-            class="btn"
-            color="white"
-            @click="submit()"
-          >
+          <q-btn flat class="btn" color="white" @click="submit()">
             <span class="body-3 bold">Recuperar</span>
           </q-btn>
         </div>
@@ -48,66 +39,66 @@
 </template>
 
 <script>
-import { createHelpers } from 'vuex-map-fields';
+import { createHelpers } from "vuex-map-fields";
 const { mapFields } = createHelpers({
-  getterType: 'users/getField',
-  mutationType: 'users/updateField',
+  getterType: "users/getField",
+  mutationType: "users/updateField",
 });
-import { email, required } from 'vuelidate/lib/validators';
+import { email, required } from "vuelidate/lib/validators";
 
 export default {
-  name: 'RecoverPage',
+  name: "RecoverPage",
   data() {
     return {
       waiting: false,
       errorMessage: null,
-    }
+    };
   },
   validations: {
     email: {
       required,
       email,
-    }
+    },
   },
   computed: {
     ...mapFields({
-      email: 'emailRecover'
+      email: "emailRecover",
     }),
-    emailErrorMessage () {
+    emailErrorMessage() {
       if (!this.$v.email.required) {
-        return 'Preencha seu email'
+        return "Preencha seu email";
       } else if (!this.$v.email.email) {
-        return 'Por favor insira um email válido'
+        return "Por favor insira um email válido";
       }
-      return ''
-    }
+      return "";
+    },
   },
   methods: {
     async submit() {
-      if (this.waiting) return;
-      this.waiting = true;
       if (!this.$v.$anyError) {
-        this.$store.dispatch('users/sendEmailRecover')
-          .then(()=>{
+        if (this.waiting) return;
+        this.waiting = true;
+        this.$store
+          .dispatch("users/sendEmailRecover")
+          .then(() => {
             this.$q.notify({
-              message: 'Confira sua caixa de entrada',
-              color: 'Black'
-            })
+              message: "Confira sua caixa de entrada",
+              color: "Black",
+            });
             this.waiting = false;
           })
-          .catch(()=>{
+          .catch(() => {
             this.waiting = false;
-          })
-        
+          });
       }
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/mixins.scss';
-@import '../styles/variables.scss';
+@import "../styles/mixins.scss";
+@import "../styles/variables.scss";
 
 * {
   margin: 0;
@@ -161,12 +152,12 @@ export default {
 }
 
 @keyframes fadeInOpacity {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .card {
@@ -178,7 +169,7 @@ export default {
   margin-top: 32px;
   // border: 2px solid green;
 
-   @include for-phone-only {
+  @include for-phone-only {
     width: 80%;
   }
 
@@ -266,7 +257,6 @@ export default {
 .btn span {
   // text-transform: lowercase;
   font-weight: bolder;
-  font-size: .875rem;
+  font-size: 0.875rem;
 }
-
 </style>
