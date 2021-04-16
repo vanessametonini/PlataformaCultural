@@ -1,6 +1,6 @@
 const state = {
   isConnected: false,
-  socketMessage: ''
+  waiting: false,
 };
 
 export default state;

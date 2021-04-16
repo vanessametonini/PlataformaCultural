@@ -23,7 +23,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
 
 Vue.use(new VueSocketIO({
-  debug: true,
+  debug: process.env.VUE_APP_DEBUG_SOCKET,
   connection: process.env.VUE_APP_BASE_URL,
   vuex: {
       store,

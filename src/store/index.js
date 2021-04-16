@@ -18,7 +18,7 @@ import MUTATIONS from './mutations';
 Vue.use(Vuex);
 
 const store = new Store({
-  devtools: true,
+  devtools: process.env.VUE_APP_DEV_TOOLS,
   // plugins: [
   //   createPersistedState(),
   // ],

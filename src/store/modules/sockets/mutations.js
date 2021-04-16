@@ -5,10 +5,15 @@ const mutations = {
 
   SOCKET_disconnect(state) {
     state.isConnected = false;
+    state.waiting = false;
   },
 
-  SOCKET_msgToClient(state, message) {
-    state.socketMessage = message
+  SET_WAITING(state) {
+    state.waiting = true;
+  },
+
+  RESET_WAITING(state) {
+    state.waiting = false;
   },
 
 };

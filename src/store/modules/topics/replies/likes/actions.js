@@ -3,7 +3,6 @@ import { Notify } from 'quasar';
 const actions = {
 
   SOCKET_newLikeToClient({ commit, rootGetters }, like) {
-    console.log(like);
     if (rootGetters['topics/getCurrentTopic']?.id === like.topicId) {
       commit('ADD_CURRENT_TOPIC_REPLY_LIKE', like);
     }
@@ -33,10 +32,13 @@ const actions = {
       message,
       position: 'bottom-right',
     })
-
+    commit('sockets/RESET_WAITING', {}, {root: true});
   },
 
-  createLike({ rootGetters }, { reply, $socket }) {
+  createLike({ commit, rootGetters }, { reply, $socket }) {
+    if (rootGetters['sockets/getWaiting'])
+      return;
+    commit('sockets/SET_WAITING', {}, {root: true});
     const currentUser = rootGetters['users/getCurrentUser'];
     const {
       id,

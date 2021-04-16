@@ -1,5 +1,5 @@
 const getters = {
-  getSocket: ({ socket }) => socket,
+  getWaiting: ({ waiting }) => waiting,
 };
 
 export default getters;
