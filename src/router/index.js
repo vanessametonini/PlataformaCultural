@@ -71,7 +71,7 @@ const routes = [
     },
   },
   {
-    path: '/topics', // todos os tópicos (debates)
+    path: '/topics',
     name: 'Topics',
     component: () => import('../views/Topics.vue'),
     meta: {
@@ -79,7 +79,7 @@ const routes = [
     },
   },
   {
-    path: '/topics/createTopic', // todos os tópicos (debates)
+    path: '/topics/createTopic',
     name: 'CreateTopic',
     component: () => import('../views/CreateTopic.vue'),
     meta: {
@@ -87,7 +87,7 @@ const routes = [
     },
   },
   {
-    path: '/topics/:topicId', // página de um tópico
+    path: '/topics/:topicId',
     name: 'TopicPage',
     component: () => import('../views/TopicPage.vue'),
     meta: {
@@ -95,9 +95,17 @@ const routes = [
     },
   },
   {
-    path: '/reset-password/:recoverToken', // página de um tópico
+    path: '/reset-password/:recoverToken', 
     name: 'ResetPasswordPage',
     component: () => import('../views/ResetPassword.vue'),
+    meta: {
+      requiresAuth: false,
+    },
+  },
+  {
+    path: '/confirm-email/:confirmToken', 
+    name: 'ConfirmEmailPage',
+    component: () => import('../views/ConfirmEmail.vue'),
     meta: {
       requiresAuth: false,
     },

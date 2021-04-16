@@ -9,7 +9,13 @@ const actions = {
       .then((response) => response)
       .catch((error) => error);
   },
-  
+
+  confirmEmail({ dispatch }, { confirmToken }) {
+    return dispatch('services/GET', { uri: `auth/confirm/${confirmToken}` }, { root: true })
+      .then((response) => response)
+      .catch((error) => error);
+  },
+
 
   resetPassword({ state, dispatch }, { token }) {
     dispatch('services/POST', { uri: `auth/reset-password/${token}`, data: state.resetPassword }, { root: true })
