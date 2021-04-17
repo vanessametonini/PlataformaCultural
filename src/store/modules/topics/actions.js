@@ -91,7 +91,6 @@ const actions = {
     dispatch,
     rootGetters,
   }, { data }) {
-    dispatch('setKey');
     const replyId = state.key;
     const userRef = rootGetters['users/getUserReference'];
     const today = new Date();
@@ -143,17 +142,6 @@ const actions = {
   getReplyTag({ state }, { replyTagId }) {
     const data = state.currentTopicReplies.find((el) => el.id === replyTagId);
     return data;
-  },
-
-  // OK
-  setKey({ commit }) {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let autoId = '';
-    for (let i = 0; i < 20; i += 1) {
-      autoId += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    const key = autoId;
-    commit('SET_KEY', { newKey: key });
   },
 };
 

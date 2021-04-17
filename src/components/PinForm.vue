@@ -496,7 +496,25 @@ export default {
           .then((fileIds) => {
             console.log("image: ", fileIds);
             this.images = fileIds;
-            this.$store.dispatch("pins/postPin", { $router: this.$router });
+            this.$store.dispatch("pins/postPin", { $router: this.$router })
+              .then(()=>{
+                this.categoryId = '';
+                this.title = '';
+                this.email = '';
+                this.phone = '';
+                this.street = '';
+                this.number = '';
+                this.neighborhood = '';
+                this.city = '';
+                this.cep = '';
+                this.description = '';
+                this.images = '';
+                this.link = '';
+                this.facebook = '';
+                this.instagram = '';
+                this.twitter = '';
+                this.whatsapp = '';
+              });
             this.waiting = false;
           })
           .catch((error) => {

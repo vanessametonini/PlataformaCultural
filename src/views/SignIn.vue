@@ -120,8 +120,14 @@ export default {
   },
   methods: {
     async submit() {
+      this.$v.$touch();
       if (!this.$v.$anyError) {
-        if (this.waiting) return;
+        if (this.waiting) {
+          this.$q.notify({
+            message: "Por favor, aguarde.",
+          });
+          return;
+        }
         this.waiting = true;
         await this.$store
           .dispatch("users/retrieveToken", {
@@ -139,6 +145,8 @@ export default {
             } else {
               this.$router.push({ name: "Profile" });
             }
+            this.email = '';
+            this.password = '';
             this.waiting = false;
           })
           .catch((error) => {
@@ -160,9 +168,12 @@ export default {
                 color: "Black",
               });
             }
-            console.log("signIn/submit", error.message);
             this.waiting = false;
           });
+      } else {
+        this.$q.notify({
+          message: "Por favor, preencha os campos corretamente.",
+        });
       }
     },
   },

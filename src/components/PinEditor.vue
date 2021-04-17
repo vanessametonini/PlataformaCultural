@@ -483,7 +483,6 @@ export default {
       this.step = 2;
       // const a = this;
       // setTimeout(() => { a.step = 2; }, 1000);
-      console.log('funfou');
       this.$store.dispatch({ type: 'addPin', payload });
     },
     expand() {

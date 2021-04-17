@@ -75,21 +75,28 @@ export default {
   },
   methods: {
     async submit() {
+      this.$v.$touch();
       if (!this.$v.$anyError) {
-        if (this.waiting) return;
+        if (this.waiting) {
+          this.$q.notify({
+            message: "Por favor, aguarde.",
+          });
+          return;
+        }
         this.waiting = true;
         this.$store
           .dispatch("users/sendEmailRecover")
           .then(() => {
-            this.$q.notify({
-              message: "Confira sua caixa de entrada",
-              color: "Black",
-            });
+            this.email = '';
             this.waiting = false;
           })
           .catch(() => {
             this.waiting = false;
           });
+      } else {
+        this.$q.notify({
+          message: "Por favor, preencha o campo corretamente.",
+        });
       }
     },
   },

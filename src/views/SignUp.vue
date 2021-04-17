@@ -686,7 +686,12 @@ export default {
     submit(){
       this.$v.$touch();
       if (!this.$v.$anyError) {
-        if (this.waiting) return;
+        if (this.waiting) {
+          this.$q.notify({
+            message: "Por favor, aguarde.",
+          });
+          return;
+        }
         this.waiting = true;
         this.loading = true;
         this.$store.dispatch('images/upload', { file: this.model })
@@ -715,6 +720,19 @@ export default {
               message: 'Verifique sua caixa de entrada',
               color: 'Black'
             })
+            this.firstName = '';
+            this.lastName = '';
+            this.email = '';
+            this.password = '';
+            this.confirmPassword = '';
+            this.isValid = '';
+            this.isAdmin = '';
+            this.categoryId = '';
+            this.gender = '';
+            this.otherGender = '';
+            this.ageRange = '';
+            this.education = '';
+            this.avatarId = '';
             this.waiting = false;
           })
           .catch ((error) => {
@@ -727,6 +745,10 @@ export default {
         })
         .catch ((error) => {
             console.log(error);
+        });
+      } else {
+        this.$q.notify({
+          message: "Por favor, preencha os campos corretamente.",
         });
       }
     },

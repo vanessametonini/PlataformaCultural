@@ -124,8 +124,14 @@ export default {
   },
   methods: {
     async submit() {
+      this.$v.$touch();
       if (!this.$v.$anyError) {
-        if (this.waiting) return;
+        if (this.waiting) {
+          this.$q.notify({
+            message: "Por favor, aguarde.",
+          });
+          return;
+        }
         this.waiting = true;
         console.log("recover Token: ", this.$route.params.recoverToken);
         this.$store
@@ -133,12 +139,14 @@ export default {
             token: this.$route.params.recoverToken,
           })
           .then((response) => {
+            this.password = '';
+            this.passwordConfirmation= '';
+            this.waiting = false;
             this.$router.push({ name: "SignIn" });
-            this.waiting = true;
           })
           .catch((error) => {
             console.log(error);
-            this.waiting = true;
+            this.waiting = false;
           });
       }
     },
