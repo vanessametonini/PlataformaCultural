@@ -484,7 +484,12 @@ export default {
     confirmCreate() {
       this.$v.$touch();
       if (!this.$v.$anyError) {
-        if (this.waiting) return;
+        if (this.waiting) {
+          this.$q.notify({
+            message: "Por favor, aguarde.",
+          });
+          return;
+        }
         this.waiting = true;
         this.$store
           .dispatch("images/uploadArray", { files: this.files })
@@ -498,6 +503,10 @@ export default {
             this.waiting = false;
             console.log(error);
           });
+      } else {
+        this.$q.notify({
+          message: "Por favor, preencha os campos corretamente.",
+        });
       }
     },
     updateFiles(files) {

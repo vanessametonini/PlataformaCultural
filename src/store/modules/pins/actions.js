@@ -1,9 +1,10 @@
+import { Notify } from 'quasar';
+
 const actions = {
   loadPins({ commit, dispatch }) {
     dispatch('services/GET', { uri: 'pins' }, { root: true })
       .then((response) => {
         commit('SET_PINS_LIST', response.data);
-        // commit('SET_PINS_LIST_FILTERED', response.data);
       })
       .catch((error) => error);
   },
@@ -27,12 +28,21 @@ const actions = {
       ...rootState.pins.pinForm,
       userId: rootState.users.currentUser.id,
     };
-    console.log(data);
-    dispatch('services/POST', { uri: 'pins', data }, { root: true })
+    const notif = Notify.create({
+      group: false,
+      spinner: true,
+      message: 'Cadastrando pin...',
+    })
+    return dispatch('services/POST', { uri: 'pins', data }, { root: true })
       .then((response) => {
         commit('ADD_PIN', { ...data, ...response.data });
         commit('SET_SELECTED_PIN_ID', response.data.id);
         commit('ADD_SELECTED_CATEGORY', data.categoryId);
+        notif({
+          icon: 'done',
+          spinner: false,
+          message: 'Pin cadastrado!',
+        })
         $router.push({ name: 'Home' });
         const newPosition = [response.data.lat, response.data.long];
         const oldPosition = { ...rootGetters['maps/getCenter'] };
@@ -48,7 +58,14 @@ const actions = {
         }, 3);
         return response;
       })
-      .catch((error) => error);
+      .catch((error) => {
+        notif({
+          type: 'negative',
+          spinner: false,
+          message: 'Não foi possível cadastrar seu pin.',
+        })
+        return error;
+      });
   },
 };
 
