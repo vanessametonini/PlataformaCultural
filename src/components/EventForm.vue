@@ -272,15 +272,6 @@
             <q-icon name="create_new_folder" @click.stop />
           </template>
           <template #hint> Tamanho máximo de 2MB </template>
-          <!-- <template #after>
-            <q-btn
-              round
-              dense
-              flat
-              icon="send"
-              @click="sendImages"
-            />
-          </template> -->
         </q-file>
       </div>
     </div>
@@ -346,16 +337,12 @@ export default {
       required,
     },
     street: {
-      required,
     },
     neighborhood: {
-      required,
     },
     number: {
-      required,
     },
     zipcode: {
-      required,
       minLength: minLength(8),
     },
     description: {
@@ -421,27 +408,16 @@ export default {
       return "";
     },
     streetErrorMessage() {
-      if (!this.$v.street.required) {
-        return "Esse campo é requerido";
-      }
       return "";
     },
     neighborhoodErrorMessage() {
-      if (!this.$v.neighborhood.required) {
-        return "Esse campo é requerido";
-      }
       return "";
     },
     numberErrorMessage() {
-      if (!this.$v.number.required) {
-        return "Esse campo é requerido";
-      }
       return "";
     },
     zipcodeErrorMessage() {
-      if (!this.$v.zipcode.required) {
-        return "Esse campo é requerido";
-      } else if (!this.$v.zipcode.minLength) {
+      if (!this.$v.zipcode.minLength) {
         return "Entre com um cep válido";
       }
       return "";
@@ -481,7 +457,6 @@ export default {
       }
     },
     cancelCreate() {
-      // cancela criação do evento ou edição de shortEvent
       this.category = {
         label: "",
         value: "",
@@ -491,14 +466,18 @@ export default {
     confirmCreate() {
       this.$v.$touch();
       if (!this.$v.$anyError) {
-        if (this.waiting) return;
+        if (this.waiting){
+          this.$q.notify({
+            message: "Por favor, aguarde.",
+          });
+          return;
+        };
         this.waiting = true;
         this.$store
           .dispatch("images/uploadArray", { files: this.files })
           .then((fileIds) => {
             this.images = fileIds;
             this.$store.dispatch("events/createNewEvent").then(() => {
-              this.name = "";
               this.date = "";
               this.time = "";
               this.ticket = "";
@@ -521,6 +500,10 @@ export default {
             console.log(error);
             this.waiting = false;
           });
+      } else {
+        this.$q.notify({
+          message: "Por favor, preencha os campos corretamente.",
+        });
       }
     },
   },

@@ -1,6 +1,5 @@
-import api from '../../../apiClient';
+import { Notify } from 'quasar';
 
-const token = localStorage.getItem('access_token');
 const actions = {
 
   createNewEvent({
@@ -9,16 +8,20 @@ const actions = {
     dispatch,
     rootGetters,
   }) {
+
+    const notif = Notify.create({
+      group: false,
+      spinner: true,
+      message: 'Cadastrando evento...',
+    });
+
     const event = {
       ...getters.getEventForm,
       userId: rootGetters['users/getCurrentUser'].id,
-      // createdAt: rootGetters.date,
+      createdAt: new Date(),
     };
     const datearray = event.date.split('/');
     event.date = new Date(`${datearray[2]}/${datearray[1]}/${datearray[0]} ${event.time}:00`)
-    // event.dateTime = `${datearray[2]}/${datearray[1]}/${datearray[0]} ${event.time}:00`;
-    // delete event.date;
-    // delete event.time;
     dispatch('services/POST', { uri: 'events', data: event }, { root: true })
       .then((response) => {
         const payload = {
@@ -29,15 +32,27 @@ const actions = {
           time: rootGetters.formatTime(event.date),
           dateTime: event.date
         }
-        commit('ADD_EVENT_LIST', payload );
+        commit('ADD_EVENT_LIST', payload);
+        notif({
+          icon: 'done',
+          spinner: false,
+          message: 'Evento cadastrado!',
+        })
       })
-      .catch((error) => error);
+      .catch((error) => {
+        notif({
+          type: 'negative',
+          spinner: false,
+          message: 'Não foi possível cadastrar seu pin.',
+        });
+        return error;
+      });
   },
 
   loadEvents({ commit, dispatch, rootGetters }) {
     dispatch('services/GET', { uri: 'events' }, { root: true })
       .then(async (response) => {
-        const eventsArray = response.data.map((event)=> {
+        const eventsArray = response.data.map((event) => {
           return dispatch('services/GET', { uri: `users/${event.userId}` }, { root: true })
             .then((response) => {
               const date = rootGetters.formatDate(event.date);
@@ -51,97 +66,13 @@ const actions = {
                 dateTime: event.date
               }
             })
-          });
+        });
         const events = await Promise.all(eventsArray);
-        // const events = response.data.map((event) => {
-        //   const date = rootGetters.formatDate(event.date);
-        //   const time = rootGetters.formatTime(event.date);
-        //   return {
-        //     ...event,
-        //     images: event.imageIds,
-        //     date,
-        //     time,
-        //     dateTime: event.date
-        //   };
-        // });
         commit('SET_EVENTS_LIST', events);
       })
-      .catch((error) => error);
-  },
-
-  loadInitialEvents({ commit }, { type, pagination }) {
-    return new Promise((resolve, reject) => {
-      api.get('/getInitialEvents', {
-        params: {
-          type,
-          pagination,
-        },
-        headers: {
-          Autrhorization: `token ${token}`,
-        },
-      })
-        .then((response) => {
-          commit('SET_TOPICS_LIST', response.data);
-          resolve(response);
-        })
-        .catch((error) => reject(error));
-    });
-  },
-  // AWAIT API IMPLEMENT
-  loadMoreEvents({ commit }, { type, pagination }) {
-    return new Promise((resolve, reject) => {
-      api.get('/getMoreEvents', {
-        params: {
-          type,
-          pagination,
-        },
-        headers: {
-          Autrhorization: `token ${token}`,
-        },
-      })
-        .then((response) => {
-          commit('SET_TOPICS_LIST', response.data);
-          resolve(response);
-        })
-        .catch((error) => reject(error));
-    });
-  },
-
-  updateEvent({ commit }, { eventId, newData }) {
-    return new Promise((resolve, reject) => {
-      api.patch('/updateEvent', {
-        body: {
-          eventId,
-          newData,
-        },
-        headers: {
-          Autrhorization: `token ${token}`,
-        },
-      })
-        .then((response) => {
-          commit('UPDATE_EVENT', response.data);
-          resolve(response);
-        })
-        .catch((error) => reject(error));
-    });
-  },
-
-  deleteEvent({ commit }, { eventId }) {
-    return new Promise((resolve, reject) => {
-      api.post('/deleteEvent', {
-        body: {
-          eventId,
-        },
-        headers: {
-          Autrhorization: `token ${token}`,
-        },
-      })
-        .then((response) => {
-          commit('DELETE_EVENT', response.data);
-          resolve(response);
-        })
-        .catch((error) => reject(error));
-    });
+      .catch((error) => {
+        return error;
+      });
   },
 };
 

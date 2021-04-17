@@ -24,15 +24,18 @@ const actions = {
     rootState,
     rootGetters,
   }, { $router }) {
-    const data = {
-      ...rootState.pins.pinForm,
-      userId: rootState.users.currentUser.id,
-    };
+    
     const notif = Notify.create({
       group: false,
       spinner: true,
       message: 'Cadastrando pin...',
-    })
+    });
+
+    const data = {
+      ...rootState.pins.pinForm,
+      userId: rootState.users.currentUser.id,
+    };
+
     return dispatch('services/POST', { uri: 'pins', data }, { root: true })
       .then((response) => {
         commit('ADD_PIN', { ...data, ...response.data });

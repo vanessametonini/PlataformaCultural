@@ -3,9 +3,10 @@
     class="user-card"
     role="button"
     @click="$emit('card-click')"
+    :style="{ 'background-color': $store.getters['categories/getCategoryById'](user.categoryId).color }"
   >
     <h3>
-      {{ `${user.firstName} ${user.lastName}` }}
+      {{ `${user.firstName||''} ${user.lastName||''}` }}
     </h3>
   </div>
 </template>

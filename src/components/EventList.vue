@@ -98,9 +98,6 @@ export default {
     window.addEventListener('resize', this.handleResize);
     this.handleResize();
   },
-  beforeMount() {
-    // this.getInitialTopics('mostRecents');
-  },
   mounted() {
     this.$nextTick(function scrollListener() {
       window.addEventListener('scroll', this.onScroll);
@@ -114,44 +111,6 @@ export default {
     window.removeEventListener('resize', this.handleResize);
   },
   methods: {
-    changeFilter(type) {
-      // click in filter options  trigger this action
-      if (type !== this.lastFilter) {
-        this.currentFilter = type; // used to set logic getMoreTopics.
-        this.lastFilter = type; // used to call getInitialTopics whenever filter changes
-        this.streamCount = 0;
-        this.getInitialTopics(type);
-      } else {
-        console.log('filter dont changed');
-      }
-    },
-    getInitialTopics(type) {
-      this.$store.dispatch('events/loadInitialEvents', {
-        type,
-        streamCount: 0,
-      })
-        .then((response) => {
-          this.streamCount = 1; // records the value of the new streamCount
-          this.eventsLoaded.push(response.data);
-        })
-        .catch((error) => {
-          console.log('EventList/getInitialEvents - ERROR', error.message);
-        });
-    },
-    getMoreTopics() {
-      // stream continue get 'currentFilter' and increment streamCount
-      this.$store.dispatch('events/loadMoreEvents', {
-        type: this.currentFilter, // {}
-        streamCount: this.streamCount,
-      })
-        .then((response) => {
-          this.streamCount += 1; // increment
-          this.eventsLoaded.push(response.data);
-        })
-        .catch((error) => {
-          console.log('EventList/getMoreEvents - ERROR', error.message);
-        });
-    },
     onScroll() {
       window.onscroll = () => {
         const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
