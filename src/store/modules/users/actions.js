@@ -124,7 +124,7 @@ const actions = {
           notif({
             icon: 'done',
             spinner: false,
-            message: 'Credenciais confirmadas! Bem vindo!',
+            message: `Credenciais confirmadas! Bem vind${user.gender==='Feminino'?'a':'o'}!`,
           })
           resolve(response);
         })
