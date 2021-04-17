@@ -22,8 +22,6 @@ import VueSocketIO from 'vue-socket.io'
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
 
-Vue.config.devtools = process.env.VUE_APP_DEV_TOOLS === "true";
-
 Vue.use(new VueSocketIO({
   debug: process.env.VUE_APP_DEBUG_SOCKET  === "true",
   connection: process.env.VUE_APP_BASE_URL,
@@ -32,7 +30,6 @@ Vue.use(new VueSocketIO({
       actionPrefix: 'SOCKET_',
       mutationPrefix: 'SOCKET_'
   },
-  // options: { path: "/my-app/" } //Optional options
 }))
 
 Vue.use(VueAnalytics, {
@@ -54,8 +51,8 @@ Vue.mixin(titleMixin)
 Vue.use(VueMasonry);
 Vue.use(Vuelidate);
 Vue.use(VueRouter);
-Vue.config.productionTip = false;
-Vue.config.devtools = true;
+Vue.config.productionTip = process.env.VUE_APP_DEV_TOOLS === "false";
+Vue.config.devtools = process.env.VUE_APP_DEV_TOOLS === "true";
 
 
 new Vue({
