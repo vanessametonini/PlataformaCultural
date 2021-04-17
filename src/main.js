@@ -22,6 +22,8 @@ import VueSocketIO from 'vue-socket.io'
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
 
+Vue.config.devtools = process.env.VUE_APP_DEV_TOOLS === "true";
+
 Vue.use(new VueSocketIO({
   debug: process.env.VUE_APP_DEBUG_SOCKET  === "true",
   connection: process.env.VUE_APP_BASE_URL,
