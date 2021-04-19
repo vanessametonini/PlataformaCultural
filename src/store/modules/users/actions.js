@@ -31,14 +31,14 @@ const actions = {
     const notif = Notify.create({
       group: false,
       spinner: true,
-      message: 'Enviando email de confirmação...',
+      message: 'Confirmando seu email...',
     });
     return dispatch('services/GET', { uri: `auth/confirm/${confirmToken}` }, { root: true })
       .then((response) => {
         notif({
           icon: 'done',
           spinner: false,
-          message: 'Email de confirmação enviado!',
+          message: `Email confirmado! Bem vind${response.data.user.gender === 'Feminino' ? 'a' : 'o'}!`,
         })
         return response;
       })
@@ -46,7 +46,7 @@ const actions = {
         notif({
           type: 'negative',
           spinner: false,
-          message: 'Não foi possível enviar um email de confirmação.',
+          message: 'Não foi possível confirmar seu email.',
         })
         return error;
       });
@@ -67,6 +67,9 @@ const actions = {
           message: 'Email de recuperação enviado!',
         })
         Notify.create({
+          message: 'Enviamos um email de confirmação.',
+        });
+        Notify.create({
           message: 'Confira sua caixa de entrada.',
         });
         return response;
@@ -78,26 +81,57 @@ const actions = {
           message: 'Não foi possível enviar um email de recuperação.',
         })
         return error;
-      }); 
+      });
   },
 
-  signUp({ dispatch }, { credentials }) {
-    const notif = Notify.create({
+  signUp({ getters, dispatch }, { file }) {
+    const notif1 = Notify.create({
       group: false,
       spinner: true,
       message: 'Estamos cadastrando seu perfil..',
     });
-    dispatch('services/POST', { uri: 'auth/signup', data: credentials }, { root: true })
-      .then((response) => {
-        notif({
+    dispatch('services/POST', { uri: 'auth/signup', data: getters.getSignUpForm }, { root: true })
+      .then(async (response) => {
+        const notif2 = Notify.create({
+          group: false,
+          spinner: true,
+          message: 'Enviando avatar...',
+        });
+        await dispatch('images/uploadAvatar', { file, userId: response.data.id }, { root: true })
+          .then((response) => {
+            notif2({
+              icon: 'done',
+              spinner: false,
+              message: 'Avatar enviado!',
+            })
+          })
+          .catch((error) => {
+            notif2({
+              type: 'negative',
+              spinner: false,
+              message: 'Não foi possível enviar seu avatar!',
+            })
+            return error;
+          });
+        notif1({
           icon: 'done',
           spinner: false,
           message: 'Perfil cadastrado!',
         })
+        Notify.create({
+          message: 'Enviamos um email de confirmação!',
+        });
+        Notify.create({
+          message: 'Verifique sua caixa de entrada!',
+        });
         return response;
       })
       .catch((error) => {
-        notif({
+        if(error.response.data.statusCode === 409)
+          Notify.create({
+            message: 'Este email já está cadastrado',
+          });
+        notif1({
           type: 'negative',
           spinner: false,
           message: 'Não foi possível cadastrar seu perfil.',
@@ -116,15 +150,15 @@ const actions = {
       dispatch('services/POST', { uri: 'auth/login', data: credentials }, { root: true })
         .then(async (response) => {
           const user = response.data.user
-          if(user.confirmToken === null){
-            commit('SET_AUTHENTICATION',{}, {root: true});
+          if (user.confirmToken === null) {
+            commit('SET_AUTHENTICATION', {}, { root: true });
             commit('services/STORAGE_TOKEN', response.data.token, { root: true });
-            await dispatch('initStore', { }, { root: true })
+            await dispatch('initStore', {}, { root: true })
           }
           notif({
             icon: 'done',
             spinner: false,
-            message: `Credenciais confirmadas! Bem vind${user.gender==='Feminino'?'a':'o'}!`,
+            message: `Credenciais confirmadas! Bem vind${user.gender === 'Feminino' ? 'a' : 'o'}!`,
           })
           resolve(response);
         })

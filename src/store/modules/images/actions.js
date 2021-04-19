@@ -9,6 +9,13 @@ const actions = {
       .then((response) => response.data)
       .catch((error) => error);
   },
+  uploadAvatar({ dispatch, rootGetters },  { file, userId } ) {
+    var bodyFormData = new FormData();
+    bodyFormData.append('file', file);
+    return dispatch('services/POST', { uri: `attachment/files/images/avatar/${userId}`, data: bodyFormData, httpConfigs: { headers: { "Content-Type": "multipart/form-data" } } }, { root: true })
+      .then((response) => response.data)
+      .catch((error) => error);
+  },
   async uploadArray({ dispatch }, { files }) {
     const notif = Notify.create({
       group: false,

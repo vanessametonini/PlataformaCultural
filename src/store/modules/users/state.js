@@ -4,6 +4,22 @@ const state = {
     passwordConfirmation: ''
   },
   emailRecover: '',
+  signUpForm: {
+    firstName: '',
+    lastName: '',
+    email: '',
+    emailConfirmation: '',
+    password: '',
+    confirmPassword: '',
+    isValid: true,
+    isAdmin: false,
+    categoryId: '',
+    gender: '',
+    otherGender: '',
+    ageRange: '',
+    education: '',
+    avatarId: null,
+  },
   userForm: {
     ageRange:'',
     avatar:'',

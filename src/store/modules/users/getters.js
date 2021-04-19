@@ -10,6 +10,7 @@ const getters = {
   isAdmin(state) {
     return (state.isAdmin !== null);
   },
+  getSignUpForm: ({ signUpForm }) => signUpForm,
   getCurrentUser: (state) => state.currentUser,
   getMyPin: (state) => state.myPin,
   getMyPinState: (state) => state.myPin !== null,

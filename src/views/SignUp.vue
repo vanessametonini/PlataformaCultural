@@ -1,9 +1,6 @@
 <template>
   <div class="app-page">
-    <form
-      ref="content"
-      class="content-center column bg-change"
-    >
+    <form ref="content" class="content-center column bg-change">
       <!-- identity (seal) -->
       <logo-card class="header" />
 
@@ -13,58 +10,54 @@
       <!-- info -->
       <div class="info">
         <div class="column mg-top16">
-          <span class="title-2 bolder">Cartografia da Cultura - Campo Grande</span>
+          <span class="title-2 bolder"
+            >Cartografia da Cultura - Campo Grande</span
+          >
           <span class="body-3 mg-top16">
-            Para o Fórum Municipal de Cultura é muito importante que você, sendo classe artística, produtor cultural,
-            instituição ou responsável por estabelecimento, que promova arte e cultura na cidade, participe desta plataforma.
-            A cartografia da cultura é uma maneira de dar voz e visibilidade a todos que produzem arte e cultura, sem hierarquias
+            Para o Fórum Municipal de Cultura é muito importante que você, sendo
+            classe artística, produtor cultural, instituição ou responsável por
+            estabelecimento, que promova arte e cultura na cidade, participe
+            desta plataforma. A cartografia da cultura é uma maneira de dar voz
+            e visibilidade a todos que produzem arte e cultura, sem hierarquias
             e com transparência.
           </span>
         </div>
 
         <div class="whitespace" />
 
-        <h3 class="headline-2 bolder">
-          O cadastro permitirá:
-        </h3>
+        <h3 class="headline-2 bolder">O cadastro permitirá:</h3>
 
         <div class="context column">
-          <h4 class="headline-3 bolder">
-            No mapa
-          </h4>
+          <h4 class="headline-3 bolder">No mapa</h4>
           <p class="body-3">
-            Adicionar um pin no mapa. O pin significa que a sua
-            localização aparecerá no mapa, indicado pela legenda da
-            categoria a qual se identifica. Além da localização, ao
-            clicar no pin, suas informações de contato serão exibidas.
+            Adicionar um pin no mapa. O pin significa que a sua localização
+            aparecerá no mapa, indicado pela legenda da categoria a qual se
+            identifica. Além da localização, ao clicar no pin, suas informações
+            de contato serão exibidas.
           </p>
         </div>
 
         <div class="context column">
-          <h4 class="headline-3 bolder">
-            Na agenda
-          </h4>
+          <h4 class="headline-3 bolder">Na agenda</h4>
           <p class="body-3">
-            Inserir os eventos que você irá participar ou produzir em Campo Grande.
-            A agenda é o local de divulgação dos eventos culturais do
+            Inserir os eventos que você irá participar ou produzir em Campo
+            Grande. A agenda é o local de divulgação dos eventos culturais do
             município (shows, feiras, festas, espetáculos, performances,
-            exposições, exibições, etc.) que você queira divulgar, além
-            de reuniões, audiências públicas, chamadas.
+            exposições, exibições, etc.) que você queira divulgar, além de
+            reuniões, audiências públicas, chamadas.
           </p>
         </div>
 
         <div class="context column">
-          <h4 class="headline-3 bolder">
-            No debate
-          </h4>
+          <h4 class="headline-3 bolder">No debate</h4>
           <p class="body-3">
-            Propor um assunto a ser debatido ou participar de um debate que acontece na plataforma através dos comentários e apoios.
-            É muito importante que você, sendo um agente cultural,
-            participe dos debates, dê sua opinião sobre os temas
-            relacionados à cultura municipal.
-            A plataforma permite dar voz e visibilidade a todos que
-            produzem arte e cultura em Campo Grande, sem hierarquias e
-            com transparência.
+            Propor um assunto a ser debatido ou participar de um debate que
+            acontece na plataforma através dos comentários e apoios. É muito
+            importante que você, sendo um agente cultural, participe dos
+            debates, dê sua opinião sobre os temas relacionados à cultura
+            municipal. A plataforma permite dar voz e visibilidade a todos que
+            produzem arte e cultura em Campo Grande, sem hierarquias e com
+            transparência.
           </p>
         </div>
       </div>
@@ -73,48 +66,40 @@
 
       <!-- form -->
       <div class="form column">
-        <h3 class="headline-2 bolder">
-          Insira suas informações:
-        </h3>
+        <h3 class="headline-2 bolder">Insira suas informações:</h3>
 
-        <div
-          class="row field"
-          style="justify-content: space-between"
-        >
+        <div class="row field" style="justify-content: space-between">
           <!-- first name -->
           <q-input
-            v-model="username"
+            v-model="firstName"
             class="input"
             dense
             square
             filled
             label="Nome*"
             bottom-slots
-            :error="$v.username.$error"
-            :error-message="usernameErrorMessage"
-            @blur="$v.username.$touch"
+            :error="$v.firstName.$error"
+            :error-message="firstNameErrorMessage"
+            @blur="$v.firstName.$touch"
           />
 
           <!-- last name -->
           <q-input
-            v-model="lastname"
+            v-model="lastName"
             class="input"
             dense
             square
             filled
             label="Sobrenome*"
             bottom-slots
-            :error="$v.lastname.$error"
-            :error-message="lastnameErrorMessage"
-            @blur="$v.lastname.$touch"
+            :error="$v.lastName.$error"
+            :error-message="lastNameErrorMessage"
+            @blur="$v.lastName.$touch"
           />
         </div>
 
         <!-- gender -->
-        <div
-          class="row field gender"
-          style="justify-content: space-between"
-        >
+        <div class="row field gender" style="justify-content: space-between">
           <q-select
             v-model="gender"
             class="input"
@@ -195,10 +180,7 @@
           @blur="$v.emailConfirmation.$touch"
         />
 
-        <div
-          class="row field"
-          style="justify-content: space-between"
-        >
+        <div class="row field" style="justify-content: space-between">
           <!-- password -->
           <q-input
             v-model="password"
@@ -264,7 +246,7 @@
         >
           <template #before>
             <q-avatar size="42px">
-              <img :src="avatar">
+              <img :src="avatar" />
             </q-avatar>
           </template>
 
@@ -273,16 +255,14 @@
               v-if="model !== null"
               name="close"
               class="cursor-pointer"
-              @click.stop="model = null; img = null"
+              @click.stop="
+                model = null;
+                img = null;
+              "
             />
-            <q-icon
-              name="create_new_folder"
-              @click.stop
-            />
+            <q-icon name="create_new_folder" @click.stop />
           </template>
-          <template #hint>
-            Tamanho máximo de 2MB
-          </template>
+          <template #hint> Tamanho máximo de 2MB </template>
           <!-- <template #after>
             <q-btn
               round
@@ -298,30 +278,20 @@
       <div class="whitespace" />
 
       <!-- selecionar categoria -->
-      <div
-        id="target"
-        class="category column"
-      >
-        <h3 class="headline-2 bolder">
-          Identifique sua categoria
-        </h3>
-        <span class="body-3">A categoria escolhida aparecerá no mapa quando você criar seu pin.
-          Escolha sabiamente, não será possível mudar posteriormente.</span>
+      <div id="target" class="category column">
+        <h3 class="headline-2 bolder">Identifique sua categoria</h3>
+        <span class="body-3"
+          >A categoria escolhida aparecerá no mapa quando você criar seu pin.
+          Escolha sabiamente, não será possível mudar posteriormente.</span
+        >
 
         <div class="list">
-          <q-list
-            v-for="item in options"
-            id="item"
-            :key="item.value"
-          >
-            <q-item
-              clickable
-              @click="selectCategory(item)"
-            >
+          <q-list v-for="item in options" id="item" :key="item.value">
+            <q-item clickable @click="selectCategory(item)">
               <q-item-section avatar>
                 <!-- iconId -1 : index of array of icons (0 a 17) -->
                 <icon-base
-                  :icon-id="item.value -1"
+                  :icon-id="item.value - 1"
                   width="16"
                   :set-white="!!selected"
                 />
@@ -330,7 +300,7 @@
               <q-item-section
                 :id="item.value"
                 class="body-3 bolder"
-                :class="{ 'white' : selected }"
+                :class="{ white: selected }"
               >
                 {{ item.label }}
               </q-item-section>
@@ -349,25 +319,21 @@
             true-value="item.category"
           />
 
-          <span class="body-3 altoc">Ao clicar em concluir cadastro, você concorda com a <br>
+          <span class="body-3 altoc"
+            >Ao clicar em concluir cadastro, você concorda com a <br />
             <router-link
               class="link"
-              :to="{ path: '/terms', hash: '#privacy'}"
+              :to="{ path: '/terms', hash: '#privacy' }"
             >
-              <span
-                class="body-3 bolder"
-                :class="{ white: selected}"
-              >política de privacidade</span>
+              <span class="body-3 bolder" :class="{ white: selected }"
+                >política de privacidade</span
+              >
             </router-link>
             e as
-            <router-link
-              class="link"
-              :to="{ path: '/terms', hash: '#use'}"
-            >
-              <span
-                class="body-3 bolder"
-                :class="{ white: selected}"
-              >condições de uso.</span>
+            <router-link class="link" :to="{ path: '/terms', hash: '#use' }">
+              <span class="body-3 bolder" :class="{ white: selected }"
+                >condições de uso.</span
+              >
             </router-link>
           </span>
         </div>
@@ -383,12 +349,7 @@
             <span class="span-btn">Preencha todos os campos</span>
           </q-btn> -->
 
-          <q-btn
-            flat
-            class="btn-custom"
-            color="black"
-            @click="submit()"
-          >
+          <q-btn flat class="btn-custom" color="black" @click="submit()">
             <span class="span-btn">Cadastre-se</span>
           </q-btn>
         </div>
@@ -401,16 +362,25 @@
 
 <script>
 /* eslint-disable */
-import { mapGetters } from 'vuex';
-import iconBase from '../components/iconBase.vue';
-import { required, email, minLength, maxLength, sameAs } from 'vuelidate/lib/validators';
-import { gsap, TweenMax, Expo } from 'gsap';
-const fs = require('fs');
-
+import { mapGetters } from "vuex";
+import iconBase from "../components/iconBase.vue";
+import {
+  required,
+  email,
+  minLength,
+  maxLength,
+  sameAs,
+} from "vuelidate/lib/validators";
+import { gsap, TweenMax, Expo } from "gsap";
+import { createHelpers } from "vuex-map-fields";
+const { mapFields } = createHelpers({
+  getterType: "users/getField",
+  mutationType: "users/updateField",
+});
 gsap.registerPlugin(TweenMax, Expo);
 
 export default {
-  name: 'SignUp',
+  name: "SignUp",
   components: {
     iconBase,
   },
@@ -418,39 +388,25 @@ export default {
     return {
       waiting: false,
       model: null,
-      img: require('../assets/default.png'),
+      img: require("../assets/default.png"),
       loading: false,
       message: null,
       isPwd: true,
-      username: '',
-      lastname: '',
-      email: '',
-      emailConfirmation: '',
-      gender: '',
-      otherGender: '',
-      ageRange: '',
-      education: '',
-      password: '',
-      confirmPassword: '',
-      genderOptions: [
-        'Feminino',
-        'Masculino',
-        'Outros'
-      ],
+      genderOptions: ["Feminino", "Masculino", "Outros"],
       ageRangeOptions: [
-        'Menos de 20 anos',
-        'Entre 20 e 30 anos',
-        'Entre 30 e 40 anos',
-        'Entre 40 e 50 anos',
-        'Entre 50 e 60 anos',
-        'Mais de 60 anos'
+        "Menos de 20 anos",
+        "Entre 20 e 30 anos",
+        "Entre 30 e 40 anos",
+        "Entre 40 e 50 anos",
+        "Entre 50 e 60 anos",
+        "Mais de 60 anos",
       ],
       educationOptions: [
-        'Fundamental completo',
-        'Ensino médio completo',
-        'Superior incompleto',
-        'Superior completo',
-        'Pós-graduado'
+        "Fundamental completo",
+        "Ensino médio completo",
+        "Superior incompleto",
+        "Superior completo",
+        "Pós-graduado",
       ],
       selected: null, // --- selected category?
       lastSelected: 0,
@@ -459,7 +415,7 @@ export default {
   },
   mounted() {
     const { overlay, presentation } = this.$refs;
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
 
     TweenMax.to(presentation, 2, {
       opacity: 0,
@@ -469,47 +425,46 @@ export default {
 
     TweenMax.to(overlay, 2, {
       delay: 1,
-      top: '-100%',
+      top: "-100%",
       ease: Expo.easeInOut,
     });
-
   },
-  updated () {
-    if(this.isNotOtherGender == true) {
-      this.otherGender = '';
+  updated() {
+    if (this.isNotOtherGender == true) {
+      this.otherGender = "";
     }
   },
   validations: {
-    username: {
+    firstName: {
       required,
       minLength: minLength(3),
       validChars: (value) => {
-        return (/^[a-zA-Z0-9_]+$/ig).test(value)
-      }
+        return /^[a-zA-Z0-9_]+$/gi.test(value);
+      },
     },
-    lastname: {
+    lastName: {
       required,
       validChars: (value) => {
-        return (/^[a-zA-Z0-9_]+$/ig).test(value)
-      }
+        return /^[a-zA-Z0-9_]+$/gi.test(value);
+      },
     },
     email: {
       required,
       email,
-      maxLength: maxLength(30)
+      maxLength: maxLength(30),
     },
     emailConfirmation: {
       required,
-      sameAsPassword: sameAs('email')
+      sameAsPassword: sameAs("email"),
     },
     password: {
       required,
       minLength: minLength(8),
-      maxLength: maxLength(15)
+      maxLength: maxLength(15),
     },
     confirmPassword: {
       required,
-      sameAsPassword: sameAs('password')
+      sameAsPassword: sameAs("password"),
     },
     gender: {
       required,
@@ -522,136 +477,151 @@ export default {
     },
     model: {
       required,
-    }
+    },
   },
   computed: {
+    ...mapFields({
+      firstName: "signUpForm.firstName",
+      lastName: "signUpForm.lastName",
+      email: "signUpForm.email",
+      emailConfirmation: "signUpForm.emailConfirmation",
+      password: "signUpForm.password",
+      confirmPassword: "signUpForm.confirmPassword",
+      categoryId: "signUpForm.categoryId",
+      gender: "signUpForm.gender",
+      otherGender: "signUpForm.otherGender",
+      ageRange: "signUpForm.ageRange",
+      education: "signUpForm.education",
+      avatarId: "signUpForm.avatarId",
+    }),
     ...mapGetters({
-      options: 'categories/loadCategories',
+      options: "categories/loadCategories",
     }),
     avatar: {
-      get () {
+      get() {
         if (this.img === null)
-          return this.$store.getters['services/getDefaultImage'];
+          return this.$store.getters["services/getDefaultImage"];
         return this.img;
       },
-      set (url) {
+      set(url) {
         this.img = url;
-      }
+      },
     },
     formIsValid() {
-      if (this.$v.$anyError || this.selected === null || this.terms === false ) {
-        return false
+      if (this.$v.$anyError || this.selected === null || this.terms === false) {
+        return false;
       } else {
-        return true
+        return true;
       }
     },
-    usernameErrorMessage () {
-      if (!this.$v.username.required) {
-        return 'Esse campo é requerido'
-      } else if (!this.$v.username.validChars) {
-        return 'Este campo deve conter apenas letras, números e underline'
-      } else if (!this.$v.username.minLength) {
-        return 'Mínimo de três dígitos'
+    firstNameErrorMessage() {
+      if (!this.$v.firstName.required) {
+        return "Esse campo é requerido";
+      } else if (!this.$v.firstName.validChars) {
+        return "Este campo deve conter apenas letras, números e underline";
+      } else if (!this.$v.firstName.minLength) {
+        return "Mínimo de três dígitos";
       }
     },
-    lastnameErrorMessage () {
-      if (!this.$v.lastname.required) {
-        return 'Campo requerido'
-      } else if (!this.$v.lastname.validChars) {
-        return 'Este campo deve conter apenas letras, números e underline'
+    lastNameErrorMessage() {
+      if (!this.$v.lastName.required) {
+        return "Campo requerido";
+      } else if (!this.$v.lastName.validChars) {
+        return "Este campo deve conter apenas letras, números e underline";
       }
     },
-    emailErrorMessage () {
+    emailErrorMessage() {
       if (!this.$v.email.required) {
-        return 'Email é requerido'
+        return "Email é requerido";
       } else if (!this.$v.email.email) {
-        return 'Por favor insira um email válido'
+        return "Por favor insira um email válido";
       }
     },
-    emailConfirmationErrorMessage () {
+    emailConfirmationErrorMessage() {
       if (!this.$v.emailConfirmation.required) {
-        return 'Confirmação de email é requerida'
+        return "Confirmação de email é requerida";
       } else if (!this.$v.emailConfirmation.sameAsEmail) {
-        return 'Email não confere'
+        return "Email não confere";
       }
     },
-    passwordErrorMessage () {
+    passwordErrorMessage() {
       if (!this.$v.password.required) {
-        return 'Senha é requerida'
+        return "Senha é requerida";
       } else if (!this.$v.password.minLength) {
-        return 'Mínimo de 8 dígitos'
+        return "Mínimo de 8 dígitos";
       } else if (!this.$v.password.maxLength) {
-        return 'Máximo de 15 dígitos'
+        return "Máximo de 15 dígitos";
       }
     },
-    confirmPasswordErrorMessage () {
+    confirmPasswordErrorMessage() {
       if (!this.$v.confirmPassword.required) {
-        return 'Confirmação de senha é requerida'
+        return "Confirmação de senha é requerida";
       } else if (!this.$v.confirmPassword.sameAsPassword) {
-        return 'Senha não confere'
+        return "Senha não confere";
       }
     },
-    genderErrorMessage () {
+    genderErrorMessage() {
       if (!this.$v.gender.required) {
-        return 'Informe seu gênero'
+        return "Informe seu gênero";
       }
     },
-    ageRangeErrorMessage () {
+    ageRangeErrorMessage() {
       if (!this.$v.ageRange.required) {
-        return 'Informe sua faixa etária'
+        return "Informe sua faixa etária";
       }
     },
-    educationErrorMessage () {
+    educationErrorMessage() {
       if (!this.$v.education.required) {
-        return 'Informe seu grau de escolaridade'
+        return "Informe seu grau de escolaridade";
       }
     },
-    isNotOtherGender () {
-      return this.gender != this.genderOptions[2]
+    isNotOtherGender() {
+      return this.gender != this.genderOptions[2];
     },
-    avatarErrorMessage () {
-    if (!this.$v.education.required) {
-      return 'É necessário um avatar'
-    }
+    avatarErrorMessage() {
+      if (!this.$v.education.required) {
+        return "É necessário um avatar";
+      }
     },
   },
   methods: {
-    async encode64(){
+    async encode64() {
       await new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.readAsDataURL(this.model);
         reader.onload = () => {
-          this.avatar = reader.result
+          this.avatar = reader.result;
         };
-        reader.onerror = error => reject(error);
+        reader.onerror = (error) => reject(error);
       });
     },
     selectCategory(el) {
       const { content } = this.$refs;
-
+      console.log(el);
+      this.categoryId = el.id;
       if (el.value !== this.lastSelected) {
         this.selected = el;
         content.style.backgroundColor = this.selected.color;
         this.lastSelected = this.selected.value;
       } else {
-        content.style.backgroundColor = '#f5f5f5'
-        this.selected = null
+        content.style.backgroundColor = "#f5f5f5";
+        this.selected = null;
         this.lastSelected = 0;
       }
     },
     loadingTransition() {
       const { overlay, message } = this.$refs;
 
-      if(overlay && message) {
+      if (overlay && message) {
         window.scrollTo({
           top: 0,
           left: 0,
-          behavior: 'smooth'
+          behavior: "smooth",
         });
 
         TweenMax.to(overlay, 2, {
           delay: 0.6,
-          top: '0',
+          top: "0",
           ease: Expo.easeInOut,
         });
 
@@ -665,14 +635,13 @@ export default {
       setInterval(() => {
         this.closeTransition();
       }, 5000);
-
     },
     closeTransition() {
       const { overlay, message } = this.$refs;
 
       TweenMax.to(overlay, 2, {
         delay: 1,
-        top: '-100%',
+        top: "-100%",
         ease: Expo.easeInOut,
       });
 
@@ -681,9 +650,8 @@ export default {
         y: -60,
         ease: Expo.easeInOut,
       });
-
     },
-    submit(){
+    submit() {
       this.$v.$touch();
       if (!this.$v.$anyError) {
         if (this.waiting) {
@@ -694,58 +662,22 @@ export default {
         }
         this.waiting = true;
         this.loading = true;
-        this.$store.dispatch('images/upload', { file: this.model })
-        .then((response) => {
-          console.log("response: ", response);
-          this.$store.dispatch('users/signUp', { credentials: {
-            firstName: this.username,
-            lastName: this.lastname,
-            email: this.email,
-            password: this.password,
-            confirmPassword: this.confirmPassword,
-            isValid: true,
-            isAdmin: false,
-            categoryId: this.selected.id,
-            gender: this.gender,
-            otherGender: this.otherGender,
-            ageRange: this.ageRange,
-            education: this.education,
-            avatarId: response[0],
-          }})
+        this.$store
+          .dispatch("users/signUp", { file: this.model })
           .then((response) => {
-            this.message = 'Só uns segundinhos';
+            this.message = "Só uns segundinhos";
             this.loadingTransition();
-            this.$router.push({ name: 'SignIn' });
-            this.$q.notify({
-              message: 'Verifique sua caixa de entrada',
-              color: 'Black'
-            })
-            this.firstName = '';
-            this.lastName = '';
-            this.email = '';
-            this.password = '';
-            this.confirmPassword = '';
-            this.isValid = '';
-            this.isAdmin = '';
-            this.categoryId = '';
-            this.gender = '';
-            this.otherGender = '';
-            this.ageRange = '';
-            this.education = '';
-            this.avatarId = '';
+            this.$router.push({ name: "SignIn" });
             this.waiting = false;
           })
-          .catch ((error) => {
-            if(error.message === 'Request failed with status code 400') {
-              this.message = 'Desculpe, houve um erro. Tente Novamente mais tarde';
+          .catch((error) => {
+            if (error.message === "Request failed with status code 400") {
+              this.message =
+                "Desculpe, houve um erro. Tente Novamente mais tarde";
             }
             this.loadingTransition();
             this.waiting = false;
           });
-        })
-        .catch ((error) => {
-            console.log(error);
-        });
       } else {
         this.$q.notify({
           message: "Por favor, preencha os campos corretamente.",
@@ -757,16 +689,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-@import '../styles/variables.scss';
-@import '../styles/mixins.scss';
+@import "../styles/variables.scss";
+@import "../styles/mixins.scss";
 
 .white {
   color: #ffffff;
 }
 
 .bg-change {
-  transition: background-color .6s ease-in;
+  transition: background-color 0.6s ease-in;
 }
 
 .content-center {
@@ -784,11 +715,16 @@ export default {
   width: 100%;
 }
 
-.info, .form, .terms, .category, .actions {
+.info,
+.form,
+.terms,
+.category,
+.actions {
   margin-top: 16px;
 }
 
-.btn-field, .list {
+.btn-field,
+.list {
   margin-top: 8px;
 }
 
@@ -926,5 +862,4 @@ h4.headline-3 {
 h3.headline-2 {
   line-height: 1.5em;
 }
-
 </style>
