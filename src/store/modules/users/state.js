@@ -1,4 +1,5 @@
 const state = {
+  selectedForm : 'user',
   resetPassword : {
     password: '',
     passwordConfirmation: ''

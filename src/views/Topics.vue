@@ -47,11 +47,10 @@
           <base-button
             class="row no-wrap al-items-center"
             theme="primary"
-            @click="createNewTopic()"
+            @click="$router.push({ name: 'CreateTopic' })"
           >
-            <!-- <q-icon class="fas fa-plus text-white" size="xs"></q-icon> -->
             <span class="body-2 bolder text-white"> + </span>
-            <span class="caption bolder text-white"> insira um novo diálogo </span>
+            <span class="caption bolder text-white"> adicione um novo debate </span>
           </base-button>
         </div>
       </div>
@@ -141,9 +140,6 @@ export default {
     window.removeEventListener('resize', this.handleResize);
   },
   methods: {
-    createNewTopic() {
-      this.$router.push({ name: 'CreateTopic' });
-    },
     handleResize() {
       const size = window.innerWidth;
       if (size > 600) {

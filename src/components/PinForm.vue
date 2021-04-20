@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div class="input-content">
-      <h4 class="title-3 bolder">Adicione um pin</h4>
+      <h4 class="title-3 bolder">Adicione um novo pin</h4>
       <!-- pin name -->
       <div class="column mg-top16">
         <span class="subheading-2">Nome do pin</span>

@@ -47,11 +47,10 @@
           <base-button
             class="btn-signup"
             theme="primary"
-            @click="signUp()"
+            @click="$store.commit('users/SET_SELECTED_FORM', 'event'); $router.push({ name: 'Profile' });"
           >
-            <!-- <q-icon class="fas fa-plus text-white" size="xs"></q-icon> -->
-            <!-- <span class="body-2 bolder text-white"> + </span> -->
-            <span class="caption bolder text-white"> Cadastre-se! </span>
+            <span class="body-2 bolder text-white"> + </span>
+            <span class="caption bolder text-white"> adicione um novo evento </span>
           </base-button>
         </div>
       </div>

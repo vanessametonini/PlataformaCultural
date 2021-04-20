@@ -2,6 +2,9 @@ import { updateField } from 'vuex-map-fields';
 
 const mutations = {
   updateField,
+  SET_SELECTED_FORM(state, form) {
+    state.selectedForm = form;
+  },
   SET_CURRENT_USER(state, user) {
     state.currentUser = user;
     state.userForm = {...user}

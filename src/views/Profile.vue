@@ -50,7 +50,6 @@ import FormsProfile from "../components/FormsProfile.vue";
 // import EventsProfile from "../components/EventsProfile.vue";
 // import PinsProfile from "../components/PinsProfile.vue";
 
-
 export default {
   name: "ProfilePage",
   components: {
@@ -65,10 +64,18 @@ export default {
   },
   data() {
     return {
-      form: 'user',
+      // form: 'user',
     };
   },
   computed: {
+    form:{
+      get(){
+        return this.$store.state.users.selectedForm;
+      },
+      set(form){
+        this.$store.commit('users/SET_SELECTED_FORM', form);
+      }
+    },
     ...mapGetters({
       currentUser: "users/getCurrentUser",
     }),
