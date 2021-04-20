@@ -13,11 +13,12 @@
       <!-- info -->
       <div class="info">
         <div class="column mg-top16">
-          <span class="title-2 bolder">Cartografia da Cultura - Campo Grande</span>
+          <span class="title-2 bolder">Cartografia da Cultura Campo Grande</span>
           <span class="body-3 mg-top16">
-            Para o Fórum Municipal de Cultura é muito importante que você, sendo classe artística, produtor cultural,
-            instituição ou responsável por estabelecimento, que promova arte e cultura na cidade, participe desta plataforma.
-            A cartografia da cultura é uma maneira de dar voz e visibilidade a todos que produzem arte e cultura, sem hierarquias
+            <p><b>Se é seu primeiro cadastro, leia com atenção o texto abaixo! </b> </p>
+            Para nós é muito importante que você participe desta plataforma. Se você faz parte da cena cultural ou tem afinidade com o tema, 
+            sinta-se à vontade para colaborar e contribuir na promoção da arte e cultura da nossa cidade. 
+            A Cartografia da Cultura é um espaço que permite de dar voz e visibilidade a todos que produzem arte e cultura, sem hierarquias
             e com transparência.
           </span>
         </div>
@@ -25,7 +26,7 @@
         <div class="whitespace" />
 
         <h3 class="headline-2 bolder">
-          O cadastro permitirá:
+          O que o cadastro te permite? 
         </h3>
 
         <div class="context column">
@@ -33,10 +34,9 @@
             No mapa
           </h4>
           <p class="body-3">
-            Adicionar um pin no mapa. O pin significa que a sua
-            localização aparecerá no mapa, indicado pela legenda da
-            categoria a qual se identifica. Além da localização, ao
-            clicar no pin, suas informações de contato serão exibidas.
+            Adicionar um pin no mapa. O pin significa que você aparecerá no mapa da tela inicial da plataforma.
+            Quando você insere um pin, a localização que você informou estará no mapa, indicado pela letra/egenda da
+            categoria a qual você se identificou. Além da localização, ao clicar no pin, suas informações de contato serão exibidas.
           </p>
         </div>
 
@@ -47,9 +47,9 @@
           <p class="body-3">
             Inserir os eventos que você irá participar ou produzir em Campo Grande.
             A agenda é o local de divulgação dos eventos culturais do
-            município (shows, feiras, festas, espetáculos, performances,
-            exposições, exibições, etc.) que você queira divulgar, além
-            de reuniões, audiências públicas, chamadas.
+            município, sejam eles online ou presencial: shows, feiras, festas, espetáculos, performances,
+            exposições, exibições. E também pode divulgar encontros, reuniões, audiências públicas, chamadas públicas. 
+            Você pode inserir quantos eventos quiser.
           </p>
         </div>
 
@@ -58,13 +58,11 @@
             No debate
           </h4>
           <p class="body-3">
-            Propor um assunto a ser debatido ou participar de um debate que acontece na plataforma através dos comentários e apoios.
+            Você pode propor um assunto a ser discutido ou participar de um debate que já acontece na plataforma através dos comentários e apoios.
             É muito importante que você, sendo um agente cultural,
             participe dos debates, dê sua opinião sobre os temas
             relacionados à cultura municipal.
-            A plataforma permite dar voz e visibilidade a todos que
-            produzem arte e cultura em Campo Grande, sem hierarquias e
-            com transparência.
+            
           </p>
         </div>
       </div>
