@@ -129,7 +129,7 @@ const actions = {
       .catch((error) => {
         if(error.response.data.statusCode === 409)
           Notify.create({
-            message: 'Este email já está cadastrado',
+            message: 'Este email já está cadastrado.',
           });
         notif1({
           type: 'negative',

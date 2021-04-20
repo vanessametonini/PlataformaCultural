@@ -6,10 +6,11 @@
 
     <div class="content column">
       <div class="card column">
-        <span class="title title-3 bolder"> Olá novamente </span>
         <router-link class="link" to="/signUp">
-          <span class="body-3">Novo Usuário? Cadastre-se</span>
+          <span class="title bolder">Novo Usuário? Cadastre-se</span>
         </router-link>
+
+        <span class="body-3"> Olá novamente </span>
 
         <div v-if="errorMessage !== null" class="error-field">
           <span class="error-message">* {{ errorMessage }}</span>
@@ -145,8 +146,8 @@ export default {
             } else {
               this.$router.push({ name: "Profile" });
             }
-            this.email = '';
-            this.password = '';
+            this.email = "";
+            this.password = "";
             this.waiting = false;
           })
           .catch((error) => {
@@ -265,15 +266,15 @@ export default {
 .title {
   // align-self: center;
   margin-bottom: -4px;
-  animation: 0.4s fadeInOpacity ease-in;
+  // animation: 0.4s fadeInOpacity ease-in;
 
   @include for-tablet-portrait-only {
-    font-size: 2.2rem;
+    font-size: 1.3rem;
     margin-bottom: 0px;
   }
 
   @include for-phone-only {
-    font-size: 2rem;
+    font-size: 1rem;
     margin-bottom: 0px;
   }
 }
@@ -315,7 +316,7 @@ export default {
 .link {
   font-weight: bold;
   text-decoration: none !important;
-  text-transform: lowercase;
+  // text-transform: lowercase;
   color: black;
 
   &:hover {
