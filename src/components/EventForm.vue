@@ -493,7 +493,7 @@ export default {
               this.categoryId = "";
               this.images = [];
             });
-            // this.$router.push({ name: "Schedule" });
+            this.$router.push({ name: "Schedule" });
             this.waiting = false;
           })
           .catch((error) => {
