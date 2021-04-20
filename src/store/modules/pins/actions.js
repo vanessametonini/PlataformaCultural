@@ -18,47 +18,40 @@ const actions = {
       .catch((error) => error);
   },
 
-  postPin({
-    commit,
-    dispatch,
-    rootState,
-    rootGetters,
-  }, { $router }) {
-    
+  animatePin({ commit, rootGetters }, { $router, pin }) {
+    $router.push({ name: 'Home' });
+    const newPosition = [pin.lat+0.02, pin.long];
+    const oldPosition = { ...rootGetters['maps/getCenter'] };
+    const dx = (newPosition[0] - oldPosition.lat);
+    const dy = (newPosition[1] - oldPosition.lng);
+    let i = 0;
+    const interval = setInterval(() => {
+      commit('maps/TRANSLATE_MAP_CENTER', [oldPosition.lat + (dx * i) / 100, oldPosition.lng + (dy * i) / 100], { root: true });
+      if (i === 100) clearInterval(interval);
+      i += 1;
+    }, 3);
+    commit('ADD_SELECTED_CATEGORY', pin.categoryId);
+
+    commit('SET_SELECTED_PIN_ID', pin.id);
+  },
+
+  postPin({ commit, dispatch, rootState }, { $router }) {
     const notif = Notify.create({
       group: false,
       spinner: true,
       message: 'Cadastrando pin...',
     });
-
-    const data = {
-      ...rootState.pins.pinForm,
-      userId: rootState.users.currentUser.id,
-    };
-
+    const data = { ...rootState.pins.pinForm, userId: rootState.users.currentUser.id };
     return dispatch('services/POST', { uri: 'pins', data }, { root: true })
       .then((response) => {
-        commit('ADD_PIN', { ...data, ...response.data });
-        commit('SET_SELECTED_PIN_ID', response.data.id);
-        commit('ADD_SELECTED_CATEGORY', data.categoryId);
+        const pin =  { ...data, ...response.data };
+        commit('ADD_PIN', pin );
         notif({
           icon: 'done',
           spinner: false,
           message: 'Pin cadastrado!',
         })
-        $router.push({ name: 'Home' });
-        const newPosition = [response.data.lat, response.data.long];
-        const oldPosition = { ...rootGetters['maps/getCenter'] };
-        const dx = (newPosition[0] - oldPosition.lat);
-        const dy = (newPosition[1] - oldPosition.lng);
-        let i = 0;
-        const interval = setInterval(() => {
-          commit('maps/TRANSLATE_MAP_CENTER', [oldPosition.lat + (dx * i) / 100, oldPosition.lng + (dy * i) / 100], { root: true });
-          if (i === 100) {
-            clearInterval(interval);
-          }
-          i += 1;
-        }, 3);
+        dispatch('animatePin', {  $router, pin });
         return response;
       })
       .catch((error) => {

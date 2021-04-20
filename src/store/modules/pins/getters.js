@@ -22,6 +22,8 @@ const i18 = require('../../../assets/icons/pins/18.png');
 const images = [i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18];
 
 const getters = {
+  getMyPins: (state, getters, rootState, rootGetters) => state.list.filter((pin) => pin.userId===rootGetters['users/getCurrentUser'].id),
+
   getSelectedPinId(state) {
     return state.selectedPinId;
   },

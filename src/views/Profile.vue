@@ -40,10 +40,10 @@
           />
         </main>
       </div>
-      <!-- <aside class="col-auto">
-        <events-profile />
+      <div class="col">
+        <events-profile  />
         <pins-profile />
-      </aside> -->
+      </div>
     </div>
   </div>
 </template>
@@ -56,8 +56,8 @@ import UserCard from "../components/UserCard.vue";
 import EventCard from "../components/EventCard.vue";
 import PinCard from "../components/PinCard.vue";
 import FormsProfile from "../components/FormsProfile.vue";
-// import EventsProfile from "../components/EventsProfile.vue";
-// import PinsProfile from "../components/PinsProfile.vue";
+import EventsProfile from "../components/EventsProfile.vue";
+import PinsProfile from "../components/PinsProfile.vue";
 import TopicCard from "../components/TopicsCard.vue";
 
 export default {
@@ -70,8 +70,8 @@ export default {
     PinCard,
     FormsProfile,
     TopicCard,
-    //EventsProfile,
-    //PinsProfile,
+    EventsProfile,
+    PinsProfile,
   },
   data() {
     return {
