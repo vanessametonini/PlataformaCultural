@@ -26,7 +26,7 @@
         <span
           class="body-3 bolder"
           to="/singIn"
-        >Participar</span>
+        ><b>CADASTRE-SE E PARTICIPE!</b></span>
       </q-btn>
 
       <q-btn
