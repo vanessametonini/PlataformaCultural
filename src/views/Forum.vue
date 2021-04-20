@@ -50,13 +50,8 @@
           Acesse os links para mais informações:
         </h4>
         <p class="body-3 text">
-          <a
-            class="body-3 bolder mg-left16"
-            target="_blank"
-            href=""
-          >
-            Repositório do Fórum
-          </a> - documentos públicos, atas de reuniões, convocatórias. <br>
+          
+            Acesse no link abaixo o repositório do Fórum que contém documentos públicos, atas de reuniões, convocatórias, guias, entre outros. <br>
           <a
             class="body-3 bolder mg-left16"
             target="_blank"
