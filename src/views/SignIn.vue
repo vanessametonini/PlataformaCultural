@@ -8,7 +8,7 @@
       <div class="card column">
         <span class="title title-3 bolder"> Olá novamente </span>
         <router-link class="link" to="/signUp">
-          <span class="body-3">Novo Usuário? Cadastre-se</span>
+          <span class="body-3">É NOVO POR AQUI? CLIQUE AQUI PARA SE CADASTRAR!</span>
         </router-link>
 
         <div v-if="errorMessage !== null" class="error-field">
