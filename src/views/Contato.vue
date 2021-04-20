@@ -11,7 +11,7 @@
       <section class="plat mg-top32">
         <span class="title-2 bolder">Contato</span>
         <p class="body-3 mg-top16 text">
-          E-mail plataforma: <a href="mailto:cartografiadaculturacg@gmail.com">cartografiadaculturacg@gmail.com</a>
+          Para entrar em contato envie um E-mail para: <a href="mailto:cartografiadaculturacg@gmail.com">cartografiadaculturacg@gmail.com</a>
         </p>
       </section>
 
