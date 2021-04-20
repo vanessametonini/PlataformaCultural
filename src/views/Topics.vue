@@ -50,7 +50,7 @@
             @click="$router.push({ name: 'CreateTopic' })"
           >
             <span class="body-2 bolder text-white"> + </span>
-            <span class="caption bolder text-white"> adicione um novo debate </span>
+            <span class="caption bolder text-white"> adicionar um novo debate </span>
           </base-button>
         </div>
       </div>
@@ -164,74 +164,29 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-
-  @include for-phone-only {
-    height: 100%;
-    flex-direction: column;
-  }
 }
 
 .topics-page-aside {
   background-color: white;
-  height: 100%;
+  height: 100vh;
   min-width: 250px;
-  padding: 16px;
-  margin: 8px 8px 0px 0px;
+  padding-top: 16px;
+  padding-left: 16px;
+  margin-right: 8px;
   z-index: 1;
-  display: flex;
-  flex-direction: column;
-
-  @include for-phone-only {
-    height: 80px;
-    padding: 16px 16px 8px 16px;
-    flex-direction: column;
-  }
-
-  @include for-tablet-portrait-only {
-    margin: 0px 4px 0px 0px;
-    padding: 16px 0px 8px 16px;
-  }
-
-  @include for-desktop-up {
-    margin: 0px;
-    padding: 24px 32px 8px 32px;
-    align-self: flex-start;
-  }
-
-  .identity {
-    align-self: flex-start;
-    min-height: 180px;
-
-    @include for-phone-only {
-      width: 100%;
-      padding: 0px;
-      align-self: center;
-    }
-  }
-
-  .aside-actions {
-     @include for-phone-only {
-      width: 100%;
-      height: 100%;
-      position: relative;
-    }
-  }
+  position: relative;
 }
 
 .aside-actions {
-  // border: 1px solid red;
   margin-top: 0px;
   height: 100%;
   overflow: hidden;
   padding: 32px 0px 32px 0px;
-  position: relative;
 }
 
 .aside-filter-options {
   margin-top: 0px;
-  // width: fit-content;
   display: inline-block;
-  // border: 2px solid $borderGray;
 }
 
 .filter-options-item {
@@ -286,46 +241,17 @@ export default {
   width: 100%;
   padding: 16px 0px 8px 16px;
   max-width: calc(3 * 360px);
-  // overflow: hidden;
   z-index: 1;
-
-  @include for-phone-only {
-    width: 100%;
-    padding: 8px;
-  }
-
-  @include for-desktop-up {
-    align-self: center;
-    margin: 0px;
-    // padding: 16px 8px 8px 0px;
-  }
 }
 
 .scrollArea {
   height: 100vh;
   width: 100%;
   padding: 8px 16px 16px 0px;
-
-  @include for-phone-only {
-    display: none;
-    padding: 4px 8px 4px 8px;
-  }
 }
 
 .filter-mobile {
   display: none;
-
-  @include for-phone-only {
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    z-index: 2;
-    position: relative;
-    // position: -webkit-sticky;
-    top: 32px;
-    right: 32px;
-    background: black;
-  }
 }
 
 span {
@@ -334,11 +260,6 @@ span {
 
 .white-space {
   height: 60px;
-  //border: 2px solid green;
-
-  @include for-phone-only {
-    display: none;
-  }
 }
 
 </style>

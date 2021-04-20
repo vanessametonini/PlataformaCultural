@@ -13,16 +13,25 @@
         </base-button>
       </header>
       <div class="col-auto">
-        <nav class="row no-wrap">
+        <nav class="row">
+          
           <user-card
             :user="currentUser"
             @card-click="form = 'user'"
           />
+          
           <pin-card
             class="pin-card"
             @card-click="form = 'pin'"
           />
+          
           <event-card @card-click="form = 'event'" />
+          
+          <topic-card
+            class="pin-card"
+            @card-click="$router.push({ name: 'CreateTopic' })"
+          />
+
         </nav>
         <main>
           <forms-profile
@@ -49,6 +58,7 @@ import PinCard from "../components/PinCard.vue";
 import FormsProfile from "../components/FormsProfile.vue";
 // import EventsProfile from "../components/EventsProfile.vue";
 // import PinsProfile from "../components/PinsProfile.vue";
+import TopicCard from "../components/TopicsCard.vue";
 
 export default {
   name: "ProfilePage",
@@ -59,6 +69,7 @@ export default {
     EventCard,
     PinCard,
     FormsProfile,
+    TopicCard,
     //EventsProfile,
     //PinsProfile,
   },

@@ -4,10 +4,7 @@
     <div class="events-page-aside">
       <logo-card />
 
-      <div
-        v-if="handleResize"
-        class="aside-actions"
-      >
+      <div v-if="handleResize" class="aside-actions">
         <div class="aside-filter-options">
           <div
             v-for="(item, index) in options"
@@ -18,7 +15,7 @@
             <span
               id="filter-item"
               class="body-3"
-              :class="{ 'selected-effect' : filterTypeSelected === item.value }"
+              :class="{ 'selected-effect': filterTypeSelected === item.value }"
             >
               {{ item.label }}
             </span>
@@ -26,31 +23,37 @@
         </div>
 
         <div class="aside-filter-search">
-          <q-input
-            v-model="search"
-            label="Procurar"
-            square
-            dense
-            color="black"
-          >
+          <q-input v-model="search" label="Procurar" square dense color="black">
             <template #prepend>
-              <q-icon
-                class="bolder text-black"
-                name="search"
-                size="xs"
-              />
+              <q-icon class="bolder text-black" name="search" size="xs" />
             </template>
           </q-input>
         </div>
 
         <div class="aside-filter-create-event">
           <base-button
+            v-if="!$store.getters['getAuth']"
             class="btn-signup"
             theme="primary"
-            @click="$store.commit('users/SET_SELECTED_FORM', 'event'); $router.push({ name: 'Profile' });"
+            @click="$router.push({ name: 'SignUp' })"
+          >
+            <!-- <span class="body-2 bolder text-white"> + </span> -->
+            <span class="caption bolder text-white"> Cadastre-se </span>
+          </base-button>
+
+          <base-button
+            v-if="$store.getters['getAuth']"
+            class="btn-signup"
+            theme="primary"
+            @click="
+              $store.commit('users/SET_SELECTED_FORM', 'event');
+              $router.push({ name: 'Profile' });
+            "
           >
             <span class="body-2 bolder text-white"> + </span>
-            <span class="caption bolder text-white"> adicione um novo evento </span>
+            <span class="caption bolder text-white">
+              adicione um novo evento
+            </span>
           </base-button>
         </div>
       </div>
@@ -58,10 +61,7 @@
     <!-- end aside -->
 
     <!-- filter to mobile -->
-    <div
-      v-if="handleResize"
-      class="filter-mobile"
-    >
+    <div v-if="handleResize" class="filter-mobile">
       <span class="body-2 bolder"> + </span>
     </div>
 
@@ -83,40 +83,40 @@
 </template>
 
 <script>
-import EventList from '../components/EventList.vue';
-import BaseButton from '../components/BaseButton.vue';
+import EventList from "../components/EventList.vue";
+import BaseButton from "../components/BaseButton.vue";
 
 export default {
-  name: 'SchedulePage',
+  name: "SchedulePage",
   components: {
     EventList,
     BaseButton,
   },
   data() {
     return {
-      newEvent: '',
-      filterTypeSelected: 'mostRecent',
-      search: '',
+      newEvent: "",
+      filterTypeSelected: "mostRecent",
+      search: "",
       options: [
-        { label: 'Mais ativos', value: 'mostActive', color: 'black' },
-        { label: 'Mais Comentados', value: 'mostAnswed', color: 'black' },
-        { label: 'Novos', value: 'mostRecent', color: 'black' },
+        { label: "Mais ativos", value: "mostActive", color: "black" },
+        { label: "Mais Comentados", value: "mostAnswed", color: "black" },
+        { label: "Novos", value: "mostRecent", color: "black" },
       ],
       thumbStyle: {
-        right: '0px',
-        top: '16px',
-        borderRadius: '0px',
-        backgroundColor: '#111111',
-        width: '9px',
-        heigth: '8px',
+        right: "0px",
+        top: "16px",
+        borderRadius: "0px",
+        backgroundColor: "#111111",
+        width: "9px",
+        heigth: "8px",
         opacity: 0.75,
       },
       barStyle: {
-        right: '0px',
-        top: '16px',
-        borderRadius: '0px',
-        backgroundColor: '#eeeeee',
-        width: '9px',
+        right: "0px",
+        top: "16px",
+        borderRadius: "0px",
+        backgroundColor: "#eeeeee",
+        width: "9px",
         opacity: 0.2,
       },
     };
@@ -128,19 +128,19 @@ export default {
     },
   },
   created() {
-    window.addEventListener('resize', this.handleResize);
+    window.addEventListener("resize", this.handleResize);
     this.handleResize();
   },
   unmounted() {
-    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener("resize", this.handleResize);
   },
   methods: {
     signUp() {
-      this.$router.push({ name: 'SignUp' });
+      this.$router.push({ name: "SignUp" });
     },
     filterThis(filterType) {
       this.filterTypeSelected = filterType;
-      console.log('filterThis', filterType);
+      console.log("filterThis", filterType);
     },
     handleResize() {
       const size = window.innerWidth;
@@ -154,85 +154,39 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/variables.scss';
-@import '../styles/mixins.scss';
+@import "../styles/variables.scss";
+@import "../styles/mixins.scss";
 
 .events-page {
   z-index: 0;
   width: 100%;
   height: 100vh;
-  overflow: hidden;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-
-  @include for-phone-only {
-    height: 100%;
-    flex-direction: column;
-  }
 }
 
 .events-page-aside {
   background-color: white;
-  height: 100%;
+  height: 100vh;
   min-width: 250px;
-  padding: 16px;
-  margin: 8px 8px 0px 0px;
+  padding-top: 16px;
+  padding-left: 16px;
+  margin-right: 8px;
   z-index: 1;
-  display: flex;
-  flex-direction: column;
-
-  @include for-phone-only {
-    height: 80px;
-    padding: 16px 16px 8px 16px;
-    flex-direction: column;
-  }
-
-  @include for-tablet-portrait-only {
-    margin: 0px 4px 0px 0px;
-    padding: 16px 0px 8px 16px;
-  }
-
-  @include for-desktop-up {
-    margin: 0px;
-    padding: 24px 32px 8px 32px;
-    align-self: flex-start;
-  }
-
-  .identity {
-    align-self: flex-start;
-    min-height: 180px;
-
-    @include for-phone-only {
-      width: 100%;
-      padding: 0px;
-      align-self: center;
-    }
-  }
-
-  .aside-actions {
-     @include for-phone-only {
-      width: 100%;
-      height: 100%;
-      position: relative;
-    }
-  }
+  position: relative;
 }
 
 .aside-actions {
-  // border: 1px solid red;
   margin-top: 0px;
   height: 100%;
   overflow: hidden;
   padding: 32px 0px 32px 0px;
-  position: relative;
 }
 
 .aside-filter-options {
   margin-top: 0px;
-  // width: fit-content;
   display: inline-block;
-  // border: 2px solid $borderGray;
 }
 
 .filter-options-item {
@@ -255,7 +209,7 @@ export default {
 }
 
 .selected-effect:after {
-  content: '';
+  content: "";
   color: black;
   position: absolute;
   left: -8px;
@@ -273,7 +227,6 @@ export default {
 
 .aside-filter-search {
   margin-top: 40px;
-  // border: 2px solid pink;
 }
 
 .aside-filter-create-event {
@@ -287,46 +240,18 @@ export default {
   width: 100%;
   padding: 16px 0px 8px 16px;
   max-width: calc(3 * 360px);
-  // overflow: hidden;
   z-index: 1;
 
-  @include for-phone-only {
-    width: 100%;
-    padding: 8px;
-  }
-
-  @include for-desktop-up {
-    align-self: center;
-    margin: 0px;
-    // padding: 16px 8px 8px 0px;
-  }
 }
 
 .scrollArea {
   height: 100vh;
   width: 100%;
   padding: 8px 16px 16px 0px;
-
-  @include for-phone-only {
-    display: none;
-    padding: 4px 8px 4px 8px;
-  }
 }
 
 .filter-mobile {
   display: none;
-
-  @include for-phone-only {
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    z-index: 2;
-    position: relative;
-    // position: -webkit-sticky;
-    top: 32px;
-    right: 32px;
-    background: black;
-  }
 }
 
 span {
@@ -335,11 +260,5 @@ span {
 
 .white-space {
   height: 60px;
-  //border: 2px solid green;
-
-  @include for-phone-only {
-    display: none;
-  }
 }
-
 </style>

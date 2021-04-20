@@ -14,13 +14,13 @@
     <div class="stepper-content">
       <!-- SECTION 1 -->
       <section v-if="currentStep === 1" id="section1" class="stepper-section">
-        <span class="title-3 bolder mg-top16">Sobre os Diálogos</span>
-        <span class="headline-3 bolder mg-top16">Diálogos abertos</span>
+        <span class="title-3 bolder mg-top16">Sobre os Debates</span>
+        <span class="headline-3 bolder mg-top16">Debates abertos</span>
         <p class="body-2 mg-top8 justify-text">
-          Você poderá iniciar um debate, que aqui chamamos de diálogo, para
+          Você poderá iniciar um debate, que aqui chamamos de debate, para
           compartilhar pontos de vista com outras pessoas sobre os assuntos que
           te preocupam em relação à cultura em Campo Grande. O espaço de
-          diálogos abertos é destinado aos gestores, produtores, promotores da
+          debates abertos é destinado aos gestores, produtores, promotores da
           cultura local e também à comunidade artística. Sendo um desses
           agentes, você poderá expor seus argumentos e abrir uma conversa com
           todos. Considere que o debate não aciona nenhum mecanismo de atuação
@@ -30,7 +30,7 @@
           necessidades da comunidade artística de Campo Grande.
         </p>
         <span class="headline-3 bolder mg-top16">
-          Recomendações para participar de um diálogo aberto</span
+          Recomendações para participar de um debate aberto</span
         >
         <p class="body-2 mg-top8 justify-text">
           1. Para iniciar um debate é necessário que você faça um cadastro na
@@ -62,7 +62,7 @@
       </section>
       <!-- SECTION 2 -->
       <section v-if="currentStep === 2" id="section2" class="stepper-section">
-        <span class="title-1 bolder">Regras para iniciar um diálogo</span>
+        <span class="title-1 bolder">Regras para iniciar um debate</span>
         <!-- 1 -->
         <span class="body-2 bolder mg-top16"
           >1. Uma vez feito o login, você poderá:</span
@@ -98,9 +98,9 @@
           <li class="body-2 justify-text">
             deletar o debate que você iniciou;
           </li>
-          <li class="body-2 justify-text">
+          <!-- <li class="body-2 justify-text">
             deletar um comentário em um debate que você participou.
-          </li>
+          </li> -->
         </ol>
         <!-- 4 -->
         <span class="body-2 bolder mg-top24">4. Serão deletados: </span>
@@ -146,8 +146,8 @@
       </section>
       <!-- SECTION 3 -->
       <section v-if="currentStep === 3" class="stepper-section">
-        <span class="title-3 bolder">Crie seu diálogo.</span>
-        <span class="headline-3 bolder mg-top16">Título do seu diálogo</span>
+        <span class="title-3 bolder">Crie seu debate.</span>
+        <span class="headline-3 bolder mg-top16">Título do seu debate</span>
         <span class="caption mg-top4"
           >Insira um título que represente o assunto principal da
           discussão.</span
@@ -166,7 +166,7 @@
           @blur="$v.title.$touch"
         />
 
-        <span class="headline-3 bolder">Texto do Diálogo</span>
+        <span class="headline-3 bolder">Texto do Debate</span>
         <span class="caption mg-top4"
           >Insira um texto revisado por você. Veja se está claro e
           objetivo.</span
@@ -188,13 +188,13 @@
           @blur="$v.content.$touch"
         />
         <!-- CATEGORY -->
-        <span class="headline-3 bolder mg-top16">Categoria do diálogo</span>
+        <span class="headline-3 bolder mg-top16">Categoria do debate</span>
         <span class="caption mg-top8"
           >1. Marque a opção que representa o tema principal do seu
-          diálogo</span
+          debate</span
         >
         <span class="caption"
-          >2. Marque as opções que se relacionam ao seu diálogo</span
+          >2. Marque as opções que se relacionam ao seu debate</span
         >
         <div class="category-field row no-wrap mg-top8">
           <q-list class="category-list">
@@ -320,7 +320,7 @@
         @click="submit()"
       >
         <!-- <i class="fas fa-plus reply-icon"></i> -->
-        <span class="body-3 bolder text-uppercase"> Iniciar diálogo </span>
+        <span class="body-3 bolder text-uppercase"> Iniciar debate </span>
       </base-button>
     </div>
   </div>
@@ -360,7 +360,7 @@ export default {
       currentStep: 1,
       count: 0,
       numberOfSteps: 3,
-      stepsTitle: ["O que são os Diálogos", "Regras", "Crie seu Diálogo"],
+      stepsTitle: ["O que são os Debates", "Regras", "Crie seu Debate"],
       rulesAccepted: false,
       rulesError: false,
       termsAccepted: false,
