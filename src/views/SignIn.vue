@@ -7,7 +7,7 @@
     <div class="content column">
       <div class="card column">
         <router-link class="link" to="/signUp">
-          <span class="title bolder">Novo Usuário? Cadastre-se</span>
+          <span class="title bolder">É NOVO POR AQUI? CLIQUE AQUI PARA SE CADASTRAR!</span>
         </router-link>
 
         <span class="body-3"> Olá novamente </span>

@@ -18,12 +18,12 @@
         </p>
         <p class="body-3 text">
           É um espaço para exercer a cidadania e fomentar a participação na
-          geração de ideias para melhorar a gestão cultural da cidade.
+          geração de ideias para a gestão cultural da cidade.
         </p>
         <p class="body-3 text">
           Aqui você pode: <br>
           <ul>
-            <li>explorar o mapa e inserir seus dados nele;</li>
+            <li>explorar o mapa e inserir seus dados nele (pin);</li>
             <li>propor um debate, comentar e acompanhar os diálogos;</li>
             <li>acompanhar a agenda cultural e divulgar seu evento e reuniões;</li>
             <li>acessar os links dos produtores de cultura - artistas, gestores e espaços culturais;</li>
@@ -37,7 +37,10 @@
           >algo+ritmo</a> UFMS, sob coordenação da Profa. Juliana Trujillo, em parceria com a diretoria do <a href="https://www.facebook.com/forumdeculturacg/?ref=page_internal">Fórum Municipal de Cultura de Campo Grande</a> - Gestão Chapa Quente.
         </p>
         <p class="body-3 text">
-          Para dúvidas e contato: <a href="mailto:cartografiadaculturacg@gmail.com">cartografiadaculturacg@gmail.com</a>
+          Esta plataforma é o principal experimento da pesquisa de doutorado sobre processos participativos através da mediação digital desenvolvida por Juliana Trujillo, sob orientação do Prof. Associado Dr. Marcelo Tramontano, vinculada ao PPGAU-IAU-USP.
+        </p>
+        <p class="body-3 text">
+          Para dúvidas e contato, enviar e-mail para: <a href="mailto:cartografiadaculturacg@gmail.com">cartografiadaculturacg@gmail.com</a>
         </p>
         <p class="body-3 text">
           Para participar e colaborar com a plataforma, <router-link to="signUp">
