@@ -41,8 +41,12 @@
         </main>
       </div>
       <div class="col">
-        <events-profile  />
+        <topic-profile />
+        
         <pins-profile />
+
+        <events-profile  />
+
       </div>
     </div>
   </div>
@@ -59,6 +63,8 @@ import FormsProfile from "../components/FormsProfile.vue";
 import EventsProfile from "../components/EventsProfile.vue";
 import PinsProfile from "../components/PinsProfile.vue";
 import TopicCard from "../components/TopicsCard.vue";
+import TopicProfile from "../components/TopicProfile.vue";
+
 
 export default {
   name: "ProfilePage",
@@ -72,6 +78,7 @@ export default {
     TopicCard,
     EventsProfile,
     PinsProfile,
+    TopicProfile
   },
   data() {
     return {

@@ -29,9 +29,9 @@
           </q-item-section>
           <q-item-section>
             <q-item-label class="text-white" overline>{{
-              pin.title
+              mask(pin.title)
             }}</q-item-label>
-            <q-item-label>{{ pin.description }}</q-item-label>
+            <q-item-label>{{ mask(pin.description) }}</q-item-label>
           </q-item-section>
         </q-item>
       </q-list>
@@ -65,7 +65,13 @@ export default {
     };
   },
   computed: {},
-  methods: {},
+  methods: {
+    mask(text) {
+      const limit = 15;
+      if (text.length > limit) return text.substring(0, limit) + "...";
+      return text;
+    },
+  },
 };
 </script>
 

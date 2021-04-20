@@ -11,6 +11,8 @@ function compare(a, b) {
 }
 
 const getters = {
+  getMyTopics: (state, getters, rootState, rootGetters) => state.list.filter((topic) => topic.userId===rootGetters['users/getCurrentUser'].id),
+
   topicForm(state) {
     const form = { ...state.topicForm };
     form.categoryId = form.categoryId?.id;

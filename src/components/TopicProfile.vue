@@ -1,7 +1,12 @@
 <template>
   <div class="logo-box">
     <div class="top">
-      <h1 class="title">Meus Eventos</h1>
+      <h1
+        class="title"
+        
+      >
+      Meus Debates
+      </h1>
     </div>
     <q-scroll-area
       :thumb-style="thumbStyle"
@@ -10,23 +15,17 @@
     >
       <q-list>
         <q-item
-          v-for="event in $store.getters['events/getMyEvents']"
-          :key="event.id"
+          v-for="topic in $store.getters['topics/getMyTopics']"
+          :key="topic.id"
           clickable
           v-ripple
+          @click="emitThisTopic(topic)"
         >
-          <q-item-section avatar>
-            <q-avatar square>
-              <img
-                :src="`${$store.getters['services/getImagePath']}${event.imageIds[0]}`"
-              />
-            </q-avatar>
-          </q-item-section>
           <q-item-section>
             <q-item-label class="text-white" overline>{{
-              mask(event.title)
+              mask(topic.title)
             }}</q-item-label>
-            <q-item-label>{{  mask(event.description) }}</q-item-label>
+            <q-item-label>{{ mask(topic.content) }}</q-item-label>
           </q-item-section>
         </q-item>
       </q-list>
@@ -64,18 +63,25 @@ export default {
     console.log(this.$store.getters["events/getMyEvents"]);
   },
   methods: {
-    mask(text) {
+    mask(text){
       const limit = 15;
-      if (text.length > limit) return text.substring(0, limit) + "...";
+      if (text.length>limit) return text.substring(0, limit)+'...';
       return text;
+    },
+    async emitThisTopic(topic) {
+      // this.$store.commit("topics/SET_CURRENT_TOPIC", topic);
+      this.$router.push({
+        name: "TopicPage",
+        params: { topicId: topic.id },
+      });
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/variables.scss";
-@import "../styles/mixins.scss";
+@import '../styles/variables.scss';
+@import '../styles/mixins.scss';
 
 * {
   box-sizing: border-box;
@@ -90,7 +96,7 @@ export default {
   height: 180px;
   justify-content: space-between;
   max-width: 300px;
-  // padding: 16px;
+  padding: 16px;
   position: relative;
   overflow: hidden;
   width: 100%;
@@ -113,6 +119,7 @@ export default {
     height: 225px;
     max-width: 225px;
   }
+
 }
 
 .logo-box .title {
@@ -120,7 +127,6 @@ export default {
   font-weight: bold;
   line-height: initial;
   margin: 0;
-  padding: 16px;
 
   @include for-tablet-landscape-up {
     font-size: 2.2em;
@@ -165,6 +171,7 @@ export default {
     font-size: 0.8em;
     letter-spacing: 0.08em;
   }
+
 }
 
 .line {
@@ -174,4 +181,5 @@ export default {
   margin-bottom: 4px;
   width: 100%;
 }
+
 </style>
