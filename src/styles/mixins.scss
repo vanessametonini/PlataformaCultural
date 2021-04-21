@@ -1,86 +1,117 @@
 // breakpoints
 @mixin for-phone-only {
-    @media (max-width: 599px) { @content; }
+  @media (max-width: 599px) { @content; }
 }
 
 @mixin for-tablet-portrait-up {
-    @media (min-width: 600px) { @content; }
+  @media (min-width: 600px) { @content; }
 }
 
 @mixin for-tablet-portrait-only {
-    @media (min-width: 600px) and (max-width: 899px) { @content; }
+  @media (min-width: 600px) and (max-width: 899px) { @content; }
 }
 
 @mixin for-tablet-landscape-up {
-    @media (min-width: 900px) { @content; }
+  @media (min-width: 900px) { @content; }
 }
 
 @mixin for-tablet-landscape-only {
-    @media (min-width: 900px) and (max-width: 1199px) { @content; }
+  @media (min-width: 900px) and (max-width: 1199px) { @content; }
 }
 
 @mixin for-desktop-up {
-    @media (min-width: 1200px) { @content; }
+  @media (min-width: 1200px) { @content; }
 }
 
 @mixin for-big-desktop-up {
-    @media (min-width: 1800px) { @content; }
+  @media (min-width: 1800px) { @content; }
 }
 
 // common styles
 @mixin centered-column {
-    align-items: flex-start;
-    background-color: #f5f5f5;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 700px;
-    padding: 32px;
-    width: 100%;
+  align-items: flex-start;
+  background-color: #f5f5f5;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 700px;
+  padding: 32px;
+  width: 100%;
 
-    @include for-tablet-landscape-up {
-        margin-top: 32px;
-    }
+  @include for-tablet-landscape-up {
+      margin-top: 32px;
+  }
 }
 
 @mixin profile-box {
-    background-color: black;
-    color: white;
-    height: 180px;
-    font-family: "unb_officebold", sans-serif;
-    font-size: 2em;
-    font-weight: bold;
-    max-width: 180px;
-    padding: 16px;
-    position: relative;
-    width: 100%;
+  background: black;
+  color: white;
+  height: 180px;
+  font-size: 1.8em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  max-width: 180px;
+  padding: 16px;
+  position: relative;
+  transition: background 500ms;
+  width: 100%;
 
-    @include for-tablet-landscape-up {
-        height: 200px;
-        max-width: 200px;
-    }
+  @include for-tablet-landscape-up {
+    height: 200px;
+    max-width: 200px;
+  }
 
-    @include for-big-desktop-up {
-        height: 225px;
-        max-width: 225px;
-    }
+  @include for-big-desktop-up {
+    height: 225px;
+    max-width: 225px;
+  }
+
+  h3 {
+    font-size: 1.3em;
+    font-weight: bolder;
+    line-height: 1.1em;
+    margin: 0;
+  }
+
+  &[role="button"] {
+
+    cursor: pointer;
 
     &::after {
-        // content: "+";
-        bottom: 16px;
-        display: block;
-        font-weight: bolder;
-        font-size: 1em;
-        line-height: .8em;
-        margin: 0;
-        position: absolute;
-        right: 16px;
+      content: "+";
+      bottom: 16px;
+      display: block;
+      font-weight: bolder;
+      font-size: 1em;
+      line-height: .8em;
+      margin: 0;
+      position: absolute;
+      right: 16px;
     }
-
-    h3 {
-        font-size: 1.3em;
-        font-weight: bolder;
-        line-height: 1.1em;
-        margin: 0;
-    }
-
+  }
 }
+
+@mixin profile-scrolls {
+    > h3 {
+      padding-bottom: 5px;
+    }
+
+    .q-item {
+      margin-bottom: 10px;
+
+      &:last-of-type {
+        margin-bottom: 5px;
+      }
+    }
+
+    .q-scrollarea {
+      height: 122px;
+    }
+
+    .q-item__label:not(.text-caption) {
+      font-size: 1rem;
+    }
+
+    .q-item__label.q-item__label--caption.text-caption {
+      color: white;
+    }
+  }

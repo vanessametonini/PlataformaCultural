@@ -14,24 +14,23 @@
       </header>
       <div class="col-auto">
         <nav class="row">
-          
           <user-card
+            class="card"
             :user="currentUser"
             @card-click="form = 'user'"
           />
-          
           <pin-card
-            class="pin-card"
+            class="card"
             @card-click="form = 'pin'"
           />
-          
-          <event-card @card-click="form = 'event'" />
-          
+          <event-card
+            class="card"
+            @card-click="form = 'event'"
+          />
           <topic-card
-            class="pin-card"
+            class="card"
             @card-click="$router.push({ name: 'CreateTopic' })"
           />
-
         </nav>
         <main>
           <forms-profile
@@ -42,11 +41,8 @@
       </div>
       <div class="col">
         <topic-profile />
-        
         <pins-profile />
-
         <events-profile  />
-
       </div>
     </div>
   </div>
@@ -118,9 +114,12 @@ export default {
   width: 100%;
 }
 
-.pin-card,
+.card {
+  margin-right: 10px;
+}
+
 nav.row {
-  margin: 0 10px;
+  margin-left: 10px;
 }
 
 .forms {

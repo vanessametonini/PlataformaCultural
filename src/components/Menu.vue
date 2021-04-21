@@ -4,6 +4,7 @@
     <nav
       class="menu-component"
       :class="{ 'expanded-filters' : expand }"
+      role="navigation"
     >
       <q-list>
         <!-- item Sobre -->

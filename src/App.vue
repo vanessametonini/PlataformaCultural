@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" aria-live="polite">
     <router-view :key="$route.path" />
   </div>
 </template>

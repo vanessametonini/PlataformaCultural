@@ -10,7 +10,7 @@
       >cartografia da cultura</span> -->
     <!-- </div> -->
 
-    <header class="aside">
+    <header class="aside" role="banner">
       <logo-card inverted />
       <my-menu @callFilter="filterThis($event)" />
     </header>

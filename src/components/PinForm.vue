@@ -11,6 +11,7 @@
           dense
           input-class="text-black"
           color="black"
+          maxlength="90"
           :error="$v.title.$error"
           :error-message="titleErrorMessage"
           @blur="$v.title.$touch"
@@ -119,11 +120,11 @@
         <q-input
           v-model="description"
           autogrow
-          class="f-size"
           dense
           hint="Máximo 200 caracteres"
           input-class="text-black"
           color="black"
+          :rules="[(val) => val.length <= 200 || 'Máximo de 200 caracteres']"
           :error="$v.description.$error"
           :error-message="descriptionErrorMessage"
           @blur="$v.description.$touch"

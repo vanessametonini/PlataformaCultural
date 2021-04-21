@@ -11,6 +11,7 @@
           dense
           input-class="text-black"
           color="black"
+          maxlength="90"
           :error-message="nameErrorMessage"
           :error="$v.name.$error"
           @blur="$v.name.$touch"
