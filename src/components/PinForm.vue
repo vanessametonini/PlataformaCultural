@@ -4,7 +4,7 @@
       <h4 class="title-3 bolder">Adicione um novo pin</h4>
       <!-- pin name -->
       <div class="column mg-top16">
-        <span class="subheading-2">Nome do pin</span>
+        <span class="subheading-2">Nome do pin*</span>
         <q-input
           v-model="title"
           class="input"
@@ -12,6 +12,7 @@
           input-class="text-black"
           color="black"
           maxlength="90"
+          required
           :error="$v.title.$error"
           :error-message="titleErrorMessage"
           @blur="$v.title.$touch"
@@ -52,7 +53,7 @@
 
       <!-- address -->
       <div class="column mg-top8">
-        <span class="subheading-2">Rua - logradouro</span>
+        <span class="subheading-2">Rua - logradouro*</span>
         <q-input
           v-model="street"
           class="input"
@@ -66,7 +67,7 @@
       </div>
 
       <div class="column mg-top8">
-        <span class="subheading-2">Bairro</span>
+        <span class="subheading-2">Bairro*</span>
         <q-input
           v-model="neighborhood"
           class="input"
@@ -98,7 +99,7 @@
         </div>
 
         <div class="column">
-          <span class="subheading-2">CEP</span>
+          <span class="subheading-2">CEP*</span>
           <q-input
             v-model="cep"
             class="input"
@@ -116,7 +117,7 @@
 
       <!-- description -->
       <div class="column mg-top8">
-        <span class="subheading-2">Descrição</span>
+        <span class="subheading-2">Descrição*</span>
         <q-input
           v-model="description"
           autogrow
@@ -176,7 +177,7 @@
 
       <!-- category -->
       <div class="column mg-top8">
-        <span class="subheading-2">Categoria</span>
+        <span class="subheading-2">Categoria*</span>
         <q-select
           v-model="categoryId"
           option-value="id"

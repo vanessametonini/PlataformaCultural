@@ -115,9 +115,9 @@ export default {
       window.onscroll = () => {
         const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
 
-        if (bottomOfWindow) {
-          console.log('onScroll - trigger');
-        }
+        // if (bottomOfWindow) {
+        //   console.log('onScroll - trigger');
+        // }
       };
     },
     handleResize() {

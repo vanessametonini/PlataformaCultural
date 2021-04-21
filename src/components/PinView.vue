@@ -3,60 +3,56 @@
     square
     :style="{ 'background-color': category(pinView.categoryId).color }"
   >
-    <q-card-section class="card">
-      <div id="title" class="big-title bolder text-white">
-        {{ pinView.title }}
-      </div>
+    <q-card-section class="card-title">
+      <h2>{{ pinView.title }}</h2>
     </q-card-section>
-    <multicolor-line class="multicolor-line-top" />
 
-    <q-card-section class="card col text-white">
-      <span class="row body-2 bolder">
+    <q-card-section class="card-description">
+      <p>
         {{ pinView.description }}
-      </span>
-      <span class="row caption bolder mg-top32">
-        {{ `${pinView.street}, ${pinView.number}, ${pinView.neighborhood}` }}
-      </span>
+      </p>
+      <p>
+        {{ `${pinView.street}, ${pinView.number || "S/N"}, ${pinView.neighborhood}` }}
+      </p>
     </q-card-section>
-    <q-card-section class="mg-left16 q-pt-none text-black">
-      <q-list>
+    <q-card-section class="card-links">
+      <q-list class="flex no-wrap">
         <q-item
           v-if="pinView.link"
           clickable
           tag="a"
           target="_blank"
           :href="pinView.link"
+          title="Link"
         >
           <q-item-section avatar>
             <i class="fas fa-link"></i>
           </q-item-section>
-          <q-item-section>
-            <q-item-label>Link</q-item-label>
-            <q-item-label caption>{{ pinView.link }}</q-item-label>
-          </q-item-section>
         </q-item>
-        <q-item v-if="pinView.phone">
-          <q-item-section avatar>
+
+        <q-item
+          v-if="pinView.phone"
+          clickable
+          tag="a"
+          target="_blank"
+          :href="`https://api.whatsapp.com/send?phone=55${pinView.phone}`"
+          :title="`Whatsapp ${pinView.phone}`"
+        >
+          <q-item-section avatar >
             <i class="fab fa-whatsapp"></i>
           </q-item-section>
-          <q-item-section>
-            <q-item-label>Whatsapp</q-item-label>
-            <q-item-label caption>{{ maskPhone(pinView.phone) }}</q-item-label>
-          </q-item-section>
         </q-item>
+
         <q-item
           v-if="pinView.facebook"
           clickable
           tag="a"
           target="_blank"
           :href="pinView.facebook"
+          title="Facebook"
         >
           <q-item-section avatar>
             <i class="fab fa-facebook"></i>
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Facebook</q-item-label>
-            <q-item-label caption>{{ pinView.facebook }}</q-item-label>
           </q-item-section>
         </q-item>
         <q-item
@@ -65,13 +61,10 @@
           tag="a"
           target="_blank"
           :href="pinView.instagram"
+          title="Instagram"
         >
           <q-item-section avatar>
             <i class="fab fa-instagram"></i>
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Instagram</q-item-label>
-            <q-item-label caption>{{ pinView.instagram }}</q-item-label>
           </q-item-section>
         </q-item>
       </q-list>
@@ -89,6 +82,7 @@
       transition-next="slide-left"
       @mouseenter="autoplay = false"
       @mouseleave="autoplay = true"
+      v-if="pinView.imageIds.length"
     >
       <q-carousel-slide
         v-for="n in pinView.imageIds.length"
@@ -149,15 +143,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#title {
-  margin-left: -4px;
-  margin-top: 0px;
-  line-height: 2.5rem;
+.card-title h2 {
+  font-size: 3em;
+  font-weight: bolder;
+  margin: 0;
+  padding: 0;
 }
 
-.card {
+.card-title,
+.card-description {
+  color: white;
   padding: 32px;
-  position: relative;
+}
+
+.card-description {
+  padding-bottom: 0;
+
+  p {
+    margin: 0 0 10px;
+  }
+}
+
+.card-links {
+  padding: 0 32px 32px;
+  color: white;
+
+  .flex.no-wrap.q-list{
+    justify-content: flex-end;
+  }
+
 }
 
 .my-slide {
@@ -165,23 +179,12 @@ export default {
   max-width: 100px;
 }
 
-.fa-facebook {
-  color: black;
-  font-size: 1.5rem;
-}
-
-.fa-whatsapp {
-  color: black;
-  font-size: 1.5rem;
-}
-
-.fa-instagram {
-  color: black;
-  font-size: 1.5rem;
-}
-
+.fa-facebook,
+.fa-whatsapp,
+.fa-instagram,
 .fa-link {
-  color: black;
-  font-size: 1.5rem;
+  color: white;
+  font-size: 16px;
+  margin-left: auto;
 }
 </style>

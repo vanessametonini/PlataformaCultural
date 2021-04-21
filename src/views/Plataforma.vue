@@ -31,10 +31,11 @@
           </ul>
         </p>
         <p class="body-3 text">
-          A plataforma Cartografia da Cultura é um espaço de comunicação e informação online proposta pelo grupo de pesquisa <a
+          A plataforma Cartografia da Cultura é um espaço de comunicação e informação online proposta pelo grupo de pesquisa 
+          <a
             href="https://www.instagram.com/algo.ritmo_/"
             target="_blank"
-          >algo+ritmo</a> UFMS, sob coordenação da Profa. Juliana Trujillo, em parceria com a diretoria do <a href="https://www.facebook.com/forumdeculturacg/?ref=page_internal">Fórum Municipal de Cultura de Campo Grande</a> - Gestão Chapa Quente.
+          >algo+ritmo</a> UFMS, sob coordenação da Profa. Juliana Trujillo, em parceria com a diretoria do <a target="_blank" href="https://www.facebook.com/forumdeculturacg/?ref=page_internal">Fórum Municipal de Cultura de Campo Grande</a> - Gestão Chapa Quente.
         </p>
         <p class="body-3 text">
           Esta plataforma é o principal experimento da pesquisa de doutorado sobre processos participativos através da mediação digital desenvolvida por Juliana Trujillo, sob orientação do Prof. Associado Dr. Marcelo Tramontano, vinculada ao PPGAU-IAU-USP.

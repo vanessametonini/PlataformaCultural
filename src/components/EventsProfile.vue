@@ -49,9 +49,6 @@ export default {
     };
   },
   computed: {},
-  created() {
-    console.log(this.$store.getters["events/getMyEvents"]);
-  },
   methods: {
     mask(text) {
       const limit = 20;

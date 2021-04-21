@@ -278,4 +278,9 @@
 .bl-8 {
   border-left: 8px solid white;
 }
+
+.uppercase {
+  text-transform: uppercase;
+}
+
 </style>

@@ -55,7 +55,6 @@
             É muito importante que você, sendo um agente cultural,
             participe dos debates, dê sua opinião sobre os temas
             relacionados à cultura municipal.
-            
           </p>
         </div>
       </div>

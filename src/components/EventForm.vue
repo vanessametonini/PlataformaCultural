@@ -4,7 +4,7 @@
       <h4 class="title-3 bolder">Adicione um novo evento</h4>
       <!-- event name -->
       <div class="column mg-top16">
-        <span class="subheading-2">Nome do evento</span>
+        <span class="subheading-2">Nome do evento*</span>
         <q-input
           v-model="name"
           class="input"
@@ -19,7 +19,7 @@
       </div>
       <div class="row justify-between mg-top8">
         <div class="column">
-          <span class="subheading-2">Data</span>
+          <span class="subheading-2">Data*</span>
           <q-input
             v-model="date"
             class="input"
@@ -50,7 +50,7 @@
         </div>
 
         <div class="column">
-          <span class="subheading-2">Hora</span>
+          <span class="subheading-2">Hora*</span>
           <q-input
             v-model="time"
             class="input"
@@ -84,13 +84,14 @@
 
       <!-- address -->
       <div class="column mg-top8">
-        <span class="subheading-2">Local do evento</span>
+        <span class="subheading-2">Local do evento*</span>
         <q-input
           v-model="local"
           class="input"
           dense
           input-class="text-black"
           color="black"
+          hint="Caso seja online, escreva ONLINE"
           :error-message="localErrorMessage"
           :error="$v.local.$error"
           @blur="$v.local.$touch"
@@ -162,13 +163,13 @@
 
       <!-- description -->
       <div class="column mg-top8">
-        <span class="subheading-2">Descrição</span>
+        <span class="subheading-2">Descrição*</span>
         <q-input
           v-model="description"
           autogrow
           dense
           hint="Máximo 200 caracteres"
-          :rules="[(val) => val.length <= 200 || 'Máximo de 200 caracteres']"
+          :rules="[(val) => val.length <= 400 || 'Máximo de 400 caracteres']"
           input-class="text-black"
           color="black"
           :error-message="descriptionErrorMessage"
@@ -209,6 +210,7 @@
           dense
           input-class="text-black"
           color="black"
+          hint="Deixe o link caso o evento for online!"
           :error-message="linkErrorMessage"
           :error="$v.link.$error"
           @blur="$v.link.$touch"

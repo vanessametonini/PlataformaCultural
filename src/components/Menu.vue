@@ -89,7 +89,7 @@
                 >
                   <div class="col1">
                     <span class="day">{{ event.day }}</span>
-                    <span>{{ event.month }}</span>
+                    <span class="month">{{ event.month }}</span>
                   </div>
                   <div
                     class="col2"
@@ -97,7 +97,7 @@
                     :title="event.title"
                   >
                     <span>{{ event.title }}</span>
-                    <span>{{ event.site }}</span>
+                    <span class="caption">{{ event.site }}</span>
                   </div>
                 </li>
               </ol>
@@ -359,6 +359,8 @@ ul, ol {
 
 .recent-events {
 
+  font-size: .9rem;
+
   li {
     display: flex;
     line-height: 1.3em;
@@ -370,7 +372,12 @@ ul, ol {
   }
   .col1 {
     margin-right: 10px;
+    padding-top: 4px;
     width: 30px;
+  }
+
+  .month {
+    letter-spacing: .1em;
   }
 
   .day {
@@ -383,23 +390,33 @@ ul, ol {
   }
 }
 
-.recent-debates li:last-child {
-  padding-bottom: 10px;
-}
+.recent-debates {
 
-.recent-debates h6 {
-  margin: 0;
-  font-size: 1em;
+  li {
+    margin-bottom: 10px;
+  }
 
-  a {
-    color: black;
-    text-decoration: none;
+  li:last-child {
+    padding-bottom: 10px;
+  }
 
-    &:hover {
-      text-decoration: underline;
+  h6 {
+    margin: 0;
+    font-size: 1em;
+    line-height: 1.2em;
+    font-weight: normal;
+
+    a {
+      color: black;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }
+
 
 .mapa {
   overflow: hidden;

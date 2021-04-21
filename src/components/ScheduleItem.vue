@@ -1,32 +1,36 @@
 <template>
   <q-card
     square
+    class="schedule-item"
     :style="{ 'background-color': category(item.categoryId).color }"
   >
     <q-card-section class="card">
       <div id="title" class="big-title bolder text-white">
         {{ item.title }}
       </div>
-
-      <div class="caption bolder mg-top16 text-white">
+      <div class="csaption mg-top16 text-white">
         {{ `Dia ${$store.getters["formatDate"](item.dateTime)}` }}
       </div>
-      <div class="caption bolder text-white">
+      <div class="caption text-white">
         {{ `Às ${$store.getters["formatTime"](item.dateTime)}` }}
       </div>
     </q-card-section>
-    <multicolor-line class="multicolor-line-top" />
-    <q-card-section class="card col text-white">
-      <span class="row body-2 bolder">
+
+    <q-card-section class="card col text-white pt-0">
+      <span class="row body-3">
         {{ item.description }}
       </span>
-      <span class="row caption bolder mg-top32">
+      <span class="row body-2 mg-top32">
+        {{ item.local }}
+      </span>
+      <span class="row caption" v-if="item.street">
         {{ `${item.street}, ${item.number}, ${item.neighborhood}` }}
       </span>
-      <span class="row caption bolder">
-        {{ `R$ ${moeda(item.ticket)}` }}
+      <span class="row caption">
+        {{ item.ticket? `R$ ${moeda(item.ticket)}` : "Gratuito"  }}
       </span>
     </q-card-section>
+
     <q-card-section v-if="item.link" class="mg-left16 q-pt-none text-black">
       <q-list>
         <q-item
@@ -85,6 +89,7 @@
         </q-item>
       </q-list>
     </q-card-section>
+
     <q-carousel
       v-model="slide"
       swipeable
@@ -176,6 +181,10 @@ export default {
   margin-left: -4px;
   margin-top: 0px;
   line-height: 2.5rem;
+}
+
+.schedule-item {
+  margin-bottom: 16px;
 }
 
 .card {

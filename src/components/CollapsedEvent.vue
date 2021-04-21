@@ -86,7 +86,7 @@ export default {
   methods: {
     emitThisEvent() {
       this.$emit('event-to-edit', this.id);
-      console.log('shortEvent to edit : (id)', this.id); // emitindo que o shortEvent a ser editado
+      //console.log('shortEvent to edit : (id)', this.id); // emitindo que o shortEvent a ser editado
       // this.showThisShort = false;
     },
     setCategory() {
