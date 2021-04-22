@@ -146,6 +146,7 @@ export default {
 .card-title h2 {
   font-size: 3em;
   font-weight: bolder;
+  line-height: 1em;
   margin: 0;
   padding: 0;
 }
@@ -164,6 +165,11 @@ export default {
   }
 }
 
+.my-slide {
+  width: 100%;
+  max-width: 100px;
+}
+
 .card-links {
   padding: 0 32px 32px;
   color: white;
@@ -172,11 +178,6 @@ export default {
     justify-content: flex-end;
   }
 
-}
-
-.my-slide {
-  width: 100%;
-  max-width: 100px;
 }
 
 .fa-facebook,

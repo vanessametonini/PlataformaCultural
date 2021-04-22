@@ -31,45 +31,44 @@
       </span>
     </q-card-section>
 
-    <q-card-section v-if="item.link" class="mg-left16 q-pt-none text-black">
-      <q-list>
+    <q-card-section class="card-links">
+      <q-list class="flex no-wrap">
         <q-item
           v-if="item.link"
           clickable
           tag="a"
           target="_blank"
           :href="item.link"
+          title="Link"
         >
           <q-item-section avatar>
             <i class="fas fa-link"></i>
           </q-item-section>
-          <q-item-section>
-            <q-item-label>Link</q-item-label>
-            <q-item-label caption>{{ item.link }}</q-item-label>
-          </q-item-section>
         </q-item>
-        <q-item v-if="item.whatsapp">
-          <q-item-section avatar>
+
+        <q-item
+          v-if="item.phone"
+          clickable
+          tag="a"
+          target="_blank"
+          :href="`https://api.whatsapp.com/send?phone=55${item.phone}`"
+          :title="`Whatsapp ${item.phone}`"
+        >
+          <q-item-section avatar >
             <i class="fab fa-whatsapp"></i>
           </q-item-section>
-          <q-item-section>
-            <q-item-label>Whatsapp</q-item-label>
-            <q-item-label caption>{{ item.whatsapp }}</q-item-label>
-          </q-item-section>
         </q-item>
+
         <q-item
           v-if="item.facebook"
           clickable
           tag="a"
           target="_blank"
           :href="item.facebook"
+          title="Facebook"
         >
           <q-item-section avatar>
             <i class="fab fa-facebook"></i>
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Facebook</q-item-label>
-            <q-item-label caption>{{ item.facebook }}</q-item-label>
           </q-item-section>
         </q-item>
         <q-item
@@ -78,13 +77,10 @@
           tag="a"
           target="_blank"
           :href="item.instagram"
+          title="Instagram"
         >
           <q-item-section avatar>
             <i class="fab fa-instagram"></i>
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Instagram</q-item-label>
-            <q-item-label caption>{{ item.instagram }}</q-item-label>
           </q-item-section>
         </q-item>
       </q-list>
@@ -192,28 +188,22 @@ export default {
   position: relative;
 }
 
-.my-slide {
-  width: 100%;
-  max-width: 100px;
+.card-links {
+  padding: 0 32px 32px;
+  color: white;
+
+  .flex.no-wrap.q-list{
+    justify-content: flex-end;
+  }
+
 }
 
-.fa-facebook {
-  color: black;
-  font-size: 1.5rem;
-}
-
-.fa-whatsapp {
-  color: black;
-  font-size: 1.5rem;
-}
-
-.fa-instagram {
-  color: black;
-  font-size: 1.5rem;
-}
-
+.fa-facebook,
+.fa-whatsapp,
+.fa-instagram,
 .fa-link {
-  color: black;
-  font-size: 1.5rem;
+  color: white;
+  font-size: 16px;
+  margin-left: auto;
 }
 </style>
