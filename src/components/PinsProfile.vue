@@ -11,7 +11,7 @@
           clickable
           @click="$store.dispatch('pins/animatePin', { $router, pin })"
           v-ripple
-          :style="{ 'background': $store.getters['categories/getCategoryById'](pin.categoryId).color}"
+          :style="{ 'border-color': $store.getters['categories/getCategoryById'](pin.categoryId).color}"
         >
           <q-item-section avatar>
             <q-avatar square>

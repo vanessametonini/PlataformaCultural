@@ -11,7 +11,7 @@
           clickable
           v-ripple
           @click="emitThisTopic(topic)"
-          :style="{ 'background': $store.getters['categories/getCategoryById'](topic.categoryId).color}"
+          :style="{ 'border-color': $store.getters['categories/getCategoryById'](topic.categoryId).color}"
           :title="topic.title"
         >
           <q-item-section>

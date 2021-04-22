@@ -10,7 +10,7 @@
           :key="event.id"
           clickable
           v-ripple
-          :style="{ 'background': $store.getters['categories/getCategoryById'](event.categoryId).color}"
+          :style="{ 'border-color': $store.getters['categories/getCategoryById'](event.categoryId).color}"
         >
           <q-item-section avatar>
             <q-avatar square>
