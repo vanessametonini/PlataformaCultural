@@ -5,62 +5,55 @@
     :style="{ 'background-color': category(topic.categoryId).color }"
     @click="emitThisTopic()"
   >
+      <q-card-section class="card">
+        <div id="title" class="big-title bolder text-white" :title="topic.title">
+          {{ mask(topic.title, 30)}}
+        </div>
+        <div class="bolder mg-top16 text-white">
+          {{ category(topic.categoryId).label }}
+        </div>
+        <div class="row al-items-center text-white caption">
+          <span class="">
+            {{ topic.user.firstName}} {{topic.user.lastName }}
+          </span>
+          <span class="mg-left16">
+            {{ formatDate(topic.createdAt) }}
+          </span>
+        </div>
+      </q-card-section>
+      <q-card-section class="card-description">
+        <p class="text-white">
+          {{ mask(topic.content, 120) }}
+        </p>
+      </q-card-section>
+
     <q-card-section class="card">
-      <div id="title" class="big-title bolder text-white">
-        {{ topic.title }}
+      <div class="thumbs">
+        <q-icon name="fa fa-thumbs-up" />
+        <span class="votesPercent"> {{ supportsPercentage(true) }}% </span>
+        <q-icon name="fa fa-thumbs-down" />
+        <span class="votesPercent"> {{ supportsPercentage(false) }}% </span>
       </div>
-      <div class="caption bolder mg-top16 text-white">
-        {{ category(topic.categoryId).label }}
-      </div>
-      <div class="row al-items-center mg-top8 text-white">
-        <span class="body-3 bolder">
-          {{ topic.user.firstName + " " + topic.user.lastName }}
-        </span>
-        <span class="caption bold mg-left16">
-          {{ formatDate(topic.createdAt) }}
-        </span>
-      </div>
-    </q-card-section>
-    <multicolor-line class="multicolor-line-top" />
-    <q-card-section class="card">
-      <div class="body-2 bolder text-white">
-        {{ topic.content }}
-      </div>
-    </q-card-section>
-    <q-card-section class="card row no-wrap justify-between">
-      <div>
-        <span class="caption bolder">
+
+      <div class="supports-comments caption">
+        <span class="supports">
           {{ topic.positiveSupports + topic.negativeSupports }}
-        </span>
-        <span class="caption bolder">
+
           {{
             ` ${
               topic.positiveSupports + topic.negativeSupports === 1
-                ? "voto"
-                : "votos"
+                ? "Apoio"
+                : "Apoios"
             }`
           }}
         </span>
+        |
+        <span class="comments">
+            {{ topic.numberOfReplies }}
+            {{ ` ${topic.numberOfReplies === 1 ? "Comentário" : "Comentários"}` }}
+        </span>
       </div>
 
-      <div>
-        <q-icon name="far fa-thumbs-up" />
-        <!-- <i class="fas fa-heart"></i> -->
-        <span class="caption bolder"> {{ supportsPercentage(true) }}% </span>
-      </div>
-      <div>
-        <q-icon name="far fa-thumbs-down" />
-        <!-- <i class="fas fa-heart-broken"></i> -->
-        <span class="caption bolder"> {{ supportsPercentage(false) }}% </span>
-      </div>
-      <div>
-        <span class="caption bolder">
-          {{ topic.numberOfReplies }}
-        </span>
-        <span class="caption bolder">
-          {{ ` ${topic.numberOfReplies === 1 ? "comentário" : "comentários"}` }}
-        </span>
-      </div>
     </q-card-section>
   </q-card>
 </template>
@@ -81,15 +74,7 @@ export default {
       categories: "categories/loadCategories",
       formatDate: "formatDate",
       category: "categories/getCategoryById",
-    }),
-    formatDescription() {
-      const limit = 150;
-      const str = this.topic.content;
-      if (str.length > limit) {
-        return str.substring(0, limit).concat("...");
-      }
-      return this.topic.description;
-    },
+    })
   },
   methods: {
     ...mapActions("topics", [
@@ -116,24 +101,33 @@ export default {
         ? parseInt((negAmount / totalSupports) * 100, 10)
         : 0;
     },
+    mask(text, limit = 20){
+      if (text.length>limit) return text.substring(0, limit)+'...';
+      return text;
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/variables.scss";
-@import "../styles/mixins.scss";
 
-div {
-  align-content: center;
-}
 .card {
   padding: 32px;
   position: relative;
 }
+
 .my-card {
+  margin-bottom: 10px;
   &:hover {
     cursor: pointer;
+  }
+}
+
+.card-description {
+  padding: 0 64px 16px 32px;
+
+  p {
+    margin: 0;
   }
 }
 
@@ -142,28 +136,33 @@ div {
   margin-top: 0px;
   line-height: 2.5rem;
 }
-.my-slide {
-  width: 100%;
-  max-width: 100px;
+
+
+.thumbs {
+  margin-bottom: 32px;
+  text-align: center;
 }
 
-.fa-thumbs-up {
-  color: black;
-  font-size: 1rem;
+.supports-comments {
+  text-align: center;
+}
+
+.fa-thumbs-up,
+.fa-thumbs-down {
+  color: white;
+  font-size: 2.8em;
+  position: relative;
 }
 
 .fa-thumbs-down {
-  color: black;
-  font-size: 1rem;
+  top: 7px;
 }
 
-.fa-heart {
-  color: black;
-  font-size: 1rem;
-}
-
-.fa-heart-broken {
-  color: black;
-  font-size: 1rem;
+.votesPercent {
+  font-weight: bolder;
+  font-size: 1.2em;
+  position: relative;
+  top: -18px;
+  letter-spacing: -.05em;
 }
 </style>

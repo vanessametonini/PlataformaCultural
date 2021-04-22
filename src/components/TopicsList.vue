@@ -9,7 +9,6 @@
       <span class="body-2 bolder">você pode ser o primeiro</span>
     </div>
 
-    <!-- IMPLEMENTAR O SCROOL AREA E O TRIGGER GET_MORE_TOPICS, JUNTO AO TRIGGER GHANGE_FILTER -->
     <div
       v-else
       class="content"
@@ -33,7 +32,6 @@
 
 <script>
 import { mapGetters } from 'vuex';
-// import { mapGetters } from 'vuex';
 import TopicItem from './TopicItem.vue';
 
 export default {

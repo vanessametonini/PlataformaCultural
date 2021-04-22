@@ -110,7 +110,6 @@ export default {
     },
     filterThis(filterType) {
       this.filterTypeSelected = filterType;
-      console.log("filterThis", filterType);
     },
   },
 };
@@ -118,7 +117,6 @@ export default {
 
 <style lang="scss" scoped>
 @import "../styles/variables.scss";
-@import "../styles/mixins.scss";
 
 .events-page .q-layout-container {
   background-color: #f5f5f5;
