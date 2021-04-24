@@ -33,7 +33,7 @@ Vue.use(new VueSocketIO({
 }))
 
 Vue.use(VueAnalytics, {
-  id: 'UA-162276539-1',
+  id: 'UA-193892283-1',
   router
 })
 Vue.use(money, {precision: 4})

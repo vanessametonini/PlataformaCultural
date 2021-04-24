@@ -97,7 +97,7 @@ export default {
       search: "",
       options: [
         { label: 'Mais ativos', value: 'mostActive', color: 'black' },
-        { label: 'Mais Comentados', value: 'mostAnswed', color: 'black' },
+        { label: 'Mais comentados', value: 'mostAnswed', color: 'black' },
         { label: 'Novos', value: 'mostRecent', color: 'black' },
       ]
     };
