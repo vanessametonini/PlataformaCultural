@@ -8,8 +8,8 @@ const state = {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
   },
   zoomSet: {
-    zoom: 14,
-    minZoom: 13,
+    zoom: 12,
+    minZoom: 12,
     maxZoom: 16,
     options: {
       zoomSnap: 0.5,
