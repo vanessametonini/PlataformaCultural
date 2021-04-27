@@ -89,52 +89,67 @@ const actions = {
       group: false,
       spinner: true,
       message: 'Estamos cadastrando seu perfil..',
+      position: 'top-right',
     });
     dispatch('services/POST', { uri: 'auth/signup', data: getters.getSignUpForm }, { root: true })
       .then(async (response) => {
-        const notif2 = Notify.create({
-          group: false,
-          spinner: true,
-          message: 'Enviando avatar...',
-        });
-        await dispatch('images/uploadAvatar', { file, userId: response.data.id }, { root: true })
-          .then((response) => {
-            notif2({
-              icon: 'done',
-              spinner: false,
-              message: 'Avatar enviado!',
-            })
-          })
-          .catch((error) => {
-            notif2({
-              type: 'negative',
-              spinner: false,
-              message: 'Não foi possível enviar seu avatar!',
-            })
-            return error;
+
+        if(file) {
+          const notif2 = Notify.create({
+            group: false,
+            spinner: true,
+            message: 'Enviando avatar...',
+            position: 'top-right',
           });
+
+          await dispatch('images/uploadAvatar', { file, userId: response.data.id }, { root: true })
+            .then((response) => {
+              notif2({
+                icon: 'done',
+                spinner: false,
+                message: 'Avatar enviado!',
+                position: 'top-right',
+              })
+            })
+            .catch((error) => {
+              notif2({
+                type: 'negative',
+                spinner: false,
+                message: 'Não foi possível enviar seu avatar!',
+                position: 'top-right',
+              })
+              return error;
+            });
+        }
+
         notif1({
           icon: 'done',
           spinner: false,
           message: 'Perfil cadastrado!',
+          position: 'top-right',
         })
         Notify.create({
           message: 'Enviamos um email de confirmação!',
+          position: 'top-right',
         });
         Notify.create({
           message: 'Verifique sua caixa de entrada!',
+          position: 'top-right',
         });
+
         return response;
       })
       .catch((error) => {
         if(error.response.data.statusCode === 409)
           Notify.create({
             message: 'Este email já está cadastrado.',
+            position: 'top-right',
           });
         notif1({
           type: 'negative',
           spinner: false,
           message: 'Não foi possível cadastrar seu perfil.',
+          position: 'top-right',
         })
         return error;
       });

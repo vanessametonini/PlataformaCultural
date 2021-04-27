@@ -74,6 +74,7 @@
             square
             filled
             label="Nome*"
+            required
             bottom-slots
             :error="$v.firstName.$error"
             :error-message="firstNameErrorMessage"
@@ -88,6 +89,7 @@
             square
             filled
             label="Sobrenome*"
+            required
             bottom-slots
             :error="$v.lastName.$error"
             :error-message="lastNameErrorMessage"
@@ -103,8 +105,9 @@
             dense
             square
             filled
-            :options="genderOptions"
             label="Com qual gênero você se identifica?"
+            required
+            :options="genderOptions"
             :error="$v.gender.$error"
             :error-message="genderErrorMessage"
             @blur="$v.gender.$touch"
@@ -129,8 +132,9 @@
           dense
           square
           filled
-          :options="ageRangeOptions"
           label="Qual sua faixa etária?"
+          required
+          :options="ageRangeOptions"
           :error="$v.ageRange.$error"
           :error-message="ageRangeErrorMessage"
           @blur="$v.ageRange.$touch"
@@ -143,8 +147,9 @@
           dense
           square
           filled
-          :options="educationOptions"
           label="Qual o grau de educação formal?"
+          required
+          :options="educationOptions"
           :error="$v.education.$error"
           :error-message="educationErrorMessage"
           @blur="$v.education.$touch"
@@ -158,6 +163,7 @@
           square
           filled
           label="email*"
+          required
           :error="$v.email.$error"
           :error-message="emailErrorMessage"
           lazy-rules
@@ -172,6 +178,7 @@
           square
           filled
           label="confirme o email*"
+          required
           :error="$v.emailConfirmation.$error"
           :error-message="emailConfirmationErrorMessage"
           @blur="$v.emailConfirmation.$touch"
@@ -187,6 +194,7 @@
             filled
             :type="isPwd ? 'password' : 'text'"
             label="senha*"
+            required
             :error="$v.password.$error"
             :error-message="passwordErrorMessage"
             @blur="$v.password.$touch"
@@ -209,6 +217,7 @@
             filled
             :type="isPwd ? 'password' : 'text'"
             label="confirme a senha*"
+            required
             :error="$v.confirmPassword.$error"
             :error-message="confirmPasswordErrorMessage"
             @blur="$v.confirmPassword.$touch"
@@ -225,7 +234,7 @@
         <!-- end row -->
         <!-- file picker -->
         <q-file
-          v-model="model"
+          v-model="avatarPic"
           class="input"
           dense
           square
@@ -236,9 +245,6 @@
           max-files="1"
           accept=".jpg,.jpeg,.png,.gif"
           max-file-size="2097152"
-          :error-message="avatarErrorMessage"
-          :error="$v.model.$error"
-          @blur="$v.model.$touch"
           @input="encode64"
         >
           <template #before>
@@ -249,11 +255,11 @@
 
           <template #append>
             <q-icon
-              v-if="model !== null"
+              v-if="avatarPic !== null"
               name="close"
               class="cursor-pointer"
               @click.stop="
-                model = null;
+                avatarPic = null;
                 img = null;
               "
             />
@@ -358,7 +364,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import { mapGetters } from "vuex";
 import iconBase from "../components/iconBase.vue";
 import {
@@ -368,13 +373,12 @@ import {
   maxLength,
   sameAs,
 } from "vuelidate/lib/validators";
-import { gsap, TweenMax, Expo } from "gsap";
 import { createHelpers } from "vuex-map-fields";
+
 const { mapFields } = createHelpers({
   getterType: "users/getField",
   mutationType: "users/updateField",
 });
-gsap.registerPlugin(TweenMax, Expo);
 
 export default {
   name: "SignUp",
@@ -384,7 +388,7 @@ export default {
   data() {
     return {
       waiting: false,
-      model: null,
+      avatarPic: null,
       img: require("../assets/default.png"),
       loading: false,
       message: null,
@@ -410,45 +414,18 @@ export default {
       terms: false, // ----- accept terms?
     };
   },
-  mounted() {
-    const { overlay, presentation } = this.$refs;
-    window.scrollTo(0, 0);
-
-    TweenMax.to(presentation, 2, {
-      opacity: 0,
-      y: -60,
-      ease: Expo.easeInOut,
-    });
-
-    TweenMax.to(overlay, 2, {
-      delay: 1,
-      top: "-100%",
-      ease: Expo.easeInOut,
-    });
-  },
-  updated() {
-    if (this.isNotOtherGender == true) {
-      this.otherGender = "";
-    }
-  },
   validations: {
     firstName: {
       required,
-      minLength: minLength(3),
-      validChars: (value) => {
-        return /^[a-zA-Z0-9_]+$/gi.test(value);
-      },
+      minLength: minLength(2),
     },
     lastName: {
       required,
-      validChars: (value) => {
-        return /^[a-zA-Z0-9_]+$/gi.test(value);
-      },
+      minLength: minLength(2),
     },
     email: {
       required,
-      email,
-      maxLength: maxLength(30),
+      email
     },
     emailConfirmation: {
       required,
@@ -456,8 +433,7 @@ export default {
     },
     password: {
       required,
-      minLength: minLength(8),
-      maxLength: maxLength(15),
+      minLength: minLength(8)
     },
     confirmPassword: {
       required,
@@ -472,8 +448,7 @@ export default {
     education: {
       required,
     },
-    model: {
-      required,
+    avatarPic : {
     },
   },
   computed: {
@@ -507,48 +482,53 @@ export default {
     formIsValid() {
       if (this.$v.$anyError || this.selected === null || this.terms === false) {
         return false;
-      } else {
-        return true;
       }
+      return true;
     },
     firstNameErrorMessage() {
       if (!this.$v.firstName.required) {
-        return "Esse campo é requerido";
-      } else if (!this.$v.firstName.validChars) {
-        return "Este campo deve conter apenas letras, números e underline";
-      } else if (!this.$v.firstName.minLength) {
-        return "Mínimo de três dígitos";
+        return "Preenchimento obrigatório";
       }
+      if (!this.$v.firstName.minLength) {
+        return "Mínimo de dois dígitos";
+      }
+      return "Preenchimento inválido"
     },
     lastNameErrorMessage() {
       if (!this.$v.lastName.required) {
-        return "Campo requerido";
-      } else if (!this.$v.lastName.validChars) {
-        return "Este campo deve conter apenas letras, números e underline";
+        return "Preenchimento obrigatório";
       }
+      if (!this.$v.lastName.minLength) {
+        return "Mínimo de dois dígitos";
+      }
+      return "Preenchimento inválido"
     },
     emailErrorMessage() {
       if (!this.$v.email.required) {
         return "Email é requerido";
-      } else if (!this.$v.email.email) {
+      }
+      if (!this.$v.email.email) {
         return "Por favor insira um email válido";
       }
+      return "Preenchimento inválido"
     },
     emailConfirmationErrorMessage() {
       if (!this.$v.emailConfirmation.required) {
-        return "Confirmação de email é requerida";
+        return "Confirmação de email é obrigatória";
       } else if (!this.$v.emailConfirmation.sameAsEmail) {
         return "Email não confere";
       }
+      return "Preenchimento inválido"
     },
     passwordErrorMessage() {
       if (!this.$v.password.required) {
-        return "Senha é requerida";
-      } else if (!this.$v.password.minLength) {
-        return "Mínimo de 8 dígitos";
-      } else if (!this.$v.password.maxLength) {
-        return "Máximo de 15 dígitos";
+        return "Senha é obrigatória";
       }
+      if (!this.$v.password.minLength) {
+        return "Mínimo de 8 dígitos";
+      }
+
+      return "Preenchimento inválido"
     },
     confirmPasswordErrorMessage() {
       if (!this.$v.confirmPassword.required) {
@@ -556,36 +536,40 @@ export default {
       } else if (!this.$v.confirmPassword.sameAsPassword) {
         return "Senha não confere";
       }
+      return "Preenchimento inválido"
     },
     genderErrorMessage() {
       if (!this.$v.gender.required) {
         return "Informe seu gênero";
       }
+      return "Preenchimento inválido"
     },
     ageRangeErrorMessage() {
       if (!this.$v.ageRange.required) {
         return "Informe sua faixa etária";
       }
+      return "Preenchimento inválido"
     },
     educationErrorMessage() {
       if (!this.$v.education.required) {
         return "Informe seu grau de escolaridade";
       }
+      return "Preenchimento inválido"
     },
     isNotOtherGender() {
       return this.gender != this.genderOptions[2];
-    },
-    avatarErrorMessage() {
-      if (!this.$v.education.required) {
-        return "É necessário um avatar";
-      }
-    },
+    }
+  },
+  updated() {
+    if (this.isNotOtherGender == true) {
+      this.otherGender = "";
+    }
   },
   methods: {
     async encode64() {
       await new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.readAsDataURL(this.model);
+        reader.readAsDataURL(this.avatarPic);
         reader.onload = () => {
           this.avatar = reader.result;
         };
@@ -594,7 +578,6 @@ export default {
     },
     selectCategory(el) {
       const { content } = this.$refs;
-      console.log(el);
       this.categoryId = el.id;
       if (el.value !== this.lastSelected) {
         this.selected = el;
@@ -606,78 +589,28 @@ export default {
         this.lastSelected = 0;
       }
     },
-    loadingTransition() {
-      const { overlay, message } = this.$refs;
-
-      if (overlay && message) {
-        window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: "smooth",
-        });
-
-        TweenMax.to(overlay, 2, {
-          delay: 0.6,
-          top: "0",
-          ease: Expo.easeInOut,
-        });
-
-        TweenMax.to(message, 2, {
-          delay: 3,
-          opacity: 1,
-          ease: Expo.easeInOut,
-        });
-      }
-
-      setInterval(() => {
-        this.closeTransition();
-      }, 5000);
-    },
-    closeTransition() {
-      const { overlay, message } = this.$refs;
-
-      TweenMax.to(overlay, 2, {
-        delay: 1,
-        top: "-100%",
-        ease: Expo.easeInOut,
-      });
-
-      TweenMax.to(message, 2, {
-        opacity: 0,
-        y: -60,
-        ease: Expo.easeInOut,
-      });
-    },
     submit() {
       this.$v.$touch();
       if (!this.$v.$anyError) {
         if (this.waiting) {
           this.$q.notify({
             message: "Por favor, aguarde.",
+            position: 'top-right',
           });
-          return;
         }
         this.waiting = true;
         this.loading = true;
         this.$store
-          .dispatch("users/signUp", { file: this.model })
-          .then((response) => {
-            this.message = "Só uns segundinhos";
-            this.loadingTransition();
+          .dispatch("users/signUp", { file: this.avatarPic })
+          .then(() => {
             this.$router.push({ name: "SignIn" });
             this.waiting = false;
           })
-          .catch((error) => {
-            if (error.message === "Request failed with status code 400") {
-              this.message =
-                "Desculpe, houve um erro. Tente Novamente mais tarde";
-            }
-            this.loadingTransition();
-            this.waiting = false;
-          });
+          .catch(() => this.waiting = false);
       } else {
         this.$q.notify({
           message: "Por favor, preencha os campos corretamente.",
+          position: 'top-right',
         });
       }
     },
@@ -699,12 +632,6 @@ export default {
 
 .content-center {
   @include centered-column;
-}
-
-.clip-path {
-  clip-path: circle(100%);
-  -webkit-transition: -webkit-clip-path 1s ease-out;
-  transition: -webkit-clip-path 1s ease-out;
 }
 
 .line {

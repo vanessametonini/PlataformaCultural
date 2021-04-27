@@ -184,6 +184,7 @@ export default {
       this.$q.notify({
         type: "warning",
         textColor: "black",
+        position: 'top-right',
         message: "Tem certeza que deseja excluir esse comentário?",
         actions: [
           {

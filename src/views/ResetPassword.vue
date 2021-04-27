@@ -129,6 +129,7 @@ export default {
         if (this.waiting) {
           this.$q.notify({
             message: "Por favor, aguarde.",
+            position: 'top-right',
           });
           return;
         }

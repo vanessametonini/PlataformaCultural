@@ -34,16 +34,25 @@ const routes = [
     path: '/signIn',
     name: 'SignIn',
     component: () => import('../views/SignIn.vue'),
+    meta: {
+      hideForAuth: true
+    }
   },
   {
     path: '/signUp',
     name: 'SignUp',
     component: () => import('../views/SignUp.vue'),
+    meta: {
+      hideForAuth: true
+    }
   },
   {
     path: '/recover',
     name: 'Recover',
     component: () => import('../views/Recover.vue'),
+    meta: {
+      hideForAuth: true
+    }
   },
   {
     path: '/profile',
@@ -100,7 +109,8 @@ const routes = [
     component: () => import('../views/ResetPassword.vue'),
     meta: {
       requiresAuth: false,
-    },
+      hideForAuth: true
+    }
   },
   {
     path: '/confirm-email/:confirmToken', 
@@ -108,12 +118,8 @@ const routes = [
     component: () => import('../views/ConfirmEmail.vue'),
     meta: {
       requiresAuth: false,
-    },
-  },
-  {
-    path: '/buffer',
-    name: 'Buffer',
-    component: () => import('../views/buffer.vue'),
+      hideForAuth: true
+    }
   },
   {
     path: '/documentation',
@@ -123,55 +129,16 @@ const routes = [
   }
 ];
 
-const scrollBehavior = (to, from, savedPosition) => {
-  if (savedPosition) {
-    // savedPosition is only available for popstate navigations.
-    return savedPosition;
-  }
-  const position = {};
-  // new navigation.
-  // scroll to anchor by returning the selector
-  if (to.hash) {
-    position.selector = to.hash;
-
-    if (to.name === 'Terms') {
-      // specify offset of the element
-      if (to.hash === '#terms') {
-        return {
-          selector: to.hash,
-        };
-      }
-      // position.offset = { y: 1200 };
-      // } else if (to.hash === '#privacity') {
-      //   return {
-      //     selector: to.hash,
-      //   };
-      //   // position.offset = { y: 0 };
-      // }
-    }
-  }
-  // check if any matched route config has meta that requires scrolling to top
-  if (to.matched.some((m) => m.meta.scrollToTop)) {
-    // cords will be used if no selector is provided,
-    // or if the selector didn't match any element.
-    position.x = 0;
-    position.y = 0;
-  }
-  // if the returned position is falsy or an empty object,
-  // will retain current scroll position.
-  return position;
-};
-
 const Router = new VueRouter({
   mode: 'history',
   base: '/',
   routes,
-  scrollBehavior,
 });
 
 store.dispatch('initStore');
 
 Router.beforeEach((to, from, next) => {
+
   if (store.state.authenticated == null) {
     store.watch(() => store.state.authenticated, (status) => {
       if (status) {
@@ -191,6 +158,8 @@ Router.beforeEach((to, from, next) => {
   } else {
     next();
   }
+
 });
+
 
 export default Router;

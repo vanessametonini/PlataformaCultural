@@ -3,7 +3,7 @@
     <div class="row no-wrap">
       <header class="col-auto">
         <logo-card />
-        <avatar-card :user="currentUser" />
+        <avatar-card :user="currentUser" v-if="currentUser.avatarId" />
         <base-button
           class="btn-logout"
           theme="primary"

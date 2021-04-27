@@ -80,6 +80,7 @@ export default {
         if (this.waiting) {
           this.$q.notify({
             message: "Por favor, aguarde.",
+            position: 'top-right',
           });
           return;
         }
@@ -96,6 +97,7 @@ export default {
       } else {
         this.$q.notify({
           message: "Por favor, preencha o campo corretamente.",
+          position: 'top-right',
         });
       }
     },

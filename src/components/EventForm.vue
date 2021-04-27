@@ -472,6 +472,7 @@ export default {
         if (this.waiting){
           this.$q.notify({
             message: "Por favor, aguarde.",
+            position: 'top-right',
           });
           return;
         };
@@ -506,6 +507,7 @@ export default {
       } else {
         this.$q.notify({
           message: "Por favor, preencha os campos corretamente.",
+          position: 'top-right',
         });
       }
     },

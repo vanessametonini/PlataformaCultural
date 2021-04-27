@@ -25,7 +25,6 @@ export default {
         confirmToken: this.$route.params.confirmToken,
       })
       .then((response) => {
-      console.log(response);
         this.$store.commit("services/STORAGE_TOKEN", response.data.token);
         this.$store.commit("users/SET_CURRENT_USER", response.data.user);
         this.$store.commit("SET_AUTHENTICATION");

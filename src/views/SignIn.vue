@@ -126,6 +126,7 @@ export default {
         if (this.waiting) {
           this.$q.notify({
             message: "Por favor, aguarde.",
+            position: 'top-right',
           });
           return;
         }
@@ -142,6 +143,7 @@ export default {
               this.$q.notify({
                 message: "É necessário confirmar o email",
                 color: "Black",
+                position: 'top-right',
               });
             } else {
               this.$router.push({ name: "Profile" });
@@ -155,18 +157,21 @@ export default {
               this.$q.notify({
                 message: "Não encontramos uma conta com esse email",
                 color: "Black",
+                position: 'top-right',
               });
             }
             if (error.message === "Request failed with status code 401") {
               this.$q.notify({
                 message: "Email ou senha inválidos",
                 color: "Black",
+                position: 'top-right',
               });
             }
             if (error.message === "timeout of 5000ms exceeded") {
               this.$q.notify({
                 message: "Houve um Problema, tente novamente",
                 color: "Black",
+                position: 'top-right',
               });
             }
             this.waiting = false;
@@ -174,6 +179,7 @@ export default {
       } else {
         this.$q.notify({
           message: "Por favor, preencha os campos corretamente.",
+          position: 'top-right',
         });
       }
     },
