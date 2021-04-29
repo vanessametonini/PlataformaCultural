@@ -91,7 +91,7 @@
           dense
           input-class="text-black"
           color="black"
-          hint="Caso seja online, escreva ONLINE"
+          hint="Caso seja online, escreva o nome da plataforma: Youtube, Zoom, Instagram ..."
           :error-message="localErrorMessage"
           :error="$v.local.$error"
           @blur="$v.local.$touch"
@@ -274,7 +274,7 @@
             />
             <q-icon name="create_new_folder" @click.stop />
           </template>
-          <template #hint> Tamanho máximo de 2MB </template>
+          <template #hint> Tamanho máximo de 2MB. Formato JPG.</template>
         </q-file>
       </div>
     </div>

@@ -37,10 +37,6 @@
   padding: 4px;
 }
 
-.q-field__bottom {
-  padding-top: 12px;
-}
-
 // ----------------- typograph styleguide -------------------
 
 .txt-al-jus {

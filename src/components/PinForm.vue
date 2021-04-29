@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div class="input-content">
-      <h4 class="title-3 bolder">Adicione um novo pin</h4>
+      <h4 class="title-3 bolder">Adicione um novo pin no mapa</h4>
       <!-- pin name -->
       <div class="column mg-top16">
         <span class="subheading-2">Nome do pin*</span>
@@ -19,6 +19,35 @@
         />
       </div>
 
+      <!-- category -->
+      <div class="column mg-top8">
+        <span class="subheading-2">Categoria*</span>
+        <q-select
+          v-model="categoryId"
+          option-value="id"
+          option-label="label"
+          map-options
+          emit-value
+          class="input"
+          square
+          dense
+          :options="categories"
+          options-dense
+          options-selected-class
+          color="black"
+          :error="$v.categoryId.$error"
+          :error-message="categoryErrorMessage"
+          @blur="$v.categoryId.$touch"
+          @input="
+            category = $store.getters['categories/getCategoryById'](categoryId)
+          "
+        >
+          <template #selected>
+            <span class="caption bold">{{ category.label }}</span>
+          </template>
+        </q-select>
+      </div>
+
       <!-- email -->
       <div class="column mg-top8">
         <span class="subheading-2">Email</span>
@@ -32,22 +61,6 @@
           :error="$v.email.$error"
           :error-message="emailErrorMessage"
           @blur="$v.email.$touch"
-        />
-      </div>
-
-      <!-- phone -->
-      <div class="column mg-top8">
-        <span class="subheading-2">Telefone</span>
-        <q-input
-          v-model="phone"
-          class="input"
-          dense
-          mask="(##) ##### - ####"
-          unmasked-value
-          color="black"
-          :error="$v.phone.$error"
-          :error-message="phoneErrorMessage"
-          @blur="$v.phone.$touch"
         />
       </div>
 
@@ -147,6 +160,22 @@
         />
       </div>
 
+       <!-- phone -->
+      <div class="column mg-top8">
+        <span class="subheading-2">Telefone</span>
+        <q-input
+          v-model="phone"
+          class="input"
+          dense
+          mask="(##) #### - ####"
+          unmasked-value
+          color="black"
+          :error="$v.phone.$error"
+          :error-message="phoneErrorMessage"
+          @blur="$v.phone.$touch"
+        />
+      </div>
+
       <div class="column mg-top8">
         <span class="subheading-2">Facebook</span>
         <q-input
@@ -173,35 +202,6 @@
           :error-message="instagramErrorMessage"
           @blur="$v.instagram.$touch"
         />
-      </div>
-
-      <!-- category -->
-      <div class="column mg-top8">
-        <span class="subheading-2">Categoria*</span>
-        <q-select
-          v-model="categoryId"
-          option-value="id"
-          option-label="label"
-          map-options
-          emit-value
-          class="input"
-          square
-          dense
-          :options="categories"
-          options-dense
-          options-selected-class
-          color="black"
-          :error="$v.categoryId.$error"
-          :error-message="categoryErrorMessage"
-          @blur="$v.categoryId.$touch"
-          @input="
-            category = $store.getters['categories/getCategoryById'](categoryId)
-          "
-        >
-          <template #selected>
-            <span class="caption bold">{{ category.label }}</span>
-          </template>
-        </q-select>
       </div>
 
       <!-- file picker -->
@@ -232,7 +232,7 @@
             />
             <q-icon name="create_new_folder" @click.stop />
           </template>
-          <template #hint> Tamanho máximo de 2MB </template>
+          <template #hint> Tamanho máximo de 2MB. Formato JPG.</template>
           <!-- <template #after>
             <q-btn
               round

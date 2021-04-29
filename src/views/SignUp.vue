@@ -1,6 +1,6 @@
 <template>
-  <div class="app-page">
-    <form ref="content" class="content-center column bg-change">
+  <div class="app-page signUp">
+    <form ref="content" class="content-center column">
       <!-- identity (seal) -->
       <logo-card class="header" />
 
@@ -10,16 +10,16 @@
       <!-- info -->
       <div class="info">
         <div class="column mg-top16">
-          <span class="title-2 bolder">Cartografia da Cultura Campo Grande</span>
-          <span class="body-3 mg-top16">
-            <p>
-              <strong>Se é seu primeiro cadastro, leia com atenção o texto abaixo! </strong> 
-            </p>
+          <h1 class="title-2 bolder">Cartografia da Cultura Campo Grande</h1>
+            <p class="body-3 mg-top16 bolder">
+              Se é seu primeiro cadastro, leia com atenção o texto abaixo! 
+            </p> 
+            <p class="body-3 mg-top16">
             Para nós é muito importante que você participe desta plataforma. Se você faz parte da cena cultural ou tem afinidade com o tema, 
             sinta-se à vontade para colaborar e contribuir na promoção da arte e cultura da nossa cidade. 
             A Cartografia da Cultura é um espaço que permite de dar voz e visibilidade a todos que produzem arte e cultura, sem hierarquias
             e com transparência.
-          </span>
+            </p>
         </div>
 
         <div class="whitespace" />
@@ -28,7 +28,7 @@
           O que o cadastro te permite? 
         </h3>
 
-        <div class="context column">
+        <div class="context">
           <h4 class="headline-3 bolder">No mapa</h4>
           <p class="body-3">
             Adicionar um pin no mapa. O pin significa que você aparecerá no mapa da tela inicial da plataforma.
@@ -37,7 +37,7 @@
           </p>
         </div>
 
-        <div class="context column">
+        <div class="context">
           <h4 class="headline-3 bolder">Na agenda</h4>
           <p class="body-3">
             Inserir os eventos que você irá participar ou produzir em Campo Grande.
@@ -48,7 +48,7 @@
           </p>
         </div>
 
-        <div class="context column">
+        <div class="context">
           <h4 class="headline-3 bolder">No debate</h4>
           <p class="body-3">
             Você pode propor um assunto a ser discutido ou participar de um debate que já acontece na plataforma através dos comentários e apoios.
@@ -65,7 +65,7 @@
       <div class="form column">
         <h3 class="headline-2 bolder">Insira suas informações:</h3>
 
-        <div class="row field" style="justify-content: space-between">
+        <div class="name">
           <!-- first name -->
           <q-input
             v-model="firstName"
@@ -98,14 +98,14 @@
         </div>
 
         <!-- gender -->
-        <div class="row field gender" style="justify-content: space-between">
+        <div class="gender">
           <q-select
             v-model="gender"
             class="input"
             dense
             square
             filled
-            label="Com qual gênero você se identifica?"
+            label="Com qual gênero você se identifica?*"
             required
             :options="genderOptions"
             :error="$v.gender.$error"
@@ -132,7 +132,7 @@
           dense
           square
           filled
-          label="Qual sua faixa etária?"
+          label="Qual sua faixa etária?*"
           required
           :options="ageRangeOptions"
           :error="$v.ageRange.$error"
@@ -147,7 +147,7 @@
           dense
           square
           filled
-          label="Qual o grau de educação formal?"
+          label="Qual o grau de educação formal?*"
           required
           :options="educationOptions"
           :error="$v.education.$error"
@@ -184,7 +184,7 @@
           @blur="$v.emailConfirmation.$touch"
         />
 
-        <div class="row field" style="justify-content: space-between">
+        <div class="password">
           <!-- password -->
           <q-input
             v-model="password"
@@ -265,7 +265,7 @@
             />
             <q-icon name="create_new_folder" @click.stop />
           </template>
-          <template #hint> Tamanho máximo de 2MB </template>
+          <template #hint> Tamanho máximo de 2MB. Formato: JPG. </template>
           <!-- <template #after>
             <q-btn
               round
@@ -283,27 +283,29 @@
       <!-- selecionar categoria -->
       <div id="target" class="category column">
         <h3 class="headline-2 bolder">Identifique sua categoria</h3>
-        <span class="body-3"
-          >A categoria escolhida aparecerá no mapa quando você criar seu pin.
-          Escolha sabiamente, não será possível mudar posteriormente.</span
-        >
 
         <div class="list">
-          <q-list v-for="item in options" id="item" :key="item.value">
-            <q-item clickable @click="selectCategory(item)">
-              <q-item-section avatar>
+          <q-list>
+            <q-item
+              v-for="item in options" :id="item.id" :key="item.value"
+              clickable
+              @click="selectCategory(item)"
+              class="category-item"
+              :active="item.id == categoryId ? true : false"
+              active-class="active"
+              :style="{'color': item.color}"
+            >
+              <q-item-section avatar style="align-items: center">
                 <!-- iconId -1 : index of array of icons (0 a 17) -->
                 <icon-base
                   :icon-id="item.value - 1"
                   width="16"
-                  :set-white="!!selected"
                 />
               </q-item-section>
 
               <q-item-section
                 :id="item.value"
-                class="body-3 bolder"
-                :class="{ white: selected }"
+                class="body-3 category-text"
               >
                 {{ item.label }}
               </q-item-section>
@@ -326,16 +328,19 @@
             >Ao clicar em concluir cadastro, você concorda com a <br />
             <router-link
               class="link"
+              target="_blank"
               :to="{ path: '/terms', hash: '#privacy' }"
             >
-              <span class="body-3 bolder" :class="{ white: selected }"
-                >política de privacidade</span
+              <span class="body-3 bolder">política de privacidade</span
               >
             </router-link>
             e as
-            <router-link class="link" :to="{ path: '/terms', hash: '#use' }">
-              <span class="body-3 bolder" :class="{ white: selected }"
-                >condições de uso.</span
+            <router-link
+              class="link"
+              target="_blank"
+              :to="{ path: '/terms', hash: '#use' }
+            ">
+              <span class="body-3 bolder">condições de uso.</span
               >
             </router-link>
           </span>
@@ -370,7 +375,6 @@ import {
   required,
   email,
   minLength,
-  maxLength,
   sameAs,
 } from "vuelidate/lib/validators";
 import { createHelpers } from "vuex-map-fields";
@@ -409,8 +413,7 @@ export default {
         "Superior completo",
         "Pós-graduado",
       ],
-      selected: null, // --- selected category?
-      lastSelected: 0,
+      selected: null,
       terms: false, // ----- accept terms?
     };
   },
@@ -576,18 +579,9 @@ export default {
         reader.onerror = (error) => reject(error);
       });
     },
-    selectCategory(el) {
-      const { content } = this.$refs;
-      this.categoryId = el.id;
-      if (el.value !== this.lastSelected) {
-        this.selected = el;
-        content.style.backgroundColor = this.selected.color;
-        this.lastSelected = this.selected.value;
-      } else {
-        content.style.backgroundColor = "#f5f5f5";
-        this.selected = null;
-        this.lastSelected = 0;
-      }
+    selectCategory({id, color}) {
+      this.categoryId = id;
+      this.selected = true;
     },
     submit() {
       this.$v.$touch();
@@ -619,85 +613,61 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/variables.scss";
 @import "../styles/mixins.scss";
-
-.white {
-  color: #ffffff;
-}
-
-.bg-change {
-  transition: background-color 0.6s ease-in;
-}
 
 .content-center {
   @include centered-column;
-}
-
-.line {
-  margin-top: 32px;
-  width: 100%;
-}
-
-.info,
-.form,
-.terms,
-.category,
-.actions {
-  margin-top: 16px;
-}
-
-.btn-field,
-.list {
-  margin-top: 8px;
 }
 
 .form {
   width: 100%;
 }
 
-.item:hover {
-  color: black;
-}
-
-.terms {
-  align-items: start;
-}
-
-.headline {
-  margin-bottom: 8px;
-}
-
-.context {
-  margin-top: 8px;
-  margin-left: 8px;
-
-  @include for-phone-only {
-    margin-left: 0px;
-  }
-}
-
-.terms {
-  @include for-phone-only {
-    flex-wrap: nowrap;
-    align-items: flex-start;
-    margin-left: -8px;
-
-    .altoc {
-      margin-top: 4px;
-      margin-left: 8px;
-    }
-  }
-}
-
-.body-2 {
-  text-align: justify;
-}
-
 .link {
   color: black;
   text-decoration: none;
   font-size: 16px;
+}
+
+.info {
+  .headline-3 {
+    line-height: 2rem;
+    margin: 0 0 10px;
+  }
+
+  .context {
+    padding-left: 8px;
+  }
+
+  p {
+    margin-bottom: 8px;
+  }
+}
+
+.headline-2 {
+  margin: 0
+}
+.input {
+  height: 56px;
+  margin-bottom: 8px;
+}
+
+.name,
+.gender,
+.password {
+  display: flex;
+  justify-content: space-between;
+  .input {
+    min-width: 49%;
+  }
+}
+
+.gender {
+  height: 60px;
+}
+
+.terms {
+  margin-top: 16px;
 }
 
 .btn-custom {
@@ -707,50 +677,45 @@ export default {
   height: 40px;
   width: 180px;
   margin-top: 8px;
+  transition: all 0.2s linear;
+
+  @include for-phone-only {
+    width: 100%;
+  }
 
   &:hover {
-    transform: scale(50%);
+    transform: scale(1.05);
   }
 
-  @include for-phone-only {
-    width: 100%;
-  }
-}
-
-.btn-custom-disable {
-  box-shadow: none;
-  background-color: black;
-  border-radius: 0px;
-  height: 40px;
-  margin-top: 8px;
-}
-
-.field {
-  height: 60px;
-}
-
-.input {
-  font-size: 1.02rem;
-  min-width: 49%;
-  max-height: 50px;
-  margin-top: 16px;
-
-  @include for-phone-only {
-    width: 100%;
+  .span-btn {
+    font-weight: bold;
+    font-size: 1em;
+    letter-spacing: 0.5px;
+    color: white;
   }
 }
 
-.btn-custom:hover {
-  transform: scale(1.05);
-  transition: all 0.2s linear;
+.category-item {
+  transition: background-color 0.6s ease-in;
+  padding-right: 16px;
+  font-weight: bolder;
+  border-radius: 3px;
+
+  &.active {
+    background-color: currentColor;
+
+    .category-text {
+      color: white;
+    }
+
+  }
+
+   .category-text {
+      color: black;
+    }
 }
 
-.span-btn {
-  font-weight: bold;
-  font-size: 1em;
-  letter-spacing: 0.5px;
-  color: white;
-}
+q-item q-item-type row no-wrap category-item q-item--clickable q-link cursor-pointer q-focusable q-hoverable q-item--active
 
 .whitespace {
   height: 30px;
@@ -774,16 +739,5 @@ export default {
   @include for-tablet-portrait-only {
     height: 32px;
   }
-}
-
-h3.headline-2,
-p.body-3,
-h4.headline-3 {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-h3.headline-2 {
-  line-height: 1.5em;
 }
 </style>

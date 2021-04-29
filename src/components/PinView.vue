@@ -94,15 +94,6 @@
       />
       <template #control>
         <q-carousel-control position="bottom-right" :offset="[18, 18]">
-          <q-btn
-            push
-            round
-            dense
-            color="white"
-            text-color="primary"
-            :icon="fullscreen ? 'fullscreen_exit' : 'fullscreen'"
-            @click="fullscreen = !fullscreen"
-          />
         </q-carousel-control>
       </template>
     </q-carousel>
@@ -124,7 +115,6 @@ export default {
     return {
       autoplay: true,
       slide: 1,
-      fullscreen: false,
     };
   },
   computed: {

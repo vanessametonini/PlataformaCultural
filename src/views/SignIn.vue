@@ -36,7 +36,7 @@
             class="input"
             square
             filled
-            :type="isPwd ? 'password' : 'text'"
+            :type="isPwd ? 'text' : 'password'"
             label="Senha"
             :error="$v.password.$error"
             :error-message="passwordErrorMessage"

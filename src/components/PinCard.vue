@@ -5,7 +5,7 @@
     @click="$emit('card-click')"
   >
     <h3>
-      Adicionar PIN
+      Adicionar no Mapa
     </h3>
   </div>
 </template>
