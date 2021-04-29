@@ -48,20 +48,38 @@
         </q-select>
       </div>
 
-      <!-- email -->
-      <div class="column mg-top8">
-        <span class="subheading-2">Email</span>
-        <q-input
-          v-model="email"
-          class="input"
-          dense
-          type="email"
-          input-class="text-black"
-          color="black"
-          :error="$v.email.$error"
-          :error-message="emailErrorMessage"
-          @blur="$v.email.$touch"
-        />
+      <!-- number & cep -->
+      <div class="row justify-between mg-top8">
+        <div class="column">
+          <span class="subheading-2">CEP*</span>
+          <q-input
+            v-model="cep"
+            class="input"
+            dense
+            mask="##.###-###"
+            unmasked-value
+            input-class="text-black"
+            color="black"
+            :error="$v.cep.$error"
+            :error-message="cepErrorMessage"
+            @blur="$v.cep.$touch"
+          />
+        </div>
+
+        <div class="column">
+          <span class="subheading-2">Número</span>
+          <q-input
+            v-model="number"
+            class="input"
+            dense
+            mask="########"
+            input-class="text-black"
+            color="black"
+            :error="$v.number.$error"
+            :error-message="numberErrorMessage"
+            @blur="$v.number.$touch"
+          />
+        </div>
       </div>
 
       <!-- address -->
@@ -93,41 +111,6 @@
         />
       </div>
 
-      <!-- number & cep -->
-      <div class="row justify-between mg-top8">
-        <div class="column">
-          <span class="subheading-2">Número</span>
-
-          <q-input
-            v-model="number"
-            class="input"
-            dense
-            mask="########"
-            input-class="text-black"
-            color="black"
-            :error="$v.number.$error"
-            :error-message="numberErrorMessage"
-            @blur="$v.number.$touch"
-          />
-        </div>
-
-        <div class="column">
-          <span class="subheading-2">CEP*</span>
-          <q-input
-            v-model="cep"
-            class="input"
-            dense
-            mask="##.###-###"
-            unmasked-value
-            input-class="text-black"
-            color="black"
-            :error="$v.cep.$error"
-            :error-message="cepErrorMessage"
-            @blur="$v.cep.$touch"
-          />
-        </div>
-      </div>
-
       <!-- description -->
       <div class="column mg-top8">
         <span class="subheading-2">Descrição*</span>
@@ -142,6 +125,22 @@
           :error="$v.description.$error"
           :error-message="descriptionErrorMessage"
           @blur="$v.description.$touch"
+        />
+      </div>
+
+      <!-- email -->
+      <div class="column mg-top8">
+        <span class="subheading-2">Email</span>
+        <q-input
+          v-model="email"
+          class="input"
+          dense
+          type="email"
+          input-class="text-black"
+          color="black"
+          :error="$v.email.$error"
+          :error-message="emailErrorMessage"
+          @blur="$v.email.$touch"
         />
       </div>
 
@@ -248,10 +247,6 @@
 
     <!-- actions edit -->
     <div class="mg-top32" align="right">
-      <q-btn class="mg-right8" flat color="black" @click="cancelEdit()">
-        <span class="caption">Cancelar</span>
-      </q-btn>
-
       <q-btn outline color="black" @click="confirmCreate()">
         <span class="caption">Finalizar</span>
       </q-btn>
@@ -262,7 +257,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { createHelpers } from "vuex-map-fields";
-import { required, url, minLength, email } from "vuelidate/lib/validators";
+import { required, url, minLength, email, numeric } from "vuelidate/lib/validators";
 
 const { mapFields } = createHelpers({
   getterType: "pins/getField",
@@ -281,10 +276,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    bgColor: {
-      type: String,
-      default: "#254C26",
-    },
   },
   data() {
     return {
@@ -293,7 +284,6 @@ export default {
       step: 0,
       lastStep: 0,
       active: false,
-      background: this.bgColor,
       files: null,
       file: null,
     };
@@ -306,7 +296,6 @@ export default {
       required,
     },
     email: {
-      // required,
       email,
     },
     phone: {
@@ -316,7 +305,7 @@ export default {
       required,
     },
     number: {
-      required,
+      numeric
     },
     neighborhood: {
       required,
@@ -342,9 +331,7 @@ export default {
       url,
     },
     whatsapp: {},
-    files: {
-      required,
-    },
+    files: {},
   },
   computed: {
     ...mapGetters({
@@ -371,13 +358,13 @@ export default {
     }),
     categoryErrorMessage() {
       if (!this.$v.categoryId.required) {
-        return "Esse campo é requerido";
+        return "Esse campo é obrigatório";
       }
       return "";
     },
     titleErrorMessage() {
       if (!this.$v.title.required) {
-        return "Esse campo é requerido";
+        return "Esse campo é obrigatório";
       }
       return "";
     },
@@ -395,31 +382,28 @@ export default {
     },
     streetErrorMessage() {
       if (!this.$v.street.required) {
-        return "Esse campo é requerido";
+        return "Esse campo é obrigatório";
       }
       return "";
     },
     numberErrorMessage() {
-      if (!this.$v.number.required) {
-        return "Esse campo é requerido";
-      }
       return "";
     },
     neighborhoodErrorMessage() {
       if (!this.$v.neighborhood.required) {
-        return "Esse campo é requerido";
+        return "Esse campo é obrigatório";
       }
       return "";
     },
     cityErrorMessage() {
       if (!this.$v.city.required) {
-        return "Esse campo é requerido";
+        return "Esse campo é obrigatório";
       }
       return "";
     },
     cepErrorMessage() {
       if (!this.$v.cep.required) {
-        return "Esse campo é requerido";
+        return "Esse campo é obrigatório";
       } else if (!this.$v.cep.minLength) {
         return "Entre com um cep válido";
       }
@@ -427,7 +411,7 @@ export default {
     },
     descriptionErrorMessage() {
       if (!this.$v.description.required) {
-        return "Esse campo é requerido";
+        return "Esse campo é obrigatório";
       }
       return "";
     },
@@ -483,6 +467,28 @@ export default {
   },
   created() {},
   methods: {
+    sendForm() {
+      this.$store.dispatch("pins/postPin", { $router: this.$router })
+        .then(()=>{
+          this.categoryId = '';
+          this.title = '';
+          this.email = '';
+          this.phone = '';
+          this.street = '';
+          this.number = '';
+          this.neighborhood = '';
+          this.city = '';
+          this.cep = '';
+          this.description = '';
+          this.images = '';
+          this.link = '';
+          this.facebook = '';
+          this.instagram = '';
+          this.twitter = '';
+          this.whatsapp = '';
+        });
+      this.waiting = false;
+    },
     confirmCreate() {
       this.$v.$touch();
       if (!this.$v.$anyError) {
@@ -494,36 +500,24 @@ export default {
           return;
         }
         this.waiting = true;
-        this.$store
-          .dispatch("images/uploadArray", { files: this.files })
-          .then((fileIds) => {
-            console.log("image: ", fileIds);
-            this.images = fileIds;
-            this.$store.dispatch("pins/postPin", { $router: this.$router })
-              .then(()=>{
-                this.categoryId = '';
-                this.title = '';
-                this.email = '';
-                this.phone = '';
-                this.street = '';
-                this.number = '';
-                this.neighborhood = '';
-                this.city = '';
-                this.cep = '';
-                this.description = '';
-                this.images = '';
-                this.link = '';
-                this.facebook = '';
-                this.instagram = '';
-                this.twitter = '';
-                this.whatsapp = '';
-              });
-            this.waiting = false;
-          })
-          .catch((error) => {
-            this.waiting = false;
-            console.log(error);
-          });
+
+        //se tiver imagens
+        if (this.files) {
+          this.$store
+            .dispatch("images/uploadArray", { files: this.files })
+            .then((fileIds) => {
+              this.images = fileIds;
+              this.sendForm();
+            })
+            .catch((error) => {
+              this.waiting = false;
+            });
+        }
+        //se não tiver imagens
+        else {
+          this.sendForm();
+        }
+
       } else {
         this.$q.notify({
           message: "Por favor, preencha os campos corretamente.",
@@ -534,62 +528,23 @@ export default {
     updateFiles(files) {
       if (Array.isArray(files) === false || files.length === 0) {
         this.files = null;
-      } else if (Array.isArray(this.files) === true) {
+      }
+      else if (Array.isArray(this.files) === true) {
         const diff = this.files.filter((file) => files.indexOf(file) === -1);
 
         if (diff.length === 1 && this.files.length > 1) {
           this.files = files.slice();
-        } else if (this.files.length < 3) {
+        }
+        else if (this.files.length < 3) {
           this.files = diff.concat(files);
         }
-      } else {
+      }
+      else {
         this.files = files.slice();
       }
     },
-    showForm() {
-      if (this.step === 0) {
-        this.lastStep = 0;
-        this.active = true;
-        const a = this;
-        setTimeout(() => {
-          a.step = 1;
-        }, 800);
-        console.log("iniciando primeira edição", this.lastStep, this.step);
-      }
-    },
-    reEdit() {
-      this.lastStep = 2;
-      const a = this;
-      setTimeout(() => {
-        a.step = 1;
-      }, 1000);
-      console.log("reeditando", this.lastStep, this.step);
-    },
-    cancelEdit() {
-      console.log("cancelando", this.lastStep, this.step);
-      if (this.lastStep === 0) {
-        this.active = false;
-        const a = this;
-        setTimeout(() => {
-          a.step = 0;
-        }, 1000);
-        this.lastStep = 1;
-        console.log("cancelando primeira edição", this.lastStep);
-      }
-      if (this.lastStep === 2) {
-        const a = this;
-        setTimeout(() => {
-          a.step = 2;
-        }, 1000);
-        console.log("cancelando reedição");
-        this.lastStep = 2;
-      }
-    },
-    expand() {
-      this.state = !this.state;
-    },
-  },
-};
+  }
+}
 </script>
 
 <style lang="scss" scoped>
