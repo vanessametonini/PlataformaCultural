@@ -6,7 +6,7 @@
     @click="emitThisTopic()"
   >
       <q-card-section class="card">
-        <div id="title" class="big-title bolder text-white" :title="topic.title">
+        <div class="title" :title="topic.title">
           {{ mask(topic.title, 30)}}
         </div>
         <div class="bolder mg-top16 text-white">
@@ -27,7 +27,7 @@
         </p>
       </q-card-section>
 
-    <q-card-section class="card">
+    <q-card-section class="card card-bottom">
       <div class="thumbs">
         <q-icon name="fa fa-thumbs-up" />
         <span class="votesPercent"> {{ supportsPercentage(true) }}% </span>
@@ -112,8 +112,13 @@ export default {
 <style lang="scss" scoped>
 
 .card {
+  color: white;
   padding: 32px;
   position: relative;
+}
+
+.card-bottom {
+  padding-top: 16px;
 }
 
 .my-card {
@@ -131,15 +136,15 @@ export default {
   }
 }
 
-#title {
-  margin-left: -4px;
-  margin-top: 0px;
+.title {
+  font-size: 2.5rem;
+  font-weight: bolder;
   line-height: 2.5rem;
+  margin: 0 0 10px;
 }
 
-
 .thumbs {
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   text-align: center;
 }
 
@@ -159,6 +164,7 @@ export default {
 }
 
 .votesPercent {
+  color: black;
   font-weight: bolder;
   font-size: 1.2em;
   position: relative;

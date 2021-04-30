@@ -19,11 +19,11 @@
 
     </q-card-section>
 
-    <q-card-section class="card col text-white pt-0">
+    <q-card-section class="card card-description col text-white">
       <span class="row body-3">
         {{ item.description }}
       </span>
-      <span class="row body-2 mg-top32 bolder">
+      <span class="row body-2 mg-top16 bolder">
         {{ item.local }}
       </span>
       <span class="row caption" v-if="item.street">
@@ -177,8 +177,16 @@ export default {
   margin: 0 0 10px;
 }
 
+.title + .caption {
+  margin-bottom: 4px;
+}
+
 .date-info {
   margin: 0;
+}
+
+.card-description {
+  padding-top: 16px;
 }
 
 .schedule-item {
