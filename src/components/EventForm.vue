@@ -466,7 +466,9 @@ export default {
           this.description = "";
           this.link = "";
           this.imgUrl = "";
-          this.categoryId = "";
+          this.categoryId = null;
+          this.name = "";
+          this.local = "";
           this.images = [];
         });
       this.$router.push({ name: "Agenda" });

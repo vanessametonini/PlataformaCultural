@@ -161,12 +161,12 @@
 
        <!-- phone -->
       <div class="column mg-top8">
-        <span class="subheading-2">Telefone</span>
+        <span class="subheading-2">WhatsApp</span>
         <q-input
           v-model="phone"
           class="input"
           dense
-          mask="(##) #### - ####"
+          mask="(##) #### - #####"
           unmasked-value
           color="black"
           :error="$v.phone.$error"
@@ -470,7 +470,7 @@ export default {
     sendForm() {
       this.$store.dispatch("pins/postPin", { $router: this.$router })
         .then(()=>{
-          this.categoryId = '';
+          this.categoryId = null;
           this.title = '';
           this.email = '';
           this.phone = '';
