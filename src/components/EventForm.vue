@@ -219,7 +219,7 @@
 
       <!-- category -->
       <div class="column mg-top8">
-        <span class="subheading-2">Categoria</span>
+        <span class="subheading-2">Categoria*</span>
         <q-select
           v-model="categoryId"
           option-value="id"
@@ -280,12 +280,8 @@
     </div>
     <!-- actions edit -->
     <div class="mg-top32" align="right">
-      <q-btn class="mg-right8" flat color="black" @click="cancelCreate()">
-        <span class="caption">Cancelar</span>
-      </q-btn>
-
       <q-btn outline color="black" @click="confirmCreate()">
-        <span class="caption">Finalizar</span>
+        <span class="caption">Cadastrar</span>
       </q-btn>
     </div>
   </div>
@@ -294,7 +290,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { createHelpers } from "vuex-map-fields";
-import { required, url, minLength } from "vuelidate/lib/validators";
+import { required, url, minLength, numeric } from "vuelidate/lib/validators";
 import { Money } from "v-money";
 import { QField } from "quasar";
 const { mapFields } = createHelpers({
@@ -344,6 +340,7 @@ export default {
     neighborhood: {
     },
     number: {
+      numeric
     },
     zipcode: {
       minLength: minLength(8),
@@ -354,9 +351,7 @@ export default {
     link: {
       url,
     },
-    files: {
-      required,
-    },
+    files: {},
   },
   computed: {
     ...mapFields({
@@ -382,31 +377,31 @@ export default {
     }),
     categoryErrorMessage() {
       if (!this.$v.categoryId.required) {
-        return "Esse campo é requerido";
+        return "Esse campo é obrigatório";
       }
       return "";
     },
     nameErrorMessage() {
       if (!this.$v.name.required) {
-        return "Esse campo é requerido";
+        return "Esse campo é obrigatório";
       }
       return "";
     },
     dateErrorMessage() {
       if (!this.$v.date.required) {
-        return "Esse campo é requerido";
+        return "Esse campo é obrigatório";
       }
       return "";
     },
     timeErrorMessage() {
       if (!this.$v.time.required) {
-        return "Esse campo é requerido";
+        return "Esse campo é obrigatório";
       }
       return "";
     },
     localErrorMessage() {
       if (!this.$v.local.required) {
-        return "Esse campo é requerido";
+        return "Esse campo é obrigatório";
       }
       return "";
     },
@@ -421,13 +416,13 @@ export default {
     },
     zipcodeErrorMessage() {
       if (!this.$v.zipcode.minLength) {
-        return "Entre com um cep válido";
+        return "Entre com um CEP válido";
       }
       return "";
     },
     descriptionErrorMessage() {
       if (!this.$v.description.required) {
-        return "Esse campo é requerido";
+        return "Esse campo é obrigatório";
       }
       return "";
     },
@@ -438,9 +433,6 @@ export default {
       return "";
     },
     filesErrorMessage() {
-      if (!this.$v.files.required) {
-        return "É necessário uma imagem.";
-      }
       return "";
     },
   },
@@ -459,12 +451,26 @@ export default {
         this.files = files.slice();
       }
     },
-    cancelCreate() {
-      this.category = {
-        label: "",
-        value: "",
-        color: "#b8cad4",
-      };
+    sendForm(){
+      this.$store.dispatch("events/createNewEvent")
+        .then(() => {
+          this.date = "";
+          this.time = "";
+          this.ticket = "";
+          this.site = "";
+          this.street = "";
+          this.neighborhood = "";
+          this.number = "";
+          this.city = "";
+          this.zipcode = "";
+          this.description = "";
+          this.link = "";
+          this.imgUrl = "";
+          this.categoryId = "";
+          this.images = [];
+        });
+      this.$router.push({ name: "Agenda" });
+      this.waiting = false;
     },
     confirmCreate() {
       this.$v.$touch();
@@ -477,33 +483,23 @@ export default {
           return;
         };
         this.waiting = true;
-        this.$store
-          .dispatch("images/uploadArray", { files: this.files })
-          .then((fileIds) => {
+
+        //se tiver imagens
+        if(this.files) {
+          this.$store
+            .dispatch("images/uploadArray", { files: this.files })
+            .then((fileIds) => {
             this.images = fileIds;
-            this.$store.dispatch("events/createNewEvent").then(() => {
-              this.date = "";
-              this.time = "";
-              this.ticket = "";
-              this.site = "";
-              this.street = "";
-              this.neighborhood = "";
-              this.number = "";
-              this.city = "";
-              this.zipcode = "";
-              this.description = "";
-              this.link = "";
-              this.imgUrl = "";
-              this.categoryId = "";
-              this.images = [];
-            });
-            this.$router.push({ name: "Schedule" });
-            this.waiting = false;
+            this.sendForm();
           })
           .catch((error) => {
-            console.log(error);
             this.waiting = false;
           });
+        }
+        //se não tiver imagens
+        else {
+          this.sendForm();
+        }
       } else {
         this.$q.notify({
           message: "Por favor, preencha os campos corretamente.",
@@ -516,16 +512,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/variables.scss";
-@import "../styles/mixins.scss";
-
 .box {
   padding: 16px;
 }
 
 .input {
   width: 100%;
-  // height: 40px;
   font-size: 1.2rem;
   font-weight: bold;
   margin-top: -8px;

@@ -5,6 +5,7 @@
   >
     <q-card-section class="card-title">
       <h2>{{ pinView.title }}</h2>
+      <p>{{category(pinView.categoryId).label}}</p>
     </q-card-section>
 
     <q-card-section class="card-description">
@@ -137,18 +138,14 @@ export default {
   font-size: 3em;
   font-weight: bolder;
   line-height: 1em;
-  margin: 0;
+  margin: 0 0 10px;
   padding: 0;
 }
 
 .card-title,
 .card-description {
   color: white;
-  padding: 32px;
-}
-
-.card-description {
-  padding-bottom: 0;
+  padding: 32px 32px 0;
 
   p {
     margin: 0 0 10px;
@@ -161,7 +158,7 @@ export default {
 }
 
 .card-links {
-  padding: 0 32px 32px;
+  padding: 0 32px 16px;
   color: white;
 
   .flex.no-wrap.q-list{

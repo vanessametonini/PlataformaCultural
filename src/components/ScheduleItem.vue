@@ -5,22 +5,25 @@
     :style="{ 'background-color': category(item.categoryId).color }"
   >
     <q-card-section class="card">
-      <div id="title" class="big-title bolder text-white">
+      <h2 class="title">
         {{ item.title }}
-      </div>
-      <div class="csaption mg-top16 text-white">
+      </h2>
+      <p class="caption">
+        {{category(item.categoryId).label}}
+      </p>
+      <p class="date-info">
         {{ `Dia ${$store.getters["formatDate"](item.dateTime)}` }}
-      </div>
-      <div class="caption text-white">
+      <br />
         {{ `Às ${$store.getters["formatTime"](item.dateTime)}` }}
-      </div>
+      </p>
+
     </q-card-section>
 
     <q-card-section class="card col text-white pt-0">
       <span class="row body-3">
         {{ item.description }}
       </span>
-      <span class="row body-2 mg-top32">
+      <span class="row body-2 mg-top32 bolder">
         {{ item.local }}
       </span>
       <span class="row caption" v-if="item.street">
@@ -99,6 +102,7 @@
       transition-next="slide-left"
       @mouseenter="autoplay = false"
       @mouseleave="autoplay = true"
+      v-if="item.images.length"
     >
       <q-carousel-slide
         v-for="n in item.images.length"
@@ -160,26 +164,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/variables.scss";
-@import "../styles/mixins.scss";
+.card {
+  color: white;
+  padding: 32px 32px 8px;
+  position: relative;
+}
 
-#title {
-  margin-left: -4px;
-  margin-top: 0px;
+.title {
+  font-size: 2.5rem;
+  font-weight: bolder;
   line-height: 2.5rem;
+  margin: 0 0 10px;
+}
+
+.date-info {
+  margin: 0;
 }
 
 .schedule-item {
   margin-bottom: 16px;
 }
 
-.card {
-  padding: 32px;
-  position: relative;
-}
-
 .card-links {
-  padding: 0 32px 32px;
+  padding: 0 32px 16px;
   color: white;
 
   .flex.no-wrap.q-list{

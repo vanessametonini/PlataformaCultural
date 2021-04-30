@@ -104,7 +104,7 @@
 
               <router-link
                 class="submenu-button"
-                :to="{ name: 'Schedule' }"
+                :to="{ name: 'Agenda' }"
               >
                 Ver agenda
               </router-link>

@@ -72,8 +72,8 @@ const routes = [
     },
   },
   {
-    path: '/schedule',
-    name: 'Schedule',
+    path: '/agenda',
+    name: 'Agenda',
     component: () => import('../views/Schedule.vue'),
     meta: {
       requiresAuth: false,

@@ -248,7 +248,7 @@
     <!-- actions edit -->
     <div class="mg-top32" align="right">
       <q-btn outline color="black" @click="confirmCreate()">
-        <span class="caption">Finalizar</span>
+        <span class="caption">Cadastrar</span>
       </q-btn>
     </div>
   </div>
