@@ -47,13 +47,12 @@
           as políticas públicas para a cultura no município.
         </p>
         <h4 class="body-3 text bolder">
-          Acesse os links para mais informações:
+          Mais informações:
         </h4>
         <p class="body-3 text">
-          
-            Acesse no link abaixo o repositório do Fórum que contém documentos públicos, atas de reuniões, convocatórias, guias, entre outros. <br>
+            Acesse no link abaixo o repositório do Fórum que contém documentos públicos, atas de reuniões, convocatórias, guias, entre outros: <br>
           <a
-            class="body-3 bolder mg-left16"
+            class="body-3 bolder"
             target="_blank"
             href="https://linktr.ee/cartografiadaculturacg"
           >
@@ -65,15 +64,22 @@
       <section class="contato mg-top16">
         <div class="links row">
           <a
-            class="body-3 bolder mg-left16"
+            class="body-3 bolder"
             target="_blank"
             href="https://www.facebook.com/forumdeculturac"
-          >Facebook Fórum</a>
+          >
+            <i class="fab fa-facebook"></i>
+            Facebook Fórum
+          </a>
+
           <a
             class="body-3 bolder mg-left16"
             target="_blank"
             href="https://www.instagram.com/nossoforumcg/"
-          >Instagram Fórum</a>
+          >
+            <i class="fab fa-instagram"></i>
+            Instagram Fórum
+          </a>
         </div>
       </section>
 
