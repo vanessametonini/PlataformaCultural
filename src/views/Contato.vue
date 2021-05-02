@@ -11,23 +11,28 @@
       <section class="plat mg-top32">
         <span class="title-2 bolder">Contato</span>
         <p class="body-3 mg-top16 text">
-          Para entrar em contato envie um E-mail para: <a href="mailto:cartografiadaculturacg@gmail.com">cartografiadaculturacg@gmail.com</a>
+          Para entrar em contato envie um e-mail para: <a href="mailto:cartografiadaculturacg@gmail.com">cartografiadaculturacg@gmail.com</a>
         </p>
       </section>
 
       <section class="contato mg-top16">
         <a
-          class="body-3 bolder mg-left16"
+          class="body-3 bolder"
           target="_blank"
           href="https://www.facebook.com/CartografiadaCulturaCG"
-        >Facebook Cartografia da Cultura CG</a>
-        <!-- <span class="mg-left8">|</span> -->
+        >
+        <i class="fab fa-facebook"></i>
+          Facebook Cartografia da Cultura CG
+        </a>
 
         <a
           class="body-3 bolder mg-left16"
           target="_blank"
           href="https://www.instagram.com/cartografiadaculturacg/"
-        >Instagram Cartografia da Cultura CG</a>
+        >
+        <i class="fab fa-instagram"></i>
+          Instagram Cartografia da Cultura CG
+        </a>
       </section>
 
       <div class="white-space" />
