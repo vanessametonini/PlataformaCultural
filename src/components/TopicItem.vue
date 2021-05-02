@@ -2,15 +2,15 @@
   <q-card
     class="my-card"
     square
-    :style="{ 'background-color': category(topic.categoryId).color }"
+    :style="{ 'background-color': $store.getters['categories/getCategoryById'](topic.categoryId).color }"
     @click="emitThisTopic()"
   >
       <q-card-section class="card">
         <div class="title" :title="topic.title">
           {{ mask(topic.title, 30)}}
         </div>
-        <div class="bolder mg-top16 text-white">
-          {{ category(topic.categoryId).label }}
+        <div class="bolder mg-top8 text-white">
+          {{ $store.getters['categories/getCategoryById'](topic.categoryId).label }}
         </div>
         <div class="row al-items-center text-white caption">
           <span class="">
@@ -71,9 +71,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      categories: "categories/loadCategories",
       formatDate: "formatDate",
-      category: "categories/getCategoryById",
     })
   },
   methods: {
@@ -140,7 +138,7 @@ export default {
   font-size: 2.5rem;
   font-weight: bolder;
   line-height: 2.5rem;
-  margin: 0 0 10px;
+  margin: 0;
 }
 
 .thumbs {

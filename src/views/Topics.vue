@@ -94,7 +94,6 @@ export default {
       drawer: false,
       newEvent: "",
       filterTypeSelected: "mostRecent",
-      search: "",
       options: [
         { label: 'Mais ativos', value: 'mostActive', color: 'black' },
         { label: 'Mais comentados', value: 'mostAnswed', color: 'black' },

@@ -71,13 +71,13 @@ export default {
   }
 
   @include for-tablet-landscape-up {
-    height: 200px;
-    max-width: 200px;
+    height: 190px;
+    max-width: 190px;
   }
 
   @include for-big-desktop-up {
-    height: 225px;
-    max-width: 225px;
+    height: 200px;
+    max-width: 200px;
   }
 
 }

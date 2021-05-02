@@ -66,6 +66,10 @@ export default {
 .topics-profile {
   @include profile-box;
   @include profile-scrolls;
+
+  .q-scrollarea {
+    height: 87px;
+  }
 }
 
 </style>

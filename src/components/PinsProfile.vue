@@ -13,7 +13,7 @@
           v-ripple
           :style="{ 'border-color': $store.getters['categories/getCategoryById'](pin.categoryId).color}"
         >
-          <q-item-section avatar>
+          <q-item-section avatar v-if="pin.imageIds[0]">
             <q-avatar square>
               <img
                 :src="`${$store.getters['services/getImagePath']}${pin.imageIds[0]}`"

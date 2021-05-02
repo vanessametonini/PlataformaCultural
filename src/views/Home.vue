@@ -313,11 +313,11 @@ export default {
   z-index: 2;
 
   @include for-tablet-landscape-up {
-    width: 200px;
+    width: 190px;
   }
 
   @include for-big-desktop-up {
-    width: 225px;
+    width: 200px;
   }
 }
 

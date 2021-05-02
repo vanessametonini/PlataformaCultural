@@ -12,7 +12,7 @@
           v-ripple
           :style="{ 'border-color': $store.getters['categories/getCategoryById'](event.categoryId).color}"
         >
-          <q-item-section avatar>
+          <q-item-section avatar v-if="event.imageIds[0]">
             <q-avatar square>
               <img
                 :src="`${$store.getters['services/getImagePath']}${event.imageIds[0]}`"
