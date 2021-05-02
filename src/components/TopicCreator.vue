@@ -1,15 +1,15 @@
 <template>
   <div class="app-component stepper">
     <!-- header -->
-    <div class="stepper-header">
-      <identity class="identity" :black-mode="true" />
+    <header class="stepper-header">
+      <logo-card />
       <progress-bar
         class="progressbar"
         :current-step="currentStep"
         :steps-title="stepsTitle"
       />
       <color-line class="color-line" />
-    </div>
+    </header>
     <!-- content -->
     <div class="stepper-content">
       <!-- SECTION 1 -->
@@ -38,8 +38,9 @@
             <strong>Plataforma Cartografia da Cultura</strong> </router-link
           >. Os usuários cadastrados também podem participar das discussões já
           iniciadas através dos comentários e/ ou indicar se concorda ou não
-          concorda clicando nos botões “👍” ou “👎” encontrados em cada debate
-          proposto.
+          concorda clicando nos botões “<span title="polegar pra cima / apoiar">👍</span>”
+          ou “<span title="polegar pra baixo / não apoiar">👎</span>” encontrados em 
+          cada debate proposto.
         </p>
         <p class="body-2 mg-top8 justify-text">
           2. Não escreva o título do debate ou frases inteiras em letras
@@ -130,13 +131,14 @@
         </ol>
         <!-- ACCEPT TERMS -->
         <div class="stepper-rules row al-items-center">
-          <q-checkbox v-model="rulesAccepted" size="32px" color="black" />
-          <span class="body-2 mg-left8">
-            Eu li e concordo com as
-            <strong style="cursor: pointer" @click="scrollToTop()">
-              Regras da Plataforma </strong
-            >.
-          </span>
+          <q-checkbox v-model="rulesAccepted" size="32px" color="black">
+            <span class="body-2 mg-left8">
+              Eu li e concordo com as
+              <strong style="cursor: pointer" @click="scrollToTop()">
+                Regras da Plataforma </strong
+              >.
+            </span>
+          </q-checkbox>
           <span
             class="caption mg-left8"
             :class="{ 'rules-accept-error': rulesError }"
@@ -146,8 +148,8 @@
       </section>
       <!-- SECTION 3 -->
       <section v-if="currentStep === 3" class="stepper-section">
-        <span class="title-3 bolder">Crie seu debate.</span>
-        <span class="headline-3 bolder mg-top16">Título do seu debate</span>
+        <span class="title-3 bolder">Crie seu debate</span>
+        <span class="headline-3 bolder mg-top16">Título*</span>
         <span class="caption mg-top4"
           >Insira um título que represente o assunto principal da
           discussão.</span
@@ -166,11 +168,10 @@
           @blur="$v.title.$touch"
         />
 
-        <span class="headline-3 bolder">Texto do Debate</span>
-        <span class="caption mg-top4"
-          >Insira um texto revisado por você. Veja se está claro e
-          objetivo.</span
-        >
+        <span class="headline-3 bolder">Texto argumentativo*</span>
+        <span class="caption mg-top4">
+          Insira um texto sobre o assunto que quer discutir, apresente seu ponto de vista.
+        </span>
         <!-- CONTENT -->
         <q-input
           v-model="content"
@@ -180,7 +181,6 @@
           dense
           square
           bottom-slots
-          :max="3"
           maxlength="2000"
           hint="Máximo de 2000 caracteres"
           :error="$v.content.$error"
@@ -189,28 +189,26 @@
         />
         <!-- CATEGORY -->
         <span class="headline-3 bolder mg-top16">Categoria do debate</span>
-        <span class="caption mg-top8"
-          >1. Marque a opção que representa o tema principal do seu
-          debate</span
-        >
-        <span class="caption"
-          >2. Marque as opções que se relacionam ao seu debate</span
-        >
-        <div class="category-field row no-wrap mg-top8">
+        <span class="caption mg-top8">
+          1. Marque a opção que representa o tema principal do seu
+          debate
+        </span>
+        <span class="caption">
+          2. Caso houver, marque temas que se relacionam ao seu debate
+        </span>
+        <div class="category-field mg-top8">
           <q-list class="category-list">
             <q-item
               v-for="item in options"
               :id="`item-${item.value}`"
               :key="item.value"
-              class="category-list-item"
               clickable
               @click="tagEvent(item)"
             >
-              <q-item-section class="category-list-item-section" avata>
+              <q-item-section avata>
                 <!-- iconId -1 : index of array of icons (0 a 17) -->
                 <icon-base
                   :id="`icon-${item.value}`"
-                  class="category-list-icon"
                   :icon-id="item.value - 1"
                   width="16"
                   :set-white="false"
@@ -219,7 +217,7 @@
 
               <q-item-section
                 :id="`category-label-${item.value}`"
-                class="category-list-item-section"
+
               >
                 <span class="caption bolder">{{ item.label }}</span>
               </q-item-section>
@@ -227,23 +225,43 @@
           </q-list>
           <!-- show tags -->
           <div class="tag-field">
-            <div class="main-tag">
-              <span id="label" class="caption">categoria principal</span>
-              <div
-                v-if="categoryId !== null"
-                class="main-tag-badge caption bolder"
-                :style="{ color: categoryId.color }"
-              >
-                <span class="caption bolder">{{ categoryId.label }}</span>
-                <i
-                  id="untag"
-                  class="far fa-times-circle mg-left16"
+
+            <q-field
+              borderless
+              dense
+              v-model="category"
+              :value="category"
+              class="main-tag"
+              label="categoria principal*"
+              :error="$v.category.$error"
+              :error-message="categoryErrorMessage"
+              @blur="$v.category.$touch"
+            >
+                <div
+                  v-if="category !== null"
+                  class="main-tag-badge caption bolder"
+                  :style="{ color: category.color }"
                   @click="untagMain()"
-                />
-              </div>
-            </div>
-            <div class="related-tags">
-              <span class="caption">categorias relacionadas</span>
+                >
+                  <span class="caption bolder">{{ category.label }}</span>
+                  <i
+                    id="untag"
+                    class="far fa-times-circle mg-left16"
+                  />
+                </div>
+            </q-field>
+
+            <q-field
+              v-model="categoriesTagged"
+              type="textarea"
+              borderless
+              dense
+              square
+              bottom-slots
+              class="related-tags"
+              label="categorias relacionadas"
+              aria-live="polite"
+            >
               <div class="related-tags-grid">
                 <div
                   v-for="item in categoriesTagged"
@@ -256,25 +274,40 @@
                   </span>
                 </div>
               </div>
-            </div>
+            </q-field>
           </div>
         </div>
         <!-- TERMS -->
         <div class="stepper-terms row no-wrap al-items-center">
-          <q-checkbox v-model="termsAccepted" size="32px" color="black" />
-          <span class="body-3 mg-left8"
-            >Eu li e concordo com os
-            <router-link class="link" :to="{ path: '/terms', hash: '#terms' }">
-              <span class="body-3 bolder">Termos de Uso</span>
-            </router-link>
-            e
-            <router-link
-              class="link"
-              :to="{ path: '/terms', hash: '#privacity' }"
-            >
-              <span class="body-3 bolder">Privacidade.</span>
-            </router-link>
-          </span>
+
+          <q-field
+            borderless
+            dense
+            :value="terms"
+            :error="$v.terms.$error"
+            :error-message="termsErrorMessage"
+            @blur="$v.terms.$touch"
+          >
+            <template v-slot:control>
+              <q-checkbox
+                v-model="terms"
+                size="32px"
+                color="black"
+              >
+                <span class="body-3 mg-left8">
+                  Eu li e concordo com os
+                  <router-link class="link" :to="{ path: '/terms', hash: '#terms' }" target="_blank">
+                    <span class="body-3 bolder">Termos de Uso</span>
+                  </router-link>
+                  e
+                  <router-link class="link" :to="{ path: '/terms', hash: '#privacy' }" target="_blank">
+                    <span class="body-3 bolder">Privacidade. *</span>
+                  </router-link>
+                </span>
+              </q-checkbox>
+            </template>
+          </q-field>
+
         </div>
       </section>
     </div>
@@ -316,10 +349,8 @@
       <base-button
         v-if="currentStep === numberOfSteps"
         class="stepper-btn"
-        :theme="formIsValid ? 'secondary' : 'disabled'"
         @click="submit()"
       >
-        <!-- <i class="fas fa-plus reply-icon"></i> -->
         <span class="body-3 bolder text-uppercase"> Iniciar debate </span>
       </base-button>
     </div>
@@ -331,11 +362,10 @@ import {
   required,
   minLength,
   maxLength,
-  // alphaNum,
+  sameAs
 } from "vuelidate/lib/validators";
 import { mapGetters } from "vuex";
 import { createHelpers } from "vuex-map-fields";
-import Identity from "./Logo.vue";
 import ColorLine from "./ColorLine.vue";
 import ProgressBar from "./BaseStepProgressBar.vue";
 import BaseButton from "./BaseButton.vue";
@@ -346,10 +376,11 @@ const { mapFields } = createHelpers({
   mutationType: "topics/updateField",
 });
 
+const hasCategory = (category) => category !== null;
+
 export default {
   name: "TopicCreator",
   components: {
-    Identity,
     ColorLine,
     ProgressBar,
     BaseButton,
@@ -363,11 +394,10 @@ export default {
       stepsTitle: ["O que são os Debates", "Regras", "Crie seu Debate"],
       rulesAccepted: false,
       rulesError: false,
-      termsAccepted: false,
-      // categoryId: null,
+      terms: false,
       hasSelected: false,
-      // categoriesTagged: [],
       options: [],
+      categoryField: '',
     };
   },
   validations: {
@@ -381,83 +411,95 @@ export default {
       minLength: minLength(5),
       maxLength: maxLength(2000),
     },
+    terms: {
+      sameAs: sameAs( () => true )
+    },
+    category: {
+      hasCategory
+    }
   },
   computed: {
     ...mapFields({
       title: "topicForm.title",
       content: "topicForm.content",
-      categoryId: "topicForm.categoryId",
+      category: "topicForm.categoryId",
       categoriesTagged: "topicForm.categoriesTagged",
     }),
     ...mapGetters({
       categories: "categories/loadCategories",
     }),
-    formIsValid() {
-      if (
-        this.$v.$anyError ||
-        this.rulesAccepted === false ||
-        this.termsAccepted === false ||
-        this.categoriesTagged.length === 0
-      ) {
-        return false;
-      }
-      return true;
-    },
     titleErrorMessage() {
       if (!this.$v.title.required) {
-        return "Esse campo é requerido";
+        return "Campo obrigatório";
       }
       if (!this.$v.title.minLength) {
-        return "Mínimo de 5 dígitos";
+        return "Mínimo de 5 caracteres";
       }
       if (!this.$v.title.maxLength) {
-        return "Máximo de 100 dígitos";
+        return "Máximo de 100 caracteres";
       }
       return "";
     },
     contentErrorMessage() {
       if (!this.$v.content.required) {
-        return "Esse campo é requerido";
+        return "Campo obrigatório";
       }
       if (!this.$v.content.minLength) {
-        return "Mínimo de 5 dígitos";
+        return "Mínimo de 5 caracteres";
       }
       if (!this.$v.content.maxLength) {
-        return "Mínimo de 2000 dígitos";
+        return "Mínimo de 2000 caracteres";
       }
       return "";
+    },
+    termsErrorMessage() {
+      return "É necessário aceitar os termos";
+    },
+    categoryErrorMessage() {
+      return "É necessário escolher um tema";
     },
   },
   created() {
     this.options = [...this.categories];
+  },
+  updated(){
   },
   methods: {
     async submit() {
       // await this.$store.dispatch('topics/createNewTopic')
       // this.$socket.emit('newTopicToServer',  );
       // this.$router.push('/topics');
-      this.$store
+      this.$v.$touch();
+      if(!this.$v.$anyError) {
+        this.$store
         .dispatch("topics/createNewTopic", { $socket: this.$socket })
         .then(() => {
           this.content = "";
           this.title = "";
-          this.categoryId = null;
+          this.category = null;
           this.categoriesTagged = [];
           this.$router.push("/topics");
         });
+      }
+      else {
+        this.$q.notify({
+          message: "Por favor, preencha todos os campos para o debate",
+          position: 'top-right',
+        });
+      }
     },
     cancel() {
       this.content = "";
       this.title = "";
-      this.categoryId = null;
+      this.category = null;
       this.categoriesTagged = [];
       this.$router.push({ name: "Topics" });
     },
     tagEvent(sel) {
-      if (this.categoryId === null && this.categoriesTagged.length === 0) {
+      if (this.category === null && this.categoriesTagged.length === 0) {
         this.tagMain(sel);
       } else if (this.categoriesTagged.some((tag) => tag === sel)) {
-        console.log("hasBeenTagged", sel);
+
         const index = this.categoriesTagged.findIndex(
           (el) => el.value === sel.value
         );
@@ -470,9 +512,8 @@ export default {
           "#000";
         document.getElementById(`item-${sel.value}`).style.borderRight = "none";
         this.categoriesTagged.splice(index, 1);
-        console.log("tag in array", this.categoriesTagged);
+
       } else {
-        console.log("tagged", sel);
         const aux = this.categoriesTagged;
         aux.push(sel);
         this.categoriesTagged = aux;
@@ -485,8 +526,8 @@ export default {
       }
     },
     tagMain(sel) {
-      console.log("sel", sel);
-      this.categoryId = sel;
+
+      this.category = sel;
       document.getElementById(
         `category-label-${sel.value}`
       ).style.color = `${sel.color}`;
@@ -495,8 +536,8 @@ export default {
       this.options.splice(index, 1);
     },
     untagMain() {
-      this.options.push(this.categoryId);
-      this.categoryId = null;
+      this.options.push(this.category);
+      this.category = null;
     },
     nextStep() {
       if (this.options.length === 0) {
@@ -547,18 +588,15 @@ $secondaryColor: #ddd;
   flex-wrap: nowrap;
   justify-content: space-between;
   margin-bottom: 50px;
-  // border: 1px solid #ddd;
 }
 
 .stepper-header {
   width: 100%;
   padding: 16px;
   padding-bottom: 0;
-  // border-bottom: 1px solid #ddd;
 
   .progressbar {
     margin-top: 24px;
-    // display: none;
   }
 
   .identity {
@@ -575,7 +613,6 @@ $secondaryColor: #ddd;
   width: 100%;
   height: 100%;
   padding: 16px;
-  // border: 1px solid red;
 }
 
 section {
@@ -634,46 +671,28 @@ li {
   text-align: justify;
 }
 
-.category-list {
-  margin-top: 16px;
+.category-field {
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  margin-top: 32px;
+
+  .category-list {
+    border: 1px solid #ddd;
+    padding: 0 8px;
+    border-radius: 2px;
+    margin-right: 32px;;
+  }
+}
+
+.related-tags,
+.main-tag {
   border: 1px solid #ddd;
   padding: 0 8px;
   border-radius: 2px;
 }
 
-.category-list-item {
-  // max-height: 40px;
-  width: 250px;
-  padding: 4px 0 4px 0;
-  margin-bottom: 4px;
-}
-
-.category-list-item-section {
-  // display: block;
-  align-items: center;
-}
-
-.category-list-icon {
-  margin-right: 16px;
-  // padding: 2px !important;
-}
-
-.tag-field {
-  width: 100%;
-  max-width: 450px;
-  margin-left: 32px;
-  margin-top: 16px;
-  // border: 1px solid red;
-}
-
 .main-tag {
-  display: flex;
-  flex-flow: column nowrap;
-  border: 1px solid #ddd;
-  padding: 8px;
-  border-radius: 2px;
   min-height: 56px;
-  max-width: 250px;
 
   #label {
     margin-top: -4px;
@@ -684,9 +703,9 @@ li {
 .main-tag-badge {
   width: fit-content;
   border: 1px solid;
-  padding: 2px 8px;
+  padding: 4px 8px;
   border-radius: 2px;
-  margin-top: 4px;
+  margin-top: 8px;
 }
 
 #untag {
@@ -698,22 +717,14 @@ li {
 
 .related-tags {
   margin-top: 32px;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 2px;
   min-height: 100px;
-  max-width: 350px;
-
-  span {
-    margin-top: -8px;
-    color: $gray3;
-  }
 }
 
 .related-tags-grid {
   display: flex;
   flex-flow: row wrap;
   align-content: flex-start;
+  margin-top: 8px;
 }
 
 .categorys-tags-badge {
@@ -722,7 +733,7 @@ li {
   border-radius: 2px;
   height: min-content;
   padding: 2px 8px;
-  margin: 4px 4px 4px 0;
+  margin:  0 8px 8px 0;
 }
 
 @keyframes fadeInOpacity {
