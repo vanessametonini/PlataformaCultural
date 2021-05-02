@@ -3,24 +3,24 @@
     <div class="content-center column">
       <!-- start header section -->
       <header>
-        <logo-card />
+        <logo-card class="" />
         <multicolor-line class="line mg-top32" />
       </header>
 
-      <section class="plat mg-top32">
+      <section class="plataforma body-3 text mg-top32">
         <h1 class="title-1 bolder">
           Plataforma
         </h1>
-        <p class="body-3 mg-top16 text">
+        <p class="mg-top16">
           Cartografia da Cultura é uma plataforma online de participação
           cidadã que auxilia na construção de políticas públicas e projetos
           coletivos ligados à cultura no município de Campo Grande - MS.
         </p>
-        <p class="body-3 text">
+        <p>
           É um espaço para exercer a cidadania e fomentar a participação na
           geração de ideias para a gestão cultural da cidade.
         </p>
-        <p class="body-3 text">
+        <p>
           Aqui você pode: <br>
           <ul>
             <li>explorar o mapa e inserir seus dados nele (pin);</li>
@@ -30,148 +30,88 @@
             <li>acessar o banco de dados disponibilizado pelo Fórum Municipal de Cultura, com atas, chamadas e outros documentos públicos.</li>
           </ul>
         </p>
-        <p class="body-3 text">
+        <p>
           A plataforma Cartografia da Cultura é um espaço de comunicação e informação online proposta pelo grupo de pesquisa 
           <a
             href="https://www.instagram.com/algo.ritmo_/"
             target="_blank"
           >algo+ritmo</a> UFMS, sob coordenação da Profa. Juliana Trujillo, em parceria com a diretoria do <a target="_blank" href="https://www.facebook.com/forumdeculturacg/?ref=page_internal">Fórum Municipal de Cultura de Campo Grande</a> - Gestão Chapa Quente.
         </p>
-        <p class="body-3 text">
+        <p>
           Esta plataforma é o principal experimento da pesquisa de doutorado sobre processos participativos através da mediação digital desenvolvida por Juliana Trujillo, sob orientação do Prof. Associado Dr. Marcelo Tramontano, vinculada ao PPGAU-IAU-USP.
         </p>
-        <p class="body-3 text">
+        <p>
           Para dúvidas e contato, enviar e-mail para: <a href="mailto:cartografiadaculturacg@gmail.com">cartografiadaculturacg@gmail.com</a>
         </p>
-        <p class="body-3 text">
-          Para participar e colaborar com a plataforma, <router-link to="signUp">
-            <b>CADASTRE-SE</b>
+        <p>
+          Para participar e colaborar com a plataforma,
+          <router-link to="signUp">
+            <strong>CADASTRE-SE</strong>
           </router-link>.
         </p>
-        <p class="body-3 text">
+        <p>
           Clique aqui para ler nossos termos:<router-link :to="{ path: '/terms', hash: '#privacy'}">
             Políticas de privacidade
           </router-link> e <router-link :to="{ path: '/terms', hash: '#use'}">
             condições de uso
           </router-link>.
         </p>
-        <p class="body-3 text">
+        <p>
           Siga Cartografia da Cultura CG nas redes sociais!
         </p>
-      </section>
-
-      <!-- start section contato -->
-      <section class="contato mg-top16">
-        <!-- <span class="headline-2">Contato</span> -->
-        <div class="links row">
+        <p>
           <a
-            class="body-3 bolder mg-left16"
+            class="body-3 bolder"
             target="_blank"
             href="https://www.facebook.com/CartografiadaCulturaCG"
-          >Facebook</a>
-          <!-- <span class="mg-left8">|</span> -->
-
+          >
+            <i class="fab fa-facebook"></i>
+            Facebook
+          </a>
           <a
             class="body-3 bolder mg-left16"
             target="_blank"
             href="https://www.instagram.com/cartografiadaculturacg/"
-          >Instagram</a>
-        </div>
+          >
+            <i class="fab fa-instagram"></i>
+            Instagram
+          </a>
+        </p>
       </section>
 
       <div class="white-space" />
 
       <!-- start section criação -->
-      
-      <section class="creation mg-top32">
-        <h2 class="title-3 bolder">
-          Criação
-        </h2>
-
-        <div class="row">
-          <div class="colab-box column">
-            <div class="separator" />
-            <div class="colab-item mg-top8">
-              <span class="body-2 bolder">algo+ritmo.ufms</span>
-            </div>
-          </div>
-
-          <div class="colab-box column">
-            <div class="separator" />
-
-            <div class="colab-item mg-top8">
-              <span class="body-2 bolder">nomads.usp</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="colab-box column">
-            <div class="separator" />
-            <div class="colab-item mg-top8">
-              <span class="body-2 bolder">Fórum de Cultura CG</span>
-            </div>
-          </div>
-
-          <div class="colab-box column">
-            <div class="separator" />
-
-            <div class="colab-item mg-top8">
-              <span class="body-2 bolder">coletivo.labor</span>
-            </div>
-          </div>
-        </div>
+      <section class="creation">
+        <h2 class="title-3 bolder">Criação</h2>
+        <ul>
+          <li v-for="by in creation" :key="by.name">
+            <a :href="by.link" target="_blank">{{by.name}}</a>
+          </li>
+        </ul>
       </section>
 
       <div class="white-space" />
 
       <!-- start section equipe -->
-      
       <section class="team mg-top32">
-        <h2 class="title-3 bolder">
-          Equipe
-        </h2>
-        <div class="row">
-          <div
-            v-for="item in team"
-            :key="item.name"
-            class="own-team"
-          >
-            <div class="separator" />
-
-            <div class="team-items column">
-              <span
-                id="line-height"
-                class="body-2 bolder"
-              > {{ item.name }} <br> {{ item.lastName }} </span>
-              <span class="caption"> {{ item.category }} </span>
-            </div>
-          </div>
-        </div>
+        <h2 class="title-3 bolder">Equipe</h2>
+        <ul>
+          <li v-for="item in team" :key="item.name">
+            {{ item.name }} <br/> {{ item.lastName }} <br />
+            <span class="caption"> {{ item.category }}</span>
+          </li>
+        </ul>
       </section>
 
       <div class="white-space" />
 
       <!-- start section colaboradores -->
       <section class="colab mg-top32">
-        <h2 class="title-3 bolder">
-          Colaboradores
-        </h2>
+        <h2 class="title-3 bolder">Colaboradores</h2>
         <ul class="row">
-          <li
-            v-for="colab in colaborators"
-            :key="colab.name"
-            class="own-team"
-          >
-            <div class="separator" />
-            <div class="team-items column">
-              <span
-                id="line-height"
-                class="body-2 bolder"
-              >
-                {{ colab.name }}
-              </span>
-            </div>
+          <li v-for="colab in colaborators" :key="colab.name">
+            {{ colab.name }}
           </li>
         </ul>
       </section>
@@ -190,6 +130,24 @@ export default {
   name: 'PlataformaPage',
   data() {
     return {
+      creation: [
+        {
+          name: 'algo+ritmo.ufms',
+          link: 'https://algoritmoufms.wixsite.com/algoritmo'
+        },
+        {
+          name: 'nomads.usp',
+          link: 'http://www.nomads.usp.br/site/'
+        },
+        {
+          name: 'Fórum de Cultura CG',
+          link: 'http://forumdeculturacg.blogspot.com/'
+        },
+        {
+          name: 'coletivo.labor',
+          link: 'http://coletivolabor.com.br/'
+        },
+      ],
       team: [
         {
           name: 'Juliana',
@@ -278,7 +236,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/variables.scss';
 @import '../styles/mixins.scss';
 
 .content-center {
@@ -293,8 +250,10 @@ span, p, a {
   color: black;
 }
 
-ul {
-  list-style-position: inside;
+.plataforma {
+  ul {
+    list-style-position: inside;
+  }
 }
 
 .text {
@@ -305,77 +264,42 @@ a:hover {
   text-decoration: none;
 }
 
-.align-center {
-  align-items: center;
-}
-
 .white-space {
   height: 32px;
 }
 
 .contato, .creation, .team, .colab {
-  width: 80%;
-}
-
-.colab-box {
-  align-items: flex-start;
-  max-width: 280px;
-  margin-top: 16px;
-  margin-right: 32px;
-
-  @include for-phone-only {
-    width: 100%;
+  @include for-tablet-portrait-up {
+    width: 80%;
   }
 }
 
-.own-team {
-  width: 180px;
-  height: 80px;
-  margin: 0 32px 16px 0px;
-  padding: 8px 8px 8px 0px;
-
-  @include for-phone-only {
-    justify-content: space-between;
-    width: 120px;
-    height: 60px;
-    margin: 16px 32px 32px 0px;
-    padding: 8px 8px 8px 0px;
-  }
-}
-
-.team-items {
-  margin-top: 8px;
-  width: 100%;
-}
-
-.social-media {
-  justify-content: flex-start;
-  margin-top: 0px;
-}
-
-#line-height {
-  line-height: 1.2rem;
-}
-
-.line {
-  height: 4px;
-  background-color: black;
-}
-
-.separator {
-  height: 2px;
-  width: 100%;
-  background-color: black;
-}
-
-.colab {
+.creation, .team, .colab {
   ul {
-    list-style-type: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+
+    @include for-tablet-portrait-up {
+      grid-template-columns: repeat(2, 48%);
+    }
   }
 
-  .own-team {
-    height: auto;
+  li {
+    border-top: 2px solid black;
+    padding-top: 8px;
+    margin-top: 32px;
+    margin-right: 32px;
+    font-size: 1rem;
+    line-height: 1.2rem;
+    font-weight: bold;
+
+    .caption {
+      font-weight: normal;
+    }
   }
 }
+
 
 </style>
