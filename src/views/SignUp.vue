@@ -282,7 +282,7 @@
 
       <!-- selecionar categoria -->
       <div id="target" class="category column">
-        <h3 class="headline-2 bolder">Identifique sua categoria</h3>
+        <h3 class="headline-2 bolder">Identifique sua categoria*</h3>
 
         <div class="list">
           <q-list>
@@ -296,11 +296,7 @@
               :style="{'color': item.color}"
             >
               <q-item-section avatar style="align-items: center">
-                <!-- iconId -1 : index of array of icons (0 a 17) -->
-                <icon-base
-                  :icon-id="item.value - 1"
-                  width="16"
-                />
+                <span :class="`icon-${item.value}`"></span>
               </q-item-section>
 
               <q-item-section
@@ -317,15 +313,8 @@
       <!-- ações -->
       <div class="actions">
         <div class="terms row">
-          <q-checkbox
-            v-model="terms"
-            size="32px"
-            color="black"
-            true-value="item.category"
-          />
-
-          <span class="body-3 altoc"
-            >Ao clicar em concluir cadastro, você concorda com a <br />
+          <span class="body-3 altoc">
+            Ao concluir seu cadastro, você concorda com a 
             <router-link
               class="link"
               target="_blank"
@@ -370,7 +359,6 @@
 
 <script>
 import { mapGetters } from "vuex";
-import iconBase from "../components/iconBase.vue";
 import {
   required,
   email,
@@ -386,9 +374,6 @@ const { mapFields } = createHelpers({
 
 export default {
   name: "SignUp",
-  components: {
-    iconBase,
-  },
   data() {
     return {
       waiting: false,
@@ -414,7 +399,6 @@ export default {
         "Pós-graduado",
       ],
       selected: null,
-      terms: false, // ----- accept terms?
     };
   },
   validations: {
@@ -483,7 +467,7 @@ export default {
       },
     },
     formIsValid() {
-      if (this.$v.$anyError || this.selected === null || this.terms === false) {
+      if (this.$v.$anyError || this.selected === null) {
         return false;
       }
       return true;
@@ -585,7 +569,7 @@ export default {
     },
     submit() {
       this.$v.$touch();
-      if (!this.$v.$anyError) {
+      if (!this.$v.$anyError && this.selected) {
         if (this.waiting) {
           this.$q.notify({
             message: "Por favor, aguarde.",
@@ -597,6 +581,20 @@ export default {
         this.$store
           .dispatch("users/signUp", { file: this.avatarPic })
           .then(() => {
+
+            this.firstName = ""
+            this.lastName = ""
+            this.email = ""
+            this.emailConfirmation = ""
+            this.password = ""
+            this.confirmPassword = ""
+            this.categoryId = ""
+            this.gender = ""
+            this.otherGender = ""
+            this.ageRange = ""
+            this.education = ""
+            this.avatarId = ""
+
             this.$router.push({ name: "SignIn" });
             this.waiting = false;
           })
@@ -614,6 +612,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "../styles/mixins.scss";
+@import '../styles/categories.scss';
 
 .content-center {
   @include centered-column;
@@ -676,7 +675,7 @@ export default {
   border-radius: 0px;
   height: 40px;
   width: 180px;
-  margin-top: 8px;
+  margin-top: 16px;
   transition: all 0.2s linear;
 
   @include for-phone-only {
@@ -704,18 +703,22 @@ export default {
   &.active {
     background-color: currentColor;
 
+    span[class^="icon-"],
     .category-text {
       color: white;
     }
 
   }
 
-   .category-text {
-      color: black;
-    }
-}
+  span[class^="icon-"],
+  .category-text {
+    color: black;
+  }
 
-q-item q-item-type row no-wrap category-item q-item--clickable q-link cursor-pointer q-focusable q-hoverable q-item--active
+  span[class^="icon-"] {
+    font-size: 2em;
+  }
+}
 
 .whitespace {
   height: 30px;

@@ -206,19 +206,10 @@
               @click="tagEvent(item)"
             >
               <q-item-section avata>
-                <!-- iconId -1 : index of array of icons (0 a 17) -->
-                <icon-base
-                  :id="`icon-${item.value}`"
-                  :icon-id="item.value - 1"
-                  width="16"
-                  :set-white="false"
-                />
+                <span :class="`icon-${item.value}`"></span>
               </q-item-section>
 
-              <q-item-section
-                :id="`category-label-${item.value}`"
-
-              >
+              <q-item-section :id="`category-label-${item.value}`">
                 <span class="caption bolder">{{ item.label }}</span>
               </q-item-section>
             </q-item>
@@ -369,7 +360,6 @@ import { createHelpers } from "vuex-map-fields";
 import ColorLine from "./ColorLine.vue";
 import ProgressBar from "./BaseStepProgressBar.vue";
 import BaseButton from "./BaseButton.vue";
-import iconBase from "./iconBase.vue";
 
 const { mapFields } = createHelpers({
   getterType: "topics/getField",
@@ -384,7 +374,6 @@ export default {
     ColorLine,
     ProgressBar,
     BaseButton,
-    iconBase,
   },
   data() {
     return {
@@ -573,6 +562,7 @@ export default {
 <style lang="scss" scoped>
 @import "../styles/variables.scss";
 @import "../styles/mixins.scss";
+@import '../styles/categories.scss';
 
 $height: 32px;
 $width: 32px;
@@ -680,7 +670,11 @@ li {
     border: 1px solid #ddd;
     padding: 0 8px;
     border-radius: 2px;
-    margin-right: 32px;;
+    margin-right: 32px;
+
+    span[class^="icon-"] {
+      font-size: 2em;
+    }
   }
 }
 

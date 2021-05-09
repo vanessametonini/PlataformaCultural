@@ -80,28 +80,25 @@
 
         <div class="my-markes">
           <l-marker
-            v-for="item in markers"
-            :key="item.id"
-            class="marker-item"
-            :lat-lng="item.coordinates"
-            @ready="openDefaultMarker($event, item)"
+            v-for="pin in markers"
+            :key="pin.id"
+            :lat-lng="pin.coordinates"
+            @ready="openDefaultMarker($event, pin)"
           >
             <l-icon
               class="icon-marker"
               :icon-size="iconSet.iconSize"
               :icon-anchor="iconSet.iconAnchor"
             >
-              <img
-                :id="`img-icon#${item.id}`"
-                :src="item.image"
-                class="img-icon"
-                :height="iconSet.iconSize[0]"
-                :width="iconSet.iconSize[1]"
+              <span
+                :class="`icon-${$store.getters['categories/getCategoryById'](pin.categoryId).value}`"
+                :style="{'color': `${$store.getters['categories/getCategoryById'](pin.categoryId).color}`}"
               >
+              </span>
             </l-icon>
 
             <l-popup :options="popupOptions">
-              <pin-view :pin-view="getPinById(item.id)" />
+              <pin-view :pin-view="getPinById(pin.id)" />
             </l-popup>
           </l-marker>
         </div>
@@ -167,7 +164,7 @@ export default {
         },
       },
       iconSet: {
-        iconSize: [24, 24],
+        iconSize: [30, 30],
         iconAnchor: [15, -8],
       },
       popupOptions: {
@@ -260,6 +257,7 @@ export default {
 <style lang="scss" scoped>
 @import '../styles/variables.scss';
 @import '../styles/mixins.scss';
+@import '../styles/categories.scss';
 
 * {
   box-sizing: border-box;
@@ -330,20 +328,10 @@ export default {
   overflow: hidden;
 }
 
-.marker-item {
-  display: none !important;
-  z-index: 1;
-  height: 50px;
-  width: 50px;
-  transition: transform 0.5s;
-}
-
-.img-icon {
-  display: block;
-
-  &:hover {
-    transform: scale(1.2);
-  }
+//tamanho dos ícones
+span[class^="icon-"] {
+  font-size: 4em;
+  line-height: 30px;
 }
 
 .button-area {

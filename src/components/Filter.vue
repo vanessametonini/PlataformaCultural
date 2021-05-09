@@ -1,31 +1,16 @@
 <template>
   <ul class="filter">
     <li
-      v-for="item in categories"
+      v-for="(item) in categories"
       :id="`item-${item.id}`"
       :key="item.value"
       class="item"
       clickable
       @click="$store.commit('pins/UPDATE_CATEGORIES_SELECTEDS', item.id)"
+      :style="`color: ${colors(item)}`"
     >
-      <div
-        class="icon-content"
-        avata
-      >
-        <icon-base
-          :id="`icon-${item.value}`"
-          :icon-id="item.value - 1"
-          :set-white="false"
-          :color="colors(item)"
-        />
-      </div>
-
-      <div
-        :id="`category-label-${item.value}`"
-        :style="`color: ${colors(item)}`"
-      >
-        {{ item.label }}
-      </div>
+      <span :class="`icon-${item.value}`"></span>
+      {{ item.label }}
     </li>
   </ul>
 </template>
@@ -33,17 +18,13 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import iconBase from './iconBase.vue';
-
 export default {
   name: 'MyFilter',
-  components: {
-    iconBase,
-  },
   emits: ['call-filter'],
   data() {
     return {
       active: false,
+      publicPath: process.env.BASE_URL
     };
   },
   computed: {
@@ -51,12 +32,14 @@ export default {
       categories: 'categories/loadCategories',
       colors: 'pins/getColors',
     }),
-  },
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 @import '../styles/mixins.scss';
+@import '../styles/categories.scss';
+
 .filter {
   margin: 0;
   max-height: calc(100vh - 272px);
@@ -76,16 +59,22 @@ export default {
 }
 
 .item {
-  box-sizing: border-box;
   border-radius: 2px;
+  box-sizing: border-box;
+  clear: left;
   cursor: pointer;
-  display: flex;
+  display: grid;
+  font-size: 1em;
+  grid-template-columns: 36px auto;
   line-height: initial;
-  padding: 8px;
-}
+  list-style: none;
+  margin-bottom: 4px;
 
-.icon-content {
-  padding-right: 14px;
+  span[class^="icon-"] {
+    font-size: 2em;
+    position: relative;
+    top: -6px;
+  }
 }
 
 </style>
