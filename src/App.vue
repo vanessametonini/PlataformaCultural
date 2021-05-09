@@ -7,7 +7,6 @@
 <style lang="scss">
 @import "./styles/variables.scss";
 @import "./styles/mixins.scss";
-@import "./styles/typo.scss";
 
 // ----------------- leaflet reset popup --------------------
 .leaflet-popup-content-wrapper {

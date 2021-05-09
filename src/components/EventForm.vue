@@ -466,6 +466,7 @@ export default {
           this.description = "";
           this.link = "";
           this.imgUrl = "";
+          this.category = "";
           this.categoryId = null;
           this.name = "";
           this.local = "";

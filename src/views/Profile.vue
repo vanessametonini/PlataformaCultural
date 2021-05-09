@@ -123,8 +123,11 @@ nav.row {
 }
 
 .forms {
-  margin: 10px auto;
-  width: 90%;
+  margin-left: 10px;
+  width: 590px;
+  background-color: #f5f5f5;
+  padding: 16px 32px;
+  margin-bottom: 60px;
 }
 
 </style>

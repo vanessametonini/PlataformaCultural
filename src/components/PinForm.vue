@@ -470,6 +470,7 @@ export default {
     sendForm() {
       this.$store.dispatch("pins/postPin", { $router: this.$router })
         .then(()=>{
+          this.category = '';
           this.categoryId = null;
           this.title = '';
           this.email = '';
@@ -480,12 +481,14 @@ export default {
           this.city = '';
           this.cep = '';
           this.description = '';
-          this.images = '';
+          this.images = [];
           this.link = '';
           this.facebook = '';
           this.instagram = '';
           this.twitter = '';
           this.whatsapp = '';
+
+          this.$v.$reset()
         });
       this.waiting = false;
     },
@@ -550,10 +553,6 @@ export default {
 <style lang="scss" scoped>
 @import "../styles/variables.scss";
 @import "../styles/mixins.scss";
-
-.box {
-  padding: 16px;
-}
 
 .input {
   width: 100%;
