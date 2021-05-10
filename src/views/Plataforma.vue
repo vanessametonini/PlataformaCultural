@@ -26,54 +26,57 @@
           os agentes da Cultura na cidade. O mapeamento facilita o encontro e a identificação 
           entre esses agentes e pode estimular a formação de novos coletivos, novas ações 
           e  uma gestão mais compartilhada.
-          </p>
-          <p>
+        </p>
+        <p>
           É um espaço aberto para os colaboradores interessados nos assuntos relativos à Cultura, 
           onde todos têm voz e visibilidade de forma horizontal, sem hierarquias. 
           É uma plataforma independente e desenvolvida sem financiamento da gestão municipal ou de recursos públicos.
         </p>
-        <p><strong.Quem pode colaborar?</strong>
+        <p>
+          <strong>.Quem pode colaborar?</strong>
         </p>
         <p>
-        Para artistas, coletivos, colegiados, técnicos, associações culturais, produtores culturais, 
-        gestores públicos, gestores de espaços culturais, educadores e qualquer pessoa que queira 
-        participar da discussão sobre a cultura municipal. 
-        </p>
-        <p><strong.Como colaborar?</strong>
+          Para artistas, coletivos, colegiados, técnicos, associações culturais, produtores culturais, 
+          gestores públicos, gestores de espaços culturais, educadores e qualquer pessoa que queira 
+          participar da discussão sobre a cultura municipal. 
         </p>
         <p>
-        Se inserindo no mapa da cultura.<br>
-        Você pode adicionar um pin no mapa. O pin é um marcador, aquele símbolo que 
-        localiza algo no mapa. No nosso caso, os pins representam categorias ligadas 
-        à cultura e são representados por letras. Quando você insere um pin, a localização 
-        que você informou aparecerá no mapa, indicado pela categoria a qual você se identificou. 
-        Além da localização, ao clicar no pin, suas informações de contato serão exibidas. 
+          <strong>.Como colaborar?</strong>
         </p>
         <p>
-        Divulgando eventos.<br>
-        Inserir os eventos que você irá participar ou produzir em Campo Grande. 
-        A agenda é o local de divulgação dos eventos culturais do município, 
-        sejam eles online ou presencial: shows, feiras, festas, espetáculos, 
-        performances, exposições, exibições. E também pode divulgar encontros, 
-        reuniões, audiências e chamadas públicas. Você pode inserir quantos eventos quiser.
+          Se inserindo no mapa da cultura.<br>
+          Você pode adicionar um pin no mapa. O pin é um marcador, aquele símbolo que 
+          localiza algo no mapa. No nosso caso, os pins representam categorias ligadas 
+          à cultura e são representados por letras. Quando você insere um pin, a localização 
+          que você informou aparecerá no mapa, indicado pela categoria a qual você se identificou. 
+          Além da localização, ao clicar no pin, suas informações de contato serão exibidas. 
         </p>
         <p>
-        Propor um debate ou participar de um debate iniciado. <br>
-        Você pode propor um assunto a ser discutido ou participar de um debate que já acontece
-        na plataforma através dos comentários e apoios. O debate pode ser proposto por 
-        um indivíduo ou grupo, pode ser usado para deliberar as decisões utilizando a função  
-        "apoiar" ou "não apoiar". Pode também usar o espaço de debate para ouvir as diversas 
-        opiniões de um grupo amplo de pessoas, gerar uma lista de ideias utilizando a função 
-        "comentar" e "responder" ou ainda pode auxiliar na discussão de assuntos polêmicos que buscam  um consenso.  
-        A função "curtir" um comentário também pode indicar quais são as opiniões ou ideias mais populares.
-        </p>
-        <p><strong.Os dois tipos de perfil do usuário</strong>
+          Divulgando eventos.<br>
+          Inserir os eventos que você irá participar ou produzir em Campo Grande. 
+          A agenda é o local de divulgação dos eventos culturais do município, 
+          sejam eles online ou presencial: shows, feiras, festas, espetáculos, 
+          performances, exposições, exibições. E também pode divulgar encontros, 
+          reuniões, audiências e chamadas públicas. Você pode inserir quantos eventos quiser.
         </p>
         <p>
-        Qualquer pessoa pode usar a plataforma, mas há dois tipos de usuários: 
-        o cadastrado e o não cadastrado. O usuário que não fizer o cadastro poderá navegar pela plataforma, 
-        explorar o mapa, filtrar as categorias que quer visualizar; visualizar a agenda cultural; visualizar 
-        os temas dos debates; e acessar o repositório do Fórum de Cultura de Campo Grande.
+          Propor um debate ou participar de um debate iniciado. <br>
+          Você pode propor um assunto a ser discutido ou participar de um debate que já acontece
+          na plataforma através dos comentários e apoios. O debate pode ser proposto por 
+          um indivíduo ou grupo, pode ser usado para deliberar as decisões utilizando a função  
+          "apoiar" ou "não apoiar". Pode também usar o espaço de debate para ouvir as diversas 
+          opiniões de um grupo amplo de pessoas, gerar uma lista de ideias utilizando a função 
+          "comentar" e "responder" ou ainda pode auxiliar na discussão de assuntos polêmicos que buscam  um consenso.  
+          A função "curtir" um comentário também pode indicar quais são as opiniões ou ideias mais populares.
+        </p>
+        <p>
+          <strong>.Os dois tipos de perfil do usuário</strong>
+        </p>
+        <p>
+          Qualquer pessoa pode usar a plataforma, mas há dois tipos de usuários: 
+          o cadastrado e o não cadastrado. O usuário que não fizer o cadastro poderá navegar pela plataforma, 
+          explorar o mapa, filtrar as categorias que quer visualizar; visualizar a agenda cultural; visualizar 
+          os temas dos debates; e acessar o repositório do Fórum de Cultura de Campo Grande.
         </p>
 
         <p>
@@ -95,14 +98,15 @@
         </p>
         <p>
           Para entrar em contato, enviar e-mail para: <a href="mailto:cartografiadaculturacg@gmail.com">cartografiadaculturacg@gmail.com</a>
-          ou através das nossas redes sociais:</p>
-          <p>
+          ou através das nossas redes sociais:
+        </p>
+        <p>
           <a
             class="body-3 bolder"
             target="_blank"
             href="https://www.facebook.com/CartografiadaCulturaCG"
           >
-            <i class="fab fa-facebook"></i>
+            <i class="fab fa-facebook" />
             Facebook
           </a>
           <a
@@ -110,7 +114,7 @@
             target="_blank"
             href="https://www.instagram.com/cartografiadaculturacg/"
           >
-            <i class="fab fa-instagram"></i>
+            <i class="fab fa-instagram" />
             Instagram
           </a>
         </p>
@@ -120,9 +124,8 @@
             <strong>CADASTRE-SE</strong>
           </router-link>.
         </p>
-        </section>
-        
-         <section class="plataforma body-3 text mg-top32">
+      </section>
+      <section class="plataforma body-3 text mg-top32">
         <h1 class="title-1 bolder">
           A plataforma como campo de pesquisa
         </h1>
@@ -134,20 +137,29 @@
           Instituto de Arquitetura e Urbanismo da Universidade de São Paulo. 
         </p>
         <p>
-        Para mais informações sobre a pesquisa, acesse os links: 
+          Para mais informações sobre a pesquisa, acesse os links: 
         </p>
         <p>
-        <a href="https://cidadecolaborativa.wordpress.com">Da cidade participativa à cidade colaborativa</a>
+          <a href="https://cidadecolaborativa.wordpress.com">Da cidade participativa à cidade colaborativa</a>
+        </p>
       </section>
 
       <div class="white-space" />
 
       <!-- start section criação -->
       <section class="creation">
-        <h2 class="title-3 bolder">Organização</h2>
+        <h2 class="title-3 bolder">
+          Organização
+        </h2>
         <ul>
-          <li v-for="by in creation" :key="by.name">
-            <a :href="by.link" target="_blank">{{by.name}}</a>
+          <li
+            v-for="by in creation"
+            :key="by.name"
+          >
+            <a
+              :href="by.link"
+              target="_blank"
+            >{{ by.name }}</a>
           </li>
         </ul>
       </section>
@@ -156,10 +168,15 @@
 
       <!-- start section equipe -->
       <section class="team mg-top32">
-        <h2 class="title-3 bolder">Equipe</h2>
+        <h2 class="title-3 bolder">
+          Equipe
+        </h2>
         <ul>
-          <li v-for="item in team" :key="item.name">
-            {{ item.name }} <br/> {{ item.lastName }} <br />
+          <li
+            v-for="item in team"
+            :key="item.name"
+          >
+            {{ item.name }} <br> {{ item.lastName }} <br>
             <span class="caption"> {{ item.category }}</span>
           </li>
         </ul>
@@ -169,9 +186,14 @@
 
       <!-- start section colaboradores -->
       <section class="colab mg-top32">
-        <h2 class="title-3 bolder">Colaboradores</h2>
+        <h2 class="title-3 bolder">
+          Colaboradores
+        </h2>
         <ul class="row">
-          <li v-for="colab in colaborators" :key="colab.name">
+          <li
+            v-for="colab in colaborators"
+            :key="colab.name"
+          >
             {{ colab.name }}
           </li>
         </ul>
@@ -245,7 +267,7 @@ export default {
           lastName: 'Hiroito',
           category: 'desenvolvedor de software',
           color: '#4692C1',
-        },  
+        },
         {
           name: 'Eduardo',
           lastName: 'Azevedo',
@@ -288,7 +310,7 @@ export default {
           name: 'Mario Vallejo',
         },
         {
-          name: 'Rafael Alves,
+          name: 'Rafael Alves'
         },
         {
           name: 'Guilherme Jardim',
