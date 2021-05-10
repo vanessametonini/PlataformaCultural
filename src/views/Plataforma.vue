@@ -9,57 +9,94 @@
 
       <section class="plataforma body-3 text mg-top32">
         <h1 class="title-1 bolder">
-          Plataforma
+          Sobre a plataforma
         </h1>
         <p class="mg-top16">
-          Cartografia da Cultura é uma plataforma online de participação
-          cidadã que auxilia na construção de políticas públicas e projetos
-          coletivos ligados à cultura no município de Campo Grande - MS.
+          Cartografia da Cultura é uma plataforma online colaborativa 
+          do Fórum Municipal de Cultura de Campo Grande-MS que auxilia 
+          no processo de construção de políticas públicas e projetos coletivos 
+          ligados à Cultura no município. 
         </p>
         <p>
-          É um espaço para exercer a cidadania e fomentar a participação na
-          geração de ideias para a gestão cultural da cidade.
+          A Cartografia da Cultura tem três funcionalidades principais: o mapeamento, 
+          a divulgação de eventos e o debate. O colaborador cadastrado tem autonomia 
+          para utilizar todas as funcionalidades da plataforma. A plataforma tem como 
+          objetivo mapear e reunir dados sobre a cultura de Campo Grande que possibilitem 
+          entender as demandas da classe artística e visualizar no mapa onde estão localizados 
+          os agentes da Cultura na cidade. O mapeamento facilita o encontro e a identificação 
+          entre esses agentes e pode estimular a formação de novos coletivos, novas ações 
+          e  uma gestão mais compartilhada.
+          </p>
+          <p>
+          É um espaço aberto para os colaboradores interessados nos assuntos relativos à Cultura, 
+          onde todos têm voz e visibilidade de forma horizontal, sem hierarquias. 
+          É uma plataforma independente e desenvolvida sem financiamento da gestão municipal ou de recursos públicos.
+        </p>
+        <p><strong.Quem pode colaborar?</strong>
         </p>
         <p>
-          Aqui você pode: <br>
+        Para artistas, coletivos, colegiados, técnicos, associações culturais, produtores culturais, 
+        gestores públicos, gestores de espaços culturais, educadores e qualquer pessoa que queira 
+        participar da discussão sobre a cultura municipal. 
+        </p>
+        <p><strong.Como colaborar?</strong>
+        </p>
+        <p>
+        Se inserindo no mapa da cultura.<br>
+        Você pode adicionar um pin no mapa. O pin é um marcador, aquele símbolo que 
+        localiza algo no mapa. No nosso caso, os pins representam categorias ligadas 
+        à cultura e são representados por letras. Quando você insere um pin, a localização 
+        que você informou aparecerá no mapa, indicado pela categoria a qual você se identificou. 
+        Além da localização, ao clicar no pin, suas informações de contato serão exibidas. 
+        </p>
+        <p>
+        Divulgando eventos.<br>
+        Inserir os eventos que você irá participar ou produzir em Campo Grande. 
+        A agenda é o local de divulgação dos eventos culturais do município, 
+        sejam eles online ou presencial: shows, feiras, festas, espetáculos, 
+        performances, exposições, exibições. E também pode divulgar encontros, 
+        reuniões, audiências e chamadas públicas. Você pode inserir quantos eventos quiser.
+        </p>
+        <p>
+        Propor um debate ou participar de um debate iniciado. <br>
+        Você pode propor um assunto a ser discutido ou participar de um debate que já acontece
+        na plataforma através dos comentários e apoios. O debate pode ser proposto por 
+        um indivíduo ou grupo, pode ser usado para deliberar as decisões utilizando a função  
+        "apoiar" ou "não apoiar". Pode também usar o espaço de debate para ouvir as diversas 
+        opiniões de um grupo amplo de pessoas, gerar uma lista de ideias utilizando a função 
+        "comentar" e "responder" ou ainda pode auxiliar na discussão de assuntos polêmicos que buscam  um consenso.  
+        A função "curtir" um comentário também pode indicar quais são as opiniões ou ideias mais populares.
+        </p>
+        <p><strong.Os dois tipos de perfil do usuário</strong>
+        </p>
+        <p>
+        Qualquer pessoa pode usar a plataforma, mas há dois tipos de usuários: 
+        o cadastrado e o não cadastrado. O usuário que não fizer o cadastro poderá navegar pela plataforma, 
+        explorar o mapa, filtrar as categorias que quer visualizar; visualizar a agenda cultural; visualizar 
+        os temas dos debates; e acessar o repositório do Fórum de Cultura de Campo Grande.
+        </p>
+
+        <p>
+          O usuário cadastrado pode: <br>
           <ul>
-            <li>explorar o mapa e inserir seus dados nele (pin);</li>
-            <li>propor um debate, comentar e acompanhar os diálogos;</li>
-            <li>acompanhar a agenda cultural e divulgar seu evento e reuniões;</li>
-            <li>acessar os links dos produtores de cultura - artistas, gestores e espaços culturais;</li>
-            <li>acessar o banco de dados disponibilizado pelo Fórum Municipal de Cultura, com atas, chamadas e outros documentos públicos.</li>
+            <li>Se inserir no mapa da Cartografia da Cultura, onde aparecerão seus contatos e redes sociais;</li>
+            <li>Explorar o mapa, escolher as categorias que quer visualizar pelo filtro;</li>
+            <li>Iniciar um debate apresentando o assunto a ser discutido e seu ponto de vista;</li>
+            <li>Comentar um debate já iniciado e responder um comentário;</li>
+            <li>Apoiar ou não apoiar o assunto proposto no debate;</li>
+            <li>Curtir comentários e respostas;</li>
+            <li>Visualizar todos os debates iniciados;</li>
+            <li>Divulgar todos os eventos que participa na agenda cultural;</li>
+            <li>Convidar pessoas para participar dos seus eventos ou de reuniões que você organiza através do compartilhamento do link ou redes sociais;</li>
+            <li>Visualizar a agenda cultural;</li>
+            <li>Acessar todos os links disponíveis;</li>
+            <li>Acessar o repositório do Fórum Municipal de Cultura de Campo Grande.</li>
           </ul>
         </p>
         <p>
-          A plataforma Cartografia da Cultura é um espaço de comunicação e informação online proposta pelo grupo de pesquisa 
-          <a
-            href="https://www.instagram.com/algo.ritmo_/"
-            target="_blank"
-          >algo+ritmo</a> UFMS, sob coordenação da Profa. Juliana Trujillo, em parceria com a diretoria do <a target="_blank" href="https://www.facebook.com/forumdeculturacg/?ref=page_internal">Fórum Municipal de Cultura de Campo Grande</a> - Gestão Chapa Quente.
-        </p>
-        <p>
-          Esta plataforma é o principal experimento da pesquisa de doutorado sobre processos participativos através da mediação digital desenvolvida por Juliana Trujillo, sob orientação do Prof. Associado Dr. Marcelo Tramontano, vinculada ao PPGAU-IAU-USP.
-        </p>
-        <p>
-          Para dúvidas e contato, enviar e-mail para: <a href="mailto:cartografiadaculturacg@gmail.com">cartografiadaculturacg@gmail.com</a>
-        </p>
-        <p>
-          Para participar e colaborar com a plataforma,
-          <router-link to="signUp">
-            <strong>CADASTRE-SE</strong>
-          </router-link>.
-        </p>
-        <p>
-          Clique aqui para ler nossos termos:<router-link :to="{ path: '/terms', hash: '#privacy'}">
-            Políticas de privacidade
-          </router-link> e <router-link :to="{ path: '/terms', hash: '#use'}">
-            condições de uso
-          </router-link>.
-        </p>
-        <p>
-          Siga Cartografia da Cultura CG nas redes sociais!
-        </p>
-        <p>
+          Para entrar em contato, enviar e-mail para: <a href="mailto:cartografiadaculturacg@gmail.com">cartografiadaculturacg@gmail.com</a>
+          ou através das nossas redes sociais:</p>
+          <p>
           <a
             class="body-3 bolder"
             target="_blank"
@@ -77,13 +114,37 @@
             Instagram
           </a>
         </p>
+        <p>
+          Para participar e colaborar com a plataforma,
+          <router-link to="signUp">
+            <strong>CADASTRE-SE</strong>
+          </router-link>.
+        </p>
+        </section>
+        
+         <section class="plataforma body-3 text mg-top32">
+        <h1 class="title-1 bolder">
+          A plataforma como campo de pesquisa
+        </h1>
+        <p class="mg-top16">
+          Esta plataforma é parte da pesquisa de doutorado desenvolvida no Nomads.usp 
+          sobre processos participativos através da mediação digital desenvolvida pela 
+          Profa. Juliana Trujillo sob orientação do Prof. Assoc. Dr. Marcelo Tramontano, 
+          vinculada ao Programa de Pós-graduação em Arquitetura e Urbanismo do 
+          Instituto de Arquitetura e Urbanismo da Universidade de São Paulo. 
+        </p>
+        <p>
+        Para mais informações sobre a pesquisa, acesse os links: 
+        </p>
+        <p>
+        <a href="https://cidadecolaborativa.wordpress.com">Da cidade participativa à cidade colaborativa</a>
       </section>
 
       <div class="white-space" />
 
       <!-- start section criação -->
       <section class="creation">
-        <h2 class="title-3 bolder">Criação</h2>
+        <h2 class="title-3 bolder">Organização</h2>
         <ul>
           <li v-for="by in creation" :key="by.name">
             <a :href="by.link" target="_blank">{{by.name}}</a>
@@ -132,16 +193,16 @@ export default {
     return {
       creation: [
         {
-          name: 'algo+ritmo.ufms',
-          link: 'https://algoritmoufms.wixsite.com/algoritmo'
+          name: 'fórum de cultura CG',
+          link: 'http://forumdeculturacg.blogspot.com/'
         },
         {
           name: 'nomads.usp',
           link: 'http://www.nomads.usp.br/site/'
         },
         {
-          name: 'Fórum de Cultura CG',
-          link: 'http://forumdeculturacg.blogspot.com/'
+          name: 'algo+ritmo.ufms',
+          link: 'https://algoritmoufms.wixsite.com/algoritmo'
         },
         {
           name: 'coletivo.labor',
@@ -158,7 +219,7 @@ export default {
         {
           name: 'Marcelo',
           lastName: 'Tramontano',
-          category: 'consultor',
+          category: 'orientador',
           color: '#AD3B3B',
         },
         {
@@ -184,19 +245,7 @@ export default {
           lastName: 'Hiroito',
           category: 'desenvolvedor de software',
           color: '#4692C1',
-        },
-        {
-          name: 'Eliane',
-          lastName: 'Fraulob',
-          category: 'interface gráfica',
-          color: '#529E63',
-        },
-        {
-          name: 'Paulo',
-          lastName: 'Domingos',
-          category: 'interface gráfica',
-          color: '#CB6883',
-        },
+        },  
         {
           name: 'Eduardo',
           lastName: 'Azevedo',
@@ -212,13 +261,34 @@ export default {
           name: 'Franciella Cavalheri',
         },
         {
-          name: 'Kenzo Minata',
-        },
-        {
           name: 'Gilfranco Alves',
         },
         {
+          name: 'Kenzo Minata',
+        },
+        {
+          name: 'Thaís Pompeo',
+        },
+        {
+          name: 'Paulo Domingos',
+        },
+        {
+          name: 'Eliane Fraulob',
+        },
+        {
+          name: 'Juliano Pita',
+        },
+        {
           name: 'Victor Silva',
+        },
+        {
+          name: 'Pedro Teixeira',
+        },
+        {
+          name: 'Mario Vallejo',
+        },
+        {
+          name: 'Rafael Alves,
         },
         {
           name: 'Guilherme Jardim',
