@@ -196,8 +196,8 @@
                  <li>Escolaridade</li>
               <li>E-mail</li>
                <li>Senha</li>
-                <li>Categoria/li>
-                 <li>Imagem avatar/li>
+                <li>Categoria</li>
+                 <li>Imagem avatar</li>
               <li>Aceitação das condições de uso da plataforma Cartografia da Cultura</li>
             </ul>
             <p>O colaborador cadastrado pode interagir com a plataforma das seguintes maneiras:</p>
