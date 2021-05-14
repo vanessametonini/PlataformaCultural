@@ -25,7 +25,7 @@
           entender as demandas da classe artística e visualizar no mapa onde estão localizados 
           os agentes da Cultura na cidade. O mapeamento facilita o encontro e a identificação 
           entre esses agentes e pode estimular a formação de novos coletivos, novas ações 
-          e  uma gestão mais compartilhada.
+          e uma gestão mais compartilhada.
         </p>
         <p>
           É um espaço aberto para os colaboradores interessados nos assuntos relativos à Cultura, 
@@ -33,63 +33,63 @@
           É uma plataforma independente e desenvolvida sem financiamento da gestão municipal ou de recursos públicos.
         </p>
         <p>
-          <strong>.Quem pode colaborar?</strong>
+          <strong>Quem pode colaborar?</strong>
         </p>
         <p>
-          Para artistas, coletivos, colegiados, técnicos, associações culturais, produtores culturais, 
+          A Cartografia da Cultura abre espaço a artistas, coletivos, colegiados, técnicos, associações culturais, produtores culturais, 
           gestores públicos, gestores de espaços culturais, educadores e qualquer pessoa que queira 
           participar da discussão sobre a cultura municipal. 
         </p>
         <p>
-          <strong>.Como colaborar?</strong>
+          <strong>Como colaborar?</strong>
         </p>
         <p>
-          Se inserindo no mapa da cultura.<br>
+          1. Inserindo-se no mapa da cultura.<br>
           Você pode adicionar um pin no mapa. O pin é um marcador, aquele símbolo que 
           localiza algo no mapa. No nosso caso, os pins representam categorias ligadas 
           à cultura e são representados por letras. Quando você insere um pin, a localização 
-          que você informou aparecerá no mapa, indicado pela categoria a qual você se identificou. 
+          que você informou aparecerá no mapa, indicado pela categoria com a qual você se identificou. 
           Além da localização, ao clicar no pin, suas informações de contato serão exibidas. 
         </p>
         <p>
-          Divulgando eventos.<br>
-          Inserir os eventos que você irá participar ou produzir em Campo Grande. 
-          A agenda é o local de divulgação dos eventos culturais do município, 
+          2. Divulgando todo e qualquer evento que desejar.<br>
+          Você pode inserir os eventos de que participará ou que produzirá em Campo Grande. 
+          A Agenda é o local de divulgação dos eventos culturais do município, 
           sejam eles online ou presencial: shows, feiras, festas, espetáculos, 
           performances, exposições, exibições. E também pode divulgar encontros, 
           reuniões, audiências e chamadas públicas. Você pode inserir quantos eventos quiser.
         </p>
         <p>
-          Propor um debate ou participar de um debate iniciado. <br>
+          3. Propondo um debate ou participando de um debate iniciado. <br>
           Você pode propor um assunto a ser discutido ou participar de um debate que já acontece
           na plataforma através dos comentários e apoios. O debate pode ser proposto por 
           um indivíduo ou grupo, pode ser usado para deliberar as decisões utilizando a função  
           "apoiar" ou "não apoiar". Pode também usar o espaço de debate para ouvir as diversas 
-          opiniões de um grupo amplo de pessoas, gerar uma lista de ideias utilizando a função 
-          "comentar" e "responder" ou ainda pode auxiliar na discussão de assuntos polêmicos que buscam  um consenso.  
-          A função "curtir" um comentário também pode indicar quais são as opiniões ou ideias mais populares.
+          opiniões de um grupo amplo de pessoas, gerar uma lista de ideias, utilizando a função 
+          "comentar" e "responder", ou ainda pode auxiliar na discussão de assuntos polêmicos que buscam  um consenso.  
+          A função "curtir" também pode indicar quais são as opiniões ou ideias mais populares.
         </p>
         <p>
-          <strong>.Os dois tipos de perfil do usuário</strong>
+          <strong>Os dois tipos de perfil do usuário</strong>
         </p>
         <p>
           Qualquer pessoa pode usar a plataforma, mas há dois tipos de usuários: 
           o cadastrado e o não cadastrado. O usuário que não fizer o cadastro poderá navegar pela plataforma, 
-          explorar o mapa, filtrar as categorias que quer visualizar; visualizar a agenda cultural; visualizar 
+          explorar o mapa, filtrar as categorias que quer visualizar, visualizar a agenda cultural, visualizar 
           os temas dos debates; e acessar o repositório do Fórum de Cultura de Campo Grande.
         </p>
 
         <p>
           O usuário cadastrado pode: <br>
           <ul>
-            <li>Se inserir no mapa da Cartografia da Cultura, onde aparecerão seus contatos e redes sociais;</li>
+            <li>Inserir-se no mapa da Cartografia da Cultura, onde aparecerão seus contatos e redes sociais;</li>
             <li>Explorar o mapa, escolher as categorias que quer visualizar pelo filtro;</li>
             <li>Iniciar um debate apresentando o assunto a ser discutido e seu ponto de vista;</li>
-            <li>Comentar um debate já iniciado e responder um comentário;</li>
+            <li>Comentar um debate já iniciado e responder a um comentário;</li>
             <li>Apoiar ou não apoiar o assunto proposto no debate;</li>
             <li>Curtir comentários e respostas;</li>
             <li>Visualizar todos os debates iniciados;</li>
-            <li>Divulgar todos os eventos que participa na agenda cultural;</li>
+            <li>Divulgar todos os eventos de que participa na agenda cultural;</li>
             <li>Convidar pessoas para participar dos seus eventos ou de reuniões que você organiza através do compartilhamento do link ou redes sociais;</li>
             <li>Visualizar a agenda cultural;</li>
             <li>Acessar todos os links disponíveis;</li>
@@ -130,17 +130,28 @@
           A plataforma como campo de pesquisa
         </h1>
         <p class="mg-top16">
-          Esta plataforma é parte da pesquisa de doutorado desenvolvida no Nomads.usp 
+          Cartografia da Cultura é uma plataforma de código aberto que é parte da pesquisa de doutorado desenvolvida no Nomads.usp 
           sobre processos participativos através da mediação digital desenvolvida pela 
-          Profa. Juliana Trujillo sob orientação do Prof. Assoc. Dr. Marcelo Tramontano, 
+          Profa. MSc. Juliana Trujillo sob orientação do Prof. Associado Dr. Marcelo Tramontano, 
           vinculada ao Programa de Pós-graduação em Arquitetura e Urbanismo do 
           Instituto de Arquitetura e Urbanismo da Universidade de São Paulo. 
         </p>
+        <p>
+          Desenvolvida
         <p>
           Para mais informações sobre a pesquisa, acesse os links: 
         </p>
         <p>
           <a href="https://cidadecolaborativa.wordpress.com">Da cidade participativa à cidade colaborativa</a>
+        </p>
+         <p>
+          <a href="http://www.nomads.usp.br/sancacentro">Sanca Centro</a>
+        </p>
+        <p>
+          <a href="http://www.nomads.usp.br/bolhaberta">Bolhaberta</a>
+        </p>
+        <p>
+          <a href="https://github.com/vanessametonini/PlataformaCultural">Acesse o código no GITHUB.</a>
         </p>
       </section>
 
