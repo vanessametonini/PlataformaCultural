@@ -1,6 +1,6 @@
 # cartografia da cultura
 ```
-Desenvolvimento da Plataforma Cultural de Campo Grande, uma parceria entre Pesquisadores Algo+Ritmo UFMS.
+Desenvolvimento da plataforma Cartografia da Cultura de Campo Grande-MS. 
 ```
 ## Project setup
 ```
