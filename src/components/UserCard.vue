@@ -2,8 +2,8 @@
   <div
     class="user-card"
     role="button"
-    @click="$emit('card-click')"
     :style="{ 'background': categoriesById(user.categoryId).color}"
+    @click="$emit('card-click')"
   >
     <h3>
       {{ `${user.firstName||''} ${user.lastName||''}` }}

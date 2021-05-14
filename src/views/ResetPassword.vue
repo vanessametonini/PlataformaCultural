@@ -7,7 +7,10 @@
     <div class="content column">
       <div class="card column">
         <span class="title title-3 bolder"> Redefina sua Senha </span>
-        <div v-if="errorMessage !== null" class="error-field">
+        <div
+          v-if="errorMessage !== null"
+          class="error-field"
+        >
           <span class="error-message">* {{ errorMessage }}</span>
         </div>
 
@@ -56,7 +59,12 @@
         </div>
 
         <div class="links column">
-          <q-btn flat class="btn" color="white" @click="submit()">
+          <q-btn
+            flat
+            class="btn"
+            color="white"
+            @click="submit()"
+          >
             <span class="body-3 bold">entrar</span>
           </q-btn>
         </div>
@@ -122,6 +130,9 @@ export default {
       return "";
     },
   },
+  created() {
+    console.log("Recover Token: ", this.$route.params.recoverToken);
+  },
   methods: {
     async submit() {
       this.$v.$touch();
@@ -151,9 +162,6 @@ export default {
           });
       }
     },
-  },
-  created() {
-    console.log("Recover Token: ", this.$route.params.recoverToken);
   },
 };
 </script>

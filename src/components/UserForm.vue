@@ -137,7 +137,10 @@
         </q-select>
       </div>
 
-      <div v-if="false" class="column mg-top8">
+      <div
+        v-if="false"
+        class="column mg-top8"
+      >
         <span class="subheading-2">Avatar</span>
         <q-file
           v-model="model"
@@ -183,9 +186,9 @@
     </div>
 
     <div
+      v-if="false"
       class="mg-top32"
-      align="right"
-      v-if="false" 
+      align="right" 
     >
       <q-btn
         class="mg-right8"

@@ -6,10 +6,10 @@
       :key="item.value"
       class="item"
       clickable
-      @click="$store.commit('pins/UPDATE_CATEGORIES_SELECTEDS', item.id)"
       :style="`color: ${colors(item)}`"
+      @click="$store.commit('pins/UPDATE_CATEGORIES_SELECTEDS', item.id)"
     >
-      <span :class="`icon-${item.value}`"></span>
+      <span :class="`icon-${item.value}`" />
       {{ item.label }}
     </li>
   </ul>

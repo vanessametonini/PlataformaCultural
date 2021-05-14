@@ -8,15 +8,15 @@
         <q-item
           v-for="topic in $store.getters['topics/getMyTopics']"
           :key="topic.id"
-          clickable
           v-ripple
-          @click="emitThisTopic(topic)"
+          clickable
           :style="{ 'border-color': $store.getters['categories/getCategoryById'](topic.categoryId).color}"
           :title="topic.title"
+          @click="emitThisTopic(topic)"
         >
           <q-item-section>
             <q-item-label>
-              {{mask(topic.title)}}
+              {{ mask(topic.title) }}
             </q-item-label>
             <q-item-label caption>
               {{ $store.getters.formatDate(topic.createdAt) }}

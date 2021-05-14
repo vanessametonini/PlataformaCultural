@@ -21,7 +21,7 @@
           target="_blank"
           href="https://www.facebook.com/CartografiadaCulturaCG"
         >
-          <i class="fab fa-facebook"></i>
+          <i class="fab fa-facebook" />
           Facebook Cartografia da Cultura CG
         </a>
 
@@ -30,7 +30,7 @@
           target="_blank"
           href="https://www.instagram.com/cartografiadaculturacg/"
         >
-          <i class="fab fa-instagram"></i>
+          <i class="fab fa-instagram" />
           Instagram Cartografia da Cultura CG
         </a>
       </section>

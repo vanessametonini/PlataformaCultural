@@ -1,6 +1,9 @@
 <template>
   <div class="app-page signUp">
-    <form ref="content" class="content-center column">
+    <form
+      ref="content"
+      class="content-center column"
+    >
       <!-- identity (seal) -->
       <logo-card class="header" />
 
@@ -10,16 +13,18 @@
       <!-- info -->
       <div class="info">
         <div class="column mg-top16">
-          <h1 class="title-2 bolder">Cartografia da Cultura Campo Grande</h1>
-            <p class="body-3 mg-top16 bolder">
-              Se é seu primeiro cadastro, leia com atenção o texto abaixo! 
-            </p> 
-            <p class="body-3 mg-top16">
+          <h1 class="title-2 bolder">
+            Cartografia da Cultura Campo Grande
+          </h1>
+          <p class="body-3 mg-top16 bolder">
+            Se é seu primeiro cadastro, leia com atenção o texto abaixo! 
+          </p> 
+          <p class="body-3 mg-top16">
             Para nós é muito importante que você participe desta plataforma. Se você faz parte da cena cultural ou tem afinidade com o tema, 
             sinta-se à vontade para colaborar e contribuir na promoção da arte e cultura da nossa cidade. 
             A Cartografia da Cultura é um espaço que permite de dar voz e visibilidade a todos que produzem arte e cultura, sem hierarquias
             e com transparência.
-            </p>
+          </p>
         </div>
 
         <div class="whitespace" />
@@ -29,7 +34,9 @@
         </h3>
 
         <div class="context">
-          <h4 class="headline-3 bolder">No mapa</h4>
+          <h4 class="headline-3 bolder">
+            No mapa
+          </h4>
           <p class="body-3">
             Adicionar um pin no mapa. O pin significa que você aparecerá no mapa da tela inicial da plataforma.
             Quando você insere um pin, a localização que você informou estará no mapa, indicado pela letra/egenda da
@@ -38,7 +45,9 @@
         </div>
 
         <div class="context">
-          <h4 class="headline-3 bolder">Na agenda</h4>
+          <h4 class="headline-3 bolder">
+            Na agenda
+          </h4>
           <p class="body-3">
             Inserir os eventos que você irá participar ou produzir em Campo Grande.
             A agenda é o local de divulgação dos eventos culturais do
@@ -49,7 +58,9 @@
         </div>
 
         <div class="context">
-          <h4 class="headline-3 bolder">No debate</h4>
+          <h4 class="headline-3 bolder">
+            No debate
+          </h4>
           <p class="body-3">
             Você pode propor um assunto a ser discutido ou participar de um debate que já acontece na plataforma através dos comentários e apoios.
             É muito importante que você, sendo um agente cultural,
@@ -63,7 +74,9 @@
 
       <!-- form -->
       <div class="form column">
-        <h3 class="headline-2 bolder">Insira suas informações:</h3>
+        <h3 class="headline-2 bolder">
+          Insira suas informações:
+        </h3>
 
         <div class="name">
           <!-- first name -->
@@ -249,7 +262,7 @@
         >
           <template #before>
             <q-avatar size="42px">
-              <img :src="avatar" />
+              <img :src="avatar">
             </q-avatar>
           </template>
 
@@ -263,9 +276,14 @@
                 img = null;
               "
             />
-            <q-icon name="create_new_folder" @click.stop />
+            <q-icon
+              name="create_new_folder"
+              @click.stop
+            />
           </template>
-          <template #hint> Tamanho máximo de 2MB. Formato: JPG. </template>
+          <template #hint>
+            Tamanho máximo de 2MB. Formato: JPG.
+          </template>
           <!-- <template #after>
             <q-btn
               round
@@ -281,22 +299,32 @@
       <div class="whitespace" />
 
       <!-- selecionar categoria -->
-      <div id="target" class="category column">
-        <h3 class="headline-2 bolder">Identifique sua categoria*</h3>
+      <div
+        id="target"
+        class="category column"
+      >
+        <h3 class="headline-2 bolder">
+          Identifique sua categoria*
+        </h3>
 
         <div class="list">
           <q-list>
             <q-item
-              v-for="item in options" :id="item.id" :key="item.value"
+              v-for="item in options"
+              :id="item.id"
+              :key="item.value"
               clickable
-              @click="selectCategory(item)"
               class="category-item"
               :active="item.id == categoryId ? true : false"
               active-class="active"
               :style="{'color': item.color}"
+              @click="selectCategory(item)"
             >
-              <q-item-section avatar style="align-items: center">
-                <span :class="`icon-${item.value}`"></span>
+              <q-item-section
+                avatar
+                style="align-items: center"
+              >
+                <span :class="`icon-${item.value}`" />
               </q-item-section>
 
               <q-item-section
@@ -320,17 +348,16 @@
               target="_blank"
               :to="{ path: '/terms', hash: '#privacy' }"
             >
-              <span class="body-3 bolder">política de privacidade</span
-              >
+              <span class="body-3 bolder">política de privacidade</span>
             </router-link>
             e as
             <router-link
               class="link"
               target="_blank"
               :to="{ path: '/terms', hash: '#use' }
-            ">
-              <span class="body-3 bolder">condições de uso.</span
-              >
+              "
+            >
+              <span class="body-3 bolder">condições de uso.</span>
             </router-link>
           </span>
         </div>
@@ -346,7 +373,12 @@
             <span class="span-btn">Preencha todos os campos</span>
           </q-btn> -->
 
-          <q-btn flat class="btn-custom" color="black" @click="submit()">
+          <q-btn
+            flat
+            class="btn-custom"
+            color="black"
+            @click="submit()"
+          >
             <span class="span-btn">Cadastre-se</span>
           </q-btn>
         </div>

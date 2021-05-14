@@ -3,7 +3,10 @@
     <div class="row no-wrap">
       <header class="col-auto">
         <logo-card />
-        <avatar-card :user="currentUser" v-if="currentUser.avatarId" />
+        <avatar-card
+          v-if="currentUser.avatarId"
+          :user="currentUser"
+        />
         <base-button
           class="btn-logout"
           theme="primary"
@@ -42,7 +45,7 @@
       <div class="col">
         <topic-profile />
         <pins-profile />
-        <events-profile  />
+        <events-profile />
       </div>
     </div>
   </div>

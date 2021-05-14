@@ -41,10 +41,6 @@ export default {
         name: 'Topics',
       });
     },
-  },
-  mounted(){
-        console.log( 'topicpage', this.replyes );
-
   }
 };
 </script>

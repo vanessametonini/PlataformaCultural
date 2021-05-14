@@ -15,8 +15,7 @@
         </h1>
         <h2 class="body-3 text">
           A Lei Geral de Proteção de Dados (LGPD) não se aplica para fins acadêmicos, ou seja, órgãos de pesquisa, 
-          como instituições que realizam pesquisas para fins estatísticos, históricos e para catalogar informações. 
-         
+          como instituições que realizam pesquisas para fins estatísticos, históricos e para catalogar informações.
         </h2>
         <ol>
           <li>
@@ -191,13 +190,13 @@
             </p>
             <ul>
               <li>Nome de colaborador</li>
-               <li>Gênero</li>
-                <li>Faixa etária</li>
-                 <li>Escolaridade</li>
+              <li>Gênero</li>
+              <li>Faixa etária</li>
+              <li>Escolaridade</li>
               <li>E-mail</li>
-               <li>Senha</li>
-                <li>Categoria</li>
-                 <li>Imagem avatar</li>
+              <li>Senha</li>
+              <li>Categoria</li>
+              <li>Imagem avatar</li>
               <li>Aceitação das condições de uso da plataforma Cartografia da Cultura</li>
             </ul>
             <p>O colaborador cadastrado pode interagir com a plataforma das seguintes maneiras:</p>
@@ -209,8 +208,10 @@
                 <p>Na seção de debate, o colaborador pode:</p>
                 <ul>
                   <li>Iniciar um ou mais debates. As discussões serão publicadas automaticamente e se houver outros colaboradores online, haverá avisos simultâneos.</li>
-                  <li>Escolher entre as opções “apoio” ou “não apoio” para debates iniciados por outros usuários. 
-                  Nos debates aparecerão o número de apoios e não apoios recebidos. Cada colaborador pode votar em alguma das opções somente uma vez no mesmo debate.</li>
+                  <li>
+                    Escolher entre as opções “apoio” ou “não apoio” para debates iniciados por outros usuários. 
+                    Nos debates aparecerão o número de apoios e não apoios recebidos. Cada colaborador pode votar em alguma das opções somente uma vez no mesmo debate.
+                  </li>
                   <li>Comentar os debates iniciados por outros colaboradores.</li>
                   <li>Uma vez iniciado o debate, ele não poderá ser deletado pelo colaborador.</li>
                 </ul>
@@ -231,7 +232,7 @@
                   <li>Escolher uma das categorias (obrigatória)</li>
                   <li>Endereço: Rua, CEP e bairro (obrigatórios). Número (opcional)</li>
                   <li>Descrição da atividade artística e/ou cultural (obrigatório)</li>
-                   <li>E-mail profissional (opcional)</li>
+                  <li>E-mail profissional (opcional)</li>
                   <li>Links para redes sociais (opcional)</li>
                   <li>Imagem que irá aparecer no pin (opcional)</li>
                 </ol>
@@ -325,7 +326,6 @@
                 plataforma Cartografia da Cultura, não recebe nenhuma licença de propriedade intelectual do colaborador, portanto, 
                 o conteúdo não será utilizado pela diretoria, a menos que expressamente aceito pelo proprietário.
               </li>
-              
             </ul>
           </li>
           <li>

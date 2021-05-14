@@ -1,11 +1,20 @@
 <template>
   <div class="box">
-    <div v-if="step == 0" class="first" :class="{ active: active }">
+    <div
+      v-if="step == 0"
+      class="first"
+      :class="{ active: active }"
+    >
       <div class="header column">
         <span class="title-1 bolder line-h16">Adicionar Evento</span>
       </div>
 
-      <q-btn ref="btnFirst" flat class="reset-btn btn" @click="createEvent()">
+      <q-btn
+        ref="btnFirst"
+        flat
+        class="reset-btn btn"
+        @click="createEvent()"
+      >
         <span class="body2 bolder">+</span>
       </q-btn>
     </div>
@@ -203,9 +212,14 @@
                 class="cursor-pointer"
                 @click.stop="files = null"
               />
-              <q-icon name="create_new_folder" @click.stop />
+              <q-icon
+                name="create_new_folder"
+                @click.stop
+              />
             </template>
-            <template #hint> Tamanho máximo de 5MB </template>
+            <template #hint>
+              Tamanho máximo de 5MB
+            </template>
             <!-- <template #after>
               <q-btn
                 round
@@ -220,12 +234,24 @@
       </div>
 
       <!-- actions edit -->
-      <div class="mg-top32" align="right">
-        <q-btn class="mg-right8" flat color="white" @click="cancelCreate()">
+      <div
+        class="mg-top32"
+        align="right"
+      >
+        <q-btn
+          class="mg-right8"
+          flat
+          color="white"
+          @click="cancelCreate()"
+        >
           <span class="caption">Cancelar</span>
         </q-btn>
 
-        <q-btn outline color="white" @click="confirmCreate()">
+        <q-btn
+          outline
+          color="white"
+          @click="confirmCreate()"
+        >
           <span class="caption">Finalizar</span>
         </q-btn>
       </div>
@@ -251,21 +277,21 @@
         <span class="body-2 bold spaced-16"> {{ phoneMask }} </span>
 
         <div class="links row mg-top16">
-          <a class="link caption bold" target="blank" :href="linkFacebook"
-            >.facebook</a
-          >
+          <a
+            class="link caption bold"
+            target="blank"
+            :href="linkFacebook"
+          >.facebook</a>
           <a
             class="link caption bold mg-left16"
             target="blank"
             :href="linkInstagram"
-            >.instagram</a
-          >
+          >.instagram</a>
           <a
             class="link caption bold mg-left16"
             target="blank"
             :href="linkPagina"
-            >.link</a
-          >
+          >.link</a>
         </div>
 
         <!-- <div class="img-box">
@@ -274,7 +300,12 @@
       </div>
 
       <div class="action">
-        <q-btn class="btn-edit" flat color="white" @click="reEdit()">
+        <q-btn
+          class="btn-edit"
+          flat
+          color="white"
+          @click="reEdit()"
+        >
           <span class="overline bold">editar</span>
         </q-btn>
       </div>

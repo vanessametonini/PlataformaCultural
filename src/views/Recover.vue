@@ -8,7 +8,10 @@
       <div class="card column">
         <span class="title title-3 bolder"> Digite seu email </span>
 
-        <div v-if="errorMessage !== null" class="error-field">
+        <div
+          v-if="errorMessage !== null"
+          class="error-field"
+        >
           <span class="error-message">* {{ errorMessage }}</span>
         </div>
 
@@ -29,7 +32,12 @@
         </div>
 
         <div class="links column">
-          <q-btn flat class="btn" color="white" @click="submit()">
+          <q-btn
+            flat
+            class="btn"
+            color="white"
+            @click="submit()"
+          >
             <span class="body-3 bold">Recuperar</span>
           </q-btn>
         </div>

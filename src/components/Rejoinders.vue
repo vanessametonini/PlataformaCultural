@@ -15,8 +15,9 @@
 
         <div class="reply-header">
           <div class="author-right">
-            <span class="caption bolder"
-              >{{ `${rejoinder.user.firstName} ${rejoinder.user.lastName}` }}
+            <span
+              class="caption bolder"
+            >{{ `${rejoinder.user.firstName} ${rejoinder.user.lastName}` }}
             </span>
             <span class="caption bold mg-left8">
               {{ $store.getters.formatDate(rejoinder.createdAt) }}

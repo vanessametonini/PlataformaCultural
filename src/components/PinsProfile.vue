@@ -8,21 +8,28 @@
         <q-item
           v-for="pin in $store.getters['pins/getMyPins']"
           :key="pin.id"
-          clickable
-          @click="$store.dispatch('pins/animatePin', { $router, pin })"
           v-ripple
+          clickable
           :style="{ 'border-color': $store.getters['categories/getCategoryById'](pin.categoryId).color}"
+          @click="$store.dispatch('pins/animatePin', { $router, pin })"
         >
-          <q-item-section avatar v-if="pin.imageIds[0]">
+          <q-item-section
+            v-if="pin.imageIds[0]"
+            avatar
+          >
             <q-avatar square>
               <img
                 :src="`${$store.getters['services/getImagePath']}${pin.imageIds[0]}`"
-              />
+              >
             </q-avatar>
           </q-item-section>
           <q-item-section>
-            <q-item-label class="text-white">{{mask(pin.title)}}</q-item-label>
-            <q-item-label caption>{{ mask(pin.street) }}</q-item-label>
+            <q-item-label class="text-white">
+              {{ mask(pin.title) }}
+            </q-item-label>
+            <q-item-label caption>
+              {{ mask(pin.street) }}
+            </q-item-label>
           </q-item-section>
         </q-item>
       </q-list>

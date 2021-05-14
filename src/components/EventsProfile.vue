@@ -8,20 +8,23 @@
         <q-item
           v-for="event in $store.getters['events/getMyEvents']"
           :key="event.id"
-          clickable
           v-ripple
+          clickable
           :style="{ 'border-color': $store.getters['categories/getCategoryById'](event.categoryId).color}"
         >
-          <q-item-section avatar v-if="event.imageIds[0]">
+          <q-item-section
+            v-if="event.imageIds[0]"
+            avatar
+          >
             <q-avatar square>
               <img
                 :src="`${$store.getters['services/getImagePath']}${event.imageIds[0]}`"
-              />
+              >
             </q-avatar>
           </q-item-section>
           <q-item-section>
             <q-item-label class="text-white">
-              {{mask(event.title)}}
+              {{ mask(event.title) }}
             </q-item-label>
             <q-item-label caption>
               {{ event.date }}

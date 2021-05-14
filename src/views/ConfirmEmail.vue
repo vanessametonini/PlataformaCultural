@@ -1,13 +1,19 @@
 
 <template>
   <div class="null-state column">
-    <div v-if="state" class="column">
-      <img src="../assets/statics/pixeltrue-jogging.png" />
+    <div
+      v-if="state"
+      class="column"
+    >
+      <img src="../assets/statics/pixeltrue-jogging.png">
       <span class="body-2 bolder"><strong>Só um instante!</strong></span>
       <span class="body-2 bolder">Estamos confirmando seu email.</span>
     </div>
-    <div v-if="!state" class="column">
-      <img src="../assets/statics/pixeltrue-error-1.png" />
+    <div
+      v-if="!state"
+      class="column"
+    >
+      <img src="../assets/statics/pixeltrue-error-1.png">
       <span class="body-2 bolder">Não encontramos um usuário com seu código de confirmação.</span>
     </div>
   </div>

@@ -50,7 +50,7 @@
           Mais informações:
         </h4>
         <p class="body-3 text">
-            Acesse no link abaixo o repositório do Fórum que contém documentos públicos, atas de reuniões, convocatórias, guias, entre outros: <br>
+          Acesse no link abaixo o repositório do Fórum que contém documentos públicos, atas de reuniões, convocatórias, guias, entre outros: <br>
           <a
             class="body-3 bolder"
             target="_blank"
@@ -68,7 +68,7 @@
             target="_blank"
             href="https://www.facebook.com/forumdeculturac"
           >
-            <i class="fab fa-facebook"></i>
+            <i class="fab fa-facebook" />
             Facebook Fórum
           </a>
 
@@ -77,7 +77,7 @@
             target="_blank"
             href="https://www.instagram.com/nossoforumcg/"
           >
-            <i class="fab fa-instagram"></i>
+            <i class="fab fa-instagram" />
             Instagram Fórum
           </a>
         </div>

@@ -1,6 +1,9 @@
 <template>
   <div class="events-page">
-    <q-layout view="lHh Lpr lff" container>
+    <q-layout
+      view="lHh Lpr lff"
+      container
+    >
       <!-- <q-btn flat @click="drawer = !drawer" round dense icon="menu" /> -->
       <q-drawer
         v-model="drawer"
@@ -9,7 +12,6 @@
         :breakpoint="400"
       >
         <div class="drawer-layout">
-
           <logo-card />
 
           <div class="aside-actions">
@@ -30,10 +32,23 @@
               </div>
             </div>
 
-            <div class="aside-filter-search" role="search">
-              <q-input v-model="search" label="Procurar" square dense color="black">
+            <div
+              class="aside-filter-search"
+              role="search"
+            >
+              <q-input
+                v-model="search"
+                label="Procurar"
+                square
+                dense
+                color="black"
+              >
                 <template #prepend>
-                  <q-icon class="bolder text-black" name="search" size="xs" />
+                  <q-icon
+                    class="bolder text-black"
+                    name="search"
+                    size="xs"
+                  />
                 </template>
               </q-input>
             </div>
@@ -68,7 +83,10 @@
       </q-drawer>
 
       <q-page-container>
-        <q-page padding style="max-width: 1100px">
+        <q-page
+          padding
+          style="max-width: 1100px"
+        >
           <event-list />
         </q-page>
       </q-page-container>

@@ -34,7 +34,10 @@
             theme="transparent"
             @click="comment = !comment"
           >
-            <span class="caption bolder" style="color: black">{{
+            <span
+              class="caption bolder"
+              style="color: black"
+            >{{
               comment ? "ocultar respostas" : "responder ou ver respostas"
             }}</span>
           </base-button>
@@ -114,7 +117,6 @@
 
 <script>
 import { mapGetters } from "vuex";
-// import BaseConfirmDialog from './BaseConfirmDialog.vue';
 import BaseAvatar from "./BaseAvatar.vue";
 import BaseButton from "./BaseButton.vue";
 import Rejoinders from "./Rejoinders.vue";
@@ -124,7 +126,6 @@ export default {
     BaseAvatar,
     BaseButton,
     Rejoinders,
-    // BaseConfirmDialog,
   },
   props: {
     reply: {

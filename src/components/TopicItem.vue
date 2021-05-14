@@ -5,27 +5,30 @@
     :style="{ 'background-color': $store.getters['categories/getCategoryById'](topic.categoryId).color }"
     @click="emitThisTopic()"
   >
-      <q-card-section class="card">
-        <div class="title" :title="topic.title">
-          {{ mask(topic.title, 30)}}
-        </div>
-        <div class="bolder mg-top8 text-white">
-          {{ $store.getters['categories/getCategoryById'](topic.categoryId).label }}
-        </div>
-        <div class="row al-items-center text-white caption">
-          <span class="">
-            {{ topic.user.firstName}} {{topic.user.lastName }}
-          </span>
-          <span class="mg-left16">
-            {{ formatDate(topic.createdAt) }}
-          </span>
-        </div>
-      </q-card-section>
-      <q-card-section class="card-description">
-        <p class="text-white">
-          {{ mask(topic.content, 120) }}
-        </p>
-      </q-card-section>
+    <q-card-section class="card">
+      <div
+        class="title"
+        :title="topic.title"
+      >
+        {{ mask(topic.title, 30) }}
+      </div>
+      <div class="bolder mg-top8 text-white">
+        {{ $store.getters['categories/getCategoryById'](topic.categoryId).label }}
+      </div>
+      <div class="row al-items-center text-white caption">
+        <span class="">
+          {{ topic.user.firstName }} {{ topic.user.lastName }}
+        </span>
+        <span class="mg-left16">
+          {{ formatDate(topic.createdAt) }}
+        </span>
+      </div>
+    </q-card-section>
+    <q-card-section class="card-description">
+      <p class="text-white">
+        {{ mask(topic.content, 120) }}
+      </p>
+    </q-card-section>
 
     <q-card-section class="card card-bottom">
       <div class="thumbs">
@@ -49,11 +52,10 @@
         </span>
         |
         <span class="comments">
-            {{ topic.numberOfReplies }}
-            {{ ` ${topic.numberOfReplies === 1 ? "Comentário" : "Comentários"}` }}
+          {{ topic.numberOfReplies }}
+          {{ ` ${topic.numberOfReplies === 1 ? "Comentário" : "Comentários"}` }}
         </span>
       </div>
-
     </q-card-section>
   </q-card>
 </template>

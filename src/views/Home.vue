@@ -10,7 +10,10 @@
       >cartografia da cultura</span> -->
     <!-- </div> -->
 
-    <header class="aside" role="banner">
+    <header
+      class="aside"
+      role="banner"
+    >
       <logo-card inverted />
       <my-menu @callFilter="filterThis($event)" />
     </header>
@@ -93,8 +96,7 @@
               <span
                 :class="`icon-${$store.getters['categories/getCategoryById'](pin.categoryId).value}`"
                 :style="{'color': `${$store.getters['categories/getCategoryById'](pin.categoryId).color}`}"
-              >
-              </span>
+              />
             </l-icon>
 
             <l-popup :options="popupOptions">

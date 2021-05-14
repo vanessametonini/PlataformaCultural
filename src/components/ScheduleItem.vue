@@ -9,14 +9,13 @@
         {{ item.title }}
       </h2>
       <p class="caption">
-        {{category(item.categoryId).label}}
+        {{ category(item.categoryId).label }}
       </p>
       <p class="date-info">
         {{ `Dia ${$store.getters["formatDate"](item.dateTime)}` }}
-      <br />
+        <br>
         {{ `Às ${$store.getters["formatTime"](item.dateTime)}` }}
       </p>
-
     </q-card-section>
 
     <q-card-section class="card card-description col text-white">
@@ -26,11 +25,14 @@
       <span class="row body-2 mg-top16 bolder">
         {{ item.local }}
       </span>
-      <span class="row caption" v-if="item.street">
+      <span
+        v-if="item.street"
+        class="row caption"
+      >
         {{ `${item.street}, ${item.number}, ${item.neighborhood}` }}
       </span>
       <span class="row caption">
-        {{ item.ticket? `R$ ${moeda(item.ticket)}` : "Gratuito"  }}
+        {{ item.ticket? `R$ ${moeda(item.ticket)}` : "Gratuito" }}
       </span>
     </q-card-section>
 
@@ -45,7 +47,7 @@
           title="Link"
         >
           <q-item-section avatar>
-            <i class="fas fa-link"></i>
+            <i class="fas fa-link" />
           </q-item-section>
         </q-item>
 
@@ -57,8 +59,8 @@
           :href="`https://api.whatsapp.com/send?phone=55${item.phone}`"
           :title="`Whatsapp ${item.phone}`"
         >
-          <q-item-section avatar >
-            <i class="fab fa-whatsapp"></i>
+          <q-item-section avatar>
+            <i class="fab fa-whatsapp" />
           </q-item-section>
         </q-item>
 
@@ -71,25 +73,26 @@
           title="Facebook"
         >
           <q-item-section avatar>
-            <i class="fab fa-facebook"></i>
+            <i class="fab fa-facebook" />
           </q-item-section>
         </q-item>
         <q-item
-          clickable
           v-if="item.instagram"
+          clickable
           tag="a"
           target="_blank"
           :href="item.instagram"
           title="Instagram"
         >
           <q-item-section avatar>
-            <i class="fab fa-instagram"></i>
+            <i class="fab fa-instagram" />
           </q-item-section>
         </q-item>
       </q-list>
     </q-card-section>
 
     <q-carousel
+      v-if="item.images.length"
       v-model="slide"
       swipeable
       animated
@@ -102,7 +105,6 @@
       transition-next="slide-left"
       @mouseenter="autoplay = false"
       @mouseleave="autoplay = true"
-      v-if="item.images.length"
     >
       <q-carousel-slide
         v-for="n in item.images.length"
@@ -113,8 +115,10 @@
         }`"
       />
       <template #control>
-        <q-carousel-control position="bottom-right" :offset="[18, 18]">
-        </q-carousel-control>
+        <q-carousel-control
+          position="bottom-right"
+          :offset="[18, 18]"
+        />
       </template>
     </q-carousel>
   </q-card>
@@ -175,6 +179,8 @@ export default {
   font-weight: bolder;
   line-height: 2rem;
   margin: 0 0 10px;
+  hyphens: auto;
+
 }
 
 .title + .caption {
@@ -188,6 +194,7 @@ export default {
 .card-description {
   padding-top: 16px;
   word-break: break-word;
+  hyphens: auto;
 }
 
 .schedule-item {

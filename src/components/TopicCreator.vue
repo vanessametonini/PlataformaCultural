@@ -13,7 +13,11 @@
     <!-- content -->
     <div class="stepper-content">
       <!-- SECTION 1 -->
-      <section v-if="currentStep === 1" id="section1" class="stepper-section">
+      <section
+        v-if="currentStep === 1"
+        id="section1"
+        class="stepper-section"
+      >
         <span class="title-3 bolder mg-top16">Sobre os Debates</span>
         
         <p class="body-2 mg-top8 justify-text">
@@ -30,13 +34,15 @@
           verifica a necessidade de encontros específicos (assembleias e reuniões), entre outras observações.
         </p>
         <span class="headline-3 bolder mg-top16">
-          Recomendações para participar de um debate aberto</span
-        >
+          Recomendações para participar de um debate aberto</span>
         <p class="body-2 mg-top8 justify-text">
           1. Para iniciar um debate é necessário que você faça um cadastro na plataforma
-          <router-link class="link body-2" to="/signUp">
-            <strong>Cartografia da Cultura</strong> </router-link
-          >. Os usuários cadastrados também podem participar das discussões já
+          <router-link
+            class="link body-2"
+            to="/signUp"
+          >
+            <strong>Cartografia da Cultura</strong>
+          </router-link>. Os usuários cadastrados também podem participar das discussões já
           iniciadas através dos comentários e/ ou indicar se concorda ou não
           concorda clicando nos botões “<span title="polegar pra cima / apoiar">👍</span>”
           ou “<span title="polegar pra baixo / não apoiar">👎</span>” encontrados em 
@@ -54,14 +60,20 @@
         </p>
       </section>
       <!-- SECTION 2 -->
-      <section v-if="currentStep === 2" id="section2" class="stepper-section">
+      <section
+        v-if="currentStep === 2"
+        id="section2"
+        class="stepper-section"
+      >
         <span class="title-1 bolder">Regras do debate aberto</span>
         <!-- 1 -->
-        <span class="body-2 bolder mg-top16"
-          >1. Uma vez feito o login, você poderá:</span
-        >
+        <span
+          class="body-2 bolder mg-top16"
+        >1. Uma vez feito o login, você poderá:</span>
         <ol>
-          <li class="body-2 justify-text">Iniciar um debate.</li>
+          <li class="body-2 justify-text">
+            Iniciar um debate.
+          </li>
           <li class="body-2 justify-text">
             Participar de um debate já iniciado.
           </li>
@@ -84,8 +96,9 @@
           </li>
         </ol>
         <!-- 3 -->
-        <span class="body-2 bolder mg-top24"
-          >3. Uma vez iniciado o debate, você não poderá:
+        <span
+          class="body-2 bolder mg-top24"
+        >3. Uma vez iniciado o debate, você não poderá:
         </span>
         <ol class="list">
           <li class="body-2 justify-text">
@@ -123,29 +136,37 @@
         </ol>
         <!-- ACCEPT TERMS -->
         <div class="stepper-rules row al-items-center">
-          <q-checkbox v-model="rulesAccepted" size="32px" color="black">
+          <q-checkbox
+            v-model="rulesAccepted"
+            size="32px"
+            color="black"
+          >
             <span class="body-2 mg-left8">
               Eu li e concordo com as
-              <strong style="cursor: pointer" @click="scrollToTop()">
-                Recomendações e regras do debate </strong
-              >.
+              <strong
+                style="cursor: pointer"
+                @click="scrollToTop()"
+              >
+                Recomendações e regras do debate </strong>.
             </span>
           </q-checkbox>
           <span
             class="caption mg-left8"
             :class="{ 'rules-accept-error': rulesError }"
-            >(Esta opção deve ser marcada*)</span
-          >
+          >(Esta opção deve ser marcada*)</span>
         </div>
       </section>
       <!-- SECTION 3 -->
-      <section v-if="currentStep === 3" class="stepper-section">
+      <section
+        v-if="currentStep === 3"
+        class="stepper-section"
+      >
         <span class="title-3 bolder">Crie seu debate</span>
         <span class="headline-3 bolder mg-top16">Título*</span>
-        <span class="caption mg-top4"
-          >Insira um título curto que represente o assunto principal da
-          discussão.</span
-        >
+        <span
+          class="caption mg-top4"
+        >Insira um título curto que represente o assunto principal da
+          discussão.</span>
         <!-- TITLE -->
         <q-input
           v-model="title"
@@ -198,7 +219,7 @@
               @click="tagEvent(item)"
             >
               <q-item-section avata>
-                <span :class="`icon-${item.value}`"></span>
+                <span :class="`icon-${item.value}`" />
               </q-item-section>
 
               <q-item-section :id="`category-label-${item.value}`">
@@ -208,11 +229,10 @@
           </q-list>
           <!-- show tags -->
           <div class="tag-field">
-
             <q-field
+              v-model="category"
               borderless
               dense
-              v-model="category"
               :value="category"
               class="main-tag"
               label="categoria principal*"
@@ -220,18 +240,18 @@
               :error-message="categoryErrorMessage"
               @blur="$v.category.$touch"
             >
-                <div
-                  v-if="category !== null"
-                  class="main-tag-badge caption bolder"
-                  :style="{ color: category.color }"
-                  @click="untagMain()"
-                >
-                  <span class="caption bolder">{{ category.label }}</span>
-                  <i
-                    id="untag"
-                    class="far fa-times-circle mg-left16"
-                  />
-                </div>
+              <div
+                v-if="category !== null"
+                class="main-tag-badge caption bolder"
+                :style="{ color: category.color }"
+                @click="untagMain()"
+              >
+                <span class="caption bolder">{{ category.label }}</span>
+                <i
+                  id="untag"
+                  class="far fa-times-circle mg-left16"
+                />
+              </div>
             </q-field>
 
             <q-field
@@ -252,7 +272,10 @@
                   class="categorys-tags-badge"
                   :style="{ 'border-color': item.color }"
                 >
-                  <span class="caption bolder" :style="{ color: item.color }">
+                  <span
+                    class="caption bolder"
+                    :style="{ color: item.color }"
+                  >
                     {{ item.label }}
                   </span>
                 </div>
@@ -262,7 +285,6 @@
         </div>
         <!-- TERMS -->
         <div class="stepper-terms row no-wrap al-items-center">
-
           <q-field
             borderless
             dense
@@ -271,7 +293,7 @@
             :error-message="termsErrorMessage"
             @blur="$v.terms.$touch"
           >
-            <template v-slot:control>
+            <template #control>
               <q-checkbox
                 v-model="terms"
                 size="32px"
@@ -279,18 +301,25 @@
               >
                 <span class="body-3 mg-left8">
                   Eu li e concordo com os
-                  <router-link class="link" :to="{ path: '/terms', hash: '#terms' }" target="_blank">
+                  <router-link
+                    class="link"
+                    :to="{ path: '/terms', hash: '#terms' }"
+                    target="_blank"
+                  >
                     <span class="body-3 bolder">Termos de Uso</span>
                   </router-link>
                   e
-                  <router-link class="link" :to="{ path: '/terms', hash: '#privacy' }" target="_blank">
+                  <router-link
+                    class="link"
+                    :to="{ path: '/terms', hash: '#privacy' }"
+                    target="_blank"
+                  >
                     <span class="body-3 bolder">Privacidade. *</span>
                   </router-link>
                 </span>
               </q-checkbox>
             </template>
           </q-field>
-
         </div>
       </section>
     </div>

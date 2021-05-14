@@ -19,23 +19,6 @@
       <!-- <multicolor-line class="multicolor-line-top"/> -->
     </div>
 
-    <!-- delete field -->
-    <base-confirm-dialog
-      v-if="false"
-      class="confirm-dialog"
-      confirm-button-title="delete"
-      dismiss-button-title="cancel"
-      @dismiss="showConfirmDialog = false"
-      @confirm="$emit('delete')"
-    >
-      <template #title>
-        Delete this topic?
-      </template>
-      <template #default>
-        You cannot undo this action.
-      </template>
-    </base-confirm-dialog>
-
     <!-- topic -->
     <div class="topic-content">
       <span class="big-title bolder"> {{ topic.title }} </span>
@@ -178,7 +161,6 @@
 <script>
 import { mapGetters } from 'vuex';
 import BaseButton from './BaseButton.vue';
-import BaseConfirmDialog from './BaseConfirmDialog.vue';
 import ReplyForm from './ReplyForm.vue';
 import Reply from './Reply.vue';
 import Logo from './Logo.vue';
@@ -187,7 +169,6 @@ export default {
   components: {
     Logo,
     BaseButton,
-    BaseConfirmDialog,
     ReplyForm,
     Reply,
   },

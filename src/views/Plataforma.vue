@@ -138,20 +138,32 @@
         </p>
         <p>
           Desenvolvida
-        <p>
+        </p><p>
           Para mais informações sobre a pesquisa, acesse os links: 
         </p>
         <p>
-          <a target="_blank" href="https://cidadecolaborativa.wordpress.com">Da cidade participativa à cidade colaborativa</a>
-        </p>
-         <p>
-          <a target="_blank" href="http://www.nomads.usp.br/sancacentro">Sanca Centro</a>
-        </p>
-        <p>
-          <a target="_blank" href="http://www.nomads.usp.br/bolhaberta">Bolhaberta</a>
+          <a
+            target="_blank"
+            href="https://cidadecolaborativa.wordpress.com"
+          >Da cidade participativa à cidade colaborativa</a>
         </p>
         <p>
-          <a target="_blank" href="https://github.com/vanessametonini/PlataformaCultural">Acesse o código no GITHUB.</a>
+          <a
+            target="_blank"
+            href="http://www.nomads.usp.br/sancacentro"
+          >Sanca Centro</a>
+        </p>
+        <p>
+          <a
+            target="_blank"
+            href="http://www.nomads.usp.br/bolhaberta"
+          >Bolhaberta</a>
+        </p>
+        <p>
+          <a
+            target="_blank"
+            href="https://github.com/vanessametonini/PlataformaCultural"
+          >Acesse o código no GITHUB.</a>
         </p>
       </section>
 

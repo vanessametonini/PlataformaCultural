@@ -6,15 +6,23 @@
 
     <div class="content column">
       <div class="card">
-        <h2 class="title">É novo por aqui?</h2>
-        <router-link class="btn signup" to="/signUp">
+        <h2 class="title">
+          É novo por aqui?
+        </h2>
+        <router-link
+          class="btn signup"
+          to="/signUp"
+        >
           cadastre-se!
         </router-link>
         <div class="or">
           <hr>
           <span>ou</span>
         </div>
-        <div v-if="errorMessage !== null" class="error-field">
+        <div
+          v-if="errorMessage !== null"
+          class="error-field"
+        >
           <span class="error-message">* {{ errorMessage }}</span>
         </div>
 
@@ -55,11 +63,19 @@
         </div>
 
         <div class="links column">
-          <router-link class="link" to="/recover">
+          <router-link
+            class="link"
+            to="/recover"
+          >
             <span class="body-3">Esqueceu a senha?</span>
           </router-link>
 
-          <q-btn flat class="btn" color="white" @click="submit()">
+          <q-btn
+            flat
+            class="btn"
+            color="white"
+            @click="submit()"
+          >
             <span class="body-3 bold">entrar</span>
           </q-btn>
         </div>

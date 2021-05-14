@@ -1,7 +1,9 @@
 <template>
   <div class="box">
     <div class="input-content">
-      <h4 class="title-3 bolder">Adicione um novo pin no mapa</h4>
+      <h4 class="title-3 bolder">
+        Adicione um novo pin no mapa
+      </h4>
       <!-- pin name -->
       <div class="column mg-top16">
         <span class="subheading-2">Nome do pin*</span>
@@ -159,7 +161,7 @@
         />
       </div>
 
-       <!-- phone -->
+      <!-- phone -->
       <div class="column mg-top8">
         <span class="subheading-2">WhatsApp</span>
         <q-input
@@ -229,9 +231,14 @@
               class="cursor-pointer"
               @click.stop="files = null"
             />
-            <q-icon name="create_new_folder" @click.stop />
+            <q-icon
+              name="create_new_folder"
+              @click.stop
+            />
           </template>
-          <template #hint> Tamanho máximo de 2MB. Formato JPG.</template>
+          <template #hint>
+            Tamanho máximo de 2MB. Formato JPG.
+          </template>
           <!-- <template #after>
             <q-btn
               round
@@ -246,8 +253,15 @@
     </div>
 
     <!-- actions edit -->
-    <div class="mg-top32" align="right">
-      <q-btn outline color="black" @click="confirmCreate()">
+    <div
+      class="mg-top32"
+      align="right"
+    >
+      <q-btn
+        outline
+        color="black"
+        @click="confirmCreate()"
+      >
         <span class="caption">Cadastrar</span>
       </q-btn>
     </div>

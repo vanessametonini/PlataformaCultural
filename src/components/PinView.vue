@@ -5,7 +5,7 @@
   >
     <q-card-section class="card-title">
       <h2>{{ pinView.title }}</h2>
-      <p>{{category(pinView.categoryId).label}}</p>
+      <p>{{ category(pinView.categoryId).label }}</p>
     </q-card-section>
 
     <q-card-section class="card-description">
@@ -27,7 +27,7 @@
           title="Link"
         >
           <q-item-section avatar>
-            <i class="fas fa-link"></i>
+            <i class="fas fa-link" />
           </q-item-section>
         </q-item>
 
@@ -39,8 +39,8 @@
           :href="`https://api.whatsapp.com/send?phone=55${pinView.phone}`"
           :title="`Whatsapp ${pinView.phone}`"
         >
-          <q-item-section avatar >
-            <i class="fab fa-whatsapp"></i>
+          <q-item-section avatar>
+            <i class="fab fa-whatsapp" />
           </q-item-section>
         </q-item>
 
@@ -53,24 +53,25 @@
           title="Facebook"
         >
           <q-item-section avatar>
-            <i class="fab fa-facebook"></i>
+            <i class="fab fa-facebook" />
           </q-item-section>
         </q-item>
         <q-item
-          clickable
           v-if="pinView.instagram"
+          clickable
           tag="a"
           target="_blank"
           :href="pinView.instagram"
           title="Instagram"
         >
           <q-item-section avatar>
-            <i class="fab fa-instagram"></i>
+            <i class="fab fa-instagram" />
           </q-item-section>
         </q-item>
       </q-list>
     </q-card-section>
     <q-carousel
+      v-if="pinView.imageIds.length"
       v-model="slide"
       swipeable
       animated
@@ -83,7 +84,6 @@
       transition-next="slide-left"
       @mouseenter="autoplay = false"
       @mouseleave="autoplay = true"
-      v-if="pinView.imageIds.length"
     >
       <q-carousel-slide
         v-for="n in pinView.imageIds.length"
@@ -94,8 +94,10 @@
         }`"
       />
       <template #control>
-        <q-carousel-control position="bottom-right" :offset="[18, 18]">
-        </q-carousel-control>
+        <q-carousel-control
+          position="bottom-right"
+          :offset="[18, 18]"
+        />
       </template>
     </q-carousel>
   </q-card>
