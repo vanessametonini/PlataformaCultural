@@ -15,27 +15,27 @@
       <!-- SECTION 1 -->
       <section v-if="currentStep === 1" id="section1" class="stepper-section">
         <span class="title-3 bolder mg-top16">Sobre os Debates</span>
-        <span class="headline-3 bolder mg-top16">Debates abertos</span>
+        
         <p class="body-2 mg-top8 justify-text">
-          Você poderá iniciar um debate, que aqui chamamos de debate, para
-          compartilhar pontos de vista com outras pessoas sobre os assuntos que
-          te preocupam em relação à cultura em Campo Grande. O espaço de
-          debates abertos é destinado aos gestores, produtores, promotores da
-          cultura local e também à comunidade artística. Sendo um desses
-          agentes, você poderá expor seus argumentos e abrir uma conversa com
-          todos. Considere que o debate não aciona nenhum mecanismo de atuação
-          concreta. Mas alimenta as tomadas de decisão do Fórum Municipal de
-          Cultura, identifica a necessidade de encontros presenciais específicos
-          (assembleias, reuniões) como também contribui para a compreensão das
-          necessidades da comunidade artística de Campo Grande.
+          Você poderá iniciar um debate sobre o assunto que desejar, seja ele endereçado
+          para um grupo específico (como por exemplos os colegiados setoriais)
+          ou aberto a todos aqueles que estejam interessados em discutir assuntos relativos à Cultura Municipal. 
+          Ao iniciar um debate, você apresentará seu ponto de vista inserindo um pequeno texto argumentativo
+          sobre o assunto e convidando pessoas a dialogar e compartilhar outros pontos de vista. 
+          Para momentos de geração de ideias ou tomadas de decisão, a funcionalidade Debate é bastante útil,
+          pois a visualização permite a organização da informação e as curtidas e apoios auxiliam a entender
+          quais ideias são mais populares.
+          Considere que o debate não aciona nenhum mecanismo de atuação concreta, mas alimenta as tomadas de 
+          decisão do Fórum Municipal de Cultura de Campo Grande-MS, identifica as demandas da classe artística,
+          verifica a necessidade de encontros específicos (assembleias e reuniões), entre outras observações.
         </p>
         <span class="headline-3 bolder mg-top16">
           Recomendações para participar de um debate aberto</span
         >
         <p class="body-2 mg-top8 justify-text">
-          1. Para iniciar um debate é necessário que você faça um cadastro na
+          1. Para iniciar um debate é necessário que você faça um cadastro na plataforma
           <router-link class="link body-2" to="/signUp">
-            <strong>Plataforma Cartografia da Cultura</strong> </router-link
+            <strong>Cartografia da Cultura</strong> </router-link
           >. Os usuários cadastrados também podem participar das discussões já
           iniciadas através dos comentários e/ ou indicar se concorda ou não
           concorda clicando nos botões “<span title="polegar pra cima / apoiar">👍</span>”
@@ -43,27 +43,19 @@
           cada debate proposto.
         </p>
         <p class="body-2 mg-top8 justify-text">
-          2. Não escreva o título do debate ou frases inteiras em letras
-          maiúsculas. Na Internet, isso é considerado o mesmo que gritar. E
-          ninguém gosta disso.
+          2. Seja cuidadoso ao escrever com letras maiúsculas. Na Internet, muitas vezes isso é considerado o mesmo que gritar.
         </p>
         <p class="body-2 mg-top8 justify-text">
-          3. Qualquer debate ou comentário que implique em uma ação ilegal será
-          deletado. Também serão deletados comentários que tenham a intenção de
-          sabotar o espaço de debate.
+          3. As críticas duras são bem vindas. Este é um espaço de pensamento
+          livre, mas recomendamos que seja gentil.
         </p>
         <p class="body-2 mg-top8 justify-text">
-          4. As críticas duras são bem vindas. Este é um espaço de pensamento
-          livre, mas recomendamos que, ainda que a crítica seja dura, também
-          seja gentil e inteligente.
-        </p>
-        <p class="body-2 mg-top8 justify-text">
-          5. Desfrute deste espaço, das vozes que o preenchem, ele também é seu.
+          4. Desfrute deste espaço, das vozes que o preenchem, ele também é seu.
         </p>
       </section>
       <!-- SECTION 2 -->
       <section v-if="currentStep === 2" id="section2" class="stepper-section">
-        <span class="title-1 bolder">Regras para iniciar um debate</span>
+        <span class="title-1 bolder">Regras do debate aberto</span>
         <!-- 1 -->
         <span class="body-2 bolder mg-top16"
           >1. Uma vez feito o login, você poderá:</span
@@ -71,24 +63,24 @@
         <ol>
           <li class="body-2 justify-text">Iniciar um debate.</li>
           <li class="body-2 justify-text">
-            Participar de um debate já iniciado por outro usuário.
+            Participar de um debate já iniciado.
           </li>
           <li class="body-2 justify-text">
-            Concordar ou não concordar ao votar em um debate iniciado.
+            Apoiar ou não apoiar um debate iniciado.
           </li>
         </ol>
         <!-- 2 -->
         <span class="body-2 bolder mg-top24">2. Para iniciar o debate: </span>
         <ol class="list">
           <li class="body-2 justify-text">
-            insira um título que represente o assunto principal da discussão.
+            Insira um título curto que represente o assunto principal que você quer debater.
           </li>
           <li class="body-2 justify-text">
-            insira um texto com sua argumentação diretamente na plataforma.
+            Insira um pequeno texto apresentando sua argumentação. 
           </li>
           <li class="body-2 justify-text">
-            escolha uma ou mais categorias relacionada ao assunto que quer
-            discutir.
+            Escolha uma categoria principal que melhor relaciona o assunto do debate.
+            Outras categorias complementares também podem ser inseridas.
           </li>
         </ol>
         <!-- 3 -->
@@ -97,24 +89,24 @@
         </span>
         <ol class="list">
           <li class="body-2 justify-text">
-            deletar o debate que você iniciou;
+            Deletar o debate que você iniciou;
           </li>
           <!-- <li class="body-2 justify-text">
-            deletar um comentário em um debate que você participou.
+         
           </li> -->
         </ol>
         <!-- 4 -->
         <span class="body-2 bolder mg-top24">4. Serão deletados: </span>
         <ol class="list">
           <li class="body-2 justify-text">
-            os comentários ofensivos, com discurso de ódio ou qualquer ato de
+            Os comentários ofensivos, com discurso de ódio ou qualquer ato de
             comunicação que inferiorize ou incite contra uma pessoa ou grupo,
             tendo por base características como raça, gênero, etnia,
             nacionalidade, religião, orientação sexual ou outro aspecto passível
             de discriminação.
           </li>
           <li class="body-2 justify-text">
-            qualquer comentário que implique em uma ação ilegal ou que tenham a
+            Qualquer comentário que implique em uma ação ilegal ou que tenham a
             intenção de sabotar o espaço de debate.
           </li>
         </ol>
@@ -122,7 +114,7 @@
         <span class="body-2 bolder mg-top24">5. Recomendamos que: </span>
         <ol class="list">
           <li class="body-2 justify-text">
-            Insira um texto revisado por você. Veja se está claro e objetivo.
+            Revise o texto que inserir no debate. Veja se está claro e objetivo.
           </li>
           <li class="body-2 justify-text">
             Seja gentil ao dialogar com as outras vozes que têm pontos de vista
@@ -135,7 +127,7 @@
             <span class="body-2 mg-left8">
               Eu li e concordo com as
               <strong style="cursor: pointer" @click="scrollToTop()">
-                Regras da Plataforma </strong
+                Recomendações e regras do debate </strong
               >.
             </span>
           </q-checkbox>
@@ -151,7 +143,7 @@
         <span class="title-3 bolder">Crie seu debate</span>
         <span class="headline-3 bolder mg-top16">Título*</span>
         <span class="caption mg-top4"
-          >Insira um título que represente o assunto principal da
+          >Insira um título curto que represente o assunto principal da
           discussão.</span
         >
         <!-- TITLE -->
@@ -190,11 +182,11 @@
         <!-- CATEGORY -->
         <span class="headline-3 bolder mg-top16">Categoria do debate</span>
         <span class="caption mg-top8">
-          1. Marque a opção que representa o tema principal do seu
-          debate
+          1. Selecione primeiro a categoria principal relacionada ao assunto do 
+          debate.
         </span>
         <span class="caption">
-          2. Caso houver, marque temas que se relacionam ao seu debate
+          2. Caso queira, selecione outras categorias complementares.
         </span>
         <div class="category-field mg-top8">
           <q-list class="category-list">
@@ -250,7 +242,7 @@
               square
               bottom-slots
               class="related-tags"
-              label="categorias relacionadas"
+              label="categorias complementares"
               aria-live="polite"
             >
               <div class="related-tags-grid">
