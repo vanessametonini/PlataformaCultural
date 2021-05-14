@@ -26,7 +26,7 @@
         <span
           class="body-3 bolder"
           to="/singIn"
-        ><b>CADASTRE-SE E COLABORE!</b></span>
+        ><b>LOGIN</b></span>
       </q-btn>
 
       <q-btn
