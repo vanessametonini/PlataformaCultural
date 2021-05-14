@@ -5,15 +5,15 @@
     </div>
 
     <div class="content column">
-      <div class="card column">
-        <router-link class="link" to="/signUp">
-          <span class="title bolder uppercase">É NOVO POR AQUI? CLIQUE PARA SE CADASTRAR!</span>
+      <div class="card">
+        <h2 class="title">É novo por aqui?</h2>
+        <router-link class="btn signup" to="/signUp">
+          cadastre-se!
         </router-link>
-        <p>
-        </p>
-
-        <span class="body-3"> Olá novamente </span>
-
+        <div class="or">
+          <hr>
+          <span>ou</span>
+        </div>
         <div v-if="errorMessage !== null" class="error-field">
           <span class="error-message">* {{ errorMessage }}</span>
         </div>
@@ -73,7 +73,6 @@ import {
   email,
   required,
   minLength,
-  maxLength,
 } from "vuelidate/lib/validators";
 
 export default {
@@ -91,34 +90,29 @@ export default {
     email: {
       required,
       email,
-      maxLength: maxLength(30),
     },
     password: {
       required,
       minLength: minLength(8),
-      maxLength: maxLength(20),
     },
   },
   computed: {
     emailErrorMessage() {
       if (!this.$v.email.required) {
-        return "Preencha seu email";
+        return "Preencha um email";
       } else if (!this.$v.email.email) {
         return "Por favor insira um email válido";
       }
-
-      return "";
+      return "Oops algo errado aconteceu!";
     },
     passwordErrorMessage() {
       if (!this.$v.email.required) {
         return "Informe sua senha";
-      } else if (!this.$v.password.minLength) {
-        return "Mínimo de 8 dígitos";
-      } else if (!this.$v.password.maxLength) {
-        return "Máximo de 15 dígitos";
       }
-
-      return "";
+      if (!this.$v.password.minLength) {
+        return "Mínimo de 8 dígitos";
+      }
+      return "Oops algo errado aconteceu!";
     },
   },
   methods: {
@@ -254,13 +248,10 @@ export default {
 }
 
 .card {
-  width: 100%;
-  padding: 0px;
   background-color: white;
-  justify-content: center;
-  align-items: flex-start;
   margin-top: 32px;
-  // border: 2px solid green;
+  padding: 0px;
+  width: 100%;
 
   @include for-phone-only {
     width: 80%;
@@ -272,28 +263,12 @@ export default {
 }
 
 .title {
-  // align-self: center;
-  margin-bottom: -4px;
-  // animation: 0.4s fadeInOpacity ease-in;
-
-  @include for-tablet-portrait-only {
-    font-size: 1.3rem;
-    margin-bottom: 0px;
-  }
-
-  @include for-phone-only {
-    font-size: 1rem;
-    margin-bottom: 0px;
-  }
+  font-size: 2rem;
 }
 
 .input-field {
-  width: 350px;
   margin-top: 16px;
-
-  @include for-phone-only {
-    margin-top: 32px;
-  }
+  width: 100%;
 }
 
 .input {
@@ -318,13 +293,11 @@ export default {
   align-items: center;
   width: 100%;
   margin-top: 32px;
-  // border: 1px solid red;
 }
 
 .link {
   font-weight: bold;
   text-decoration: none !important;
-  // text-transform: lowercase;
   color: black;
 
   &:hover {
@@ -340,6 +313,39 @@ export default {
   border-radius: 0px;
   background-color: black;
   margin-top: 8px;
+
+  &.signup {
+    color: white;
+    display: block;
+    font-weight: bold;
+    height: 50px;
+    line-height: 50px;
+    margin-bottom: 32px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 100%;
+  }
+}
+
+.or {
+
+  hr {
+    border: 0;
+    border-top: 1px solid #333;
+    display: block;
+  }
+
+  span {
+    background-color: white;
+    display: block;
+    font-style: italic;
+    margin: 0 auto;
+    position: relative;
+    top: -11px;
+    text-align: center;
+    width: 50px;
+  }
 }
 
 .btn:hover {
@@ -348,7 +354,6 @@ export default {
 }
 
 .btn span {
-  // text-transform: lowercase;
   font-weight: bolder;
   font-size: 0.875rem;
 }

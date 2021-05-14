@@ -171,9 +171,9 @@ export default {
 }
 
 .title {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: bolder;
-  line-height: 2.5rem;
+  line-height: 2rem;
   margin: 0 0 10px;
 }
 
@@ -187,6 +187,7 @@ export default {
 
 .card-description {
   padding-top: 16px;
+  word-break: break-word;
 }
 
 .schedule-item {

@@ -35,7 +35,7 @@
             @click="comment = !comment"
           >
             <span class="caption bolder" style="color: black">{{
-              comment ? "ocultar comentários" : "responder ou ver comentários"
+              comment ? "ocultar respostas" : "responder ou ver respostas"
             }}</span>
           </base-button>
 
