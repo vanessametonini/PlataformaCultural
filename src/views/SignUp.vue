@@ -551,7 +551,7 @@ export default {
     },
     confirmPasswordErrorMessage() {
       if (!this.$v.confirmPassword.required) {
-        return "Confirmação de senha é requerida";
+        return "Confirmação de senha é obrigatória";
       } else if (!this.$v.confirmPassword.sameAsPassword) {
         return "Senha não confere";
       }

@@ -21,7 +21,7 @@
               class="input"
               square
               filled
-              :type="isPwd ? 'password' : 'text'"
+              :type="isPwd ? 'text' : 'password'"
               label="Senha"
               :error="$v.password.$error"
               :error-message="passwordErrorMessage"
@@ -42,7 +42,7 @@
             class="input"
             square
             filled
-            :type="isPwdC ? 'password' : 'text'"
+            :type="isPwdC ? 'text' : 'password'"
             label="Senha"
             :error="$v.passwordConfirmation.$error"
             :error-message="passwordConfirmationErrorMessage"
@@ -80,7 +80,7 @@ const { mapFields } = createHelpers({
   mutationType: "users/updateField",
 });
 
-import { required, minLength, maxLength } from "vuelidate/lib/validators";
+import { required, minLength, sameAs } from "vuelidate/lib/validators";
 
 export default {
   name: "ResetPasswordPage",
@@ -96,12 +96,10 @@ export default {
     password: {
       required,
       minLength: minLength(8),
-      maxLength: maxLength(20),
     },
     passwordConfirmation: {
       required,
-      minLength: minLength(8),
-      maxLength: maxLength(20),
+      sameAsPassword: sameAs("password"),
     },
   },
   computed: {
@@ -111,27 +109,22 @@ export default {
     }),
     passwordErrorMessage() {
       if (!this.$v.password.required) {
-        return "Informe sua senha";
-      } else if (!this.$v.password.minLength) {
-        return "Mínimo de 8 dígitos";
-      } else if (!this.$v.password.maxLength) {
-        return "Máximo de 15 dígitos";
+        return "Senha é obrigatória";
       }
-      return "";
+      if (!this.$v.password.minLength) {
+        return "Mínimo de 8 dígitos";
+      }
+      return "Preenchimento inválido"
     },
     passwordConfirmationErrorMessage() {
       if (!this.$v.passwordConfirmation.required) {
-        return "Informe sua senha";
-      } else if (!this.$v.passwordConfirmation.minLength) {
-        return "Mínimo de 8 dígitos";
-      } else if (!this.$v.passwordConfirmation.maxLength) {
-        return "Máximo de 15 dígitos";
+        return "Confirmação de senha é obrigatória";
       }
-      return "";
+      if (!this.$v.passwordConfirmation.sameAsPassword) {
+        return "Senha não confere";
+      }
+      return "Preenchimento inválido"
     },
-  },
-  created() {
-    console.log("Recover Token: ", this.$route.params.recoverToken);
   },
   methods: {
     async submit() {
@@ -145,7 +138,7 @@ export default {
           return;
         }
         this.waiting = true;
-        console.log("recover Token: ", this.$route.params.recoverToken);
+        //console.log("recover Token: ", this.$route.params.recoverToken);
         this.$store
           .dispatch("users/resetPassword", {
             token: this.$route.params.recoverToken,
@@ -154,10 +147,11 @@ export default {
             this.password = '';
             this.passwordConfirmation= '';
             this.waiting = false;
+            this.$v.$reset();
             this.$router.push({ name: "SignIn" });
           })
           .catch((error) => {
-            console.log(error);
+            console.error(error);
             this.waiting = false;
           });
       }

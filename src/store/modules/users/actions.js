@@ -64,14 +64,8 @@ const actions = {
         notif({
           icon: 'done',
           spinner: false,
-          message: 'Email de recuperação enviado!',
+          message: 'Senha redefina com sucesso!',
         })
-        Notify.create({
-          message: 'Enviamos um email de confirmação.',
-        });
-        Notify.create({
-          message: 'Confira sua caixa de entrada.',
-        });
         return response;
       })
       .catch((error) => {
