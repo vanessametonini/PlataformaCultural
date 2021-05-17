@@ -22,5 +22,6 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Project backend api
+
+[Cartografia da Cultura Backend](https://github.com/vanessametonini/cartografia_cultural)

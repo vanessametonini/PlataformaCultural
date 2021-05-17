@@ -363,9 +363,16 @@ span, p, a {
   color: black;
 }
 
+.title-1 {
+  text-align: left;
+  line-height: 2rem;
+  margin-bottom: 16px;
+}
+
 .plataforma {
   ul {
     list-style-position: inside;
+    padding-left: 16px;
   }
 }
 

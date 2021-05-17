@@ -25,6 +25,7 @@
         flat
         class="btn-custom"
         to="/signIn"
+        tabindex="1"
       >
         <span
           class="body-3 bolder"
@@ -37,6 +38,7 @@
         flat
         class="btn-custom"
         to="/profile"
+        tabindex="1"
       >
         <span
           v-if="$store.getters['getAuth']"
@@ -108,9 +110,15 @@
     </main>
     <!--END MAP -->
 
-    <!-- <div class="show" style="position: absolute; top: 150px; left: 40%; z-index: 3;">
-      {{ pins }}
-    </div> -->
+    <footer class="footer">
+      <a
+        href="https://github.com/vanessametonini/PlataformaCultural"
+        target="_blank"
+        class="floss-link"
+      >
+        Esta plataforma tem código aberto.
+      </a>
+    </footer>
   </div>
 </template>
 
@@ -325,6 +333,24 @@ span[class^="icon-"] {
     font-weight: 700;
     color: white;
   }
+}
+
+.footer {
+  background-color: rgba($color: #ffffff, $alpha: .7);
+  position: fixed;
+  bottom: 0;
+
+  @media (max-width: 440px) {
+    bottom: 16px;
+  }
+
+  .floss-link {
+    color: #222;
+    display: inline-block;
+    font-size: 11px;
+    padding-left: 4px;
+  }
+
 }
 
 </style>
