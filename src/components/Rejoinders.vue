@@ -68,9 +68,6 @@ export default {
     return {};
   },
   computed: {},
-  created() {
-    console.log("rejoinders: ", this.rejoinders);
-  },
   methods: {
     deleteRejoinder(rejoinder) {
       this.$q.notify({

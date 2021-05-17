@@ -78,7 +78,6 @@
       arrows
       navigation
       height="200px"
-      :fullscreen="fullscreen"
       infinite
       transition-prev="slide-right"
       transition-next="slide-left"

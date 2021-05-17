@@ -11,7 +11,7 @@
           <span class="author-name body-3 bolder">
             {{ `${reply.user.firstName} ${reply.user.lastName}` }}
           </span>
-          <span class="date caption bold">
+          <span class="date caption">
             {{ $store.getters.formatDate(reply.createdAt) }}
           </span>
         </div>
@@ -35,7 +35,7 @@
             @click="comment = !comment"
           >
             <span
-              class="caption bolder"
+              class="caption"
               style="color: black"
             >{{
               comment ? "ocultar respostas" : "responder ou ver respostas"
@@ -63,7 +63,7 @@
       <!-- this reply -->
       <div class="reply-content body-3">
         <template v-if="!editing">
-          <span class="body-2 bolder">{{ reply.content }}</span>
+          <span class="body-2">{{ reply.content }}</span>
           <rejoinders
             v-if="comment"
             :rejoinders="rejoinders(reply.id)"
@@ -176,9 +176,6 @@ export default {
       return 0;
       // return this.myLikes.some((el) => el.replyId === this.reply.id);
     },
-  },
-  created() {
-    console.log(this.myLike(this.reply.id));
   },
   methods: {
     deleteReply() {

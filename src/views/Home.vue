@@ -77,7 +77,6 @@
         />
 
         <l-control-zoom
-          v-if="handleResize()"
           position="bottomright"
         />
 
@@ -89,7 +88,6 @@
             @ready="openDefaultMarker($event, pin)"
           >
             <l-icon
-              class="icon-marker"
               :icon-size="iconSet.iconSize"
               :icon-anchor="iconSet.iconAnchor"
             >
@@ -152,7 +150,6 @@ export default {
   },
   data() {
     return {
-      opemNav: false,
       layers: {
         standard: {
           url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
@@ -193,16 +190,6 @@ export default {
       markers: 'pins/getMarkers',
     }),
   },
-  created() {
-    window.addEventListener('resize', this.handleResize);
-    this.handleResize();
-  },
-  mounted() {
-    // this.$store.commit('pins/SET_SELECTED_PIN_ID', null);
-  },
-  unmounted() {
-    window.removeEventListener('resize', this.handleResize);
-  },
   methods: {
     openDefaultMarker(mapObject, item) {
       if ((item.id === this.$store.getters['pins/getSelectedPinId'])) {
@@ -212,16 +199,11 @@ export default {
     },
     filterThis(el) {
       if (this.filterSelections.includes(el)) {
-        // console.log('removeThisFilter', el);
         const index = this.filterSelections.indexOf(el.toString());
         this.filterSelections.splice(index, 1);
       } else {
-        // console.log('addThisFilter', el);
         this.filterSelections.push(el.toString());
       }
-    },
-    opem() {
-      this.opemNav = !this.opemNav;
     },
     setCoordinates() {
       this.pins.forEach((item) => this.markers.push({ id: item.id, categoryId: item.categoryId, coordinates: [item.lat, item.long] }));
@@ -229,28 +211,6 @@ export default {
     getPinById(id) {
       const target = this.pins.find((item) => item.id === id);
       return target;
-    },
-    homeTransition() {
-      const { overlay, presentation } = this.$refs;
-
-      TweenMax.to(presentation, 2, {
-        opacity: 0,
-        y: -60,
-        ease: Expo.easeInOut,
-      });
-
-      TweenMax.to(overlay, 2, {
-        delay: 1,
-        top: '-100%',
-        ease: Expo.easeInOut,
-      });
-    },
-    handleResize() {
-      const size = window.innerWidth;
-      if (size < 1200) {
-        return false;
-      }
-      return true;
     },
   },
 };

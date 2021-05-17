@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import VueMasonry from 'vue-masonry-css';
 import { gsap } from 'gsap';
 import Vuelidate from 'vuelidate';
+import L from 'leaflet'
 import 'leaflet/dist/leaflet.css';
 import './registerServiceWorker';
 import './quasar';
@@ -21,6 +22,15 @@ import './quasar'
 import VueSocketIO from 'vue-socket.io'
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
+import VSanitize from "v-sanitize";
+
+// FIX leaflet's default icon path problems with webpack
+delete L.Icon.Default.prototype._getIconUrl
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+})
 
 Vue.use(new VueSocketIO({
   debug: process.env.VUE_APP_DEBUG_SOCKET  === "true",
@@ -43,7 +53,6 @@ gsap.config({
   nullTargetWarn: false,
 });
 
-
 Vue.component('LogoCard', LogoCard);
 Vue.component('MulticolorLine', MulticolorLine);
 Vue.component('FontAwesomeIcon', FontAwesomeIcon);
@@ -54,6 +63,13 @@ Vue.use(VueRouter);
 Vue.config.productionTip = process.env.VUE_APP_DEV_TOOLS === "false";
 Vue.config.devtools = process.env.VUE_APP_DEV_TOOLS === "true";
 
+const sanitizationOptions = {
+  allowedTags: ['div', 'br', 'blockquote', 'strike', 'hr', 'i', 'a', 'b', 'u', 'ul', 'ol', 'li'],
+  allowedAttributes: {
+    'a': [ 'href', 'target' ]
+  }
+};
+Vue.use(VSanitize, sanitizationOptions);
 
 new Vue({
   router,

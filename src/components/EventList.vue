@@ -1,5 +1,5 @@
 <template>
-  <div class="app-component topics-list">
+  <div class="app-component events-list">
     <div
       v-if="false"
       class="null-state column"
@@ -9,25 +9,18 @@
       <span class="body-2 bolder">você pode ser o primeiro</span>
     </div>
 
-    <!-- IMPLEMENTAR O SCROOL AREA E O TRIGGER GET_MORE_TOPICS, JUNTO AO TRIGGER GHANGE_FILTER -->
     <div
       v-else
       class="content"
     >
-      <!-- <q-scroll-area
-        v-if="handleResize"
-        class="scroll-area"
-        :thumb-style="thumbStyle"
-        :bar-style="barStyle"
-      > -->
       <masonry
         class="grid"
         :cols="{ default: 3, 1200: 3, 1130: 2, 600: 1 }"
         :gutter="{ default: '16px', 1200: '4px', 1130: '8px', 600: '4px'}"
       >
         <div
-          v-for="item in events"
-          :key="item.id"
+          v-for="(item, index) in events"
+          :key="index"
         >
           <schedule-item
             class="item"
@@ -35,7 +28,6 @@
           />
         </div>
       </masonry>
-      <!-- </q-scroll-area> -->
     </div>
   </div>
 </template>
@@ -82,51 +74,7 @@ export default {
   computed: {
     ...mapState('events', {
       events: (state) => state.list,
-    }),
-    hasAnyFilter() {
-      let filterState = false;
-      if (this.filter.length !== 0) {
-        filterState = true;
-      }
-      return filterState;
-    },
-    // ...mapGetters({
-    //   topics: 'loadTopics',
-    // }),
-  },
-  created() {
-    window.addEventListener('resize', this.handleResize);
-    this.handleResize();
-  },
-  mounted() {
-    this.$nextTick(function scrollListener() {
-      window.addEventListener('scroll', this.onScroll);
-      this.onScroll(); // needed for initial loading on page
-    });
-  },
-  beforeUnmount() {
-    window.removeEventListener('scroll', this.onScroll);
-  },
-  unmounted() {
-    window.removeEventListener('resize', this.handleResize);
-  },
-  methods: {
-    onScroll() {
-      window.onscroll = () => {
-        const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
-
-        // if (bottomOfWindow) {
-        //   console.log('onScroll - trigger');
-        // }
-      };
-    },
-    handleResize() {
-      const size = window.innerWidth;
-      if (size > 600) {
-        return false;
-      }
-      return true;
-    },
+    })
   },
 };
 </script>
@@ -135,7 +83,7 @@ export default {
 @import '../styles/variables.scss';
 @import '../styles/mixins.scss';
 
-.topics-list {
+.events-list {
   width: 100%;
   height: inherit;
 }
@@ -144,38 +92,17 @@ export default {
   overflow: hidden;
 }
 
-.scroll-area {
-  height: 100%;
-  // width: 100%;
-  padding-right: 16px;
-
-  @include for-phone-only {
-    display: none;
-    padding: 4px 8px 4px 8px;
-  }
-}
-
 .grid {
   border-radius: 0px !important;
   box-shadow: none !important;
 }
 
-.topic-item + .topic-item {
-  border-top: 1px solid #F0F0F0;
-}
-
-.topics-list-title {
-  font-size: 18px;
-  color: #777;
-  font-weight: 400;
-}
 
 .null-state {
   margin-top: 60px;
 
   img {
     height: 120px;
-    // width: 90px;
     align-self: center;
   }
 

@@ -17,7 +17,7 @@ const getters = {
   getMyEvents: (state) => state.myEvents,
   getMyLikes: (state) => state.repliesLiked,
   getMyVotes: (state) => state.topicsSupported,
-  getUserReference(state) {
+  getUserReference: (state) => {
     const userRef = {
       id: state.currentUser.user.id,
       name: state.currentUser.user.firstName,
@@ -25,6 +25,13 @@ const getters = {
       avatar: '',
     };
     return userRef;
+  },
+  getUserInitials: (state) => {
+    const name = `${state.currentUser.firstName} ${state.currentUser.lastName}`;
+    const allInitials = (name.match(/\b\w/g)) || [];
+    return (
+      (allInitials.shift() || '') + (allInitials.pop() || '')
+    ).toUpperCase();
   },
 };
 

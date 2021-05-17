@@ -88,7 +88,7 @@ const routes = [
     },
   },
   {
-    path: '/topics/createTopic',
+    path: '/topics/create',
     name: 'CreateTopic',
     component: () => import('../views/CreateTopic.vue'),
     meta: {
@@ -100,7 +100,7 @@ const routes = [
     name: 'TopicPage',
     component: () => import('../views/TopicPage.vue'),
     meta: {
-      requiresAuth: true,
+      requiresAuth: false,
     },
   },
   {

@@ -16,7 +16,7 @@
         {{ $store.getters['categories/getCategoryById'](topic.categoryId).label }}
       </div>
       <div class="row al-items-center text-white caption">
-        <span class="">
+        <span>
           {{ topic.user.firstName }} {{ topic.user.lastName }}
         </span>
         <span class="mg-left16">
@@ -25,9 +25,10 @@
       </div>
     </q-card-section>
     <q-card-section class="card-description">
-      <p class="text-white">
-        {{ mask(topic.content, 120) }}
-      </p>
+      <article
+        v-sanitize.strip="mask(topic.content, 120)"
+        class="text-white"
+      />
     </q-card-section>
 
     <q-card-section class="card card-bottom">
@@ -82,7 +83,7 @@ export default {
       "localLoadCurrentTopicReplyes",
     ]),
     async emitThisTopic() {
-      this.$store.commit("topics/SET_CURRENT_TOPIC", this.topic);
+      //this.$store.commit("topics/SET_CURRENT_TOPIC", this.topic);
       this.$router.push({
         name: "TopicPage",
         params: { topicId: this.topic.id },
@@ -141,6 +142,7 @@ export default {
   font-weight: bolder;
   line-height: 2.5rem;
   margin: 0;
+  hyphens: auto;
 }
 
 .thumbs {

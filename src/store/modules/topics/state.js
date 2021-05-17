@@ -14,7 +14,18 @@ const state = {
     content: '',
     views: 0,
   },
-  currentTopic: null,
+  currentTopic: {
+    categoriesTagged: [],
+    categoryId:'',
+    content:'',
+    id:'',
+    negativeSupports: 0,
+    numberOfReplies: 0,
+    positiveSupports: 0,
+    title:'',
+    userId:'',
+    views: 0
+  },
   currentFilter: 'mostRecent',
   streamAmount: 12, // number of topics required in request
   currentTopicReplies: [],

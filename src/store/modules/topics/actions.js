@@ -1,4 +1,3 @@
-// import Vue from 'vue';
 import api from '../../../apiClient';
 
 const actions = {
@@ -36,50 +35,7 @@ const actions = {
       ...getters.topicForm,
       userId: rootGetters['users/getCurrentUser'].id,
       createdAt: new Date(),
-    }),
-
-  loadInitialTopics({ commit }, { type, pagination }) {
-    const loadFunc = new Promise((resolve, reject) => {
-      api.get('/getInitialTopics', {
-        params: {
-          type,
-          pagination,
-        },
-      })
-        .then((response) => {
-          commit('SET_TOPICS_LIST', response.data);
-          resolve(response);
-        })
-        .catch((error) => reject(error));
-    });
-    loadFunc();
-  },
-
-  loadCurrentTopic({ commit }, { topicId }) {
-    Promise((resolve, reject) => {
-      api.get('/getCurrentTopic', {
-        topicId,
-      })
-        .then((response) => {
-          commit('SET_CURRENT_TOPIC', response.data);
-          resolve(response);
-        })
-        .catch((error) => reject(error));
-    });
-  },
-
-  loadCurrentTopicReplyes({ commit }, { topicId }) {
-    Promise((resolve, reject) => {
-      api.get('/getCurrentTopicReplyes', {
-        topicId,
-      })
-        .then((response) => {
-          commit('SET_CURRENT_TOPIC_REPLYES', response.data);
-          resolve(response);
-        })
-        .catch((error) => reject(error));
-    });
-  },
+  }),
 
   supportCurrentTopic({ commit }, { supportType }) {
     commit('ADD_SUPPORT', { supportType });
@@ -105,22 +61,6 @@ const actions = {
       numberOfLikes: 0,
     };
     commit('ADD_REPLY_TO_CURRENT_TOPIC', newReply);
-  },
-
-  loadMoreTopics({ commit }, { type, pagination }) {
-    Promise((resolve, reject) => {
-      api.get('/getMoreTopics', {
-        params: {
-          type,
-          pagination,
-        },
-      })
-        .then((response) => {
-          commit('SET_TOPICS_LIST', response.data);
-          resolve(response);
-        })
-        .catch((error) => reject(error));
-    });
   },
 
   deleteReply({ commit }, { replyId }) {

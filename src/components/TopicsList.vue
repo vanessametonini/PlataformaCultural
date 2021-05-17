@@ -20,9 +20,9 @@
       >
         <!-- topic-item -->
         <topic-item
-          v-for="topic in topics"
+          v-for="(topic, index) in topics"
           ref="users"
-          :key="topic.id"
+          :key="index"
           :topic="topic"
         />
       </masonry>
@@ -56,66 +56,9 @@ export default {
     ...mapGetters({
       topics: 'topics/loadTopicsFiltered',
     }),
-    hasAnyFilter() {
-      let filterState = false;
-      if (this.filter.length !== 0) {
-        filterState = true;
-      }
-      return filterState;
-    },
   },
   mounted() {
     this.$store.dispatch('topics/loadTopics');
-    this.$nextTick(function scrollListener() {
-      window.addEventListener('scroll', this.onScroll);
-      this.onScroll(); // needed for initial loading on page
-    });
-  },
-  beforeUnmount() {
-    // window.removeEventListener('scroll', this.onScroll);
-  },
-  methods: {
-    changeFilter(type) {
-      // click in filter options  trigger this action
-      if (type !== this.lastFilter) {
-        this.currentFilter = type; // used to set logic getMoreTopics.
-        this.lastFilter = type; // used to call getInitialTopics whenever filter changes
-        this.streamCount = 0;
-        this.getInitialTopics(type);
-      }
-    },
-    getInitialTopics(type) {
-      this.$store.dispatch('topics/loadInitialTopics', {
-        type,
-        streamCount: 0,
-      })
-        .then((response) => {
-          this.streamCount = 1; // records the value of the new streamCount
-          this.topicsLoaded.push(response.data);
-        })
-        .catch((error) => error);
-    },
-    getMoreTopics() {
-      // stream continue get 'currentFilter' and increment streamCount
-      this.$store.dispatch('topics/loadMoreTopics', {
-        type: this.currentFilter, // {}
-        streamCount: this.streamCount,
-      })
-        .then((response) => {
-          this.streamCount += 1; // increment
-          this.topicsLoaded.push(response.data);
-        })
-        .catch((error) => error);
-    },
-    onScroll() {
-      window.onscroll = () => {
-        const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
-
-        if (bottomOfWindow) {
-          this.getMoreTopics();
-        }
-      };
-    },
   },
 };
 </script>
@@ -150,7 +93,6 @@ export default {
 
   img {
     height: 120px;
-    // width: 90px;
     align-self: center;
   }
 

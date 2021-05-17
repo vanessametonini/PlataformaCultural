@@ -19,13 +19,14 @@
         class="stepper-section"
       >
         <span class="title-3 bolder mg-top16">Sobre os Debates</span>
-        
         <p class="body-2 mg-top8 justify-text">
           Você poderá iniciar um debate sobre o assunto que desejar, seja ele endereçado
           para um grupo específico (como por exemplos os colegiados setoriais)
           ou aberto a todos aqueles que estejam interessados em discutir assuntos relativos à Cultura Municipal. 
           Ao iniciar um debate, você apresentará seu ponto de vista inserindo um pequeno texto argumentativo
           sobre o assunto e convidando pessoas a dialogar e compartilhar outros pontos de vista. 
+        </p>
+        <p class="body-2 mg-top8 justify-text">
           Para momentos de geração de ideias ou tomadas de decisão, a funcionalidade Debate é bastante útil,
           pois a visualização permite a organização da informação e as curtidas e apoios auxiliam a entender
           quais ideias são mais populares.
@@ -34,7 +35,8 @@
           verifica a necessidade de encontros específicos (assembleias e reuniões), entre outras observações.
         </p>
         <span class="headline-3 bolder mg-top16">
-          Recomendações para participar de um debate aberto</span>
+          Recomendações para participar de um debate aberto
+        </span>
         <p class="body-2 mg-top8 justify-text">
           1. Para iniciar um debate é necessário que você faça um cadastro na plataforma
           <router-link
@@ -104,9 +106,6 @@
           <li class="body-2 justify-text">
             Deletar o debate que você iniciou;
           </li>
-          <!-- <li class="body-2 justify-text">
-         
-          </li> -->
         </ol>
         <!-- 4 -->
         <span class="body-2 bolder mg-top24">4. Serão deletados: </span>
@@ -147,7 +146,8 @@
                 style="cursor: pointer"
                 @click="scrollToTop()"
               >
-                Recomendações e regras do debate </strong>.
+                Recomendações e regras do debate
+              </strong>.*
             </span>
           </q-checkbox>
           <span
@@ -162,15 +162,21 @@
         class="stepper-section"
       >
         <span class="title-3 bolder">Crie seu debate</span>
-        <span class="headline-3 bolder mg-top16">Título*</span>
-        <span
-          class="caption mg-top4"
-        >Insira um título curto que represente o assunto principal da
-          discussão.</span>
+        <label
+          for="titulo"
+          class="headline-3 bolder mg-top16"
+        >
+          Título*
+        </label>
+        <span class="caption mg-top4">
+          Insira um título curto que represente o assunto principal da
+          discussão.
+        </span>
         <!-- TITLE -->
         <q-input
+          id="titulo"
           v-model="title"
-          class="input"
+          class="titulo"
           dense
           square
           bottom-slots
@@ -181,25 +187,49 @@
           @blur="$v.title.$touch"
         />
 
-        <span class="headline-3 bolder">Texto argumentativo*</span>
+        <label
+          for="texto"
+          class="headline-3 bolder"
+        >
+          Texto argumentativo*
+        </label>
         <span class="caption mg-top4">
           Insira um texto sobre o assunto que quer discutir, apresente seu ponto de vista.
         </span>
         <!-- CONTENT -->
-        <q-input
+        <q-field
+          id="texto"
           v-model="content"
-          class="input"
           type="textarea"
-          counter
+          class="conteudo"
+          min-height="5rem"
+          color="black"
+          borderless
           dense
           square
           bottom-slots
+          counter
           maxlength="2000"
           hint="Máximo de 2000 caracteres"
           :error="$v.content.$error"
           :error-message="contentErrorMessage"
           @blur="$v.content.$touch"
-        />
+        >
+          <q-editor
+            v-model="content"
+            dense
+            square
+            class="editor"
+            :toolbar="[
+              ['bold', 'italic', 'strike', 'underline', 'link',],
+              ['hr', 'quote'],
+              ['unordered', 'ordered', 'outdent', 'indent'],
+              ['undo', 'redo', 'removeFormat'],
+              ['viewsource']
+            ]"
+            @input="sanitize(content)"
+          />
+        </q-field>
         <!-- CATEGORY -->
         <span class="headline-3 bolder mg-top16">Categoria do debate</span>
         <span class="caption mg-top8">
@@ -475,6 +505,9 @@ export default {
   updated(){
   },
   methods: {
+    sanitize(value) {
+      this.content = this.$sanitize(value);
+    },
     async submit() {
       // await this.$store.dispatch('topics/createNewTopic')
       // this.$socket.emit('newTopicToServer',  );
@@ -638,11 +671,13 @@ section {
 
 ol {
   list-style: lower-latin;
-  margin: 0;
+  margin: 8px 0 0 0;
+  padding-left: 10px;
 }
 
 li {
   margin-left: 32px;
+  margin-bottom: 8px;
 }
 
 .stepper-rules,
@@ -760,9 +795,13 @@ li {
   }
 }
 
-.input {
+.titulo, .conteudo {
   margin-top: 4px;
   margin-bottom: 8px;
+}
+
+.editor {
+  width: 100%;
 }
 
 .stepper-footer {
