@@ -1,15 +1,5 @@
 <template>
   <div class="app-page home-page">
-    <!-- <div
-      ref="overlay"
-      class="overlay"
-    > -->
-    <!-- <span
-        ref="presentation"
-        class="presentation"
-      >cartografia da cultura</span> -->
-    <!-- </div> -->
-
     <header
       class="aside"
       role="banner"

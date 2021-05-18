@@ -1,84 +1,79 @@
 <template>
-  <div class="app-page column">
-    <div class="identity">
-      <logo-card class="logo" />
-    </div>
+  <div class="content-center">
+    <logo-card />
+    <div class="card">
+      <h2 class="title">
+        É novo por aqui?
+      </h2>
+      <router-link
+        class="btn signup"
+        to="/signUp"
+      >
+        cadastre-se!
+      </router-link>
+      <div class="or">
+        <hr>
+        <span>ou</span>
+      </div>
+      <div
+        v-if="errorMessage !== null"
+        class="error-field"
+      >
+        <span class="error-message">* {{ errorMessage }}</span>
+      </div>
 
-    <div class="content column">
-      <div class="card">
-        <h2 class="title">
-          É novo por aqui?
-        </h2>
+      <div class="input-field">
+        <q-input
+          v-model="email"
+          class="input"
+          square
+          filled
+          color="black"
+          type="email"
+          label="Email"
+          :error="$v.email.$error"
+          :error-message="emailErrorMessage"
+          lazy-rules
+          @blur="$v.email.$touch"
+        />
+
+        <q-input
+          v-model="password"
+          class="input"
+          square
+          filled
+          :type="isPwd ? 'text' : 'password'"
+          label="Senha"
+          :error="$v.password.$error"
+          :error-message="passwordErrorMessage"
+          @blur="$v.password.$touch"
+        >
+          <template #append>
+            <q-icon
+              :name="isPwd ? 'visibility_off' : 'visibility'"
+              class="cursor-pointer"
+              @click="isPwd = !isPwd"
+            />
+          </template>
+        </q-input>
+      </div>
+
+      <div class="links column">
         <router-link
-          class="btn signup"
-          to="/signUp"
+          class="link"
+          to="/recover"
         >
-          cadastre-se!
+          <span class="body-3">Esqueceu a senha?</span>
         </router-link>
-        <div class="or">
-          <hr>
-          <span>ou</span>
-        </div>
-        <div
-          v-if="errorMessage !== null"
-          class="error-field"
+
+        <q-btn
+          flat
+          class="btn"
+          color="white"
+          @click="submit()"
         >
-          <span class="error-message">* {{ errorMessage }}</span>
-        </div>
-
-        <div class="input-field">
-          <q-input
-            v-model="email"
-            class="input"
-            square
-            filled
-            color="black"
-            type="email"
-            label="Email"
-            :error="$v.email.$error"
-            :error-message="emailErrorMessage"
-            lazy-rules
-            @blur="$v.email.$touch"
-          />
-
-          <q-input
-            v-model="password"
-            class="input"
-            square
-            filled
-            :type="isPwd ? 'text' : 'password'"
-            label="Senha"
-            :error="$v.password.$error"
-            :error-message="passwordErrorMessage"
-            @blur="$v.password.$touch"
-          >
-            <template #append>
-              <q-icon
-                :name="isPwd ? 'visibility_off' : 'visibility'"
-                class="cursor-pointer"
-                @click="isPwd = !isPwd"
-              />
-            </template>
-          </q-input>
-        </div>
-
-        <div class="links column">
-          <router-link
-            class="link"
-            to="/recover"
-          >
-            <span class="body-3">Esqueceu a senha?</span>
-          </router-link>
-
-          <q-btn
-            flat
-            class="btn"
-            color="white"
-            @click="submit()"
-          >
-            <span class="body-3 bold">entrar</span>
-          </q-btn>
-        </div>
+          <span class="body-3 bold">entrar</span>
+        </q-btn>
       </div>
     </div>
   </div>
@@ -201,80 +196,28 @@ export default {
 
 <style lang="scss" scoped>
 @import "../styles/mixins.scss";
-@import "../styles/variables.scss";
+@import '../styles/variables.scss';
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.app-page {
+.content-center {
+  @include centered-column;
   background-color: white;
-  height: 100vh;
-  width: 100%;
-  overflow-y: hidden;
-  padding: 32px;
-  position: relative;
-}
+  flex-direction: column;
+  max-width: inherit;
 
-.identity {
-  position: absolute;
-  // width: 100%;
-  top: 24px;
-  left: 24px;
-  animation: 0.5s fadeInOpacity ease-in;
-
-  .logo {
-    margin-top: 0px;
-    align-self: flex-start;
-  }
-
-  @include for-phone-only {
-    align-self: center;
-    margin-left: 8px;
-  }
-}
-
-.content {
-  position: absolute;
-  top: 25%;
-  left: 50%;
-  transform: translateX(-50%);
-  min-width: 380px;
-  align-items: flex-start;
-  animation: 0.5s fadeInOpacity ease-in;
-
-  @include for-phone-only {
-    margin-top: 32px;
-  }
-
-  @include for-tablet-portrait-only {
-    margin-top: 64px;
-  }
-}
-
-@keyframes fadeInOpacity {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
+  @include for-tablet-landscape-up {
+    margin-top: 0;
   }
 }
 
 .card {
+  align-self: center;
   background-color: white;
-  margin-top: 32px;
+  max-width: 360px;
   padding: 0px;
   width: 100%;
 
-  @include for-phone-only {
-    width: 80%;
-  }
-
-  @include for-tablet-portrait-only {
-    width: 90%;
+  @include for-tablet-landscape-up {
+    margin-top: 32px;
   }
 }
 
@@ -308,7 +251,7 @@ export default {
 .links {
   align-items: center;
   width: 100%;
-  margin-top: 32px;
+  margin-top: 16px;
 }
 
 .link {

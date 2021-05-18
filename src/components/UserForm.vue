@@ -307,11 +307,6 @@ export default {
 @import '../styles/variables.scss';
 @import '../styles/mixins.scss';
 
-
-.box {
-  padding: 16px;
-}
-
 .input {
   width: 100%;
   // height: 40px;

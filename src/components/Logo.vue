@@ -35,9 +35,12 @@ export default {
 .logo-box {
   cursor: pointer;
   height: 180px;
-  max-width: 180px;
+  width: 180px;
   position: relative;
-  width: 100%;
+
+  .box {
+    fill: #000000;
+  }
 
   .text {
     fill: #ffffff;
@@ -56,12 +59,12 @@ export default {
 
   @include for-tablet-landscape-up {
     height: 190px;
-    max-width: 190px;
+    width: 190px;
   }
 
   @include for-big-desktop-up {
     height: 200px;
-    max-width: 200px;
+    width: 200px;
   }
 
 }

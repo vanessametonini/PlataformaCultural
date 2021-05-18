@@ -551,10 +551,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.box {
-  padding: 16px;
-}
-
 .input {
   width: 100%;
   font-size: 1.2rem;

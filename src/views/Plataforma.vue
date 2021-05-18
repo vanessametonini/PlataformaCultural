@@ -2,7 +2,7 @@
   <div class="content-center column">
     <!-- start header section -->
     <header>
-      <logo-card class="" />
+      <logo-card />
       <multicolor-line class="line mg-top32" />
     </header>
 

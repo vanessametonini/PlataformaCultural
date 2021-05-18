@@ -2,10 +2,11 @@
   <div class="app-page profile-page">
     <div class="row no-wrap">
       <header class="col-auto">
-        <logo-card />
+        <logo-card class="mg-bottom8" />
         <avatar-card
           v-if="currentUser.avatarId"
           :user="currentUser"
+          class="mg-bottom8"
         />
         <base-button
           class="btn-logout"
@@ -107,30 +108,35 @@ export default {
   padding: 16px;
 }
 
-.avatar,
-.logo-box {
-  margin-bottom: 10px;
-}
-
 .btn-logout {
   font-size: 16px;
   width: 100%;
 }
 
 .card {
-  margin-right: 10px;
+  margin-right: 8px;
 }
 
 nav.row {
-  margin-left: 10px;
+  margin-left: 8px;
 }
 
 .forms {
   margin-left: 10px;
-  width: 590px;
+  width: calc(100% - 16px);
   background-color: #f5f5f5;
   padding: 16px 32px;
   margin-bottom: 60px;
+
+  @include for-tablet-landscape-up {
+    width: 585px;
+  }
+
+  @include for-big-desktop-up {
+    width: 614px;
+  }
 }
+
+
 
 </style>
