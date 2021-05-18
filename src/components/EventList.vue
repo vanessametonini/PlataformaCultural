@@ -25,6 +25,7 @@
           <schedule-item
             class="item"
             :item="item"
+            :id="item.id"
           />
         </div>
       </masonry>
@@ -116,4 +117,5 @@ export default {
     align-self: center;
   }
 }
+
 </style>

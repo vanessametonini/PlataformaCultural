@@ -11,6 +11,7 @@
           v-ripple
           clickable
           :style="{ 'border-color': $store.getters['categories/getCategoryById'](event.categoryId).color}"
+          @click="openEvent(event.id)"
         >
           <q-item-section
             v-if="event.imageIds[0]"
@@ -57,6 +58,12 @@ export default {
       const limit = 20;
       if (text.length > limit) return text.substring(0, limit) + "...";
       return text;
+    },
+    async openEvent(eventId) {
+      this.$router.push({
+        name: "Agenda",
+        hash: `#${eventId}`
+      });
     },
   },
 };

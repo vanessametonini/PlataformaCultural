@@ -1,6 +1,6 @@
 <template>
   <div class="content-center">
-    <logo-card />
+    <logo-card class="logo-size" />
     <div class="card">
       <h2 class="title">
         É novo por aqui?
@@ -198,6 +198,13 @@ export default {
 @import "../styles/mixins.scss";
 @import '../styles/variables.scss';
 
+.logo-size {
+  @include for-phone-only {
+    height: 120px;
+    width: 120px;
+  }
+}
+
 .content-center {
   @include centered-column;
   background-color: white;
@@ -216,26 +223,18 @@ export default {
   padding: 0px;
   width: 100%;
 
-  @include for-tablet-landscape-up {
+  @include for-big-desktop-up {
     margin-top: 32px;
   }
 }
 
 .title {
   font-size: 2rem;
-}
-
-.input-field {
-  margin-top: 16px;
-  width: 100%;
+  margin: 16px 0 0;
 }
 
 .input {
-  margin-bottom: 24px;
-  width: inherit;
-  font-size: 1.025rem;
-  margin-bottom: 24px;
-  font-weight: bold;
+  margin-bottom: 16px;
 }
 
 .error-field {
@@ -301,7 +300,7 @@ export default {
     font-style: italic;
     margin: 0 auto;
     position: relative;
-    top: -11px;
+    top: -18px;
     text-align: center;
     width: 50px;
   }

@@ -86,6 +86,8 @@
                 <li
                   v-for="event in listEvents"
                   :key="event.id"
+                  clickable
+                  @click="openEvent(event.id)"
                 >
                   <div class="col1">
                     <span class="day">{{ event.day }}</span>
@@ -210,6 +212,12 @@ export default {
   methods: {
     forwardCall(el) {
       this.$emit('call-filter', el);
+    },
+    async openEvent(eventId) {
+      this.$router.push({
+        name: "Agenda",
+        hash: `#${eventId}`
+      });
     },
   },
 };
@@ -363,12 +371,14 @@ ul, ol {
 
   li {
     display: flex;
+    cursor: pointer;
     line-height: 1.3em;
     margin-bottom: 10px;
 
     span {
       display: block;
     }
+
   }
   .col1 {
     margin-right: 10px;
