@@ -388,14 +388,6 @@ ul, ol {
 .q-scrollarea {
   height: 200px;
 
-  @include for-tablet-landscape-up {
-    height: 240px;
-  }
-
-  @include for-desktop-up {
-    height: 270px;
-  }
-
   @include for-big-desktop-up {
     height: 300px;
   }
