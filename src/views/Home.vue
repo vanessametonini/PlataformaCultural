@@ -295,15 +295,11 @@ span[class^="icon-"] {
 }
 
 .button-area {
-  position: absolute;
+  position: fixed;
   top: 16px;
   right: 16px;
   z-index: 2;
   overflow: hidden;
-
-  @include for-phone-only {
-    display: none;
-  }
 }
 
 .btn-custom {

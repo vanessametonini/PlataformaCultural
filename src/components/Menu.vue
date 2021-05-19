@@ -6,6 +6,7 @@
       :class="{ 'expanded-filters' : expand }"
       role="navigation"
     >
+      <!-- MENU -->
       <q-list>
         <!-- item Sobre -->
         <q-expansion-item
@@ -82,28 +83,32 @@
 
           <q-card>
             <q-card-section>
-              <ol class="recent-events line">
-                <li
-                  v-for="event in listEvents"
-                  :key="event.id"
-                  clickable
-                  @click="openEvent(event.id)"
-                >
-                  <div class="col1">
-                    <span class="day">{{ event.day }}</span>
-                    <span class="month">{{ event.month }}</span>
-                  </div>
-                  <div
-                    class="col2"
-                    :aria-label="event.title"
-                    :title="event.title"
+              <q-scroll-area
+                :bar-style="barStyle"
+                class="line"
+              >
+                <ol class="recent-events">
+                  <li
+                    v-for="event in listEvents"
+                    :key="event.id"
+                    clickable
+                    @click="openEvent(event.id)"
                   >
-                    <span>{{ event.title }}</span>
-                    <span class="caption">{{ event.site }}</span>
-                  </div>
-                </li>
-              </ol>
-
+                    <div class="col1">
+                      <span class="day">{{ event.day }}</span>
+                      <span class="month">{{ event.month }}</span>
+                    </div>
+                    <div
+                      class="col2"
+                      :aria-label="event.title"
+                      :title="event.title"
+                    >
+                      <span>{{ event.title }}</span>
+                      <span class="caption">{{ event.site }}</span>
+                    </div>
+                  </li>
+                </ol>
+              </q-scroll-area>
               <router-link
                 class="submenu-button"
                 :to="{ name: 'Agenda' }"
@@ -131,20 +136,25 @@
 
           <q-card>
             <q-card-section>
-              <ol class="recent-debates line">
-                <li
-                  v-for="topic in listTopics"
-                  :key="topic.id"
-                >
-                  <h6>
-                    <router-link
-                      :to="{ path: `/topics/${topic.id}` }"
-                    >
-                      {{ topic.title }}
-                    </router-link>
-                  </h6>
-                </li>
-              </ol>
+              <q-scroll-area
+                :bar-style="barStyle"
+                class="line"
+              >
+                <ol class="recent-debates">
+                  <li
+                    v-for="topic in listTopics"
+                    :key="topic.id"
+                  >
+                    <h6>
+                      <router-link
+                        :to="{ path: `/topics/${topic.id}` }"
+                      >
+                        {{ topic.title }}
+                      </router-link>
+                    </h6>
+                  </li>
+                </ol>
+              </q-scroll-area>
 
               <router-link
                 class="submenu-button"
@@ -199,6 +209,17 @@ export default {
   components: {
     MyFilter,
   },
+  data() {
+    return {
+      barStyle: {
+        right: "0",
+        borderRadius: "4px",
+        backgroundColor: "#eee",
+        width: "4px",
+        opacity: .8,
+      },
+    };
+  },
   emits: ['call-filter'],
   computed: {
     ...mapFields(['expand']),
@@ -245,15 +266,13 @@ ul, ol {
 .item {
   background-color: black;
   margin-top: 4px;
-
 }
-
 
 .menu-text {
   color: white;
   font-weight: bold;
   font-size: 1.2em;
-  padding: 4px 4px 0;
+  padding: 2px 0px 2px 4px;
 
   @include for-tablet-landscape-up {
     font-size: 1.4em;
@@ -350,6 +369,7 @@ ul, ol {
 .submenu-button {
   color: black;
   display: block;
+  margin-top: 5px;
   text-decoration: none;
 
   &:hover {
@@ -365,6 +385,22 @@ ul, ol {
   width: 70%;
 }
 
+.q-scrollarea {
+  height: 200px;
+
+  @include for-tablet-landscape-up {
+    height: 240px;
+  }
+
+  @include for-desktop-up {
+    height: 270px;
+  }
+
+  @include for-big-desktop-up {
+    height: 300px;
+  }
+}
+
 .recent-events {
 
   font-size: .9rem;
@@ -377,6 +413,7 @@ ul, ol {
 
     span {
       display: block;
+      hyphens: auto;
     }
 
   }
@@ -435,4 +472,5 @@ ul, ol {
 .mapa .q-card__section--vert {
   padding: 8px;
 }
+
 </style>

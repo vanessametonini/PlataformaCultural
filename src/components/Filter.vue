@@ -1,18 +1,20 @@
 <template>
-  <ul class="filter">
-    <li
-      v-for="(item) in categories"
-      :id="`item-${item.id}`"
-      :key="item.value"
-      class="item"
-      clickable
-      :style="`color: ${colors(item)}`"
-      @click="$store.commit('pins/UPDATE_CATEGORIES_SELECTEDS', item.id)"
-    >
-      <span :class="`icon-${item.value}`" />
-      {{ item.label }}
-    </li>
-  </ul>
+  <q-scroll-area class="filter" :bar-style="barStyle">
+    <ul>
+      <li
+        v-for="(item) in categories"
+        :id="`item-${item.id}`"
+        :key="item.value"
+        class="item"
+        clickable
+        :style="`color: ${colors(item)}`"
+        @click="$store.commit('pins/UPDATE_CATEGORIES_SELECTEDS', item.id)"
+      >
+        <span :class="`icon-${item.value}`" />
+        {{ item.label }}
+      </li>
+    </ul>
+  </q-scroll-area>
 </template>
 
 <script>
@@ -23,8 +25,13 @@ export default {
   emits: ['call-filter'],
   data() {
     return {
-      active: false,
-      publicPath: process.env.BASE_URL
+      barStyle: {
+        right: "0",
+        borderRadius: "4px",
+        backgroundColor: "#eee",
+        width: "4px",
+        opacity: .8,
+      },
     };
   },
   computed: {
@@ -41,20 +48,26 @@ export default {
 @import '../styles/categories.scss';
 
 .filter {
-  margin: 0;
-  max-height: calc(100vh - 272px);
-  overflow: auto;
+  &.q-scrollarea {
 
-  @include for-tablet-landscape-up {
-    max-height: calc(100vh - 300px);
+    height: calc(100vh - 272px);
+
+    @include for-tablet-landscape-up {
+      height: calc(100vh - 300px);
+    }
+
+    @include for-desktop-up {
+      height: calc(100vh - 338px);
+    }
+
+    @include for-big-desktop-up {
+      height: calc(100vh - 368px);
+    }
   }
 
-  @include for-desktop-up {
-    max-height: calc(100vh - 338px);
-  }
-
-  @include for-big-desktop-up {
-    max-height: calc(100vh - 368px);
+  ul {
+    margin: 0;
+    padding: 0;
   }
 }
 
