@@ -64,7 +64,7 @@ Vue.config.productionTip = process.env.VUE_APP_DEV_TOOLS === "false";
 Vue.config.devtools = process.env.VUE_APP_DEV_TOOLS === "true";
 
 const sanitizationOptions = {
-  allowedTags: ['div', 'br', 'blockquote', 'strike', 'hr', 'i', 'a', 'b', 'u', 'ul', 'ol', 'li'],
+  allowedTags: ['div', 'br', 'blockquote', 'strike', 'hr', 'i', 'a', 'b', 'u', 'ul', 'ol', 'li', 'p', 'em', 'strong'],
   allowedAttributes: {
     'a': [ 'href', 'target' ]
   }
