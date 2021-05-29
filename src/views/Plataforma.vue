@@ -96,8 +96,13 @@
         </ul>
       </p>
       <p>
+      .
+      </p?
+      <p>
         Para entrar em contato, enviar e-mail para: <a href="mailto:cartografiadaculturacg@gmail.com">cartografiadaculturacg@gmail.com</a>
-        ou através das nossas redes sociais:
+        ou através das nossas redes sociais. </p>
+      <p>
+        Você pode assistir os tutoriais da plataforma no canal Cartografia da Cultura no Youtube.
       </p>
       <p>
         <a
@@ -115,6 +120,14 @@
         >
           <i class="fab fa-instagram" />
           Instagram
+        </a>
+        <a
+          class="body-3 bolder mg-left16"
+          target="_blank"
+          href="https://www.youtube.com/channel/UCeqQ7e93pqtqE6U8nl7P4rA/"
+        >
+          <i class="fab fa-youtube" />
+          YouTube
         </a>
       </p>
       <p>
