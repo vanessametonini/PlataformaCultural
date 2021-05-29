@@ -136,7 +136,6 @@
         Instituto de Arquitetura e Urbanismo da Universidade de São Paulo. 
       </p>
       <p>
-        Desenvolvida
       </p><p>
         Para mais informações sobre a pesquisa, acesse os links: 
       </p>
@@ -171,7 +170,7 @@
     <!-- start section criação -->
     <section class="creation">
       <h2 class="title-3 bolder">
-        Organização
+        Instituições
       </h2>
       <ul>
         <li
