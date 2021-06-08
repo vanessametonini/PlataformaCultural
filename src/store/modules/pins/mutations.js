@@ -14,6 +14,11 @@ const mutations = {
     state.list.push(pin);
   },
 
+  UPDATE_PIN(state, updatedPin) {
+    const toUpdate = state.list.findIndex(pin => pin.id === updatedPin.id);
+    state.list[toUpdate] = { ...state.list[toUpdate], ...updatedPin };
+  },
+
   ADD_SELECTED_CATEGORY(state, categoryId) {
     if (!state.selecteds.includes(categoryId)) {
       state.selecteds.push(categoryId);

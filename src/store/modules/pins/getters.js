@@ -26,7 +26,7 @@ const getters = {
   },
 
   getPinById: (state) => (pinId) => {
-    const index = state.pins.findIndex((item) => item.id === pinId);
+    const index = state.list.findIndex((item) => item.id === pinId);
     return state.list[index];
   },
 

@@ -1,7 +1,16 @@
 <template>
   <div class="box">
     <div class="input-content">
-      <h4 class="title-3 bolder">
+      <h4
+        v-if="editMode"
+        class="title-3 bolder"
+      >
+        Edite seu pin
+      </h4>
+      <h4
+        v-else
+        class="title-3 bolder"
+      >
         Adicione um novo pin no mapa
       </h4>
       <!-- pin name -->
@@ -205,24 +214,29 @@
         />
       </div>
 
+      <div
+        v-if="images.length > 0" 
+        class="column mg-top8"
+      >
+        <q-img :src="`${$store.getters['services/getImagePath']}${images[0]}`" />
+      </div>
+
       <!-- file picker -->
       <div class="column mg-top8">
         <span class="subheading-2">Insira uma imagem</span>
         <q-file
-          :value="files"
+          v-model="files"
           class="input"
           dense
           square
-          counter
           use-chips
           multiple
-          :max-files="3"
+          :max-files="1"
           accept=".jpg,.jpeg,.png,.gif"
           max-file-size="2097152"
           :error-message="filesErrorMessage"
           :error="$v.files.$error"
           @blur="$v.files.$touch"
-          @input="updateFiles"
         >
           <template #append>
             <q-icon
@@ -239,15 +253,6 @@
           <template #hint>
             Tamanho máximo de 2MB. Formato JPG.
           </template>
-          <!-- <template #after>
-            <q-btn
-              round
-              dense
-              flat
-              icon="send"
-              @click="sendImages"
-            />
-          </template> -->
         </q-file>
       </div>
     </div>
@@ -258,6 +263,15 @@
       align="right"
     >
       <q-btn
+        v-if="editMode"
+        outline
+        color="black"
+        @click="updatePin()"
+      >
+        <span class="caption">Atualizar</span>
+      </q-btn>
+      <q-btn
+        v-else
         outline
         color="black"
         @click="confirmCreate()"
@@ -290,13 +304,15 @@ export default {
       type: Boolean,
       default: false,
     },
+    editMode: {
+      type: Boolean,
+      default: false,
+    }
   },
   data() {
     return {
       waiting: false,
       valid: true,
-      step: 0,
-      lastStep: 0,
       active: false,
       files: null,
       file: null,
@@ -465,42 +481,25 @@ export default {
     // mascara para telefone
     phoneMask() {
       if (this.phone === null || this.phone === undefined) {
-        console.log("phone undefined");
         return false;
       }
       let str = "";
       const p = this.phone;
-      console.log("p", this.phone);
       const ddd = p.slice(0, 2);
       const prefix = p.slice(2, 7);
       const sufix = p.slice(7, 11);
       str = str.concat(ddd).concat("").concat(prefix).concat(" ").concat(sufix);
-      console.log(str);
       return str;
     },
   },
-  created() {},
+  created() {
+    if(!this.editMode) this.cleanForm();
+  },
   methods: {
     sendForm() {
       this.$store.dispatch("pins/postPin", { $router: this.$router })
         .then(()=>{
-          this.category = '';
-          this.categoryId = null;
-          this.title = '';
-          this.email = '';
-          this.phone = '';
-          this.street = '';
-          this.number = '';
-          this.neighborhood = '';
-          this.city = '';
-          this.cep = '';
-          this.description = '';
-          this.images = [];
-          this.link = '';
-          this.facebook = '';
-          this.instagram = '';
-          this.twitter = '';
-          this.whatsapp = '';
+          this.cleanForm();
 
           this.$v.$reset()
         });
@@ -558,6 +557,43 @@ export default {
       }
       else {
         this.files = files.slice();
+      }
+    },
+    cleanForm() {
+      this.category = '';
+      this.categoryId = null;
+      this.title = '';
+      this.email = '';
+      this.phone = '';
+      this.street = '';
+      this.number = '';
+      this.neighborhood = '';
+      this.city = '';
+      this.cep = '';
+      this.description = '';
+      this.images = [];
+      this.link = '';
+      this.facebook = '';
+      this.instagram = '';
+      this.twitter = '';
+      this.whatsapp = '';
+    },
+    updatePin() {
+      //se tiver imagens
+      if (this.files) {
+            this.$store
+              .dispatch("images/uploadArray", { files: this.files })
+              .then((fileIds) => {
+                this.images = fileIds;
+                this.$store.dispatch("pins/putPin", { $router: this.$router });
+              })
+              .catch((error) => {
+              this.waiting = false;
+            });
+      }
+      //se não tiver imagens
+      else {
+            this.$store.dispatch("pins/putPin", { $router: this.$router });
       }
     },
   }
