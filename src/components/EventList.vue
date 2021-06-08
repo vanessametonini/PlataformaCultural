@@ -23,9 +23,9 @@
           :key="index"
         >
           <schedule-item
+            :id="item.id"
             class="item"
             :item="item"
-            :id="item.id"
           />
         </div>
       </masonry>

@@ -209,6 +209,7 @@ export default {
   components: {
     MyFilter,
   },
+  emits: ['call-filter'],
   data() {
     return {
       barStyle: {
@@ -220,7 +221,6 @@ export default {
       },
     };
   },
-  emits: ['call-filter'],
   computed: {
     ...mapFields(['expand']),
     listEvents() {
