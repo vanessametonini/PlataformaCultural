@@ -63,6 +63,35 @@ const actions = {
         return error;
       });
   },
+
+  putPin({ commit, dispatch, rootState }, { $router }) {
+    const notif = Notify.create({
+      group: false,
+      spinner: true,
+      message: 'Atualizando pin...',
+    });
+    const data = { ...rootState.pins.pinForm, userId: rootState.users.currentUser.id };
+    return dispatch('services/PUT', { uri: `pins/${rootState.pins.selectedPinId}`, data }, { root: true })
+      .then((response) => {
+        const pin =  { ...data, ...response.data };
+        commit('UPDATE_PIN', pin );
+        notif({
+          icon: 'done',
+          spinner: false,
+          message: 'Pin atualizado!',
+        })
+        dispatch('animatePin', {  $router, pin });
+        return response;
+      })
+      .catch((error) => {
+        notif({
+          type: 'negative',
+          spinner: false,
+          message: 'Não foi possível atualizar seu pin.',
+        })
+        return error;
+      });
+  },
 };
 
 export default actions;

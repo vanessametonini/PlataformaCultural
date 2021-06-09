@@ -1,5 +1,8 @@
 <template>
-  <q-scroll-area class="filter" :bar-style="barStyle">
+  <q-scroll-area
+    class="filter"
+    :bar-style="barStyle"
+  >
     <ul>
       <li
         v-for="(item) in categories"

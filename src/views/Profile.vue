@@ -45,7 +45,7 @@
       </div>
       <div class="col">
         <topic-profile />
-        <pins-profile />
+        <pins-profile @card-click="form = 'pin-editor'" />
         <events-profile />
       </div>
     </div>
@@ -97,6 +97,10 @@ export default {
     ...mapGetters({
       currentUser: "users/getCurrentUser",
     }),
+  },
+  created() {
+    this.$store.commit('users/SET_SELECTED_FORM', 'user');
+    this.$store.dispatch('pins/loadPins');
   },
 };
 </script>
