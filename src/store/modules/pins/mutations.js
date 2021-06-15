@@ -19,6 +19,15 @@ const mutations = {
     state.list[toUpdate] = { ...state.list[toUpdate], ...updatedPin };
   },
 
+  DELETE_PIN(state, pinId) {
+    const filtered = state.list.filter(pin => pin.id != pinId);
+    state.list = filtered;
+  },
+
+  SET_DELETED_PINS_LIST(state, pins) {
+    state.deletedPins = pins;
+  },
+
   ADD_SELECTED_CATEGORY(state, categoryId) {
     if (!state.selecteds.includes(categoryId)) {
       state.selecteds.push(categoryId);

@@ -42,10 +42,26 @@
             >
               <i class="fas fa-edit" />
             </q-item-label>
-            <!-- <q-item-label class="icon">
+            <q-item-label 
+              class="icon"
+              @click="$store.commit('pins/SET_SELECTED_PIN_ID', pin.id), confirm=true"
+            >
                 <i class="fas fa-trash"></i>
-              </q-item-label> -->
+              </q-item-label>
           </q-item-section>
+          <q-dialog v-model="confirm" persistent>
+            <q-card>
+              <q-card-section class="row items-center">
+                <q-avatar icon="fas fa-trash" color="negative" text-color="white" />
+                <span class="q-ml-sm">Tem certeza que deseja remover esse pin?</span>
+              </q-card-section>
+
+              <q-card-actions align="right">
+                <q-btn flat label="Cancelar" color="negative" v-close-popup />
+                <q-btn flat label="Remover" color="negative" v-close-popup @click="removePin()" />
+              </q-card-actions>
+            </q-card>
+          </q-dialog>
         </q-item>
       </q-list>
     </q-scroll-area>
@@ -71,6 +87,7 @@ export default {
         width: "4px",
         opacity: .8,
       },
+      confirm: false
     };
   },
   computed: {
@@ -119,6 +136,10 @@ export default {
       this.instagram = info.instagram;
       this.images = info.imageIds;
     },
+    removePin() {
+      const idToRemove = this.$store.state.pins.selectedPinId;
+      this.$store.dispatch("pins/deletePin");
+    }
   },
 };
 </script>
