@@ -92,6 +92,51 @@ const actions = {
         return error;
       });
   },
+  deletePin({ commit, dispatch, rootState }) {
+    const notif = Notify.create({
+      group: false,
+      spinner: true,
+      message: 'Removendo pin...',
+    });
+    const data = { ...rootState.pins.pinForm, userId: rootState.users.currentUser.id };
+    return dispatch('services/DELETE', { uri: `pins/${rootState.pins.selectedPinId}`, data }, { root: true })
+      .then((response) => {
+        const pin =  { ...data, ...response.data };
+        commit('DELETE_PIN', pin );
+        notif({
+          icon: 'done',
+          spinner: false,
+          message: 'Pin removido!',
+        })
+        dispatch('loadPins');
+        return response;
+      })
+      .catch((error) => {
+        notif({
+          type: 'negative',
+          spinner: false,
+          message: 'Não foi possível remover seu pin.',
+        })
+        return error;
+      });
+  },
+
+  // loadDeletedPins({ commit, dispatch }) {
+  //   dispatch('services/GET', { uri: 'pins/deleted/all' }, { root: true })
+  //     .then((response) => {
+  //       commit('SET_DELETED_PINS_LIST', response.data);
+  //     })
+  //     .catch((error) => error);
+  // },
+
+  //Ao implementar essa busca no front, é preciso colocar na uri o ID do usuário pelo qual deseja-se pesquisar.
+  // loadDeletedPinsByUserId({ commit, dispatch }) {
+  //   dispatch('services/GET', { uri: `pins/deleted/${id}` }, { root: true })
+  //     .then((response) => {
+  //       commit('SET_DELETED_PINS_LIST', response.data);
+  //     })
+  //     .catch((error) => error);
+  // },
 };
 
 export default actions;
