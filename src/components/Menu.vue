@@ -58,7 +58,7 @@
                     :to="{ name: 'Contato' }"
                     exact
                   >
-                    Contato
+                    Ajuda
                   </router-link>
                 </li>
               </ul>

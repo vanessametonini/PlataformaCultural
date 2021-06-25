@@ -95,35 +95,9 @@
           <li>Acessar o repositório do Fórum Municipal de Cultura de Campo Grande.</li>
         </ul>
       </p>
-      <p>
-        Para entrar em contato, enviar e-mail para: <a href="mailto:cartografiadaculturacg@gmail.com">cartografiadaculturacg@gmail.com</a>
-        ou através das nossas redes sociais:
-      </p>
-      <p>
-        <a
-          class="body-3 bolder"
-          target="_blank"
-          href="https://www.facebook.com/CartografiadaCulturaCG"
-        >
-          <i class="fab fa-facebook" />
-          Facebook
-        </a>
-        <a
-          class="body-3 bolder mg-left16"
-          target="_blank"
-          href="https://www.instagram.com/cartografiadaculturacg/"
-        >
-          <i class="fab fa-instagram" />
-          Instagram
-        </a>
-      </p>
-      <p>
-        Para participar e colaborar com a plataforma,
-        <router-link to="signUp">
-          <strong>CADASTRE-SE</strong>
-        </router-link>.
-      </p>
+      
     </section>
+    
     <section class="plataforma body-3 text mg-top32">
       <h1 class="title-1 bolder">
         A plataforma como campo de pesquisa
@@ -136,7 +110,6 @@
         Instituto de Arquitetura e Urbanismo da Universidade de São Paulo. 
       </p>
       <p>
-        Desenvolvida
       </p><p>
         Para mais informações sobre a pesquisa, acesse os links: 
       </p>
@@ -158,12 +131,59 @@
           href="http://www.nomads.usp.br/bolhaberta"
         >Bolhaberta</a>
       </p>
+    </section>
+    
+    <section class="plataforma body-3 text mg-top32">
+      <h1 class="title-1 bolder">
+        Contato e redes sociais
+      </h1>
+      <p class="mg-top16">
+        Para entrar em contato, enviar e-mail para: <a href="mailto:cartografiadaculturacg@gmail.com">cartografiadaculturacg@gmail.com</a>
+        ou através das nossas redes sociais. 
+      </p> 
+      <p>
+        Você pode assistir os tutoriais de como usar a plataforma no canal Cartografia da Cultura no Youtube.
+      </p>
+      <p>
+        <a
+          class="body-3 bolder"
+          target="_blank"
+          href="https://www.facebook.com/CartografiadaCulturaCG"
+        >
+          <i class="fab fa-facebook" />
+          Facebook
+        </a>
+        <a
+          class="body-3 bolder mg-left16"
+          target="_blank"
+          href="https://www.instagram.com/cartografiadaculturacg/"
+        >
+          <i class="fab fa-instagram" />
+          Instagram
+        </a>
+        <a
+          class="body-3 bolder mg-left16"
+          target="_blank"
+          href="https://www.youtube.com/channel/UCeqQ7e93pqtqE6U8nl7P4rA/"
+        >
+          <i class="fab fa-youtube" />
+          YouTube
+        </a>
+      </p>
       <p>
         <a
           target="_blank"
           href="https://github.com/vanessametonini/PlataformaCultural"
         >Acesse o código no GITHUB.</a>
       </p>
+      
+      <p>
+        Para participar e colaborar com a plataforma,
+        <router-link to="signUp">
+          <strong>CADASTRE-SE</strong>
+        </router-link>.
+      </p>
+    
     </section>
 
     <div class="white-space" />
@@ -171,7 +191,7 @@
     <!-- start section criação -->
     <section class="creation">
       <h2 class="title-3 bolder">
-        Organização
+        Instituições
       </h2>
       <ul>
         <li
