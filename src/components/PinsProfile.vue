@@ -46,19 +46,37 @@
               class="icon"
               @click="$store.commit('pins/SET_SELECTED_PIN_ID', pin.id), confirm=true"
             >
-                <i class="fas fa-trash"></i>
-              </q-item-label>
+              <i class="fas fa-trash" />
+            </q-item-label>
           </q-item-section>
-          <q-dialog v-model="confirm" persistent>
+          <q-dialog
+            v-model="confirm"
+            persistent
+          >
             <q-card>
               <q-card-section class="row items-center">
-                <q-avatar icon="fas fa-trash" color="negative" text-color="white" />
+                <q-avatar
+                  icon="fas fa-trash"
+                  color="negative"
+                  text-color="white"
+                />
                 <span class="q-ml-sm">Tem certeza que deseja remover esse pin?</span>
               </q-card-section>
 
               <q-card-actions align="right">
-                <q-btn flat label="Cancelar" color="negative" v-close-popup />
-                <q-btn flat label="Remover" color="negative" v-close-popup @click="removePin()" />
+                <q-btn
+                  v-close-popup
+                  flat
+                  label="Cancelar"
+                  color="negative"
+                />
+                <q-btn
+                  v-close-popup
+                  flat
+                  label="Remover"
+                  color="negative"
+                  @click="removePin()"
+                />
               </q-card-actions>
             </q-card>
           </q-dialog>

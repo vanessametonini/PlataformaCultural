@@ -34,29 +34,69 @@
         </a>
       </section>
       
-       <section class="plat mg-top32">
+      <section class="plat mg-top32">
         <span class="title-3 bolder">Apresentação da plataforma </span>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/gdOr7b64_nA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/gdOr7b64_nA"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        />
       </section>
       
       <section class="plat mg-top32">
         <span class="title-3 bolder">Tutorial 1 - como fazer o cadastro </span>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/Da3zGwoVl9A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/Da3zGwoVl9A"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        />
       </section>
       
       <section class="plat mg-top32">
         <span class="title-3 bolder">Tutorial 2 - como  inserir um pin no mapa</span>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/IpvAPNFpQ5I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/IpvAPNFpQ5I"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        />
       </section>
       
       <section class="plat mg-top32">
         <span class="title-3 bolder">Tutorial 3 - como inserir um evento na agenda</span>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/2PlDIilF6y4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/2PlDIilF6y4"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        />
       </section>
       
       <section class="plat mg-top32">
         <span class="title-3 bolder">Tutorial 4 - como iniciar um debate</span>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/PUGiSYlojLg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/PUGiSYlojLg"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        />
       </section>
 
       <div class="white-space" />
