@@ -74,7 +74,7 @@
             :error="$v.cep.$error"
             :error-message="cepErrorMessage"
             @blur="$v.cep.$touch"
-            v-on:keyup="searchAddress()"
+            @keyup="searchAddress()"
           />
         </div>
 
@@ -100,6 +100,7 @@
         <span class="subheading-2">Rua - logradouro*</span>
         <q-input
           v-model="street"
+          disable
           class="input"
           dense
           input-class="text-black"
@@ -114,6 +115,7 @@
         <span class="subheading-2">Bairro*</span>
         <q-input
           v-model="neighborhood"
+          disable
           class="input"
           dense
           input-class="text-black"
