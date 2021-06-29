@@ -221,6 +221,34 @@ const actions = {
     dispatch('topics/supportCurrentTopic', { supportType }, { root: true });
     commit('ADD_SUPPORT', newSupport);
   },
+
+  editUser({ commit, dispatch, rootState }) {
+    const notif = Notify.create({
+      group: false,
+      spinner: true,
+      message: 'Atualizando perfil...',
+    });
+    const data = { ...rootState.users.userForm, userId: rootState.users.currentUser.id };
+    return dispatch('services/PUT', { uri: `users/${data.userId}`, data }, { root: true })
+      .then((response) => {
+        const user =  { ...data, ...response.data };
+        commit('SET_CURRENT_USER', user );
+        notif({
+          icon: 'done',
+          spinner: false,
+          message: 'Perfil atualizado!',
+        })
+        return response;
+      })
+      .catch((error) => {
+        notif({
+          type: 'negative',
+          spinner: false,
+          message: 'Não foi possível atualizar seu perfil.',
+        })
+        return error;
+      });
+  }
 };
 
 export default actions;

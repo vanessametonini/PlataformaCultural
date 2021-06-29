@@ -4,6 +4,9 @@
       <h4 class="title-3 bolder">
         Perfil
       </h4>
+      <span class="edit-icon" @click="editMode=true">
+        <i class="fas fa-edit" />
+      </span>
 
       <div class="row justify-between mg-top8">
         <div class="column">
@@ -14,7 +17,7 @@
             dense
             input-class="text-black"
             color="black"
-            readonly
+            :readonly="!editMode"
           />
         </div>
 
@@ -26,7 +29,7 @@
             dense
             input-class="text-black"
             color="black"
-            readonly
+            :readonly="!editMode"
           />
         </div>
       </div>
@@ -47,7 +50,7 @@
             options-dense
             options-selected-class
             color="black"
-            readonly
+            :readonly="!editMode"
           >
             <template #selected>
               <span class="caption bold">{{ gender }}</span>
@@ -63,7 +66,7 @@
             dense
             input-class="text-black"
             color="black"
-            readonly
+            :readonly="!editMode"
           />
         </div>
       </div>
@@ -83,7 +86,7 @@
           options-dense
           options-selected-class
           color="black"
-          readonly
+          :readonly="!editMode"
         >
           <template #selected>
             <span class="caption bold">{{ ageRange }}</span>
@@ -106,7 +109,7 @@
           options-dense
           options-selected-class
           color="black"
-          readonly
+          :readonly="!editMode"
         >
           <template #selected>
             <span class="caption bold">{{ education }}</span>
@@ -129,7 +132,7 @@
           options-dense
           options-selected-class
           color="black"
-          readonly
+          :readonly="!editMode"
         >
           <template #selected>
             <span class="caption bold">{{ $store.getters['categories/getCategoryById'](categoryId).label }}</span>
@@ -137,13 +140,10 @@
         </q-select>
       </div>
 
-      <div
-        v-if="false"
-        class="column mg-top8"
-      >
+      <div class="column mg-top8" v-if="editMode">
         <span class="subheading-2">Avatar</span>
         <q-file
-          v-model="model"
+          v-model="file"
           class="input"
           dense
           square
@@ -154,15 +154,17 @@
         >
           <template #before>
             <q-avatar size="30px">
-              <img :src="model === null?`${$store.getters['services/getImagePath']}${avatar}`: img64">
+              <!-- <img :src="file === null ? `${$store.getters['services/getImagePath']}${avatar}`: img64"> -->
+              <img :src="file === null ? `${$store.getters['services/getDefaultImage']}`: img64">
+              <!-- <img v-if="file !== null" :src="img64"> -->
             </q-avatar>
           </template>
           <template #append>
             <q-icon
-              v-if="model !== null"
+              v-if="file !== null"
               name="close"
               class="cursor-pointer"
-              @click.stop="model = null"
+              @click.stop="file = null"
             />
             <q-icon
               name="create_new_folder"
@@ -172,21 +174,12 @@
           <template #hint>
             Tamanho máximo de 5MB
           </template>
-          <!-- <template #after>
-            <q-btn
-              round
-              dense
-              flat
-              icon="send"
-              @click="sendImages"
-            />
-          </template> -->
         </q-file>
       </div>
     </div>
 
     <div
-      v-if="false"
+      v-if="editMode"
       class="mg-top32"
       align="right" 
     >
@@ -194,7 +187,7 @@
         class="mg-right8"
         flat
         color="black"
-        @click="cancelCreate()"
+        @click="cancel()"
       >
         <span class="caption">Cancelar</span>
       </q-btn>
@@ -202,9 +195,9 @@
       <q-btn
         outline
         color="black"
-        @click="confirmCreate()"
+        @click="updateUser()"
       >
-        <span class="caption">Finalizar</span>
+        <span class="caption">Atualizar</span>
       </q-btn>
     </div>
   </div>
@@ -225,7 +218,8 @@ export default {
   },
   data() {
     return {
-      model: null,
+      editMode: false,
+      file: null,
       img64: '',
       genderOptions: [
         'Feminino',
@@ -269,10 +263,10 @@ export default {
   },
   methods: {
      async encode64(){
-      if (this.model !== null){
+      if (this.file !== null){
         await new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.readAsDataURL(this.model);
+        reader.readAsDataURL(this.file);
         reader.onload = () => {
           this.img64 = reader.result
         };
@@ -281,24 +275,29 @@ export default {
     }
      
     },
-    cancelCreate() { // cancela criação do evento ou edição de shortEvent
-      this.category = {
-        label: '',
-        value: '',
-        color: '#b8cad4',
-      }
-      
+    cancel() {
+      this.editMode = false;
     },
-    confirmCreate() { // confirma criação de evento ou ediçao de shortEvent
-      this.$store.dispatch('images/uploadArray', { files: this.files })
-        .then((filenames) => {
-          this.images = JSON.stringify(filenames);
-          this.$store.dispatch('events/createNewEvent');
-        })
-        .catch ((error) => {
-            console.log(error);
-        });
-    }
+    updateUser() {
+      //se tiver imagens
+      if (this.file) {
+            this.$store
+              .dispatch("images/uploadAvatar", { file: this.file })
+              .then((fileId) => {
+                this.avatar = fileId;
+                this.$store.dispatch("users/editUser");
+                this.editMode = false;
+              })
+              .catch((error) => {
+              this.waiting = false;
+            });
+      }
+      //se não tiver imagens
+      else {
+        this.$store.dispatch("users/editUser");
+        this.editMode = false;
+      }
+    },
   },
 };
 </script>
@@ -306,6 +305,17 @@ export default {
 <style lang="scss" scoped>
 @import '../styles/variables.scss';
 @import '../styles/mixins.scss';
+
+.input-content {
+  position: relative;
+}
+
+.edit-icon {
+  position: absolute;
+  top: 0;
+  left: 505px;
+  cursor: pointer;
+}
 
 .input {
   width: 100%;
@@ -315,15 +325,7 @@ export default {
   margin-top: -8px;
 }
 
-.f-size {
-  font-size: 0.9rem;
-}
-
 span {
   color: black;
-}
-
-.row.justify-between .column {
-  width: 48%;
 }
 </style>
