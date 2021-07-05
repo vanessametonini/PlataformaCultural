@@ -95,7 +95,6 @@
           <li>Acessar o repositório do Fórum Municipal de Cultura de Campo Grande.</li>
         </ul>
       </p>
-      
     </section>
     
     <section class="plataforma body-3 text mg-top32">
@@ -109,8 +108,7 @@
         vinculada ao Programa de Pós-graduação em Arquitetura e Urbanismo do 
         Instituto de Arquitetura e Urbanismo da Universidade de São Paulo. 
       </p>
-      <p>
-      </p><p>
+      <p /><p>
         Para mais informações sobre a pesquisa, acesse os links: 
       </p>
       <p>
@@ -183,7 +181,6 @@
           <strong>CADASTRE-SE</strong>
         </router-link>.
       </p>
-    
     </section>
 
     <div class="white-space" />
