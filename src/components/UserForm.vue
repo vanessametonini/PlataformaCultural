@@ -4,32 +4,40 @@
       <h4 class="title-3 bolder">
         Perfil
       </h4>
-      <span class="edit-icon" @click="editMode=true">
+      <span class="edit-icon" @click="setEditMode()">
         <i class="fas fa-edit" />
       </span>
 
       <div class="row justify-between mg-top8">
         <div class="column">
-          <span class="subheading-2">Nome</span>
+          <span class="subheading-2">Nome*</span>
           <q-input
             v-model="firstName"
             class="input"
             dense
             input-class="text-black"
             color="black"
+            required
             :readonly="!editMode"
+            :error="$v.firstName.$error"
+            :error-message="firstNameErrorMessage"
+            @blur="$v.firstName.$touch"
           />
         </div>
 
         <div class="column">
-          <span class="subheading-2">Sobrenome</span>
+          <span class="subheading-2">Sobrenome*</span>
           <q-input
             v-model="lastName"
             class="input"
             dense
             input-class="text-black"
             color="black"
+            required
             :readonly="!editMode"
+            :error="$v.lastName.$error"
+            :error-message="lastNameErrorMessage"
+            @blur="$v.lastName.$touch"
           />
         </div>
       </div>
@@ -135,7 +143,7 @@
           :readonly="!editMode"
         >
           <template #selected>
-            <span class="caption bold">{{ $store.getters['categories/getCategoryById'](categoryId).label }}</span>
+            <span class="caption bold">{{ getCategoryLabel }}</span>
           </template>
         </q-select>
       </div>
@@ -148,15 +156,15 @@
           dense
           square
           counter
-          use-chips
           max-files="1"
           @input="encode64"
         >
           <template #before>
-            <q-avatar size="30px">
-              <!-- <img :src="file === null ? `${$store.getters['services/getImagePath']}${avatar}`: img64"> -->
-              <img :src="file === null ? `${$store.getters['services/getDefaultImage']}`: img64">
-              <!-- <img v-if="file !== null" :src="img64"> -->
+            <q-avatar size="30px" v-if="file === null && !avatar">
+              <img :src="defaultImage">
+            </q-avatar>
+            <q-avatar size="30px" v-else>
+              <img :src="file === null ? getAvatar: img64">
             </q-avatar>
           </template>
           <template #append>
@@ -187,7 +195,7 @@
         class="mg-right8"
         flat
         color="black"
-        @click="cancel()"
+        @click="setEditMode()"
       >
         <span class="caption">Cancelar</span>
       </q-btn>
@@ -206,6 +214,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import { createHelpers } from 'vuex-map-fields';
+import { required } from "vuelidate/lib/validators";
 
 const { mapFields } = createHelpers({
   getterType: 'users/getField',
@@ -218,7 +227,9 @@ export default {
   },
   data() {
     return {
+      waiting: false,
       editMode: false,
+      defaultImage: require("../assets/default.png"),
       file: null,
       img64: '',
       genderOptions: [
@@ -243,15 +254,22 @@ export default {
       ]
     };
   },
+  validations: {
+    firstName: {
+      required
+    },
+    lastName: {
+      required
+    }
+  },
   computed: {
     ...mapFields({
-      firstName: 'userForm.firstName',
+      firstName:'userForm.firstName',
       ageRange:'userForm.ageRange',
       avatar:'userForm.avatarId',
       categoryId: 'userForm.categoryId',
       education:'userForm.education',
       email:'userForm.email',
-      firstName:'userForm.firstName',
       gender:'userForm.gender',
       lastName:'userForm.lastName',
       otherGender:'userForm.otherGender',
@@ -260,6 +278,24 @@ export default {
       categories: 'categories/loadCategories',
       user: 'users/getCurrentUser',
     }),
+    getAvatar() {
+      return `${this.$store.getters['services/getImagePath']}${this.avatar}`
+    },
+    getCategoryLabel() {
+      return this.$store.getters["categories/getCategoryById"](this.categoryId).label
+    },
+    firstNameErrorMessage() {
+      if (!this.$v.firstName.required) {
+        return "Esse campo é obrigatório";
+      }
+      return "";
+    },
+    lastNameErrorMessage() {
+      if (!this.$v.lastName.required) {
+        return "Esse campo é obrigatório";
+      }
+      return "";
+    },
   },
   methods: {
      async encode64(){
@@ -271,31 +307,46 @@ export default {
           this.img64 = reader.result
         };
         reader.onerror = error => reject(error);
-      });
-    }
-     
+        });
+      }
     },
-    cancel() {
-      this.editMode = false;
+    setEditMode() {
+      this.editMode = !this.editMode;
     },
     updateUser() {
-      //se tiver imagens
-      if (this.file) {
-            this.$store
-              .dispatch("images/uploadAvatar", { file: this.file })
-              .then((fileId) => {
-                this.avatar = fileId;
-                this.$store.dispatch("users/editUser");
-                this.editMode = false;
-              })
-              .catch((error) => {
-              this.waiting = false;
-            });
-      }
-      //se não tiver imagens
-      else {
-        this.$store.dispatch("users/editUser");
-        this.editMode = false;
+      this.waiting = true;
+      this.$v.$touch();
+
+      if (!this.$v.$anyError) {
+        this.$q.notify({
+          message: "Por favor, aguarde.",
+          position: 'top-right',
+          timeout: 1500
+        });
+
+        //se tiver imagens
+        if (this.file) {
+          this.$store
+            .dispatch("images/uploadAvatar", { file: this.file, userId: this.user.id })
+            .then((fileId) => {
+              this.avatar = fileId;
+              this.$store.dispatch("users/editUser");
+              this.editMode = false;
+            })
+            .catch((error) => {
+            this.waiting = false;
+          });
+        }
+        //se não tiver imagens
+        else {
+          this.$store.dispatch("users/editUser");
+          this.editMode = false;
+        }
+      } else {
+        this.$q.notify({
+          message: "Por favor, preencha os campos corretamente.",
+          position: 'top-right',
+        });
       }
     },
   },
