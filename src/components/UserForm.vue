@@ -43,7 +43,7 @@
       </div>
 
       <div class="row justify-between mg-top8">
-        <div class="column mg-top8">
+        <div class="column" style="width: 49%">
           <span class="subheading-2">Gênero</span>
           <q-select
             v-model="gender"
@@ -370,6 +370,7 @@ export default {
 
 .input {
   width: 100%;
+  min-width: 49%;
   // height: 40px;
   font-size: 1.2rem;
   font-weight: bold;
