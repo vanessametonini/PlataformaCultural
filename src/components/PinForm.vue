@@ -74,12 +74,14 @@
             :error="$v.cep.$error"
             :error-message="cepErrorMessage"
             @blur="$v.cep.$touch"
+            @keyup="searchAddress()"
           />
         </div>
 
         <div class="column">
           <span class="subheading-2">Número</span>
           <q-input
+            ref="inputNumber"
             v-model="number"
             class="input"
             dense
@@ -98,6 +100,7 @@
         <span class="subheading-2">Rua - logradouro*</span>
         <q-input
           v-model="street"
+          disable
           class="input"
           dense
           input-class="text-black"
@@ -112,6 +115,7 @@
         <span class="subheading-2">Bairro*</span>
         <q-input
           v-model="neighborhood"
+          disable
           class="input"
           dense
           input-class="text-black"
@@ -286,11 +290,14 @@
 import { mapGetters } from "vuex";
 import { createHelpers } from "vuex-map-fields";
 import { required, url, minLength, email, numeric } from "vuelidate/lib/validators";
+import axios from 'axios';
 
 const { mapFields } = createHelpers({
   getterType: "pins/getField",
   mutationType: "pins/updateField",
 });
+
+const cepNotFound = (value, vm) => (value && vm.cepNotFound == false);
 
 export default {
   name: "PinProfile",
@@ -316,6 +323,7 @@ export default {
       active: false,
       files: null,
       file: null,
+      cepNotFound: false
     };
   },
   validations: {
@@ -344,6 +352,7 @@ export default {
     cep: {
       required,
       minLength: minLength(8),
+      cepNotFound
     },
     description: {
       required,
@@ -436,6 +445,8 @@ export default {
         return "Esse campo é obrigatório";
       } else if (!this.$v.cep.minLength) {
         return "Entre com um cep válido";
+      } else if (cepNotFound) {
+        return "Cep não encontrado"
       }
       return "";
     },
@@ -596,6 +607,31 @@ export default {
             this.$store.dispatch("pins/putPin", { $router: this.$router });
       }
     },
+
+    async searchAddress() {
+      var self = this;
+      self.cepNotFound = false;
+      
+      if(/^[0-9]{8}$/.test(this.cep)){
+
+        const addressData = await axios.get(("https://viacep.com.br/ws/" + this.cep + "/json/"))
+
+          if(addressData.data.erro){
+            this.$refs.inputNumber.focus();
+            self.cepNotFound = true;
+            
+            self.street = '';
+            self.neighborhood = '';
+            self.city = '';
+            return;
+          } 
+
+          self.street = addressData.data.logradouro;
+          self.neighborhood = addressData.data.bairro;
+          self.city = addressData.data.localidade;
+          this.$refs.inputNumber.focus();
+      }
+    }
   }
 }
 </script>
