@@ -9,8 +9,8 @@ const state = {
   },
   zoomSet: {
     zoom: 12,
-    minZoom: 12,
-    maxZoom: 16,
+    minZoom: 11,
+    maxZoom: 18,
     options: {
       zoomSnap: 0.5,
       zoomControl: false,
