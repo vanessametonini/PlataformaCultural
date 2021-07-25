@@ -282,6 +282,13 @@ export default {
           category: 'orientador',
           color: '#AD3B3B',
         },
+        ,
+        {
+          name: 'Cintia',
+          lastName: 'Teixeira',
+          category: 'desenvolvedora de software',
+          color: '#AD3B3B',
+        },
         {
           name: 'Vanessa',
           lastName: 'Me Tonini',
