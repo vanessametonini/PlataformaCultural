@@ -2,6 +2,7 @@
   <q-card
     square
     :style="{ 'background-color': category(pinView.categoryId).color }"
+    class="pin-view"
   >
     <q-card-section class="card-title">
       <h2>{{ pinView.title }}</h2>
@@ -77,12 +78,12 @@
       animated
       arrows
       navigation
-      height="200px"
       infinite
       transition-prev="slide-right"
       transition-next="slide-left"
       @mouseenter="autoplay = false"
       @mouseleave="autoplay = true"
+      class="pin-carousel"
     >
       <q-carousel-slide
         v-for="n in pinView.imageIds.length"
@@ -115,7 +116,6 @@ export default {
   },
   data() {
     return {
-      autoplay: true,
       slide: 1,
     };
   },
@@ -135,6 +135,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../styles/mixins.scss';
+
+.pin-carousel {
+  height: 300px;
+}
+
 .card-title h2 {
   font-size: 3em;
   font-weight: bolder;
@@ -176,4 +182,13 @@ export default {
   font-size: 16px;
   margin-left: auto;
 }
+
+
+@include for-phone-only {
+  .pin-view {
+    height: 100%;
+  }
+
+}
+
 </style>
