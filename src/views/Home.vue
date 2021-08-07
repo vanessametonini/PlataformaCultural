@@ -79,6 +79,7 @@
             :lat-lng="pin.coordinates"
              @popupopen="pinClick($event, pin)"
              @popupclose="pinClick"
+             @ready="openDefaultMarker($event, pin)"
           >
             <l-icon
               :icon-size="iconSet.iconSize"
@@ -180,6 +181,12 @@ export default {
     }),
   },
   methods: {
+    openDefaultMarker(mapObject, item) {
+      if ((item.id === this.$store.getters['pins/getSelectedPinId'])) {
+        mapObject.openPopup();
+        this.$store.commit('pins/SET_SELECTED_PIN_ID', null);
+      }
+    },
     filterThis(el) {
       if (this.filterSelections.includes(el)) {
         const index = this.filterSelections.indexOf(el.toString());
