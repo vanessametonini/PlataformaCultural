@@ -41,6 +41,127 @@
 
 // ----------------- typograph styleguide -------------------
 
+
+.big-title {
+  font-size: 2.5rem;
+  letter-spacing: -0.5px;
+  line-height: 2.25rem;
+}
+
+.title-1, .title-2, .title-3, .title-4 {
+  line-height: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+.title-1 {
+  font-size: 2.125rem;
+}
+
+.title-2 {
+  font-size: 1.75rem;
+}
+
+.title-3 {
+  font-size: 1.5rem;
+}
+
+.title-4 {
+  font-size: 1.125rem;
+}
+
+.headline {
+  font-size: 1.375rem;  // 22 px
+  letter-spacing: 0.25px;
+}
+
+.headline-2 {
+  font-size: 1.125rem;  // 18 px
+}
+
+.headline-3 {
+  font-size: 1rem;  // 16 px
+  letter-spacing: 0.15px;
+}
+
+.body-1 {
+  font-size: 1.125rem;  // 18 px
+  letter-spacing: 0.15px;
+}
+
+.body-2 {
+  font-size: 1rem;  // 16 px
+  letter-spacing: 0.15px;
+}
+
+.body-3 {
+  font-size: 0.875rem;  // 14 px
+  letter-spacing: 0.15px;
+}
+
+.body-large {
+  font-size: 1.125rem;  // 18 px
+  letter-spacing: 0.15px;
+  font-weight: bold;
+}
+
+.body-large2 {
+  font-size: 1rem;  // 16 px
+  letter-spacing: 0.15px;
+  font-weight: bold;
+}
+
+.caption {
+  font-size: 0.75rem;  // 12 px
+  letter-spacing: 0.4px;
+}
+
+.overline {
+  font-size: 0.625rem; // 10 px
+  letter-spacing: 1.5px;
+}
+
+.btn-text {
+  font-size: 0.875em;  // 14 px
+  letter-spacing: 1.25px;
+}
+
+.ligth {
+  font-weight: lighter;
+}
+
+.bold {
+  font-weight: 500;
+}
+
+.bolder {
+  font-weight: 700;
+}
+
+.text-white {
+  color: white;
+}
+
+.text-black {
+  color: black;
+}
+
+.line-h16 {
+  line-height: 1em;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-lowercase {
+  text-transform: lowercase;
+}
+
+.text-gray {
+  color: $gray4;
+}
+
 .txt-al-jus {
   text-align: justify;
 }
@@ -283,6 +404,30 @@
 
 .uppercase {
   text-transform: uppercase;
+}
+
+// ------------------------------- span effects -----------------------------
+
+.effect-underline:after {
+  content: '';
+  position: absolute;
+  left: 24px;
+  display: inline-block;
+  height: 1em;
+  width: 70%;
+  border-bottom: 2px solid;
+  margin-top: 10px;
+  opacity: 0;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  -webkit-transform: scale(0,1);
+  transform: scale(0,1);
+}
+
+.effect-underline:hover:after {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1);
 }
 
 </style>

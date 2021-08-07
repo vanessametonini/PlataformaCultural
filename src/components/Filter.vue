@@ -47,31 +47,43 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../styles/variables.scss';
 @import '../styles/mixins.scss';
 @import '../styles/categories.scss';
 
+$verticalPadding: 10px;
+$footerMargin: 24px;
+
 .filter {
+
+  box-shadow: 5px 5px 5px rgba(0,0,0,1);
+  background-color: white;
+  min-height: 100px;
+  max-height: 662px;
+  padding-bottom: $verticalPadding;
+  padding-top: $verticalPadding;
+  padding-left: 4px;
+  padding-right: 4px;
+
   &.q-scrollarea {
 
-    height: calc(100vh - 272px);
+    height: calc(100vh - #{$logoMobileSize} - #{$logoMargin} - #{$footerMargin * 2} - #{$verticalPadding});
 
     @include for-tablet-landscape-up {
-      height: calc(100vh - 300px);
-    }
-
-    @include for-desktop-up {
-      height: calc(100vh - 338px);
+      height: calc(100vh - #{$logoDesktopSize} - #{$logoMargin} - #{$footerMargin} - #{$verticalPadding});
     }
 
     @include for-big-desktop-up {
-      height: calc(100vh - 368px);
+      height: calc(100vh - #{$logoLargeSize} - #{$logoMargin} - #{$footerMargin} - #{$verticalPadding});
     }
+
   }
 
   ul {
     margin: 0;
     padding: 0;
   }
+
 }
 
 .item {
@@ -90,6 +102,10 @@ export default {
     font-size: 2em;
     position: relative;
     top: -6px;
+  }
+
+  &:last-of-type {
+    margin-bottom: 0;
   }
 }
 

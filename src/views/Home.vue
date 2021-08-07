@@ -5,8 +5,11 @@
       role="banner"
     >
       <logo-card inverted />
-      <my-menu @callFilter="filterThis($event)" />
+      <My-filter
+        @callFilter="filterThis($event)"
+      />
     </header>
+    <my-menu />
 
     <!-- BUTTON LOGIN/PROFILE -->
     <div class="button-area">
@@ -126,6 +129,8 @@ import { gsap, TweenMax, Expo } from 'gsap';
 import { createHelpers } from 'vuex-map-fields';
 import PinView from '../components/PinView.vue';
 import MyMenu from '../components/Menu.vue';
+import MyFilter from '../components/Filter.vue';
+
 const { mapFields } = createHelpers({
   getterType: 'maps/getField',
   mutationType: 'maps/updateField',
@@ -145,6 +150,7 @@ export default {
     LIcon,
     PinView,
     MyMenu,
+    MyFilter,
   },
   data() {
     return {
@@ -261,12 +267,11 @@ export default {
 }
 
 .aside {
-  font-size: 14px;
-  left: 16px;
+  left: $logoMargin;
   max-height: calc(100vh - 16px);
   overflow: hidden;
   position: fixed;
-  top: 16px;
+  top: $logoMargin;
   width: 180px;
   z-index: 2;
 
@@ -276,6 +281,10 @@ export default {
 
   @include for-big-desktop-up {
     width: 200px;
+  }
+
+  .logo-box {
+    margin-bottom: 4px;
   }
 }
 

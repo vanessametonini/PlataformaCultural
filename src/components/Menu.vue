@@ -166,30 +166,6 @@
           </q-card>
         </q-expansion-item>
 
-        <!-- MAPA -->
-        <q-expansion-item
-          group="menu"
-          class="item mapa"
-          expand-icon-class="text-black"
-          @click="expand = !expand"
-        >
-          <template
-            #header
-            class="item-header"
-          >
-            <q-item-section>
-              <span class="menu-text">Mapa</span>
-            </q-item-section>
-          </template>
-
-          <q-card>
-            <q-card-section>
-              <My-filter
-                @callFilter="forwardCall($event)"
-              />
-            </q-card-section>
-          </q-card>
-        </q-expansion-item>
       </q-list>
     </nav>
   </div>
@@ -197,7 +173,6 @@
 
 <script>
 import { createHelpers } from 'vuex-map-fields';
-import MyFilter from './Filter.vue';
 
 const { mapFields } = createHelpers({
   getterType: 'pins/getField',
@@ -206,9 +181,6 @@ const { mapFields } = createHelpers({
 
 export default {
   name: 'MenuComponent',
-  components: {
-    MyFilter,
-  },
   emits: ['call-filter'],
   data() {
     return {
