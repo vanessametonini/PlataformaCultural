@@ -1,5 +1,5 @@
 <template>
-  <div class="app-page home-page">
+  <div class="app-page home-page" v-bind:class="{ 'a-pin-is-open': isPinSelected }">
     <header
       class="aside"
       role="banner"
@@ -80,7 +80,9 @@
             v-for="pin in markers"
             :key="pin.id"
             :lat-lng="pin.coordinates"
-            @ready="openDefaultMarker($event, pin)"
+             @popupopen="pinClick($event, pin)"
+             @popupclose="pinClick"
+             @ready="openDefaultMarker($event, pin)"
           >
             <l-icon
               :icon-size="iconSet.iconSize"
@@ -97,8 +99,6 @@
             </l-popup>
           </l-marker>
         </div>
-
-        <!-- <l-control-attribution position="topleft" prefix="Algo+Ritmo - Research Group" /> -->
       </l-map>
     </main>
     <!--END MAP -->
@@ -155,13 +155,6 @@ export default {
   data() {
     return {
       layers: {
-        standard: {
-          url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
-        },
-        stadia: {
-          name: 'alidade-smooth',
-          url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png',
-        },
         carto: {
           url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
         },
@@ -172,9 +165,6 @@ export default {
       },
       popupOptions: {
         autoPan: false,
-        // keepInView: true,
-        // autoPanPaddingTopLeft: [240, 16],
-        // closeButton: true,
       },
       filterSelections: [],
     };
@@ -192,6 +182,7 @@ export default {
     ...mapGetters({
       pins: 'pins/loadPinsFiltered',
       markers: 'pins/getMarkers',
+      isPinSelected: 'pins/getSelectedPinId',
     }),
   },
   methods: {
@@ -216,6 +207,15 @@ export default {
       const target = this.pins.find((item) => item.id === id);
       return target;
     },
+    pinClick({type}, pin) {
+      /* usado para poder abrir em prioridade na versao mobile */
+      if(type === "popupopen"){
+        this.$store.commit('pins/SET_SELECTED_PIN_ID', pin.id);
+      }
+      else {
+        this.$store.commit('pins/SET_SELECTED_PIN_ID', null);
+      }
+    }
   },
 };
 </script>

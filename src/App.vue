@@ -28,6 +28,58 @@
   display: none !important;
 }
 
+@include for-phone-only {
+
+  /* classe gerenciada em Home.vue */
+  .a-pin-is-open {
+
+    .aside, .button-area, .leaflet-top, .leaflet-bottom, .footer {
+      z-index: -1 !important;
+    }
+
+    .leaflet-pane.leaflet-map-pane {
+      transform: none !important;
+    }
+  }
+
+
+  .leaflet-popup.leaflet-zoom-animated {
+    width: 100vw;
+    height: 100vh;
+    top: 0 !important;
+    left: 0 !important;
+    position: fixed !important;
+    transform: none !important;
+    z-index: 99999 !important;
+    bottom: unset !important;
+
+    .leaflet-popup-content-wrapper {
+      width: 100vw;
+      height: 100vh;
+
+      .leaflet-popup-content {
+        width: 100vw !important;
+        height: 100vh;
+
+        > div {
+         height: 100vh; 
+        }
+      }
+    }
+
+  }
+
+  .leaflet-container a.leaflet-popup-close-button {
+    padding: 0;
+    width: 36px;
+    height: 36px;
+    background: black;
+    font-size: 30px;
+    line-height: 36px;
+    display: block;
+  }
+
+}
 // --------------- quasar reset class -----------------------
 
 .q-item__section--main {
