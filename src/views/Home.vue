@@ -1,57 +1,36 @@
 <template>
-  <div class="app-page home-page" v-bind:class="{ 'a-pin-is-open': isPinSelected }">
-    <header
-      class="aside"
-      role="banner"
-    >
-      <logo-card inverted />
+<q-layout
+  view="lHh Lpr lff"
+  container
+  class="app-page home-page"
+>
+
+  <q-drawer
+    side="right"
+    v-model="drawerRight"
+    show-if-above
+    bordered
+    :width="200"
+    class="bg-grey-3"
+  >
+    <my-menu class="menu" />
+  </q-drawer>
+
+  <q-page-container>
+    <q-page v-bind:class="{ 'a-pin-is-open': isPinSelected }">
+      <header
+        class="header"
+        role="banner"
+      >
+        <logo-card inverted />
+      </header>
+
       <My-filter
+        class="filter"
         @callFilter="filterThis($event)"
       />
-    </header>
-    <my-menu />
 
-    <!-- BUTTON LOGIN/PROFILE -->
-    <div class="button-area">
-      <q-btn
-        v-if="!$store.getters['getAuth']"
-        flat
-        class="btn-custom"
-        to="/signIn"
-        tabindex="1"
-      >
-        <span
-          class="body-3 bolder"
-          to="/singIn"
-        ><b>LOGIN</b></span>
-      </q-btn>
-
-      <q-btn
-        v-if="$store.getters['getAuth']"
-        flat
-        class="btn-custom"
-        to="/profile"
-        tabindex="1"
-      >
-        <span
-          v-if="$store.getters['getAuth']"
-          class="subheading-2 bolder"
-          to="/profile"
-        >Perfil</span>
-      </q-btn>
-
-      <q-btn
-        v-if="false"
-        flat
-        class="btn-custom"
-        @click="$router.push('/documentation')"
-      >
-        <span
-          class="subheading-2 bolder"
-          to="/documentation"
-        >Documentation</span>
-      </q-btn>
-    </div>
+      <q-btn class="btn-mobile-menu" flat @click="drawerRight = !drawerRight" round dense icon="menu" />
 
     <!-- MAP -->
     <main class="map-container">
@@ -80,9 +59,9 @@
             v-for="pin in markers"
             :key="pin.id"
             :lat-lng="pin.coordinates"
-             @popupopen="pinClick($event, pin)"
-             @popupclose="pinClick"
-             @ready="openDefaultMarker($event, pin)"
+            @popupopen="pinClick($event, pin)"
+            @popupclose="pinClick"
+            @ready="openDefaultMarker($event, pin)"
           >
             <l-icon
               :icon-size="iconSet.iconSize"
@@ -112,7 +91,9 @@
         Esta plataforma tem código aberto.
       </a>
     </footer>
-  </div>
+    </q-page>
+  </q-page-container>
+</q-layout>
 </template>
 
 <script>
@@ -167,6 +148,7 @@ export default {
         autoPan: false,
       },
       filterSelections: [],
+      drawerRight: false,
     };
   },
   computed: {
@@ -236,37 +218,18 @@ export default {
   overflow: hidden;
 }
 
-.overlay {
-  z-index: 3;
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-  background: #fff;
-  top: 0%;
+
+.q-layout-container {
+  min-height: 100vh;
 }
 
-.overlay img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.a-pin-is-open {
+  .header, .filter, .btn-mobile-menu  {
+    z-index: 0;
+  }
 }
 
-.overlay span {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  text-align: center;
-  color: black;
-  font-size: 30px;
-  font-weight: 900;
-  letter-spacing: 14px;
-  text-transform: uppercase;
-}
-
-.aside {
+.header {
   left: $logoMargin;
   max-height: calc(100vh - 16px);
   overflow: hidden;
@@ -288,22 +251,45 @@ export default {
   }
 }
 
-.map-container {
-  position: absolute;
-  z-index: 0;
-  top: 0px;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
+.filter {
+  position: fixed;
+  top: calc( #{$logoMobileSize} + #{$logoMargin} + 4px);
+  left: $logoMargin;
+  z-index: 2;
+
+ @include for-tablet-landscape-up {
+    top: calc( #{$logoDesktopSize} + #{$logoMargin} + 4px);
+  }
+
+  @include for-big-desktop-up {
+    top: calc( #{$logoLargeSize} + #{$logoMargin} + 4px);
+  }
+
 }
 
-//tamanho dos ícones
+.btn-mobile-menu {
+  position: fixed;
+  right: $logoMargin;
+  top: $logoMargin;
+  z-index: 2;
+}
+
+.map-container {
+  height: 100vh;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 0;
+}
+
+//tamanho dos ícones no mapa
 span[class^="icon-"] {
   font-size: 4em;
   line-height: 30px;
 }
 
-.button-area {
+/* .button-area {
   position: fixed;
   top: 16px;
   right: 16px;
@@ -328,7 +314,7 @@ span[class^="icon-"] {
     font-weight: 700;
     color: white;
   }
-}
+} */
 
 .footer {
   background-color: rgba($color: #ffffff, $alpha: .7);

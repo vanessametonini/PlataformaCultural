@@ -42,7 +42,6 @@
     }
   }
 
-
   .leaflet-popup.leaflet-zoom-animated {
     width: 100vw;
     height: 100vh;
@@ -120,6 +119,10 @@
 
 .title-4 {
   font-size: 1.125rem;
+
+  @include for-phone-only {
+    font-size: 1rem;
+  }
 }
 
 .headline {

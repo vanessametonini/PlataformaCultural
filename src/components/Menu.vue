@@ -1,174 +1,174 @@
 <template>
-  <div>
-    <!-- MENU -->
-    <nav
-      class="menu-component"
-      :class="{ 'expanded-filters' : expand }"
-      role="navigation"
+  <nav
+    class="menu-component"
+    role="navigation"
+  >
+
+    <!-- item Sobre -->
+    <q-btn color="black" label="Sobre">
+      <q-menu>
+        <q-list style="min-width: 100px">
+          <q-item clickable v-close-popup>
+            <q-item-section>
+              <router-link
+                  type="link"
+                  :to="{ name: 'Plataforma' }"
+                  exact
+                >
+                  Plataforma
+                </router-link>
+            </q-item-section>
+          </q-item>
+          <q-separator />
+          <q-item clickable v-close-popup>
+            <q-item-section>
+              <router-link
+                ref="link"
+                :to="{ name: 'Forum' }"
+              >
+                Fórum
+              </router-link>
+            </q-item-section>
+          </q-item>
+          <q-separator />
+          <q-item clickable v-close-popup>
+            <q-item-section>
+              <router-link
+                ref="link"
+                :to="{ name: 'Terms' }"
+                exact
+              >
+                Nossos Termos
+              </router-link>
+            </q-item-section>
+          </q-item>
+          <q-separator />
+          <q-item clickable v-close-popup>
+            <q-item-section>
+              <router-link
+                ref="link"
+                :to="{ name: 'Contato' }"
+                exact
+              >
+                Ajuda
+              </router-link>
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-menu>
+    </q-btn>
+
+    <!-- item Mapa -->
+    <q-btn color="black" label="Mapa">
+      <q-menu>
+        <router-link
+          :to="{ path: `/profile/newPin` }"
+        >
+          Inserir no mapa
+        </router-link>
+      </q-menu>
+    </q-btn>
+
+    <!-- item Agenda -->
+    <q-btn color="black" label="Agenda">
+      <q-menu>
+        <q-scroll-area
+          :bar-style="barStyle"
+          class="line"
+        >
+          <ol class="recent-events">
+            <li
+              v-for="event in listEvents"
+              :key="event.id"
+              clickable
+              @click="openEvent(event.id)"
+            >
+              <div class="col1">
+                <span class="day">{{ event.day }}</span>
+                <span class="month">{{ event.month }}</span>
+              </div>
+              <div
+                class="col2"
+                :aria-label="event.title"
+                :title="event.title"
+              >
+                <span>{{ event.title }}</span>
+                <span class="caption">{{ event.site }}</span>
+              </div>
+            </li>
+          </ol>
+        </q-scroll-area>
+        <router-link
+          class="submenu-button"
+          :to="{ name: 'Agenda' }"
+        >
+          Ver agenda
+        </router-link>
+      </q-menu>
+    </q-btn>
+
+    <!-- item Debate -->
+    <q-btn color="black" label="Debate">
+      <q-menu>
+        <q-scroll-area
+          :bar-style="barStyle"
+          class="line"
+        >
+          <ol class="recent-debates">
+            <li
+              v-for="topic in listTopics"
+              :key="topic.id"
+            >
+              <h6>
+                <router-link
+                  :to="{ path: `/topics/${topic.id}` }"
+                >
+                  {{ topic.title }}
+                </router-link>
+              </h6>
+            </li>
+          </ol>
+        </q-scroll-area>
+
+        <router-link
+          class="submenu-button"
+          :to="{ name: 'Topics' }"
+        >
+          Participe do debate!
+        </router-link>
+      </q-menu>
+    </q-btn>
+
+    <!-- item Vídeos -->
+    <q-btn color="black" label="Vídeos">
+      <q-menu>
+        <a href="">Apresentação</a>
+        <a href="">Tutorial 1. Cadastro</a>
+        <a href="">Tutorial 2. Inserir pin</a>
+        <a href="">Tutorial 3. Inserir evento</a>
+        <a href="">Tutorial 4. Inserir debate</a>
+        <a href="">Live Célio Turino</a>
+
+      </q-menu>
+    </q-btn>
+
+    <!-- item Login/Perfil -->
+    <q-btn
+      v-if="!$store.getters['getAuth']"
+      color="red"
+      to="/signIn"
     >
-      <!-- MENU -->
-      <q-list>
-        <!-- item Sobre -->
-        <q-expansion-item
-          group="menu"
-          class="item sobre"
-          expand-icon-class="text-black"
-        >
-          <template
-            #header
-            class="item-header"
-          >
-            <q-item-section>
-              <span class="menu-text">Sobre</span>
-            </q-item-section>
-          </template>
+      Login
+    </q-btn>
 
-          <q-card>
-            <q-card-section>
-              <ul class="navigation-list">
-                <li class="navigation-item line">
-                  <router-link
-                    type="link"
-                    :to="{ name: 'Plataforma' }"
-                    exact
-                  >
-                    Plataforma
-                  </router-link>
-                </li>
-                <li class="navigation-item line">
-                  <router-link
-                    ref="link"
-                    :to="{ name: 'Forum' }"
-                  >
-                    Fórum
-                  </router-link>
-                </li>
-                <li class="navigation-item line">
-                  <router-link
-                    ref="link"
-                    :to="{ name: 'Terms' }"
-                    exact
-                  >
-                    Nossos Termos
-                  </router-link>
-                </li>
-                <li class="navigation-item">
-                  <router-link
-                    ref="link"
-                    :to="{ name: 'Contato' }"
-                    exact
-                  >
-                    Ajuda
-                  </router-link>
-                </li>
-              </ul>
-            </q-card-section>
-          </q-card>
-        </q-expansion-item>
-
-        <!-- item Agenda -->
-        <q-expansion-item
-          group="menu"
-          class="item agenda"
-          expand-icon-class="text-black"
-        >
-          <template
-            #header
-            class="item-header"
-          >
-            <q-item-section>
-              <span class="menu-text">Agenda</span>
-            </q-item-section>
-          </template>
-
-          <q-card>
-            <q-card-section>
-              <q-scroll-area
-                :bar-style="barStyle"
-                class="line"
-              >
-                <ol class="recent-events">
-                  <li
-                    v-for="event in listEvents"
-                    :key="event.id"
-                    clickable
-                    @click="openEvent(event.id)"
-                  >
-                    <div class="col1">
-                      <span class="day">{{ event.day }}</span>
-                      <span class="month">{{ event.month }}</span>
-                    </div>
-                    <div
-                      class="col2"
-                      :aria-label="event.title"
-                      :title="event.title"
-                    >
-                      <span>{{ event.title }}</span>
-                      <span class="caption">{{ event.site }}</span>
-                    </div>
-                  </li>
-                </ol>
-              </q-scroll-area>
-              <router-link
-                class="submenu-button"
-                :to="{ name: 'Agenda' }"
-              >
-                Ver agenda
-              </router-link>
-            </q-card-section>
-          </q-card>
-        </q-expansion-item>
-
-        <!-- item Diálogo -->
-        <q-expansion-item
-          group="menu"
-          class="item debate"
-          expand-icon-class="text-black"
-        >
-          <template
-            #header
-            class="item-header"
-          >
-            <q-item-section>
-              <span class="menu-text">Debate</span>
-            </q-item-section>
-          </template>
-
-          <q-card>
-            <q-card-section>
-              <q-scroll-area
-                :bar-style="barStyle"
-                class="line"
-              >
-                <ol class="recent-debates">
-                  <li
-                    v-for="topic in listTopics"
-                    :key="topic.id"
-                  >
-                    <h6>
-                      <router-link
-                        :to="{ path: `/topics/${topic.id}` }"
-                      >
-                        {{ topic.title }}
-                      </router-link>
-                    </h6>
-                  </li>
-                </ol>
-              </q-scroll-area>
-
-              <router-link
-                class="submenu-button"
-                :to="{ name: 'Topics' }"
-              >
-                Participe do debate!
-              </router-link>
-            </q-card-section>
-          </q-card>
-        </q-expansion-item>
-
-      </q-list>
-    </nav>
-  </div>
+    <q-btn
+      v-if="$store.getters['getAuth']"
+      color="black"
+      to="/profile"
+    >
+      Perfil
+    </q-btn>
+  </nav>
 </template>
 
 <script>
@@ -191,6 +191,12 @@ export default {
         width: "4px",
         opacity: .8,
       },
+      navigation: [
+        {
+          title: '',
+          path: ''
+        }
+      ]
     };
   },
   computed: {
