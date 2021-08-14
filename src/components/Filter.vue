@@ -1,6 +1,8 @@
 <template>
   <aside class="filter">
-    <h2 class="title-4">Categorias no mapa</h2>
+    <h2 class="title-4">
+      Categorias no mapa
+    </h2>
     <q-scroll-area :bar-style="barStyle">
       <ul>
         <li

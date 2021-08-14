@@ -90,6 +90,13 @@
   padding: 4px;
 }
 
+.drawer-menu {
+
+  .q-drawer {
+    background-color: black;
+  }
+}
+
 // ----------------- typograph styleguide -------------------
 
 

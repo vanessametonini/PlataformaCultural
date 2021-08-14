@@ -1,99 +1,107 @@
 <template>
-<q-layout
-  view="lHh Lpr lff"
-  container
-  class="app-page home-page"
->
-
-  <q-drawer
-    side="right"
-    v-model="drawerRight"
-    show-if-above
-    bordered
-    :width="200"
-    class="bg-grey-3"
+  <q-layout
+    view="lHh Lpr lff"
+    container
+    class="app-page home-page"
   >
-    <my-menu class="menu" />
-  </q-drawer>
+    <q-drawer
+      v-if="$q.platform.is.mobile"
+      v-model="drawerRight"
+      side="right"
+      :width="200"
+      class="drawer-menu"
+    >
+      <mobile-menu />
+    </q-drawer>
 
-  <q-page-container>
-    <q-page v-bind:class="{ 'a-pin-is-open': isPinSelected }">
-      <header
-        class="header"
-        role="banner"
-      >
-        <logo-card inverted />
-      </header>
+    <q-page-container>
+      <q-page :class="{ 'a-pin-is-open': isPinSelected }">
+        <header
+          class="header"
+          role="banner"
+        >
+          <logo-card inverted />
+        </header>
 
-      <My-filter
-        class="filter"
-        @callFilter="filterThis($event)"
-      />
+        <my-menu v-if="!$q.platform.is.mobile" />
 
-      <q-btn class="btn-mobile-menu" flat @click="drawerRight = !drawerRight" round dense icon="menu" />
-
-    <!-- MAP -->
-    <main class="map-container">
-      <l-map
-        style="width: 100%, height: 100%"
-        :zoom="zoom"
-        :center="[center.lat, center.lng]"
-        :options="options"
-        :min-zoom="minZoom"
-        :max-zoom="maxZoom"
-        @update:zoom="zoom = $event"
-        @update:center="center = $event"
-        @update:bounds="bounds = $event"
-      >
-        <l-tile-layer
-          :url="layers.carto.url"
-          :attribution="attribution"
+        <My-filter
+          class="filter"
+          @callFilter="filterThis($event)"
         />
 
-        <l-control-zoom
-          position="bottomright"
+        <q-btn
+          v-if="$q.platform.is.mobile"
+          class="btn-mobile-menu"
+          flat
+          round
+          dense
+          icon="menu"
+          @click="drawerRight = !drawerRight"
         />
 
-        <div class="my-markes">
-          <l-marker
-            v-for="pin in markers"
-            :key="pin.id"
-            :lat-lng="pin.coordinates"
-            @popupopen="pinClick($event, pin)"
-            @popupclose="pinClick"
-            @ready="openDefaultMarker($event, pin)"
+        <!-- MAP -->
+        <main class="map-container">
+          <l-map
+            style="width: 100%, height: 100%"
+            :zoom="zoom"
+            :center="[center.lat, center.lng]"
+            :options="options"
+            :min-zoom="minZoom"
+            :max-zoom="maxZoom"
+            @update:zoom="zoom = $event"
+            @update:center="center = $event"
+            @update:bounds="bounds = $event"
           >
-            <l-icon
-              :icon-size="iconSet.iconSize"
-              :icon-anchor="iconSet.iconAnchor"
-            >
-              <span
-                :class="`icon-${$store.getters['categories/getCategoryById'](pin.categoryId).value}`"
-                :style="{'color': `${$store.getters['categories/getCategoryById'](pin.categoryId).color}`}"
-              />
-            </l-icon>
+            <l-tile-layer
+              :url="layers.carto.url"
+              :attribution="attribution"
+            />
 
-            <l-popup :options="popupOptions">
-              <pin-view :pin-view="getPinById(pin.id)" />
-            </l-popup>
-          </l-marker>
-        </div>
-      </l-map>
-    </main>
-    <!--END MAP -->
+            <l-control-zoom
+              position="bottomright"
+            />
 
-    <footer class="footer">
-      <a
-        href="https://github.com/vanessametonini/PlataformaCultural"
-        target="_blank"
-        class="floss-link"
-      >
-        Esta plataforma tem código aberto.
-      </a>
-    </footer>
-    </q-page>
-  </q-page-container>
-</q-layout>
+            <div class="my-markes">
+              <l-marker
+                v-for="pin in markers"
+                :key="pin.id"
+                :lat-lng="pin.coordinates"
+                @popupopen="pinClick($event, pin)"
+                @popupclose="pinClick"
+                @ready="openDefaultMarker($event, pin)"
+              >
+                <l-icon
+                  :icon-size="iconSet.iconSize"
+                  :icon-anchor="iconSet.iconAnchor"
+                >
+                  <span
+                    :class="`icon-${$store.getters['categories/getCategoryById'](pin.categoryId).value}`"
+                    :style="{'color': `${$store.getters['categories/getCategoryById'](pin.categoryId).color}`}"
+                  />
+                </l-icon>
+
+                <l-popup :options="popupOptions">
+                  <pin-view :pin-view="getPinById(pin.id)" />
+                </l-popup>
+              </l-marker>
+            </div>
+          </l-map>
+        </main>
+        <!--END MAP -->
+
+        <footer class="footer">
+          <a
+            href="https://github.com/vanessametonini/PlataformaCultural"
+            target="_blank"
+            class="floss-link"
+          >
+            Esta plataforma tem código aberto.
+          </a>
+        </footer>
+      </q-page>
+    </q-page-container>
+  </q-layout>
 </template>
 
 <script>
@@ -109,6 +117,7 @@ import { mapGetters } from 'vuex';
 import { gsap, TweenMax, Expo } from 'gsap';
 import { createHelpers } from 'vuex-map-fields';
 import PinView from '../components/PinView.vue';
+import MobileMenu from '../components/MobileMenu.vue';
 import MyMenu from '../components/Menu.vue';
 import MyFilter from '../components/Filter.vue';
 
@@ -132,6 +141,7 @@ export default {
     PinView,
     MyMenu,
     MyFilter,
+    MobileMenu
   },
   data() {
     return {
@@ -198,7 +208,7 @@ export default {
         this.$store.commit('pins/SET_SELECTED_PIN_ID', null);
       }
     }
-  },
+  }
 };
 </script>
 
@@ -217,7 +227,6 @@ export default {
   width: 100%;
   overflow: hidden;
 }
-
 
 .q-layout-container {
   min-height: 100vh;

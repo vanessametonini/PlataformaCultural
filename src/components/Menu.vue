@@ -3,24 +3,32 @@
     class="menu-component"
     role="navigation"
   >
-
     <!-- item Sobre -->
-    <q-btn color="black" label="Sobre">
+    <q-btn
+      color="black"
+      label="Sobre"
+    >
       <q-menu>
         <q-list style="min-width: 100px">
-          <q-item clickable v-close-popup>
+          <q-item
+            v-close-popup
+            clickable
+          >
             <q-item-section>
               <router-link
-                  type="link"
-                  :to="{ name: 'Plataforma' }"
-                  exact
-                >
-                  Plataforma
-                </router-link>
+                type="link"
+                :to="{ name: 'Plataforma' }"
+                exact
+              >
+                Plataforma
+              </router-link>
             </q-item-section>
           </q-item>
           <q-separator />
-          <q-item clickable v-close-popup>
+          <q-item
+            v-close-popup
+            clickable
+          >
             <q-item-section>
               <router-link
                 ref="link"
@@ -31,7 +39,10 @@
             </q-item-section>
           </q-item>
           <q-separator />
-          <q-item clickable v-close-popup>
+          <q-item
+            v-close-popup
+            clickable
+          >
             <q-item-section>
               <router-link
                 ref="link"
@@ -43,7 +54,10 @@
             </q-item-section>
           </q-item>
           <q-separator />
-          <q-item clickable v-close-popup>
+          <q-item
+            v-close-popup
+            clickable
+          >
             <q-item-section>
               <router-link
                 ref="link"
@@ -59,7 +73,10 @@
     </q-btn>
 
     <!-- item Mapa -->
-    <q-btn color="black" label="Mapa">
+    <q-btn
+      color="black"
+      label="Mapa"
+    >
       <q-menu>
         <router-link
           :to="{ path: `/profile/newPin` }"
@@ -70,7 +87,10 @@
     </q-btn>
 
     <!-- item Agenda -->
-    <q-btn color="black" label="Agenda">
+    <q-btn
+      color="black"
+      label="Agenda"
+    >
       <q-menu>
         <q-scroll-area
           :bar-style="barStyle"
@@ -108,7 +128,10 @@
     </q-btn>
 
     <!-- item Debate -->
-    <q-btn color="black" label="Debate">
+    <q-btn
+      color="black"
+      label="Debate"
+    >
       <q-menu>
         <q-scroll-area
           :bar-style="barStyle"
@@ -140,15 +163,47 @@
     </q-btn>
 
     <!-- item Vídeos -->
-    <q-btn color="black" label="Vídeos">
+    <q-btn
+      color="black"
+      label="Vídeos"
+    >
       <q-menu>
-        <a href="">Apresentação</a>
-        <a href="">Tutorial 1. Cadastro</a>
-        <a href="">Tutorial 2. Inserir pin</a>
-        <a href="">Tutorial 3. Inserir evento</a>
-        <a href="">Tutorial 4. Inserir debate</a>
-        <a href="">Live Célio Turino</a>
-
+        <a
+          target="_blank"
+          href="https://www.youtube.com/watch?v=IpvAPNFpQ5I"
+        >
+          Apresentação
+        </a>
+        <a
+          target="_blank"
+          href="https://www.youtube.com/watch?v=Da3zGwoVl9A"
+        >
+          Tutorial 1. Cadastro
+        </a>
+        <a
+          target="_blank"
+          href="https://www.youtube.com/watch?v=IpvAPNFpQ5I"
+        >
+          Tutorial 2. Inserir pin
+        </a>
+        <a
+          target="_blank"
+          href="https://www.youtube.com/watch?v=2PlDIilF6y4"
+        >
+          Tutorial 3. Inserir evento
+        </a>
+        <a
+          target="_blank"
+          href="https://www.youtube.com/watch?v=PUGiSYlojLg"
+        >
+          Tutorial 4. Inserir debate
+        </a>
+        <a
+          target="_blank"
+          href="https://www.youtube.com/watch?v=1SocaU3HaN0"
+        >
+          Live Célio Turino
+        </a>
       </q-menu>
     </q-btn>
 

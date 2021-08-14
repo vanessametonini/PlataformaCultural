@@ -4,7 +4,10 @@
       <h4 class="title-3 bolder">
         Perfil
       </h4>
-      <span class="edit-icon" @click="setEditMode()">
+      <span
+        class="edit-icon"
+        @click="setEditMode()"
+      >
         <i class="fas fa-edit" />
       </span>
 
@@ -43,7 +46,10 @@
       </div>
 
       <div class="row justify-between mg-top8">
-        <div class="column" style="width: 49%">
+        <div
+          class="column"
+          style="width: 49%"
+        >
           <span class="subheading-2">Gênero</span>
           <q-select
             v-model="gender"
@@ -148,7 +154,10 @@
         </q-select>
       </div>
 
-      <div class="column mg-top8" v-if="editMode">
+      <div
+        v-if="editMode"
+        class="column mg-top8"
+      >
         <span class="subheading-2">Avatar</span>
         <q-file
           v-model="file"
@@ -160,10 +169,16 @@
           @input="encode64"
         >
           <template #before>
-            <q-avatar size="30px" v-if="file === null && !avatar">
+            <q-avatar
+              v-if="file === null && !avatar"
+              size="30px"
+            >
               <img :src="defaultImage">
             </q-avatar>
-            <q-avatar size="30px" v-else>
+            <q-avatar
+              v-else
+              size="30px"
+            >
               <img :src="file === null ? getAvatar: img64">
             </q-avatar>
           </template>
