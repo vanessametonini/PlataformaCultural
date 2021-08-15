@@ -1,23 +1,25 @@
 <template>
-  <q-scroll-area
-    class="filter"
-    :bar-style="barStyle"
-  >
-    <ul>
-      <li
-        v-for="(item) in categories"
-        :id="`item-${item.id}`"
-        :key="item.value"
-        class="item"
-        clickable
-        :style="`color: ${colors(item)}`"
-        @click="$store.commit('pins/UPDATE_CATEGORIES_SELECTEDS', item.id)"
-      >
-        <span :class="`icon-${item.value}`" />
-        {{ item.label }}
-      </li>
-    </ul>
-  </q-scroll-area>
+  <aside class="filter">
+    <h2 class="title-4">
+      Categorias no mapa
+    </h2>
+    <q-scroll-area :bar-style="barStyle">
+      <ul>
+        <li
+          v-for="(item) in categories"
+          :id="`item-${item.id}`"
+          :key="item.value"
+          class="item"
+          clickable
+          :style="`color: ${colors(item)}`"
+          @click="$store.commit('pins/UPDATE_CATEGORIES_SELECTEDS', item.id)"
+        >
+          <span :class="`icon-${item.value}`" />
+          {{ item.label }}
+        </li>
+      </ul>
+    </q-scroll-area>
+  </aside>
 </template>
 
 <script>
@@ -47,30 +49,60 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../styles/variables.scss';
 @import '../styles/mixins.scss';
 @import '../styles/categories.scss';
 
+$verticalPadding: 10px;
+$footerMargin: 24px;
+
 .filter {
-  &.q-scrollarea {
 
-    height: calc(100vh - 272px);
+  background-color: white;
+  min-height: 100px;
+  max-height: 700px;
+  height: calc(100vh - #{$logoMobileSize} - #{$logoMargin} - #{$footerMargin * 2} - #{$verticalPadding});
+  width: $logoMobileSize;
 
-    @include for-tablet-landscape-up {
-      height: calc(100vh - 300px);
-    }
+  @include for-tablet-landscape-up {
+    height: calc(100vh - #{$logoDesktopSize} - #{$logoMargin} - #{$footerMargin} - #{$verticalPadding});
+    top: calc( #{$logoDesktopSize} + #{$logoMargin} + 4px);
+    width: $logoDesktopSize;
+  }
 
-    @include for-desktop-up {
-      height: calc(100vh - 338px);
-    }
+  @include for-big-desktop-up {
+    height: calc(100vh - #{$logoLargeSize} - #{$logoMargin} - #{$footerMargin} - #{$verticalPadding});
+    top: calc( #{$logoLargeSize} + #{$logoMargin} + 4px);
+    width: $logoLargeSize;
+  }
 
-    @include for-big-desktop-up {
-      height: calc(100vh - 368px);
-    }
+  .title-4 {
+    background-color: #cbcbcb;
+    color: white;
+    font-weight: bold;
+    line-height: 1em;
+    padding: 10px;
+    margin-bottom: #{$verticalPadding / 2};
   }
 
   ul {
     margin: 0;
     padding: 0;
+  }
+}
+
+.q-scrollarea {
+  padding: 0 4px;
+
+  //100% do elemento pai, menos altura do h2, menos tamanho do padding
+  height: calc(100% - 36px - #{$verticalPadding});
+
+  @include for-tablet-portrait-up {
+    height: calc(100% - 56px - #{$verticalPadding});
+  }
+
+  @include for-tablet-landscape-up {
+    height: calc(100% - 38px - #{$verticalPadding});
   }
 }
 
@@ -90,6 +122,10 @@ export default {
     font-size: 2em;
     position: relative;
     top: -6px;
+  }
+
+  &:last-of-type {
+    margin-bottom: 0;
   }
 }
 

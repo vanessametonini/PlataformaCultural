@@ -81,9 +81,9 @@
       infinite
       transition-prev="slide-right"
       transition-next="slide-left"
+      class="pin-carousel"
       @mouseenter="autoplay = false"
       @mouseleave="autoplay = true"
-      class="pin-carousel"
     >
       <q-carousel-slide
         v-for="n in pinView.imageIds.length"

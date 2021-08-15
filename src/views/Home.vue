@@ -1,115 +1,110 @@
 <template>
-  <div class="app-page home-page" v-bind:class="{ 'a-pin-is-open': isPinSelected }">
-    <header
-      class="aside"
-      role="banner"
+  <q-layout
+    view="lHh Lpr lff"
+    container
+    class="app-page home-page"
+  >
+    <q-drawer
+      v-if="$q.platform.is.mobile"
+      v-model="drawerRight"
+      side="right"
+      :width="200"
+      class="drawer-menu"
     >
-      <logo-card inverted />
-      <my-menu @callFilter="filterThis($event)" />
-    </header>
+      <mobile-menu />
+    </q-drawer>
 
-    <!-- BUTTON LOGIN/PROFILE -->
-    <div class="button-area">
-      <q-btn
-        v-if="!$store.getters['getAuth']"
-        flat
-        class="btn-custom"
-        to="/signIn"
-        tabindex="1"
-      >
-        <span
-          class="body-3 bolder"
-          to="/singIn"
-        ><b>LOGIN</b></span>
-      </q-btn>
+    <q-page-container>
+      <q-page :class="{ 'a-pin-is-open': isPinSelected }">
+        <header
+          class="header"
+          role="banner"
+        >
+          <logo-card inverted />
+        </header>
 
-      <q-btn
-        v-if="$store.getters['getAuth']"
-        flat
-        class="btn-custom"
-        to="/profile"
-        tabindex="1"
-      >
-        <span
-          v-if="$store.getters['getAuth']"
-          class="subheading-2 bolder"
-          to="/profile"
-        >Perfil</span>
-      </q-btn>
-
-      <q-btn
-        v-if="false"
-        flat
-        class="btn-custom"
-        @click="$router.push('/documentation')"
-      >
-        <span
-          class="subheading-2 bolder"
-          to="/documentation"
-        >Documentation</span>
-      </q-btn>
-    </div>
-
-    <!-- MAP -->
-    <main class="map-container">
-      <l-map
-        style="width: 100%, height: 100%"
-        :zoom="zoom"
-        :center="[center.lat, center.lng]"
-        :options="options"
-        :min-zoom="minZoom"
-        :max-zoom="maxZoom"
-        @update:zoom="zoom = $event"
-        @update:center="center = $event"
-        @update:bounds="bounds = $event"
-      >
-        <l-tile-layer
-          :url="layers.carto.url"
-          :attribution="attribution"
+        <my-menu
+          v-if="!$q.platform.is.mobile"
+          class="menu"
         />
 
-        <l-control-zoom
-          position="bottomright"
+        <My-filter
+          class="filter"
+          @callFilter="filterThis($event)"
         />
 
-        <div class="my-markes">
-          <l-marker
-            v-for="pin in markers"
-            :key="pin.id"
-            :lat-lng="pin.coordinates"
-             @popupopen="pinClick($event, pin)"
-             @popupclose="pinClick"
-             @ready="openDefaultMarker($event, pin)"
+        <q-btn
+          v-if="$q.platform.is.mobile"
+          class="btn-mobile-menu"
+          flat
+          round
+          dense
+          icon="menu"
+          @click="drawerRight = !drawerRight"
+        />
+
+        <!-- MAP -->
+        <main class="map-container">
+          <l-map
+            style="width: 100%, height: 100%"
+            :zoom="zoom"
+            :center="[center.lat, center.lng]"
+            :options="options"
+            :min-zoom="minZoom"
+            :max-zoom="maxZoom"
+            @update:zoom="zoom = $event"
+            @update:center="center = $event"
+            @update:bounds="bounds = $event"
           >
-            <l-icon
-              :icon-size="iconSet.iconSize"
-              :icon-anchor="iconSet.iconAnchor"
-            >
-              <span
-                :class="`icon-${$store.getters['categories/getCategoryById'](pin.categoryId).value}`"
-                :style="{'color': `${$store.getters['categories/getCategoryById'](pin.categoryId).color}`}"
-              />
-            </l-icon>
+            <l-tile-layer
+              :url="layers.carto.url"
+              :attribution="attribution"
+            />
 
-            <l-popup :options="popupOptions">
-              <pin-view :pin-view="getPinById(pin.id)" />
-            </l-popup>
-          </l-marker>
-        </div>
-      </l-map>
-    </main>
-    <!--END MAP -->
+            <l-control-zoom
+              position="bottomright"
+            />
 
-    <footer class="footer">
-      <a
-        href="https://github.com/vanessametonini/PlataformaCultural"
-        target="_blank"
-        class="floss-link"
-      >
-        Esta plataforma tem código aberto.
-      </a>
-    </footer>
-  </div>
+            <div class="my-markes">
+              <l-marker
+                v-for="pin in markers"
+                :key="pin.id"
+                :lat-lng="pin.coordinates"
+                @popupopen="pinClick($event, pin)"
+                @popupclose="pinClick"
+                @ready="openDefaultMarker($event, pin)"
+              >
+                <l-icon
+                  :icon-size="iconSet.iconSize"
+                  :icon-anchor="iconSet.iconAnchor"
+                >
+                  <span
+                    :class="`icon-${$store.getters['categories/getCategoryById'](pin.categoryId).value}`"
+                    :style="{'color': `${$store.getters['categories/getCategoryById'](pin.categoryId).color}`}"
+                  />
+                </l-icon>
+
+                <l-popup :options="popupOptions">
+                  <pin-view :pin-view="getPinById(pin.id)" />
+                </l-popup>
+              </l-marker>
+            </div>
+          </l-map>
+        </main>
+        <!--END MAP -->
+
+        <footer class="footer">
+          <a
+            href="https://github.com/vanessametonini/PlataformaCultural"
+            target="_blank"
+            class="floss-link"
+          >
+            Esta plataforma tem código aberto.
+          </a>
+        </footer>
+      </q-page>
+    </q-page-container>
+  </q-layout>
 </template>
 
 <script>
@@ -125,7 +120,9 @@ import { mapGetters } from 'vuex';
 import { gsap, TweenMax, Expo } from 'gsap';
 import { createHelpers } from 'vuex-map-fields';
 import PinView from '../components/PinView.vue';
+import MobileMenu from '../components/MobileMenu.vue';
 import MyMenu from '../components/Menu.vue';
+import MyFilter from '../components/Filter.vue';
 
 const { mapFields } = createHelpers({
   getterType: 'maps/getField',
@@ -146,6 +143,8 @@ export default {
     LIcon,
     PinView,
     MyMenu,
+    MyFilter,
+    MobileMenu
   },
   data() {
     return {
@@ -162,6 +161,7 @@ export default {
         autoPan: false,
       },
       filterSelections: [],
+      drawerRight: false,
     };
   },
   computed: {
@@ -211,7 +211,7 @@ export default {
         this.$store.commit('pins/SET_SELECTED_PIN_ID', null);
       }
     }
-  },
+  }
 };
 </script>
 
@@ -231,43 +231,22 @@ export default {
   overflow: hidden;
 }
 
-.overlay {
-  z-index: 3;
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-  background: #fff;
-  top: 0%;
+.q-layout-container {
+  min-height: 100vh;
 }
 
-.overlay img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.a-pin-is-open {
+  .header, .filter, .btn-mobile-menu  {
+    z-index: 0;
+  }
 }
 
-.overlay span {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  text-align: center;
-  color: black;
-  font-size: 30px;
-  font-weight: 900;
-  letter-spacing: 14px;
-  text-transform: uppercase;
-}
-
-.aside {
-  font-size: 14px;
-  left: 16px;
+.header {
+  left: $logoMargin;
   max-height: calc(100vh - 16px);
   overflow: hidden;
   position: fixed;
-  top: 16px;
+  top: $logoMargin;
   width: 180px;
   z-index: 2;
 
@@ -278,48 +257,55 @@ export default {
   @include for-big-desktop-up {
     width: 200px;
   }
+
+  .logo-box {
+    margin-bottom: 4px;
+  }
+}
+
+.filter {
+  position: fixed;
+  top: calc( #{$logoMobileSize} + #{$logoMargin} + 4px);
+  left: $logoMargin;
+  z-index: 2;
+
+ @include for-tablet-landscape-up {
+    top: calc( #{$logoDesktopSize} + #{$logoMargin} + 4px);
+  }
+
+  @include for-big-desktop-up {
+    top: calc( #{$logoLargeSize} + #{$logoMargin} + 4px);
+  }
+
+}
+
+.menu {
+  position: fixed;
+  right: 16px;
+  top: 16px;
+  z-index: 1;
+}
+
+.btn-mobile-menu {
+  position: fixed;
+  right: $logoMargin;
+  top: $logoMargin;
+  z-index: 2;
 }
 
 .map-container {
-  position: absolute;
-  z-index: 0;
-  top: 0px;
   height: 100vh;
-  width: 100%;
   overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 0;
 }
 
-//tamanho dos ícones
+//tamanho dos ícones no mapa
 span[class^="icon-"] {
   font-size: 4em;
   line-height: 30px;
-}
-
-.button-area {
-  position: fixed;
-  top: 16px;
-  right: 16px;
-  z-index: 2;
-  overflow: hidden;
-}
-
-.btn-custom {
-  box-shadow: none;
-  height: 40px;
-  min-width: 80px;
-  border-radius: 0px;
-  background-color: black;
-  transition: filter 0.2s;
-
-  &:hover {
-    filter: brightness(90%);
-  }
-
-  span {
-    text-transform: none;
-    font-weight: 700;
-    color: white;
-  }
 }
 
 .footer {
