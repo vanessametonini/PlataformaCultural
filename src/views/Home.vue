@@ -23,7 +23,10 @@
           <logo-card inverted />
         </header>
 
-        <my-menu v-if="!$q.platform.is.mobile" />
+        <my-menu
+          v-if="!$q.platform.is.mobile"
+          class="menu"
+        />
 
         <My-filter
           class="filter"
@@ -276,6 +279,13 @@ export default {
 
 }
 
+.menu {
+  position: fixed;
+  right: 16px;
+  top: 16px;
+  z-index: 1;
+}
+
 .btn-mobile-menu {
   position: fixed;
   right: $logoMargin;
@@ -297,33 +307,6 @@ span[class^="icon-"] {
   font-size: 4em;
   line-height: 30px;
 }
-
-/* .button-area {
-  position: fixed;
-  top: 16px;
-  right: 16px;
-  z-index: 2;
-  overflow: hidden;
-}
-
-.btn-custom {
-  box-shadow: none;
-  height: 40px;
-  min-width: 80px;
-  border-radius: 0px;
-  background-color: black;
-  transition: filter 0.2s;
-
-  &:hover {
-    filter: brightness(90%);
-  }
-
-  span {
-    text-transform: none;
-    font-weight: 700;
-    color: white;
-  }
-} */
 
 .footer {
   background-color: rgba($color: #ffffff, $alpha: .7);

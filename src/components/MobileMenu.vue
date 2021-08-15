@@ -84,7 +84,7 @@
           <q-card-section>
             <router-link
               type="link"
-              :to="{ name: '/profile/newPin' }"
+              :to="{ name: '/profile' }"
               exact
               class="map-link"
             >
@@ -115,27 +115,7 @@
               :bar-style="barStyle"
               class="line"
             >
-              <ol class="recent-events">
-                <li
-                  v-for="event in listEvents"
-                  :key="event.id"
-                  clickable
-                  @click="openEvent(event.id)"
-                >
-                  <div class="col1">
-                    <span class="day">{{ event.day }}</span>
-                    <span class="month">{{ event.month }}</span>
-                  </div>
-                  <div
-                    class="col2"
-                    :aria-label="event.title"
-                    :title="event.title"
-                  >
-                    <span>{{ event.title }}</span>
-                    <span class="caption">{{ event.site }}</span>
-                  </div>
-                </li>
-              </ol>
+              <menu-events-list />
             </q-scroll-area>
             <router-link
               class="submenu-button"
@@ -168,20 +148,7 @@
               :bar-style="barStyle"
               class="line"
             >
-              <ol class="recent-debates">
-                <li
-                  v-for="topic in listTopics"
-                  :key="topic.id"
-                >
-                  <h6>
-                    <router-link
-                      :to="{ path: `/topics/${topic.id}` }"
-                    >
-                      {{ topic.title }}
-                    </router-link>
-                  </h6>
-                </li>
-              </ol>
+              <menu-topics-list />
             </q-scroll-area>
 
             <router-link
@@ -305,6 +272,8 @@
 </template>
 
 <script>
+import MenuEventsList from './MenuEventsList.vue';
+import MenuTopicsList from './MenuTopicsList.vue';
 import { createHelpers } from 'vuex-map-fields';
 
 const { mapFields } = createHelpers({
@@ -314,6 +283,7 @@ const { mapFields } = createHelpers({
 
 export default {
   name: 'MobileMenuComponent',
+  components: { MenuTopicsList, MenuEventsList },
   data() {
     return {
       barStyle: {
@@ -327,26 +297,12 @@ export default {
   },
   computed: {
     ...mapFields(['expand']),
-    listEvents() {
-      return this.$store.getters['events/getRecents'];
-    },
-    listTopics() {
-      return this.$store.getters['topics/getRecents'];
-    },
-  },
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 @import '../styles/variables.scss';
-@import '../styles/mixins.scss';
-
-ol {
-  margin: 0 0 10px 0;
-  li {
-    list-style-type: none;
-  }
-}
 
 ul, ol {
   padding: 0;
@@ -421,69 +377,6 @@ ul, ol {
 
 .q-scrollarea {
   height: 280px
-}
-
-.recent-events {
-
-  font-size: .9rem;
-
-  li {
-    display: flex;
-    cursor: pointer;
-    line-height: 1.3em;
-    margin-bottom: 10px;
-
-    span {
-      display: block;
-      hyphens: auto;
-    }
-
-  }
-  .col1 {
-    margin-right: 10px;
-    padding-top: 4px;
-    width: 30px;
-  }
-
-  .month {
-    letter-spacing: .1em;
-  }
-
-  .day {
-    font-weight: bold;
-    font-size: 1.6em;
-  }
-
-  .col2 {
-    width: calc(100% - 40px);
-  }
-}
-
-.recent-debates {
-
-  li {
-    margin-bottom: 10px;
-  }
-
-  li:last-child {
-    padding-bottom: 10px;
-  }
-
-  h6 {
-    margin: 0;
-    font-size: 1em;
-    line-height: 1.2em;
-    font-weight: normal;
-
-    a {
-      color: black;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
 }
 
 </style>

@@ -5,11 +5,17 @@
   >
     <!-- item Sobre -->
     <q-btn
+      class="btn-custom"
+      align="left"
+      padding="0"
       color="black"
       label="Sobre"
     >
-      <q-menu>
-        <q-list style="min-width: 100px">
+      <q-menu
+        square
+        fit
+      >
+        <q-list class="submenu about-menu">
           <q-item
             v-close-popup
             clickable
@@ -24,7 +30,7 @@
               </router-link>
             </q-item-section>
           </q-item>
-          <q-separator />
+          <q-separator :style="separatorStyle" />
           <q-item
             v-close-popup
             clickable
@@ -38,7 +44,7 @@
               </router-link>
             </q-item-section>
           </q-item>
-          <q-separator />
+          <q-separator :style="separatorStyle" />
           <q-item
             v-close-popup
             clickable
@@ -53,7 +59,7 @@
               </router-link>
             </q-item-section>
           </q-item>
-          <q-separator />
+          <q-separator :style="separatorStyle" />
           <q-item
             v-close-popup
             clickable
@@ -74,143 +80,200 @@
 
     <!-- item Mapa -->
     <q-btn
+      class="btn-custom"
+      align="left"
+      padding="0"
       color="black"
       label="Mapa"
     >
-      <q-menu>
-        <router-link
-          :to="{ path: `/profile/newPin` }"
-        >
-          Inserir no mapa
-        </router-link>
+      <q-menu
+        square
+        fit
+      >
+        <q-list class="submenu">
+          <q-item
+            v-close-popup
+            clickable
+          >
+            <q-item-section>
+              <router-link
+                class="btn-red"
+                :to="{ path: `/profile` }"
+              >
+                Inserir no mapa
+              </router-link>
+            </q-item-section>
+          </q-item>
+        </q-list>
       </q-menu>
     </q-btn>
 
     <!-- item Agenda -->
     <q-btn
+      class="btn-custom"
+      align="left"
+      padding="0"
       color="black"
       label="Agenda"
     >
-      <q-menu>
-        <q-scroll-area
-          :bar-style="barStyle"
-          class="line"
-        >
-          <ol class="recent-events">
-            <li
-              v-for="event in listEvents"
-              :key="event.id"
-              clickable
-              @click="openEvent(event.id)"
-            >
-              <div class="col1">
-                <span class="day">{{ event.day }}</span>
-                <span class="month">{{ event.month }}</span>
-              </div>
-              <div
-                class="col2"
-                :aria-label="event.title"
-                :title="event.title"
+      <q-menu
+        square
+        fit
+        max-width="200px"
+      >
+        <q-list class="submenu">
+          <q-item
+            v-close-popup
+          >
+            <q-item-section>
+                <menu-events-list />
+            </q-item-section>
+          </q-item>
+          <q-item
+            v-close-popup
+            clickable
+          >
+            <q-item-section>
+              <router-link
+                class="btn-red"
+                :to="{ name: 'Agenda' }"
               >
-                <span>{{ event.title }}</span>
-                <span class="caption">{{ event.site }}</span>
-              </div>
-            </li>
-          </ol>
-        </q-scroll-area>
-        <router-link
-          class="submenu-button"
-          :to="{ name: 'Agenda' }"
-        >
-          Ver agenda
-        </router-link>
+                Ver agenda
+              </router-link>
+            </q-item-section>
+          </q-item>
+        </q-list>
       </q-menu>
     </q-btn>
 
     <!-- item Debate -->
     <q-btn
+      class="btn-custom"
+      align="left"
+      padding="0"
       color="black"
       label="Debate"
     >
-      <q-menu>
-        <q-scroll-area
-          :bar-style="barStyle"
-          class="line"
-        >
-          <ol class="recent-debates">
-            <li
-              v-for="topic in listTopics"
-              :key="topic.id"
-            >
-              <h6>
-                <router-link
-                  :to="{ path: `/topics/${topic.id}` }"
-                >
-                  {{ topic.title }}
-                </router-link>
-              </h6>
-            </li>
-          </ol>
-        </q-scroll-area>
-
-        <router-link
-          class="submenu-button"
-          :to="{ name: 'Topics' }"
-        >
-          Participe do debate!
-        </router-link>
+      <q-menu
+        square
+        fit
+        max-width="200px"
+      >
+        <q-list class="submenu">
+          <q-item
+            v-close-popup
+          >
+            <q-item-section>
+              <menu-topics-list />
+            </q-item-section>
+          </q-item>
+          <q-item
+            v-close-popup
+            clickable
+          >
+            <q-item-section>
+              <router-link
+                class="btn-red"
+                :to="{ name: 'Topics' }"
+              >
+                Participe do debate!
+              </router-link>
+            </q-item-section>
+          </q-item>
+        </q-list>
       </q-menu>
     </q-btn>
 
     <!-- item Vídeos -->
     <q-btn
+      class="btn-custom"
+      align="left"
+      padding="0"
       color="black"
       label="Vídeos"
     >
-      <q-menu>
-        <a
-          target="_blank"
-          href="https://www.youtube.com/watch?v=IpvAPNFpQ5I"
-        >
-          Apresentação
-        </a>
-        <a
-          target="_blank"
-          href="https://www.youtube.com/watch?v=Da3zGwoVl9A"
-        >
-          Tutorial 1. Cadastro
-        </a>
-        <a
-          target="_blank"
-          href="https://www.youtube.com/watch?v=IpvAPNFpQ5I"
-        >
-          Tutorial 2. Inserir pin
-        </a>
-        <a
-          target="_blank"
-          href="https://www.youtube.com/watch?v=2PlDIilF6y4"
-        >
-          Tutorial 3. Inserir evento
-        </a>
-        <a
-          target="_blank"
-          href="https://www.youtube.com/watch?v=PUGiSYlojLg"
-        >
-          Tutorial 4. Inserir debate
-        </a>
-        <a
-          target="_blank"
-          href="https://www.youtube.com/watch?v=1SocaU3HaN0"
-        >
-          Live Célio Turino
-        </a>
+      <q-menu
+        square
+        fit
+      >
+        <q-list class="submenu ">
+          <q-item v-close-popup>
+            <q-item-section>
+              <a
+                class="btn-red"
+                target="_blank"
+                href="https://www.youtube.com/watch?v=IpvAPNFpQ5I"
+              >
+                Apresentação
+              </a>
+            </q-item-section>
+          </q-item>
+          <q-item v-close-popup>
+            <q-item-section>
+              <a
+                class="btn-red"
+                target="_blank"
+                href="https://www.youtube.com/watch?v=Da3zGwoVl9A"
+              >
+                Tutorial 1. Cadastro
+              </a>
+            </q-item-section>
+          </q-item>
+          <q-item v-close-popup>
+            <q-item-section>
+              <a
+                class="btn-red"
+                target="_blank"
+                href="https://www.youtube.com/watch?v=IpvAPNFpQ5I"
+              >
+                Tutorial 2. Inserir pin
+              </a>
+            </q-item-section>
+          </q-item>
+          <q-item v-close-popup>
+            <q-item-section>
+              <a
+                class="btn-red"
+                target="_blank"
+                href="https://www.youtube.com/watch?v=2PlDIilF6y4"
+              >
+                Tutorial 3. Inserir evento
+              </a>
+            </q-item-section>
+          </q-item>
+          <q-item v-close-popup>
+            <q-item-section>
+              <a
+                class="btn-red"
+                target="_blank"
+                href="https://www.youtube.com/watch?v=PUGiSYlojLg"
+              >
+                Tutorial 4. Inserir debate
+              </a>
+            </q-item-section>
+          </q-item>
+          <q-item v-close-popup>
+            <q-item-section>
+              <a
+                class="btn-red"
+                target="_blank"
+                href="https://www.youtube.com/watch?v=1SocaU3HaN0"
+              >
+                Live Célio Turino
+              </a>
+            </q-item-section>
+          </q-item>
+        </q-list>
       </q-menu>
     </q-btn>
 
     <!-- item Login/Perfil -->
     <q-btn
       v-if="!$store.getters['getAuth']"
-      color="red"
+      class="btn-custom"
+      align="left"
+      padding="0"
+      :style="{ backgroundColor: '#f00'}"
       to="/signIn"
     >
       Login
@@ -218,6 +281,9 @@
 
     <q-btn
       v-if="$store.getters['getAuth']"
+      class="btn-custom"
+      align="left"
+      padding="0"
       color="black"
       to="/profile"
     >
@@ -227,275 +293,129 @@
 </template>
 
 <script>
-import { createHelpers } from 'vuex-map-fields';
-
-const { mapFields } = createHelpers({
-  getterType: 'pins/getField',
-  mutationType: 'pins/updateField',
-});
+import MenuEventsList from './MenuEventsList.vue';
+import MenuTopicsList from './MenuTopicsList.vue';
 
 export default {
   name: 'MenuComponent',
-  emits: ['call-filter'],
+  components: { MenuTopicsList, MenuEventsList },
   data() {
     return {
-      barStyle: {
-        right: "0",
-        borderRadius: "4px",
-        backgroundColor: "#eee",
-        width: "4px",
-        opacity: .8,
-      },
-      navigation: [
-        {
-          title: '',
-          path: ''
-        }
-      ]
+      separatorStyle: {
+        backgroundColor: "black"
+      }
     };
-  },
-  computed: {
-    ...mapFields(['expand']),
-    listEvents() {
-      return this.$store.getters['events/getRecents'];
-    },
-    listTopics() {
-      return this.$store.getters['topics/getRecents'];
-    },
-  },
-  methods: {
-    forwardCall(el) {
-      this.$emit('call-filter', el);
-    },
-    async openEvent(eventId) {
-      this.$router.push({
-        name: "Agenda",
-        hash: `#${eventId}`
-      });
-    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/variables.scss';
 @import '../styles/mixins.scss';
-
-ol {
-  margin: 0 0 10px 0;
-  li {
-    list-style-type: none;
-  }
-}
-
-ul, ol {
-  padding: 0;
-}
+@import '../styles/variables.scss';
 
 .menu-component {
-  width: 100%;
+  max-width: 1250px;
+
+  //min-width: 900px
+  @include for-tablet-landscape-up {
+    display: flex;
+    justify-content: flex-end;
+    width: calc(100vw - #{$logoMargin*3} - #{$logoDesktopSize});
+  }
+
+  @include for-big-desktop-up {
+    width: calc(100vw - #{$logoMargin*3} - #{$logoLargeSize});
+  }
+
 }
 
-.item {
-  background-color: black;
-  margin-top: 4px;
-}
-
-.menu-text {
+.btn-custom {
+  display: block;
+  box-shadow: none;
+  border-radius: 0px;
   color: white;
-  font-weight: bold;
+  font-weight: 700;
   font-size: 1.2em;
-  padding: 2px 0px 2px 4px;
+  height: 40px;
+  margin-bottom: $logoMargin / 2;
+  text-transform: none;
+  min-width: 100px;
+  padding: $logoMargin/4 $logoMargin/2 ;
 
-  @include for-tablet-landscape-up {
+  //min-width: 600px
+  @include for-tablet-portrait-up {
     font-size: 1.4em;
+    line-height: 42px;
+    height: 50px;
+    text-transform: none;
+    min-width: 140px;
   }
 
-  @include for-desktop-up {
-    font-size: 1.5em;
-  }
-
-  @include for-big-desktop-up {
-    font-size: 1.6em;
-  }
-}
-
-.card-section {
-  padding: 8px 0px 4px 0px;
-}
-
-.agenda,
-.debate,
-.mapa {
-  transition: transform 300ms ease-out;
-}
-
-.expanded-filters {
-
-  .agenda {
-    transform: translateY(-41px);
-  }
-  .debate {
-    transform: translateY(-82px);
-  }
-  .mapa {
-    transform: translateY(-123px);
-  }
-
+  //min-width: 900px
   @include for-tablet-landscape-up {
-    .agenda {
-      transform: translateY(-46px);
-    }
-    .debate {
-      transform: translateY(-91px);
-    }
-    .mapa {
-      transform: translateY(-136px);
-    }
+    display: inline-block;
+    font-size: 1.2em;
+    line-height: 1em;
+    height: 40px;
+    margin-bottom: 0;
+    margin-left: $logoMargin / 2;
+    text-transform: none;
+    min-width: calc( (100% - (6* (#{$logoMargin} / 2 ))) / 6)
   }
 
+  //min-width: 1200px
   @include for-desktop-up {
-    .agenda {
-      transform: translateY(-47px);
-    }
-    .debate {
-      transform: translateY(-94px);
-    }
-    .mapa {
-      transform: translateY(-142px);
-    }
+    font-size: 1.4em;
+    line-height: 42px;
+    height: 50px;
+    margin-left: $logoMargin;
+    text-transform: none;
+    min-width: calc( (100% - (6* #{$logoMargin})) / 6)
+
   }
 
-  @include for-big-desktop-up {
-    .agenda {
-      transform: translateY(-49px);
-    }
-    .debate {
-      transform: translateY(-98px);
-    }
-    .mapa {
-      transform: translateY(-147px);
-    }
-  }
 }
 
-.navigation-list {
-  list-style: none;
-  margin: 20px 0 0;
-
-  .navigation-item.line {
-    margin-bottom: 5px;
-  }
+.submenu {
+  font-size: .8em;
+  padding: $logoMargin*2 $logoMargin/2 $logoMargin;
 
   a {
     color: black;
     display: block;
     text-decoration: none;
   }
-}
 
-.separator {
-  background-color: transparent;
-  height: 4px;
-}
-
-.submenu-button {
-  color: black;
-  display: block;
-  margin-top: 5px;
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline
-  }
-}
-
-.line::after {
-  content: '';
-  display: block;
-  background-color: black;
-  height: 2px;
-  width: 70%;
-}
-
-.q-scrollarea {
-  height: 200px;
-
-  @include for-big-desktop-up {
-    height: 300px;
-  }
-}
-
-.recent-events {
-
-  font-size: .9rem;
-
-  li {
-    display: flex;
-    cursor: pointer;
-    line-height: 1.3em;
-    margin-bottom: 10px;
-
-    span {
-      display: block;
-      hyphens: auto;
-    }
-
-  }
-  .col1 {
-    margin-right: 10px;
-    padding-top: 4px;
-    width: 30px;
-  }
-
-  .month {
-    letter-spacing: .1em;
-  }
-
-  .day {
+  .btn-red {
+    color: white;
+    display: block;
     font-weight: bold;
-    font-size: 1.6em;
+    background-color: red;
+    padding: $logoMargin/4 $logoMargin/2 ;
   }
 
-  .col2 {
-    width: calc(100% - 40px);
-  }
-}
-
-.recent-debates {
-
-  li {
-    margin-bottom: 10px;
+  //min-width: 600px
+  @include for-tablet-portrait-up {
   }
 
-  li:last-child {
-    padding-bottom: 10px;
+  //min-width: 900px
+  @include for-tablet-landscape-up {
   }
 
-  h6 {
-    margin: 0;
+  //min-width: 1200px
+  @include for-desktop-up {
+    font-size: .9em;
+
+  }
+
+  //min-width: 1800px
+  @include for-big-desktop-up {
     font-size: 1em;
-    line-height: 1.2em;
-    font-weight: normal;
-
-    a {
-      color: black;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
   }
 }
 
-
-.mapa {
-  overflow: hidden;
-}
-
-.mapa .q-card__section--vert {
-  padding: 8px;
+.about-menu {
+  padding: $logoMargin*2 $logoMargin/2 $logoMargin;
 }
 
 </style>
