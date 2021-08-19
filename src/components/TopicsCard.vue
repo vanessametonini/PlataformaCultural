@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'UserCard',
+  name: 'TopicCard',
   props: {
     user: {
       type: Object,

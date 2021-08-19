@@ -44,7 +44,7 @@
         </main>
       </div>
       <div class="col">
-        <topic-profile />
+        <topic-profile @card-click="form = 'topic'"/>
         <pins-profile @card-click="form = 'pin-editor'" />
         <events-profile />
       </div>
@@ -83,7 +83,13 @@ export default {
   data() {
     return {
       // form: 'user',
+      previous: null
     };
+  },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.previous = from; 
+    });
   },
   computed: {
     form:{
@@ -98,9 +104,14 @@ export default {
       currentUser: "users/getCurrentUser",
     }),
   },
-  created() {
-    this.$store.commit('users/SET_SELECTED_FORM', 'user');
+  mounted() {
+    //console.log({previous: this.previous.name});
+    //console.log({form: this.$store.state.users.selectedForm});
     this.$store.dispatch('pins/loadPins');
+    if((this.previous.name === 'TopicPage') && (this.$store.state.users.selectedForm === 'topic')){
+      return
+    }
+    this.$store.commit('users/SET_SELECTED_FORM', 'user');
   },
 };
 </script>

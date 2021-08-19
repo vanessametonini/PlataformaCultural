@@ -1,4 +1,5 @@
 import api from '../../../apiClient';
+import { Notify } from 'quasar';
 
 const actions = {
 
@@ -36,6 +37,38 @@ const actions = {
       userId: rootGetters['users/getCurrentUser'].id,
       createdAt: new Date(),
   }),
+
+  updateTopic: ({ commit, dispatch, rootState }, { $router }) => {
+    const notif = Notify.create({
+      group: false,
+      spinner: true,
+      message: 'Atualizando debate...',
+    });
+    const data = { ...rootState.topics.topicForm, userId: rootState.users.currentUser.id };
+    return dispatch('services/PUT', { uri: `topics/${rootState.topics.currentTopic.id}`, data }, { root: true })
+      .then((response) => {
+        const topic =  { ...data, ...response.data };
+        commit('UPDATE_TOPIC', topic );
+        notif({
+          icon: 'done',
+          spinner: false,
+          message: 'Debate atualizado!',
+        })
+        $router.push({
+          name: "TopicPage",
+          params: { topicId: topic.id },
+        });
+        return response;
+      })
+      .catch((error) => {
+        notif({
+          type: 'negative',
+          spinner: false,
+          message: 'Não foi possível atualizar seu debate.',
+        })
+        return error;
+      });
+  },
 
   supportCurrentTopic({ commit }, { supportType }) {
     commit('ADD_SUPPORT', { supportType });
@@ -83,6 +116,19 @@ const actions = {
     const data = state.currentTopicReplies.find((el) => el.id === replyTagId);
     return data;
   },
+
+  fetchStorage({state}) {
+    state.topicForm.title = state.currentTopic.title,
+    state.topicForm.categoryId = state.currentTopic.categoryId,
+    state.topicForm.categoriesTagged = state.currentTopic.categoriesTagged,
+    state.topicForm.userId = state.currentTopic.userId,
+    state.topicForm.createdAt = state.currentTopic.createdAt,
+    state.topicForm.positiveSupports = state.currentTopic.positiveSupports,
+    state.topicForm.negativeSupports = state.currentTopic.negativeSupports,
+    state.topicForm.numberOfReplies = state.currentTopic.numberOfReplies,
+    state.topicForm.content = state.currentTopic.content,
+    state.topicForm.views = state.currentTopic.views
+  }
 };
 
 export default actions;

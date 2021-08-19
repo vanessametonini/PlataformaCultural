@@ -31,9 +31,17 @@
         role="main"
       >
         <header>
-          <h2 class="big-title bolder">
-            {{ topic.title }}
-          </h2>
+          <div class="action">
+            <h2 class="big-title bolder">
+              {{ topic.title }}
+            </h2>
+            <q-item-label 
+              class="edit-icon" 
+              @click="$emit('card-click'), setTopic()"
+            >
+              <i class="fas fa-edit" />
+            </q-item-label>
+          </div>
           <multicolor-line class="multicolor-line-top" />
           <section class="author row mg-top8">
             <span class="body-3 bolder text-gray">
@@ -268,6 +276,13 @@ export default {
         });
   },
   methods: {
+    setTopic() {
+      this.$store.commit('topics/SET_CURRENT_TOPIC', this.topic);
+      this.$store.commit('users/SET_SELECTED_FORM', 'topic');
+      this.$store.dispatch('topics/fetchStorage');
+      
+      this.$router.push('/profile')
+    },
     confirmSupport (triggerType){
       this.showConfirmDialog = true;
       this.support = triggerType;
@@ -331,6 +346,15 @@ p {
 
   section.main {
     margin: 32px 0;
+  }
+}
+
+.action {
+  display: flex;
+  justify-content: space-between;
+
+  .edit-icon {
+    cursor: pointer;
   }
 }
 
