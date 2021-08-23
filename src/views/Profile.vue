@@ -44,7 +44,7 @@
         </main>
       </div>
       <div class="col">
-        <topic-profile @card-click="form = 'topic'"/>
+        <topic-profile @card-click="form = 'topic-editor'"/>
         <pins-profile @card-click="form = 'pin-editor'" />
         <events-profile />
       </div>
@@ -108,7 +108,7 @@ export default {
     //console.log({previous: this.previous.name});
     //console.log({form: this.$store.state.users.selectedForm});
     this.$store.dispatch('pins/loadPins');
-    if((this.previous.name === 'TopicPage') && (this.$store.state.users.selectedForm === 'topic')){
+    if((this.previous.name === 'TopicPage') && (this.$store.state.users.selectedForm === 'topic-editor')){
       return
     }
     this.$store.commit('users/SET_SELECTED_FORM', 'user');

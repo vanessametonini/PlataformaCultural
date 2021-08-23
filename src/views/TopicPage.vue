@@ -278,7 +278,7 @@ export default {
   methods: {
     setTopic() {
       this.$store.commit('topics/SET_CURRENT_TOPIC', this.topic);
-      this.$store.commit('users/SET_SELECTED_FORM', 'topic');
+      this.$store.commit('users/SET_SELECTED_FORM', 'topic-editor');
       this.$store.dispatch('topics/fetchStorage');
       
       this.$router.push('/profile')

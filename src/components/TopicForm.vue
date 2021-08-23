@@ -158,44 +158,6 @@
         </q-field>
       </div>
     </div>
-    <!-- TERMS -->
-    <div v-if="!editMode" class="stepper-terms row no-wrap al-items-center">
-      <q-field
-        borderless
-        dense
-        :value="terms"
-        :error="$v.terms.$error"
-        :error-message="termsErrorMessage"
-        @blur="$v.terms.$touch"
-      >
-        <template #control>
-          <q-checkbox
-            v-model="terms"
-            size="32px"
-            color="black"
-          >
-            <span class="body-3 mg-left8">
-              Eu li e concordo com os
-              <router-link
-                class="link"
-                :to="{ path: '/terms', hash: '#terms' }"
-                target="_blank"
-              >
-                <span class="body-3 bolder">Termos de Uso</span>
-              </router-link>
-              e
-              <router-link
-                class="link"
-                :to="{ path: '/terms', hash: '#privacy' }"
-                target="_blank"
-              >
-                <span class="body-3 bolder">Privacidade. *</span>
-              </router-link>
-            </span>
-          </q-checkbox>
-        </template>
-      </q-field>
-    </div>
     <div v-if="editMode" class="mg-top32"
       align="right">
       <q-btn
@@ -228,10 +190,14 @@ const hasCategory = (category) => category !== null;
 
 export default {
   name: 'TopicForm',
-
+  props: {
+    editMode: {
+      type: Boolean,
+      default: false,
+    }
+  },
   data() {
     return {
-        editMode: true,
         options: [],
         categoryField: '',
     };
@@ -246,9 +212,6 @@ export default {
       required,
       minLength: minLength(5),
       maxLength: maxLength(2000),
-    },
-    terms: {
-      sameAs: sameAs( () => true )
     },
     categoryId: {
       hasCategory
@@ -322,7 +285,9 @@ export default {
       if ((this.categoryId === null) && (!this.categoriesTagged.includes(category.id))) {
         this.categoryId = category.id;
       } else if((!this.categoriesTagged.includes(category.id)) && category.id !== this.categoryId) {
-        this.categoriesTagged.push(category.id)
+       let catArray = this.categoriesTagged;
+       catArray.push(category.id);
+       this.categoriesTagged = catArray;
       }
     },
     untagCategory(element) {
@@ -334,7 +299,16 @@ export default {
 
     },
     updateTopic() {
-      this.$store.dispatch("topics/updateTopic", { $router: this.$router })
+      this.$v.$touch();
+      if(!this.$v.$anyError) {
+        this.$store.dispatch("topics/updateTopic", { $router: this.$router })
+      }
+      else {
+        this.$q.notify({
+          message: "Por favor, preencha todos os campos para o debate",
+          position: 'top-right',
+        });
+      }
     }
   }
 }
