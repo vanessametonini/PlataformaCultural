@@ -157,201 +157,45 @@
         </div>
       </section>
       <!-- SECTION 3 -->
-      <section
-        v-if="currentStep === 3"
-        class="stepper-section"
+      <topic-form v-if="currentStep === 3" :editMode="false"></topic-form>
+      <!-- TERMS -->
+    <div v-if="currentStep === 3" class="stepper-terms row no-wrap al-items-center">
+      <q-field
+        borderless
+        dense
+        :value="terms"
+        :error="$v.terms.$error"
+        :error-message="termsErrorMessage"
+        @blur="$v.terms.$touch"
       >
-        <span class="title-3 bolder">Crie seu debate</span>
-        <label
-          for="titulo"
-          class="headline-3 bolder mg-top16"
-        >
-          Título*
-        </label>
-        <span class="caption mg-top4">
-          Insira um título curto que represente o assunto principal da
-          discussão.
-        </span>
-        <!-- TITLE -->
-        <q-input
-          id="titulo"
-          v-model="title"
-          class="titulo"
-          dense
-          square
-          bottom-slots
-          counter
-          maxlength="100"
-          :error="$v.title.$error"
-          :error-message="titleErrorMessage"
-          @blur="$v.title.$touch"
-        />
-
-        <label
-          for="texto"
-          class="headline-3 bolder"
-        >
-          Texto argumentativo*
-        </label>
-        <span class="caption mg-top4">
-          Insira um texto sobre o assunto que quer discutir, apresente seu ponto de vista.
-        </span>
-        <!-- CONTENT -->
-        <q-field
-          id="texto"
-          v-model="content"
-          type="textarea"
-          class="conteudo"
-          min-height="5rem"
-          color="black"
-          borderless
-          dense
-          square
-          bottom-slots
-          counter
-          maxlength="2000"
-          hint="Máximo de 2000 caracteres"
-          :error="$v.content.$error"
-          :error-message="contentErrorMessage"
-          @blur="$v.content.$touch"
-        >
-          <q-editor
-            v-model="content"
-            dense
-            square
-            class="editor"
-            :toolbar="[
-              ['bold', 'italic', 'strike', 'underline', 'link',],
-              ['hr', 'quote'],
-              ['unordered', 'ordered', 'outdent', 'indent'],
-              ['undo', 'redo', 'removeFormat'],
-              ['viewsource']
-            ]"
-            @input="sanitize(content)"
-          />
-        </q-field>
-        <!-- CATEGORY -->
-        <span class="headline-3 bolder mg-top16">Categoria do debate</span>
-        <span class="caption mg-top8">
-          1. Selecione primeiro a categoria principal relacionada ao assunto do 
-          debate.
-        </span>
-        <span class="caption">
-          2. Caso queira, selecione outras categorias complementares.
-        </span>
-        <div class="category-field mg-top8">
-          <q-list class="category-list">
-            <q-item
-              v-for="item in options"
-              :id="`item-${item.value}`"
-              :key="item.value"
-              clickable
-              @click="tagEvent(item)"
-            >
-              <q-item-section avata>
-                <span :class="`icon-${item.value}`" />
-              </q-item-section>
-
-              <q-item-section :id="`category-label-${item.value}`">
-                <span class="caption bolder">{{ item.label }}</span>
-              </q-item-section>
-            </q-item>
-          </q-list>
-          <!-- show tags -->
-          <div class="tag-field">
-            <q-field
-              v-model="category"
-              borderless
-              dense
-              :value="category"
-              class="main-tag"
-              label="categoria principal*"
-              :error="$v.category.$error"
-              :error-message="categoryErrorMessage"
-              @blur="$v.category.$touch"
-            >
-              <div
-                v-if="category !== null"
-                class="main-tag-badge caption bolder"
-                :style="{ color: category.color }"
-                @click="untagMain()"
-              >
-                <span class="caption bolder">{{ category.label }}</span>
-                <i
-                  id="untag"
-                  class="far fa-times-circle mg-left16"
-                />
-              </div>
-            </q-field>
-
-            <q-field
-              v-model="categoriesTagged"
-              type="textarea"
-              borderless
-              dense
-              square
-              bottom-slots
-              class="related-tags"
-              label="categorias complementares"
-              aria-live="polite"
-            >
-              <div class="related-tags-grid">
-                <div
-                  v-for="item in categoriesTagged"
-                  :key="item.value"
-                  class="categorys-tags-badge"
-                  :style="{ 'border-color': item.color }"
-                >
-                  <span
-                    class="caption bolder"
-                    :style="{ color: item.color }"
-                  >
-                    {{ item.label }}
-                  </span>
-                </div>
-              </div>
-            </q-field>
-          </div>
-        </div>
-        <!-- TERMS -->
-        <div class="stepper-terms row no-wrap al-items-center">
-          <q-field
-            borderless
-            dense
-            :value="terms"
-            :error="$v.terms.$error"
-            :error-message="termsErrorMessage"
-            @blur="$v.terms.$touch"
+        <template #control>
+          <q-checkbox
+            v-model="terms"
+            size="32px"
+            color="black"
           >
-            <template #control>
-              <q-checkbox
-                v-model="terms"
-                size="32px"
-                color="black"
+            <span class="body-3 mg-left8">
+              Eu li e concordo com os
+              <router-link
+                class="link"
+                :to="{ path: '/terms', hash: '#terms' }"
+                target="_blank"
               >
-                <span class="body-3 mg-left8">
-                  Eu li e concordo com os
-                  <router-link
-                    class="link"
-                    :to="{ path: '/terms', hash: '#terms' }"
-                    target="_blank"
-                  >
-                    <span class="body-3 bolder">Termos de Uso</span>
-                  </router-link>
-                  e
-                  <router-link
-                    class="link"
-                    :to="{ path: '/terms', hash: '#privacy' }"
-                    target="_blank"
-                  >
-                    <span class="body-3 bolder">Privacidade. *</span>
-                  </router-link>
-                </span>
-              </q-checkbox>
-            </template>
-          </q-field>
-        </div>
-      </section>
+                <span class="body-3 bolder">Termos de Uso</span>
+              </router-link>
+              e
+              <router-link
+                class="link"
+                :to="{ path: '/terms', hash: '#privacy' }"
+                target="_blank"
+              >
+                <span class="body-3 bolder">Privacidade. *</span>
+              </router-link>
+            </span>
+          </q-checkbox>
+        </template>
+      </q-field>
+    </div>
     </div>
     <!-- FOOTER -->
     <div class="stepper-footer">
@@ -400,24 +244,18 @@
 </template>
 
 <script>
-import {
-  required,
-  minLength,
-  maxLength,
-  sameAs
-} from "vuelidate/lib/validators";
+import { sameAs } from "vuelidate/lib/validators";
 import { mapGetters } from "vuex";
 import { createHelpers } from "vuex-map-fields";
 import ColorLine from "./ColorLine.vue";
 import ProgressBar from "./BaseStepProgressBar.vue";
 import BaseButton from "./BaseButton.vue";
+import TopicForm from './TopicForm.vue';
 
 const { mapFields } = createHelpers({
   getterType: "topics/getField",
   mutationType: "topics/updateField",
 });
-
-const hasCategory = (category) => category !== null;
 
 export default {
   name: "TopicCreator",
@@ -425,6 +263,7 @@ export default {
     ColorLine,
     ProgressBar,
     BaseButton,
+    TopicForm,
   },
   data() {
     return {
@@ -436,82 +275,23 @@ export default {
       rulesError: false,
       terms: false,
       hasSelected: false,
-      options: [],
-      categoryField: '',
     };
   },
   validations: {
-    title: {
-      required,
-      minLength: minLength(5),
-      maxLength: maxLength(100),
-    },
-    content: {
-      required,
-      minLength: minLength(5),
-      maxLength: maxLength(2000),
-    },
     terms: {
       sameAs: sameAs( () => true )
     },
-    category: {
-      hasCategory
-    }
   },
   computed: {
-    ...mapFields({
-      title: "topicForm.title",
-      content: "topicForm.content",
-      category: "topicForm.categoryId",
-      categoriesTagged: "topicForm.categoriesTagged",
-    }),
     ...mapGetters({
       categories: "categories/loadCategories",
     }),
-    titleErrorMessage() {
-      if (!this.$v.title.required) {
-        return "Campo obrigatório";
-      }
-      if (!this.$v.title.minLength) {
-        return "Mínimo de 5 caracteres";
-      }
-      if (!this.$v.title.maxLength) {
-        return "Máximo de 100 caracteres";
-      }
-      return "";
-    },
-    contentErrorMessage() {
-      if (!this.$v.content.required) {
-        return "Campo obrigatório";
-      }
-      if (!this.$v.content.minLength) {
-        return "Mínimo de 5 caracteres";
-      }
-      if (!this.$v.content.maxLength) {
-        return "Mínimo de 2000 caracteres";
-      }
-      return "";
-    },
     termsErrorMessage() {
       return "É necessário aceitar os termos";
     },
-    categoryErrorMessage() {
-      return "É necessário escolher um tema";
-    },
-  },
-  created() {
-    this.options = [...this.categories];
-  },
-  updated(){
   },
   methods: {
-    sanitize(value) {
-      this.content = this.$sanitize(value);
-    },
     async submit() {
-      // await this.$store.dispatch('topics/createNewTopic')
-      // this.$socket.emit('newTopicToServer',  );
-      // this.$router.push('/topics');
       this.$v.$touch();
       if(!this.$v.$anyError) {
         this.$store
@@ -538,54 +318,7 @@ export default {
       this.categoriesTagged = [];
       this.$router.push({ name: "Topics" });
     },
-    tagEvent(sel) {
-      if (this.category === null && this.categoriesTagged.length === 0) {
-        this.tagMain(sel);
-      } else if (this.categoriesTagged.some((tag) => tag === sel)) {
-
-        const index = this.categoriesTagged.findIndex(
-          (el) => el.value === sel.value
-        );
-        const element = this.categoriesTagged[index];
-        document
-          .getElementById(`icon-${sel.value}`)
-          .getElementById("g")
-          .setAttribute("fill", `${element.color}`);
-        document.getElementById(`category-label-${sel.value}`).style.color =
-          "#000";
-        document.getElementById(`item-${sel.value}`).style.borderRight = "none";
-        this.categoriesTagged.splice(index, 1);
-
-      } else {
-        const aux = this.categoriesTagged;
-        aux.push(sel);
-        this.categoriesTagged = aux;
-        document.getElementById(
-          `category-label-${sel.value}`
-        ).style.color = `${sel.color}`;
-        document.getElementById(
-          `item-${sel.value}`
-        ).style.borderRight = `2px solid ${sel.color}`;
-      }
-    },
-    tagMain(sel) {
-
-      this.category = sel;
-      document.getElementById(
-        `category-label-${sel.value}`
-      ).style.color = `${sel.color}`;
-      this.hasSelected = true;
-      const index = this.options.findIndex((el) => el.value === sel.value);
-      this.options.splice(index, 1);
-    },
-    untagMain() {
-      this.options.push(this.category);
-      this.category = null;
-    },
     nextStep() {
-      if (this.options.length === 0) {
-        this.options = [...this.categories];
-      }
       if (this.currentStep === 2 && this.rulesAccepted === false) {
         this.rulesError = true;
       } else if (this.count <= this.numberOfSteps) {

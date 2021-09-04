@@ -24,7 +24,7 @@
       />
     </q-inner-loading>
 
-    <div v-show="!loading">
+    <div v-show="!loading" class="topic-wrapper">
       <!-- topic -->
       <article
         class="topic-content"
@@ -38,6 +38,7 @@
             <q-item-label 
               class="edit-icon" 
               @click="$emit('card-click'), setTopic()"
+              v-if="owner"
             >
               <i class="fas fa-edit" />
             </q-item-label>
@@ -258,13 +259,16 @@ export default {
       replyes: 'topics/replies/getCurrentTopicReplyes',
       myVote: 'topics/supports/getMyVoteCurrentTopic',
       isLoggedIn: 'users/isLoggedIn',
+      currentUser: 'users/getCurrentUser'
     }),
+    owner() {
+      if (this.currentUser.id === this.topic.userId) {
+        return true;
+      }
+      return false;
+    }
   },
   mounted() {
-    // this.$socket.emit('msgToServer', 'messageee');
-    // this.$socket.on('msgToClient', (message) => {
-    //   console.log(message);
-    // })
     this.$store
         .dispatch('topics/loadTopicId', { id: this.$route.params.topicId })
         .then(() => {
@@ -335,6 +339,10 @@ p {
 .multicolor-line-top {
   height: 3px;
   margin-top: 4px;
+}
+
+.topic-wrapper {
+  width: 100%;
 }
 
 .topic-content {

@@ -105,9 +105,8 @@ export default {
     }),
   },
   mounted() {
-    //console.log({previous: this.previous.name});
-    //console.log({form: this.$store.state.users.selectedForm});
     this.$store.dispatch('pins/loadPins');
+    this.$store.dispatch('topics/loadTopics');
     if((this.previous.name === 'TopicPage') && (this.$store.state.users.selectedForm === 'topic-editor')){
       return
     }
@@ -138,18 +137,18 @@ nav.row {
 
 .forms {
   margin-left: 10px;
-  width: calc(100% - 16px);
+  width: calc(100% - 18px);
   background-color: #f5f5f5;
   padding: 16px 32px;
   margin-bottom: 60px;
 
-  @include for-tablet-landscape-up {
-    width: 585px;
-  }
+  // @include for-tablet-landscape-up {
+  //   width: 585px;
+  // }
 
-  @include for-big-desktop-up {
-    width: 614px;
-  }
+  // @include for-big-desktop-up {
+  //   width: 614px;
+  // }
 }
 
 

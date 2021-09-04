@@ -100,24 +100,24 @@
       <!-- show tags -->
       <div class="tag-field">
         <q-field
-          v-model="mainCategory"
+          v-model="category"
           borderless
           dense
-          :value="mainCategory"
+          :value="category"
           class="main-tag"
           label="categoria principal*"
-          :error="$v.categoryId.$error"
+          :error="$v.category.$error"
           :error-message="categoryErrorMessage"
-          @blur="$v.categoryId.$touch"
+          @blur="$v.category.$touch"
         >
           <div
-            v-if="categoryId !== null"
+            v-if="category !== null"
             class="main-tag-badge caption bolder"
-            :style="{ color: mainCategory.color }"
-            @click="untagCategory(categoryId)"
+            :style="{ color: category.color }"
+            @click="untagCategory(category)"
           >
             <!-- <span class="caption bolder" v-if="categoryField">{{ categoryField }}</span> -->
-            <span class="caption bolder">{{ mainCategory.label }}</span>
+            <span class="caption bolder">{{ category.label }}</span>
             <i
               id="untag"
               class="far fa-times-circle mg-left16"
@@ -126,7 +126,7 @@
         </q-field>
 
         <q-field
-          v-model="currentCategoriesTagged"
+          v-model="categoriesTagged"
           type="textarea"
           borderless
           dense
@@ -138,7 +138,7 @@
         >
           <div class="related-tags-grid">
             <div
-              v-for="(item, index) in currentCategoriesTagged"
+              v-for="(item, index) in categoriesTagged"
               :key="item.value"
               class="categorys-tags-badge"
               :style="{ 'border-color': item.color, color: item.color }"
@@ -176,7 +176,6 @@ import {
   required,
   minLength,
   maxLength,
-  sameAs
 } from "vuelidate/lib/validators";
 import { mapGetters } from "vuex";
 import { createHelpers } from "vuex-map-fields";
@@ -213,34 +212,27 @@ export default {
       minLength: minLength(5),
       maxLength: maxLength(2000),
     },
-    categoryId: {
+    category: {
       hasCategory
     }
   },
   computed: {
     ...mapFields({
       title: "topicForm.title",
-      categoryId: "topicForm.categoryId",
+      category: "topicForm.categoryId",
       categoriesTagged: "topicForm.categoriesTagged",
-      userId: "topicForm.userId",
-      createdAt: "topicForm.createdAt",
-      positiveSupports: "topicForm.positiveSupports",
-      negativeSupports: "topicForm.negativeSupports",
-      numberOfReplies: "topicForm.numberOfReplies",
       content: "topicForm.content",
-      views: "topicForm.views"
     }),
     ...mapGetters({
       categories: "categories/loadCategories",
     }),
-    mainCategory() {
-      return this.$store.getters['categories/getCategoryById'](this.categoryId)
-    },
     currentCategoriesTagged() {
       let categoriesTaggedArray = []
-      this.categoriesTagged.forEach(element => {
-          categoriesTaggedArray.push(this.$store.getters['categories/getCategoryById'](element))
-      })
+        if(this.categoriesTagged.length > 0) {
+          this.categoriesTagged.forEach(element => {
+              categoriesTaggedArray.push(this.$store.getters['categories/getCategoryById'](element))
+          })
+        }
       return categoriesTaggedArray
     },
     titleErrorMessage() {
@@ -277,22 +269,30 @@ export default {
   created() {
     this.options = [...this.categories];   
   },
+  mounted() {
+    if (this.editMode == false) {
+      this.title = '',
+      this.category = null,
+      this.categoriesTagged = [],
+      this.content = ''
+    }
+  },
   methods: {
     sanitize(value) {
       this.content = this.$sanitize(value);
     },
     tagCategory(category) {
-      if ((this.categoryId === null) && (!this.categoriesTagged.includes(category.id))) {
-        this.categoryId = category.id;
-      } else if((!this.categoriesTagged.includes(category.id)) && category.id !== this.categoryId) {
-       let catArray = this.categoriesTagged;
-       catArray.push(category.id);
-       this.categoriesTagged = catArray;
+      if ((this.category === null) && (!(this.categoriesTagged.includes(category)))) {
+          this.category = category;
+      } else if((category.id !== this.category.id) && (!this.categoriesTagged.includes(category))) {
+        let catArray = this.categoriesTagged;
+        catArray.push(category);
+        this.categoriesTagged = catArray;
       }
     },
     untagCategory(element) {
-      if(element === this.categoryId) {
-        this.categoryId = null;
+      if(element === this.category) {
+        this.category = null;
       } else {
         this.categoriesTagged.splice(element, 1);
       }
@@ -301,7 +301,7 @@ export default {
     updateTopic() {
       this.$v.$touch();
       if(!this.$v.$anyError) {
-        this.$store.dispatch("topics/updateTopic", { $router: this.$router })
+        this.$store.dispatch("topics/updateTopic", { $socket: this.$socket })
       }
       else {
         this.$q.notify({
