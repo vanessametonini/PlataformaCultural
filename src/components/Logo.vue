@@ -43,8 +43,8 @@ export default {
 
 .logo-box {
   cursor: pointer;
-  height: 180px;
-  width: 180px;
+  height: $logoMobileSize;
+  width: $logoMobileSize;
   position: relative;
 
   .box {
@@ -67,13 +67,13 @@ export default {
   }
 
   @include for-tablet-landscape-up {
-    height: 190px;
-    width: 190px;
+    height: $logoDesktopSize;
+    width: $logoDesktopSize;
   }
 
   @include for-big-desktop-up {
-    height: 200px;
-    width: 200px;
+    height: $logoLargeSize;
+    width: $logoLargeSize;
   }
 
 }

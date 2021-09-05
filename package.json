@@ -13,7 +13,6 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/vue-fontawesome": "^0.1.10",
     "@quasar/extras": "^1.10.4",
-    "@types/leaflet": "^1.7.0",
     "axios": "^0.21.1",
     "core-js": "^3.11.1",
     "date-fns": "^2.21.1",
@@ -42,6 +41,7 @@
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
+    "@types/leaflet": "^1.7.0",
     "@vue/cli-plugin-babel": "~4.2.0",
     "@vue/cli-plugin-eslint": "~4.2.0",
     "@vue/cli-plugin-pwa": "~4.2.0",

@@ -267,20 +267,11 @@
       align="right"
     >
       <q-btn
-        v-if="editMode"
-        outline
-        color="black"
-        @click="updatePin()"
-      >
-        <span class="caption">Atualizar</span>
-      </q-btn>
-      <q-btn
-        v-else
         outline
         color="black"
         @click="confirmCreate()"
       >
-        <span class="caption">Cadastrar</span>
+        <span class="caption">Enviar</span>
       </q-btn>
     </div>
   </div>
@@ -504,29 +495,28 @@ export default {
     },
   },
   created() {
-    if(!this.editMode) this.cleanForm();
+    if(!this.editMode) this.cleanForm() && this.$v.$reset();
   },
   methods: {
     sendForm() {
-      this.$store.dispatch("pins/postPin", { $router: this.$router })
-        .then(()=>{
-          this.cleanForm();
+      if(this.editMode) {
+        this.$store.dispatch("pins/putPin", { $router: this.$router });
+        return
+      }
 
-          this.$v.$reset()
-        });
-      this.waiting = false;
+      this.$store.dispatch("pins/postPin", { $router: this.$router })
     },
     confirmCreate() {
+      this.waiting = true;
       this.$v.$touch();
       if (!this.$v.$anyError) {
         if (this.waiting) {
           this.$q.notify({
             message: "Por favor, aguarde.",
             position: 'top-right',
+            timeout: 1500
           });
-          return;
         }
-        this.waiting = true;
 
         //se tiver imagens
         if (this.files) {
@@ -588,24 +578,6 @@ export default {
       this.instagram = '';
       this.twitter = '';
       this.whatsapp = '';
-    },
-    updatePin() {
-      //se tiver imagens
-      if (this.files) {
-            this.$store
-              .dispatch("images/uploadArray", { files: this.files })
-              .then((fileIds) => {
-                this.images = fileIds;
-                this.$store.dispatch("pins/putPin", { $router: this.$router });
-              })
-              .catch((error) => {
-              this.waiting = false;
-            });
-      }
-      //se não tiver imagens
-      else {
-            this.$store.dispatch("pins/putPin", { $router: this.$router });
-      }
     },
 
     async searchAddress() {
