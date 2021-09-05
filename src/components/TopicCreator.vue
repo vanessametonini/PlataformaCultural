@@ -157,45 +157,51 @@
         </div>
       </section>
       <!-- SECTION 3 -->
-      <topic-form v-if="currentStep === 3" :editMode="false"></topic-form>
+      <topic-form
+        v-if="currentStep === 3"
+        :edit-mode="false"
+      />
       <!-- TERMS -->
-    <div v-if="currentStep === 3" class="stepper-terms row no-wrap al-items-center">
-      <q-field
-        borderless
-        dense
-        :value="terms"
-        :error="$v.terms.$error"
-        :error-message="termsErrorMessage"
-        @blur="$v.terms.$touch"
+      <div
+        v-if="currentStep === 3"
+        class="stepper-terms row no-wrap al-items-center"
       >
-        <template #control>
-          <q-checkbox
-            v-model="terms"
-            size="32px"
-            color="black"
-          >
-            <span class="body-3 mg-left8">
-              Eu li e concordo com os
-              <router-link
-                class="link"
-                :to="{ path: '/terms', hash: '#terms' }"
-                target="_blank"
-              >
-                <span class="body-3 bolder">Termos de Uso</span>
-              </router-link>
-              e
-              <router-link
-                class="link"
-                :to="{ path: '/terms', hash: '#privacy' }"
-                target="_blank"
-              >
-                <span class="body-3 bolder">Privacidade. *</span>
-              </router-link>
-            </span>
-          </q-checkbox>
-        </template>
-      </q-field>
-    </div>
+        <q-field
+          borderless
+          dense
+          :value="terms"
+          :error="$v.terms.$error"
+          :error-message="termsErrorMessage"
+          @blur="$v.terms.$touch"
+        >
+          <template #control>
+            <q-checkbox
+              v-model="terms"
+              size="32px"
+              color="black"
+            >
+              <span class="body-3 mg-left8">
+                Eu li e concordo com os
+                <router-link
+                  class="link"
+                  :to="{ path: '/terms', hash: '#terms' }"
+                  target="_blank"
+                >
+                  <span class="body-3 bolder">Termos de Uso</span>
+                </router-link>
+                e
+                <router-link
+                  class="link"
+                  :to="{ path: '/terms', hash: '#privacy' }"
+                  target="_blank"
+                >
+                  <span class="body-3 bolder">Privacidade. *</span>
+                </router-link>
+              </span>
+            </q-checkbox>
+          </template>
+        </q-field>
+      </div>
     </div>
     <!-- FOOTER -->
     <div class="stepper-footer">

@@ -24,7 +24,10 @@
       />
     </q-inner-loading>
 
-    <div v-show="!loading" class="topic-wrapper">
+    <div
+      v-show="!loading"
+      class="topic-wrapper"
+    >
       <!-- topic -->
       <article
         class="topic-content"
@@ -36,9 +39,9 @@
               {{ topic.title }}
             </h2>
             <q-item-label 
-              class="edit-icon" 
+              v-if="owner" 
+              class="edit-icon"
               @click="$emit('card-click'), setTopic()"
-              v-if="owner"
             >
               <i class="fas fa-edit" />
             </q-item-label>

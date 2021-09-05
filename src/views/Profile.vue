@@ -44,7 +44,7 @@
         </main>
       </div>
       <div class="col">
-        <topic-profile @card-click="form = 'topic-editor'"/>
+        <topic-profile @card-click="form = 'topic-editor'" />
         <pins-profile @card-click="form = 'pin-editor'" />
         <events-profile />
       </div>
@@ -80,16 +80,16 @@ export default {
     PinsProfile,
     TopicProfile
   },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.previous = from; 
+    });
+  },
   data() {
     return {
       // form: 'user',
       previous: null
     };
-  },
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      vm.previous = from; 
-    });
   },
   computed: {
     form:{

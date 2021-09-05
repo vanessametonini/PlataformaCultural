@@ -6,10 +6,10 @@
     >
       <q-list>
         <q-item
-          class="info"
           v-for="topic in $store.getters['topics/getMyTopics']"
           :key="topic.id"
           v-ripple
+          class="info"
           clickable
           :style="{ 'border-color': $store.getters['categories/getCategoryById'](topic.categoryId).color}"
           :title="topic.title"

@@ -1,5 +1,5 @@
 <template>
-  <topic-form :edit-mode="true"></topic-form>
+  <topic-form :edit-mode="true" />
 </template>
 
 <script>

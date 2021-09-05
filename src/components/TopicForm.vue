@@ -1,7 +1,13 @@
 <template>
   <section class="stepper-section">
-    <span class="title-3 bolder" v-if="editMode">Edite seu debate</span>
-    <span class="title-3 bolder" v-else>Crie seu debate</span>
+    <span
+      v-if="editMode"
+      class="title-3 bolder"
+    >Edite seu debate</span>
+    <span
+      v-else
+      class="title-3 bolder"
+    >Crie seu debate</span>
     <label
       for="titulo"
       class="headline-3 bolder mg-top16"
@@ -150,16 +156,19 @@
                 {{ item.label }}
               </span>
               <i
-              id="untag"
-              class="far fa-times-circle mg-left16"
-            />
+                id="untag"
+                class="far fa-times-circle mg-left16"
+              />
             </div>
           </div>
         </q-field>
       </div>
     </div>
-    <div v-if="editMode" class="mg-top32"
-      align="right">
+    <div
+      v-if="editMode"
+      class="mg-top32"
+      align="right"
+    >
       <q-btn
         outline
         color="black"
