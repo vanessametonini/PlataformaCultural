@@ -32,6 +32,8 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 })
 
+let token = store.state.services.token;
+
 Vue.use(new VueSocketIO({
   debug: process.env.VUE_APP_DEBUG_SOCKET  === "true",
   connection: process.env.VUE_APP_BASE_URL,
@@ -40,6 +42,11 @@ Vue.use(new VueSocketIO({
       actionPrefix: 'SOCKET_',
       mutationPrefix: 'SOCKET_'
   },
+  options: {
+    query: {
+      authorization: token
+    }
+  }
 }))
 
 Vue.use(VueAnalytics, {

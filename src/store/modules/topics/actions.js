@@ -1,5 +1,6 @@
 import api from '../../../apiClient';
 import { Notify } from 'quasar';
+import router from "../../../router";
 
 const actions = {
 
@@ -38,36 +39,30 @@ const actions = {
       createdAt: new Date(),
   }),
 
-  updateTopic: ({ commit, dispatch, rootState }, { $router }) => {
+  updateTopic: ({ getters, rootState }, { $socket }) => {
+    $socket.emit('updateTopicToServer', {
+      id: rootState.topics.currentTopic.id, 
+      ...getters.topicForm,
+      createdAt: new Date(),
+    })
+  },
+
+  SOCKET_updateTopicToClient({ commit }, topic) {
     const notif = Notify.create({
       group: false,
       spinner: true,
       message: 'Atualizando debate...',
     });
-    const data = { ...rootState.topics.topicForm, userId: rootState.users.currentUser.id };
-    return dispatch('services/PUT', { uri: `topics/${rootState.topics.currentTopic.id}`, data }, { root: true })
-      .then((response) => {
-        const topic =  { ...data, ...response.data };
-        commit('UPDATE_TOPIC', topic );
-        notif({
-          icon: 'done',
-          spinner: false,
-          message: 'Debate atualizado!',
-        })
-        $router.push({
-          name: "TopicPage",
-          params: { topicId: topic.id },
-        });
-        return response;
-      })
-      .catch((error) => {
-        notif({
-          type: 'negative',
-          spinner: false,
-          message: 'Não foi possível atualizar seu debate.',
-        })
-        return error;
-      });
+    commit('UPDATE_TOPIC', topic);
+    notif({
+      icon: 'done',
+      spinner: false,
+      message: 'Debate atualizado!',
+    })
+    router.push({
+      name: "TopicPage",
+      params: { topicId: topic.id },
+    });
   },
 
   supportCurrentTopic({ commit }, { supportType }) {
@@ -117,10 +112,15 @@ const actions = {
     return data;
   },
 
-  fetchStorage({state}) {
+  fetchStorage({state, rootGetters}) {
+    let ctArray = [];
     state.topicForm.title = state.currentTopic.title,
-    state.topicForm.categoryId = state.currentTopic.categoryId,
-    state.topicForm.categoriesTagged = state.currentTopic.categoriesTagged,
+    state.topicForm.categoryId = rootGetters['categories/getCategoryById'](state.currentTopic.categoryId),
+    state.currentTopic.categoriesTagged.forEach(element => {
+      const category = rootGetters['categories/getCategoryById'](element);
+      ctArray.push(category)
+    })
+    state.topicForm.categoriesTagged = ctArray;
     state.topicForm.userId = state.currentTopic.userId,
     state.topicForm.createdAt = state.currentTopic.createdAt,
     state.topicForm.positiveSupports = state.currentTopic.positiveSupports,
