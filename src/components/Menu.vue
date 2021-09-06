@@ -126,7 +126,7 @@
             v-close-popup
           >
             <q-item-section>
-                <menu-events-list />
+              <menu-events-list />
             </q-item-section>
           </q-item>
           <q-item
