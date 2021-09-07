@@ -65,6 +65,25 @@ const actions = {
     });
   },
 
+  deleteTopic: ({ rootState }, { $socket }) =>
+    $socket.emit('deleteTopicToServer', {
+      id: rootState.topics.currentTopic.id, 
+  }),
+
+  SOCKET_deleteTopicToClient({ commit }, topic) {
+    const notif = Notify.create({
+      group: false,
+      spinner: true,
+      message: 'Removendo debate...',
+    });
+    commit('DELETE_TOPIC', topic.id);
+    notif({
+      icon: 'done',
+      spinner: false,
+      message: 'Debate removido!',
+    })
+  },
+
   supportCurrentTopic({ commit }, { supportType }) {
     commit('ADD_SUPPORT', { supportType });
   },

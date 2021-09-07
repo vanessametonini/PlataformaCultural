@@ -23,6 +23,11 @@ const mutations = {
     state.list[toUpdate] = {...state.list[toUpdate], ...data}
   },
 
+  DELETE_TOPIC(state, topicId) {
+    const filtered = state.list.filter(topic => topic.id != topicId);
+    state.list = filtered;
+  },
+
   INCREMENT_TOPIC_LIST_REPLY(state, topicId) {
     state.list = state.list.map((topic) => {
       if (topicId === topic.id) {
