@@ -19,11 +19,11 @@
               class="caption bolder"
             >{{ `${rejoinder.user.firstName} ${rejoinder.user.lastName}` }}
             </span>
-            <span class="caption bold mg-left8">
+            <span class="caption bold">
               {{ $store.getters.formatDate(rejoinder.createdAt) }}
             </span>
           </div>
-          <div>
+          <div class="action-btn">
             <q-btn
               v-if="$store.getters['users/getCurrentUser'].id === rejoinder.userId"
               flat
@@ -97,23 +97,29 @@ export default {
 }
 
 .reply-header {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
+  display: block;
   align-items: center;
   position: relative;
   background-color: $gray1;
   padding: 4px 8px 4px 8px;
-  max-height: 32px;
   width: 100%;
 }
 .author-right {
-  // width: 40%;
   overflow: hidden;
   display: flex;
-  flex-direction: row;
-  max-height: 24px;
+  flex-direction: column;
+
+  .caption:last-child {
+    font-size: 0.6rem;
+  }
 }
+
+.action-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
 .reply-content {
   padding: 8px 8px 8px 8px;
   line-height: 1.7;
@@ -143,5 +149,24 @@ export default {
 }
 .reply-content {
   padding: 8px;
+}
+
+@media screen and (min-width: 540px) {
+  .reply-header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    max-height: 32px;
+  }
+
+  .author-right {
+    flex-direction: row;
+    max-height: 24px;
+
+    .caption:last-child {
+      font-size: 0.75rem;
+      margin-left: 8px;
+    }
+  }
 }
 </style>
