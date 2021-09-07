@@ -43,7 +43,6 @@ const actions = {
     $socket.emit('updateTopicToServer', {
       id: rootState.topics.currentTopic.id, 
       ...getters.topicForm,
-      createdAt: new Date(),
     })
   },
 

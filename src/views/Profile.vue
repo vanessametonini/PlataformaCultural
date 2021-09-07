@@ -141,14 +141,6 @@ nav.row {
   background-color: #f5f5f5;
   padding: 16px 32px;
   margin-bottom: 60px;
-
-  // @include for-tablet-landscape-up {
-  //   width: 585px;
-  // }
-
-  // @include for-big-desktop-up {
-  //   width: 614px;
-  // }
 }
 
 

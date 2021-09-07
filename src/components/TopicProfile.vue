@@ -90,18 +90,6 @@ export default {
     },
     fetchStorage() {
       this.$store.dispatch('topics/fetchStorage');
-      // const info = this.$store.getters['topics/getCurrentTopic'];
-      // // console.log({info: info});
-      // this.title = info.title;
-      // this.categoryId = info.categoryId;
-      // this.categoriesTagged = info.categoriesTagged;
-      // this.userId = info.userId;
-      // this.createdAt = info.createdAt;
-      // this.positiveSupports = info.positiveSupports;
-      // this.negativeSupports = info.negativeSupports;
-      // this.numberOfReplies = info.numberOfReplies;
-      // this.content = info.content;
-      // this.views = info.views;
     }
   },
 };
