@@ -18,6 +18,11 @@ const mutations = {
     state.list.push(data);
   },
 
+  UPDATE_TOPIC(state, data) {
+    const toUpdate = state.list.findIndex(topic => topic.id === data.id);
+    state.list[toUpdate] = {...state.list[toUpdate], ...data}
+  },
+
   INCREMENT_TOPIC_LIST_REPLY(state, topicId) {
     state.list = state.list.map((topic) => {
       if (topicId === topic.id) {

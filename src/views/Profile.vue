@@ -44,7 +44,7 @@
         </main>
       </div>
       <div class="col">
-        <topic-profile />
+        <topic-profile @card-click="form = 'topic-editor'" />
         <pins-profile @card-click="form = 'pin-editor'" />
         <events-profile />
       </div>
@@ -80,9 +80,15 @@ export default {
     PinsProfile,
     TopicProfile
   },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.previous = from; 
+    });
+  },
   data() {
     return {
       // form: 'user',
+      previous: null
     };
   },
   computed: {
@@ -98,9 +104,13 @@ export default {
       currentUser: "users/getCurrentUser",
     }),
   },
-  created() {
-    this.$store.commit('users/SET_SELECTED_FORM', 'user');
+  mounted() {
     this.$store.dispatch('pins/loadPins');
+    this.$store.dispatch('topics/loadTopics');
+    if((this.previous.name === 'TopicPage') && (this.$store.state.users.selectedForm === 'topic-editor')){
+      return
+    }
+    this.$store.commit('users/SET_SELECTED_FORM', 'user');
   },
 };
 </script>
@@ -127,18 +137,10 @@ nav.row {
 
 .forms {
   margin-left: 10px;
-  width: calc(100% - 16px);
+  width: calc(100% - 18px);
   background-color: #f5f5f5;
   padding: 16px 32px;
   margin-bottom: 60px;
-
-  @include for-tablet-landscape-up {
-    width: 585px;
-  }
-
-  @include for-big-desktop-up {
-    width: 614px;
-  }
 }
 
 

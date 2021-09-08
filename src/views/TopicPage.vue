@@ -24,16 +24,28 @@
       />
     </q-inner-loading>
 
-    <div v-show="!loading">
+    <div
+      v-show="!loading"
+      class="topic-wrapper"
+    >
       <!-- topic -->
       <article
         class="topic-content"
         role="main"
       >
         <header>
-          <h2 class="big-title bolder">
-            {{ topic.title }}
-          </h2>
+          <div class="action">
+            <h2 class="big-title bolder">
+              {{ topic.title }}
+            </h2>
+            <q-item-label 
+              v-if="owner" 
+              class="edit-icon"
+              @click="$emit('card-click'), setTopic()"
+            >
+              <i class="fas fa-edit" />
+            </q-item-label>
+          </div>
           <multicolor-line class="multicolor-line-top" />
           <section class="author row mg-top8">
             <span class="body-3 bolder text-gray">
@@ -250,13 +262,16 @@ export default {
       replyes: 'topics/replies/getCurrentTopicReplyes',
       myVote: 'topics/supports/getMyVoteCurrentTopic',
       isLoggedIn: 'users/isLoggedIn',
+      currentUser: 'users/getCurrentUser'
     }),
+    owner() {
+      if (this.currentUser.id === this.topic.userId) {
+        return true;
+      }
+      return false;
+    }
   },
   mounted() {
-    // this.$socket.emit('msgToServer', 'messageee');
-    // this.$socket.on('msgToClient', (message) => {
-    //   console.log(message);
-    // })
     this.$store
         .dispatch('topics/loadTopicId', { id: this.$route.params.topicId })
         .then(() => {
@@ -268,6 +283,13 @@ export default {
         });
   },
   methods: {
+    setTopic() {
+      this.$store.commit('topics/SET_CURRENT_TOPIC', this.topic);
+      this.$store.commit('users/SET_SELECTED_FORM', 'topic-editor');
+      this.$store.dispatch('topics/fetchStorage');
+      
+      this.$router.push('/profile')
+    },
     confirmSupport (triggerType){
       this.showConfirmDialog = true;
       this.support = triggerType;
@@ -322,6 +344,10 @@ p {
   margin-top: 4px;
 }
 
+.topic-wrapper {
+  width: 100%;
+}
+
 .topic-content {
   margin: 16px 0px 0px 0px;
 
@@ -331,6 +357,15 @@ p {
 
   section.main {
     margin: 32px 0;
+  }
+}
+
+.action {
+  display: flex;
+  justify-content: space-between;
+
+  .edit-icon {
+    cursor: pointer;
   }
 }
 
