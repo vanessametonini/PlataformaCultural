@@ -345,6 +345,10 @@ $secondaryColor: #ddd;
   margin-bottom: 50px;
 }
 
+.stepper-section {
+  max-width: 760px;
+}
+
 .stepper-header {
   width: 100%;
   padding: 16px;
