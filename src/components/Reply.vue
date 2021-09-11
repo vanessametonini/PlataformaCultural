@@ -235,19 +235,14 @@ $textBlack: #000;
 }
 
 .reply-header {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
+  display: block;
   align-items: center;
-  position: relative;
   background-color: $gray1;
   padding: 4px 8px 4px 8px;
-  max-height: 32px;
   width: 100%;
 }
 
 .author-right {
-  // width: 40%;
   overflow: hidden;
   display: flex;
   flex-direction: row;
@@ -264,6 +259,10 @@ $textBlack: #000;
   color: $textBlack;
   text-align: end !important;
   line-height: 20px;
+}
+
+.caption {
+  font-size: 0.6rem;
 }
 
 .owner-actions {
@@ -334,13 +333,36 @@ $textBlack: #000;
   flex-wrap: nowrap;
   align-items: center;
   overflow: hidden;
-  position: absolute;
   right: 8px !important;
 }
 
 .reply-button {
   &:hover {
     cursor: pointer;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .caption {
+    font-size: 0.75rem;
+  }
+}
+
+@media screen and (min-width: 720px) {
+  .reply-header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    position: relative;
+    max-height: 32px;
+  }
+
+  .author-right {
+    width: 40%;
+  }
+  
+  .action-replying {
+    position: absolute;
   }
 }
 </style>
