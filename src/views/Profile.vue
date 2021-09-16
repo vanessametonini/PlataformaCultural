@@ -46,7 +46,7 @@
       <div class="col">
         <topic-profile @card-click="form = 'topic-editor'" />
         <pins-profile @card-click="form = 'pin-editor'" />
-        <events-profile />
+        <events-profile @card-click="form = 'event-editor'" />
       </div>
     </div>
   </div>
@@ -107,7 +107,11 @@ export default {
   mounted() {
     this.$store.dispatch('pins/loadPins');
     this.$store.dispatch('topics/loadTopics');
+    this.$store.dispatch('events/loadEvents')
     if((this.previous.name === 'TopicPage') && (this.$store.state.users.selectedForm === 'topic-editor')){
+      return
+    }
+    if((this.previous.name === 'Agenda') && (this.$store.state.users.selectedForm === 'event')){
       return
     }
     this.$store.commit('users/SET_SELECTED_FORM', 'user');

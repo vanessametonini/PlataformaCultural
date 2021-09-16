@@ -7,7 +7,7 @@ const actions = {
     getters,
     dispatch,
     rootGetters,
-  }) {
+  }, { $router }) {
 
     const notif = Notify.create({
       group: false,
@@ -32,18 +32,68 @@ const actions = {
           time: rootGetters.formatTime(event.date),
           dateTime: event.date
         }
+
         commit('ADD_EVENT_LIST', payload);
         notif({
           icon: 'done',
           spinner: false,
           message: 'Evento cadastrado!',
         })
+        $router.push({ name: "Agenda" });
       })
       .catch((error) => {
         notif({
           type: 'negative',
           spinner: false,
           message: 'Não foi possível cadastrar seu pin.',
+        });
+        return error;
+      });
+  },
+
+  updateEvent({
+    commit,
+    getters,
+    dispatch,
+    rootGetters,
+    rootState
+  }, { $router }) {
+
+    const notif = Notify.create({
+      group: false,
+      spinner: true,
+      message: 'Atualizando evento...',
+    });
+
+    const event = {
+      ...getters.getEventForm,
+      userId: rootGetters['users/getCurrentUser'].id
+    };
+    const datearray = event.date.split('/');
+    event.date = new Date(`${datearray[2]}/${datearray[1]}/${datearray[0]} ${event.time}:00`)
+    dispatch('services/PUT', { uri: `events/${rootState.events.currentEvent.id}`, data: event }, { root: true })
+    .then((response) => {
+      const payload = {
+          ...event,
+          ...response.data,
+          images: event.imageIds,
+          date: rootGetters.formatDate(event.date),
+          dateTime: event.date,
+          time: rootGetters.formatTime(event.date)
+        }
+        commit('UPDATE_EVENT', payload);
+        notif({
+          icon: 'done',
+          spinner: false,
+          message: 'Evento atualizado!',
+        })
+        $router.push({ name: "Agenda" });
+      })
+      .catch((error) => {
+        notif({
+          type: 'negative',
+          spinner: false,
+          message: 'Não foi possível atualizar seu pin.',
         });
         return error;
       });
