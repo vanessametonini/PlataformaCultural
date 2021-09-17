@@ -42,11 +42,19 @@ const actions = {
         $router.push({ name: "Agenda" });
       })
       .catch((error) => {
-        notif({
-          type: 'negative',
-          spinner: false,
-          message: 'Não foi possível cadastrar seu pin.',
-        });
+        if(error.response.data.error === "Cidade inválida") {
+          notif({
+            type: 'negative',
+            spinner: false,
+            message: error.response.data.message,
+          }) 
+        } else {
+          notif({
+            type: 'negative',
+            spinner: false,
+            message: 'Não foi possível cadastrar seu pin.',
+          });
+        }
         return error;
       });
   },
@@ -90,11 +98,19 @@ const actions = {
         $router.push({ name: "Agenda" });
       })
       .catch((error) => {
-        notif({
-          type: 'negative',
-          spinner: false,
-          message: 'Não foi possível atualizar seu pin.',
-        });
+        if(error.response.data.error === "Cidade inválida") {
+          notif({
+            type: 'negative',
+            spinner: false,
+            message: error.response.data.message,
+          }) 
+        } else {
+          notif({
+            type: 'negative',
+            spinner: false,
+            message: 'Não foi possível atualizar seu pin.',
+          });
+        }
         return error;
       });
   },

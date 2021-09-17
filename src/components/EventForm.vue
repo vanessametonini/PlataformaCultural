@@ -99,10 +99,47 @@
         />
       </div>
 
+      <!-- number & zipcode -->
+      <div class="row justify-between mg-top8">
+        <div class="column">
+          <span class="subheading-2">CEP</span>
+          <q-input
+            v-model="zipcode"
+            class="input"
+            dense
+            mask="##.###-###"
+            unmasked-value
+            input-class="text-black"
+            color="black"
+            :error-message="zipcodeErrorMessage"
+            :error="$v.zipcode.$error"
+            @blur="$v.zipcode.$touch"
+            @keyup="searchAddress()"
+          />
+        </div>
+        <div class="column">
+          <span class="subheading-2">Número</span>
+          <q-input
+            v-model="number"
+            class="input"
+            dense
+            mask="#####"
+            unmasked-value
+            input-class="text-black"
+            color="black"
+            :error-message="numberErrorMessage"
+            :error="$v.number.$error"
+            @blur="$v.number.$touch"
+            ref="inputNumber"
+          />
+        </div>
+      </div>
+
       <div class="column mg-top8">
         <span class="subheading-2">Rua - logradouro</span>
         <q-input
           v-model="street"
+          disable
           class="input"
           dense
           input-class="text-black"
@@ -117,6 +154,7 @@
         <span class="subheading-2">Bairro</span>
         <q-input
           v-model="neighborhood"
+          disable
           class="input"
           dense
           input-class="text-black"
@@ -125,41 +163,6 @@
           :error="$v.neighborhood.$error"
           @blur="$v.neighborhood.$touch"
         />
-      </div>
-
-      <!-- number & zipcode -->
-      <div class="row justify-between mg-top8">
-        <div class="column">
-          <span class="subheading-2">Número</span>
-          <q-input
-            v-model="number"
-            class="input"
-            dense
-            mask="#####"
-            unmasked-value
-            input-class="text-black"
-            color="black"
-            :error-message="numberErrorMessage"
-            :error="$v.number.$error"
-            @blur="$v.number.$touch"
-          />
-        </div>
-
-        <div class="column">
-          <span class="subheading-2">CEP</span>
-          <q-input
-            v-model="zipcode"
-            class="input"
-            dense
-            mask="##.###-###"
-            unmasked-value
-            input-class="text-black"
-            color="black"
-            :error-message="zipcodeErrorMessage"
-            :error="$v.zipcode.$error"
-            @blur="$v.zipcode.$touch"
-          />
-        </div>
       </div>
 
       <!-- description -->
@@ -247,13 +250,6 @@
         </q-select>
       </div>
 
-      <!-- <div
-        v-if="images.length > 0" 
-        class="column mg-top8"
-      >
-        <q-img :src="`${$store.getters['services/getImagePath']}${images[0]}`" />
-      </div> -->
-
       <q-carousel
         v-if="images.length"
         v-model="slide"
@@ -279,6 +275,7 @@
           <q-carousel-control position="bottom-right" :offset="[18, 18]" />
         </template>
       </q-carousel>
+      
       <!-- file picker -->
       <div class="column mg-top8">
         <span class="subheading-2">Insira uma imagem</span>
@@ -326,10 +323,14 @@ import { createHelpers } from "vuex-map-fields";
 import { required, url, minLength, numeric } from "vuelidate/lib/validators";
 import { Money } from "v-money";
 import { QField } from "quasar";
+import axios from 'axios';
+
 const { mapFields } = createHelpers({
   getterType: "events/getField",
   mutationType: "events/updateField",
 });
+
+const zipcodeNotFound = (value, vm) => (value && vm.zipcodeNotFound == false);
 
 export default {
   name: "EventProfile",
@@ -358,6 +359,7 @@ export default {
       },
       autoplay: true,
       slide: 1,
+      zipcodeNotFound: false
     };
   },
   validations: {
@@ -383,6 +385,7 @@ export default {
     },
     zipcode: {
       minLength: minLength(8),
+      zipcodeNotFound
     },
     description: {
       required,
@@ -456,7 +459,9 @@ export default {
     zipcodeErrorMessage() {
       if (!this.$v.zipcode.minLength) {
         return "Entre com um CEP válido";
-      }
+      } else if (zipcodeNotFound) {
+        return "CEP não encontrado"
+      }      
       return "";
     },
     descriptionErrorMessage() {
@@ -556,6 +561,30 @@ export default {
         });
       }
     },
+    async searchAddress() {
+      var self = this;
+      self.zipcodeNotFound = false;
+      
+      if(/^[0-9]{8}$/.test(this.zipcode)){
+
+        const addressData = await axios.get(("https://viacep.com.br/ws/" + this.zipcode + "/json/"))
+
+          if(addressData.data.erro){
+            this.$refs.inputNumber.focus();
+            self.zipcodeNotFound = true;
+            
+            self.street = '';
+            self.neighborhood = '';
+            self.city = '';
+            return;
+          } 
+
+          self.street = addressData.data.logradouro;
+          self.neighborhood = addressData.data.bairro;
+          self.city = addressData.data.localidade;
+          this.$refs.inputNumber.focus();
+      }
+    }
   },
 };
 </script>
