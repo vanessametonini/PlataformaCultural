@@ -108,7 +108,7 @@ const actions = {
           notif({
             type: 'negative',
             spinner: false,
-            message: 'Não foi possível atualizar seu pin.',
+            message: 'Não foi possível atualizar seu evento.',
           });
         }
         return error;
@@ -137,6 +137,42 @@ const actions = {
         commit('SET_EVENTS_LIST', events);
       })
       .catch((error) => {
+        return error;
+      });
+  },
+
+  deleteEvent({
+    commit,
+    dispatch,
+    rootState
+  }) {
+
+    const notif = Notify.create({
+      group: false,
+      spinner: true,
+      message: 'Removendo evento...',
+    });
+
+    dispatch('services/DELETE', { uri: `events/${rootState.events.currentEvent.id}` }, { root: true })
+    .then((response) => {
+      const payload = {
+          ...response.data,
+        }
+        commit('DELETE_EVENT', payload);
+        notif({
+          icon: 'done',
+          spinner: false,
+          message: 'Evento removido!',
+        })
+        dispatch('loadEvents');
+        return response;
+      })
+      .catch((error) => {
+          notif({
+            type: 'negative',
+            spinner: false,
+            message: 'Não foi possível remover seu evento.',
+          });
         return error;
       });
   },

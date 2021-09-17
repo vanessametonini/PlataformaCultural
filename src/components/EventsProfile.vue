@@ -44,7 +44,26 @@
             >
               <i class="fas fa-edit" />
             </q-item-label>
+            <q-item-label 
+              class="icon"
+              @click="$store.commit('events/SET_CURRENT_EVENT', event), confirm=true"
+            >
+              <i class="fas fa-trash" />
+            </q-item-label>
           </q-item-section>
+          <q-dialog v-model="confirm" persistent>
+            <q-card>
+              <q-card-section class="row items-center">
+                <q-avatar icon="fas fa-trash" color="negative" text-color="white" />
+                <span class="q-ml-sm">Tem certeza que deseja remover esse evento?</span>
+              </q-card-section>
+
+              <q-card-actions align="right">
+                <q-btn flat label="Cancelar" color="negative" v-close-popup />
+                <q-btn flat label="Remover" color="negative" v-close-popup @click="removeEvent()" />
+              </q-card-actions>
+            </q-card>
+          </q-dialog>
         </q-item>
       </q-list>
     </q-scroll-area>
@@ -69,6 +88,7 @@ export default {
         width: "4px",
         opacity: .8,
       },
+      confirm: false
     };
   },
   computed: {
@@ -124,6 +144,9 @@ export default {
       this.local = info.local;
       this.description = info.description;
     },
+    removeEvent() {
+      this.$store.dispatch("events/deleteEvent");
+    }
   },
 };
 </script>
