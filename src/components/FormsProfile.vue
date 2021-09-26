@@ -5,6 +5,7 @@
     <user-form v-if="form === 'user'" />
     <pin-editor v-if="form === 'pin-editor'" />
     <topic-editor v-if="form === 'topic-editor'" />
+    <event-editor v-if="form === 'event-editor'" />
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import EventForm from "../components/EventForm.vue";
 import UserForm from "../components/UserForm.vue";
 import PinEditor from "../components/PinEditor.vue";
 import TopicEditor from './TopicEditor.vue';
+import EventEditor from './EventEditor.vue';
 
 export default {
   name: "FormsProfile",
@@ -22,7 +24,8 @@ export default {
     EventForm,
     UserForm,
     PinEditor,
-    TopicEditor
+    TopicEditor,
+    EventEditor
   },
   props: {
     form: {

@@ -1,9 +1,8 @@
 <template>
   <div class="box">
     <div class="input-content">
-      <h4 class="title-3 bolder">
-        Adicione um novo evento
-      </h4>
+      <h4 v-if="editMode" class="title-3 bolder">Edite seu evento</h4>
+      <h4 v-else class="title-3 bolder">Adicione um novo evento</h4>
       <!-- event name -->
       <div class="column mg-top16">
         <span class="subheading-2">Nome do evento*</span>
@@ -33,14 +32,8 @@
             :error="$v.date.$error"
           >
             <template #prepend>
-              <q-icon
-                name="event"
-                class="cursor-pointer"
-              >
-                <q-popup-proxy
-                  transition-show="scale"
-                  transition-hide="scale"
-                >
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy transition-show="scale" transition-hide="scale">
                   <q-date
                     v-model="date"
                     mask="DD/MM/YYYY"
@@ -48,12 +41,7 @@
                     color="black"
                   >
                     <div class="row items-center justify-end">
-                      <q-btn
-                        v-close-popup
-                        label="Fechar"
-                        color="black"
-                        flat
-                      />
+                      <q-btn v-close-popup label="Fechar" color="black" flat />
                     </div>
                   </q-date>
                 </q-popup-proxy>
@@ -75,14 +63,8 @@
             :error="$v.time.$error"
           >
             <template #prepend>
-              <q-icon
-                name="access_time"
-                class="cursor-pointer"
-              >
-                <q-popup-proxy
-                  transition-show="scale"
-                  transition-hide="scale"
-                >
+              <q-icon name="access_time" class="cursor-pointer">
+                <q-popup-proxy transition-show="scale" transition-hide="scale">
                   <q-time
                     v-model="time"
                     mask="HH:mm"
@@ -91,12 +73,7 @@
                     format24h
                   >
                     <div class="row items-center justify-end">
-                      <q-btn
-                        v-close-popup
-                        label="Fechar"
-                        color="black"
-                        flat
-                      />
+                      <q-btn v-close-popup label="Fechar" color="black" flat />
                     </div>
                   </q-time>
                 </q-popup-proxy>
@@ -122,10 +99,47 @@
         />
       </div>
 
+      <!-- number & zipcode -->
+      <div class="row justify-between mg-top8">
+        <div class="column">
+          <span class="subheading-2">CEP</span>
+          <q-input
+            v-model="zipcode"
+            class="input"
+            dense
+            mask="##.###-###"
+            unmasked-value
+            input-class="text-black"
+            color="black"
+            :error-message="zipcodeErrorMessage"
+            :error="$v.zipcode.$error"
+            @blur="$v.zipcode.$touch"
+            @keyup="searchAddress()"
+          />
+        </div>
+        <div class="column">
+          <span class="subheading-2">Número</span>
+          <q-input
+            v-model="number"
+            class="input"
+            dense
+            mask="#####"
+            unmasked-value
+            input-class="text-black"
+            color="black"
+            :error-message="numberErrorMessage"
+            :error="$v.number.$error"
+            @blur="$v.number.$touch"
+            ref="inputNumber"
+          />
+        </div>
+      </div>
+
       <div class="column mg-top8">
         <span class="subheading-2">Rua - logradouro</span>
         <q-input
           v-model="street"
+          disable
           class="input"
           dense
           input-class="text-black"
@@ -140,6 +154,7 @@
         <span class="subheading-2">Bairro</span>
         <q-input
           v-model="neighborhood"
+          disable
           class="input"
           dense
           input-class="text-black"
@@ -148,41 +163,6 @@
           :error="$v.neighborhood.$error"
           @blur="$v.neighborhood.$touch"
         />
-      </div>
-
-      <!-- number & zipcode -->
-      <div class="row justify-between mg-top8">
-        <div class="column">
-          <span class="subheading-2">Número</span>
-          <q-input
-            v-model="number"
-            class="input"
-            dense
-            mask="#####"
-            unmasked-value
-            input-class="text-black"
-            color="black"
-            :error-message="numberErrorMessage"
-            :error="$v.number.$error"
-            @blur="$v.number.$touch"
-          />
-        </div>
-
-        <div class="column">
-          <span class="subheading-2">CEP</span>
-          <q-input
-            v-model="zipcode"
-            class="input"
-            dense
-            mask="##.###-###"
-            unmasked-value
-            input-class="text-black"
-            color="black"
-            :error-message="zipcodeErrorMessage"
-            :error="$v.zipcode.$error"
-            @blur="$v.zipcode.$touch"
-          />
-        </div>
       </div>
 
       <!-- description -->
@@ -270,6 +250,32 @@
         </q-select>
       </div>
 
+      <q-carousel
+        v-if="images.length"
+        v-model="slide"
+        swipeable
+        animated
+        :arrows="images.length > 1"
+        navigation
+        infinite
+        transition-prev="slide-right"
+        transition-next="slide-left"
+        @mouseenter="autoplay = false"
+        @mouseleave="autoplay = true"
+      >
+        <q-carousel-slide
+          v-for="n in images.length"
+          :key="`full-${n}`"
+          :name="n"
+          :img-src="`${$store.getters['services/getImagePath']}${
+            images[n - 1]
+          }`"
+        />
+        <template #control>
+          <q-carousel-control position="bottom-right" :offset="[18, 18]" />
+        </template>
+      </q-carousel>
+      
       <!-- file picker -->
       <div class="column mg-top8">
         <span class="subheading-2">Insira uma imagem</span>
@@ -296,28 +302,16 @@
               class="cursor-pointer"
               @click.stop="files = null"
             />
-            <q-icon
-              name="create_new_folder"
-              @click.stop
-            />
+            <q-icon name="create_new_folder" @click.stop />
           </template>
-          <template #hint>
-            Tamanho máximo de 2MB. Formato JPG.
-          </template>
+          <template #hint> Tamanho máximo de 2MB. Formato JPG. </template>
         </q-file>
       </div>
     </div>
     <!-- actions edit -->
-    <div
-      class="mg-top32"
-      align="right"
-    >
-      <q-btn
-        outline
-        color="black"
-        @click="confirmCreate()"
-      >
-        <span class="caption">Cadastrar</span>
+    <div class="mg-top32" align="right">
+      <q-btn outline color="black" @click="confirmCreate()">
+        <span class="caption">Enviar</span>
       </q-btn>
     </div>
   </div>
@@ -329,13 +323,23 @@ import { createHelpers } from "vuex-map-fields";
 import { required, url, minLength, numeric } from "vuelidate/lib/validators";
 import { Money } from "v-money";
 import { QField } from "quasar";
+import axios from 'axios';
+
 const { mapFields } = createHelpers({
   getterType: "events/getField",
   mutationType: "events/updateField",
 });
 
+const zipcodeNotFound = (value, vm) => (value && vm.zipcodeNotFound == false);
+
 export default {
   name: "EventProfile",
+  props: {
+    editMode: {
+      type: Boolean,
+      default: false,
+    },
+  },
   components: {
     Money,
     QField,
@@ -353,6 +357,9 @@ export default {
         maxlength: 14,
         masked: false,
       },
+      autoplay: true,
+      slide: 1,
+      zipcodeNotFound: false
     };
   },
   validations: {
@@ -371,15 +378,14 @@ export default {
     local: {
       required,
     },
-    street: {
-    },
-    neighborhood: {
-    },
+    street: {},
+    neighborhood: {},
     number: {
-      numeric
+      numeric,
     },
     zipcode: {
       minLength: minLength(8),
+      zipcodeNotFound
     },
     description: {
       required,
@@ -453,7 +459,9 @@ export default {
     zipcodeErrorMessage() {
       if (!this.$v.zipcode.minLength) {
         return "Entre com um CEP válido";
-      }
+      } else if (zipcodeNotFound) {
+        return "CEP não encontrado"
+      }      
       return "";
     },
     descriptionErrorMessage() {
@@ -472,6 +480,9 @@ export default {
       return "";
     },
   },
+  created() {
+    if (!this.editMode) this.cleanForm() && this.$v.$reset();
+  },
   methods: {
     updateFiles(files) {
       if (Array.isArray(files) === false || files.length === 0) {
@@ -487,53 +498,57 @@ export default {
         this.files = files.slice();
       }
     },
-    sendForm(){
-      this.$store.dispatch("events/createNewEvent")
-        .then(() => {
-          this.date = "";
-          this.time = "";
-          this.ticket = "";
-          this.site = "";
-          this.street = "";
-          this.neighborhood = "";
-          this.number = "";
-          this.city = "";
-          this.zipcode = "";
-          this.description = "";
-          this.link = "";
-          this.imgUrl = "";
-          this.category = "";
-          this.categoryId = null;
-          this.name = "";
-          this.local = "";
-          this.images = [];
+    sendForm() {
+      if (this.editMode) {
+        this.$store.dispatch("events/updateEvent", { $router: this.$router });
+      } else {
+        this.$store.dispatch("events/createNewEvent", {
+          $router: this.$router,
         });
-      this.$router.push({ name: "Agenda" });
+      }
+
       this.waiting = false;
     },
+    cleanForm() {
+      this.date = "";
+      this.time = "";
+      this.ticket = "";
+      this.site = "";
+      this.street = "";
+      this.neighborhood = "";
+      this.number = "";
+      this.city = "";
+      this.zipcode = "";
+      this.description = "";
+      this.link = "";
+      this.imgUrl = "";
+      this.category = "";
+      this.categoryId = null;
+      this.name = "";
+      this.local = "";
+      this.images = [];
+    },
     confirmCreate() {
+      this.waiting = true;
       this.$v.$touch();
       if (!this.$v.$anyError) {
-        if (this.waiting){
-          this.$q.notify({
-            message: "Por favor, aguarde.",
-            position: 'top-right',
-          });
-          return;
-        };
-        this.waiting = true;
+        this.$q.notify({
+          message: "Por favor, aguarde.",
+          position: "top-right",
+          timeout: 1500,
+        });
 
         //se tiver imagens
-        if(this.files) {
+        if (this.files) {
           this.$store
             .dispatch("images/uploadArray", { files: this.files })
             .then((fileIds) => {
-            this.images = fileIds;
-            this.sendForm();
-          })
-          .catch((error) => {
-            this.waiting = false;
-          });
+              this.images = fileIds;
+              this.sendForm();
+            })
+            .catch((error) => {
+              this.waiting = false;
+            });
         }
         //se não tiver imagens
         else {
@@ -542,10 +557,34 @@ export default {
       } else {
         this.$q.notify({
           message: "Por favor, preencha os campos corretamente.",
-          position: 'top-right',
+          position: "top-right",
         });
       }
     },
+    async searchAddress() {
+      var self = this;
+      self.zipcodeNotFound = false;
+      
+      if(/^[0-9]{8}$/.test(this.zipcode)){
+
+        const addressData = await axios.get(("https://viacep.com.br/ws/" + this.zipcode + "/json/"))
+
+          if(addressData.data.erro){
+            this.$refs.inputNumber.focus();
+            self.zipcodeNotFound = true;
+            
+            self.street = '';
+            self.neighborhood = '';
+            self.city = '';
+            return;
+          } 
+
+          self.street = addressData.data.logradouro;
+          self.neighborhood = addressData.data.bairro;
+          self.city = addressData.data.localidade;
+          this.$refs.inputNumber.focus();
+      }
+    }
   },
 };
 </script>

@@ -10,8 +10,8 @@
           :key="event.id"
           v-ripple
           clickable
+          class="info"
           :style="{ 'border-color': $store.getters['categories/getCategoryById'](event.categoryId).color}"
-          @click="openEvent(event.id)"
         >
           <q-item-section
             v-if="event.imageIds[0]"
@@ -31,6 +31,20 @@
               {{ event.date }}
             </q-item-label>
           </q-item-section>
+          <q-item-section class="actions">
+            <q-item-label 
+              class="icon" 
+              @click="openEvent(event.id)"
+            >
+              <i class="fas fa-eye" />
+            </q-item-label>
+            <q-item-label 
+              class="icon" 
+              @click="$emit('card-click'), $store.commit('events/SET_CURRENT_EVENT', event), fetchStorage(event)"
+            >
+              <i class="fas fa-edit" />
+            </q-item-label>
+          </q-item-section>
         </q-item>
       </q-list>
     </q-scroll-area>
@@ -38,6 +52,11 @@
 </template>
 
 <script>
+import { createHelpers } from "vuex-map-fields";
+const { mapFields } = createHelpers({
+  getterType: "events/getField",
+  mutationType: "events/updateField",
+});
 export default {
   name: "EventsProfile",
   props: {},
@@ -52,7 +71,25 @@ export default {
       },
     };
   },
-  computed: {},
+  computed: {
+    ...mapFields({
+      category: "categorySelected",
+      categoryId: "eventForm.categoryId",
+      imageIds: "eventForm.imageIds",
+      title: "eventForm.title",
+      date: "eventForm.date",
+      time: "eventForm.time",
+      street: "eventForm.street",
+      neighborhood: "eventForm.neighborhood",
+      number: "eventForm.number",
+      zipcode: "eventForm.zipcode",
+      city: "eventForm.city",
+      ticket: "eventForm.ticket",
+      link: "eventForm.link",
+      local: "eventForm.local",
+      description: "eventForm.description",
+    })
+  },
   methods: {
     mask(text) {
       const limit = 20;
@@ -64,6 +101,28 @@ export default {
         name: "Agenda",
         hash: `#${eventId}`
       });
+    },
+
+    fetchStorage(info) {
+      const date = new Date(this.$store.state.events.currentEvent.dateTime)
+      const dateInfo = date.toLocaleDateString()
+      const timeInfo = date.toLocaleTimeString()
+     
+      this.categoryId = info.categoryId;
+      this.category = this.$store.getters['categories/getCategoryById'](this.categoryId);
+      this.imageIds = info.imageIds;
+      this.title = info.title;
+      this.date = dateInfo;
+      this.time = timeInfo;
+      this.street = info.street;
+      this.neighborhood = info.neighborhood;
+      this.number = info.number;
+      this.zipcode = info.zipcode;
+      this.city = info.city;
+      this.ticket = info.ticket;
+      this.link = info.link;
+      this.local = info.local;
+      this.description = info.description;
     },
   },
 };
@@ -79,6 +138,35 @@ export default {
   .q-scrollarea {
     height: 87px;
   }
+
+  .info  {
+    position: relative;
+    display: flex;
+    cursor: pointer;
+  }
+
+  .info:hover .actions {
+      position: absolute;
+      display: flex;
+      flex-direction: row;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      justify-content: space-around;
+      align-items: center;
+      background-color: rgba(0, 0, 0, .7);
+  }
+
+  .actions {
+    display: none;   
+  }
+
+  .icon {
+      margin: 0;
+      padding: 6px;
+    }
 }
 
 </style>

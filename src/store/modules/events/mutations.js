@@ -29,7 +29,7 @@ const mutations = {
     state.list = data;
   },
 
-  SET_CURRENT_EVENT(state, { data }) {
+  SET_CURRENT_EVENT(state, data) {
     state.currentEvent = data;
   },
 
@@ -37,9 +37,9 @@ const mutations = {
     state.list.push(data);
   },
 
-  UPDATE_EVENT(state, { newData }) {
-    const index = state.list.findIndex((el) => el.id === newData.id);
-    state.list[index] = newData.body;
+  UPDATE_EVENT(state, updatedEvent) {
+    const toUpdate = state.list.findIndex(event => event.id === updatedEvent.id);
+    state.list[toUpdate] = { ...state.list[toUpdate], ...updatedEvent };
   },
 
   DELETE_EVENT(state, { data }) {
