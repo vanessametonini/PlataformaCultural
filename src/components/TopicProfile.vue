@@ -35,7 +35,44 @@
             >
               <i class="fas fa-edit" />
             </q-item-label>
+            <q-item-label 
+              class="icon"
+              @click="$store.commit('topics/SET_CURRENT_TOPIC', topic), confirm=true"
+            >
+              <i class="fas fa-trash" />
+            </q-item-label>
           </q-item-section>
+          <q-dialog
+            v-model="confirm"
+            persistent
+          >
+            <q-card>
+              <q-card-section class="row items-center">
+                <q-avatar
+                  icon="fas fa-trash"
+                  color="negative"
+                  text-color="white"
+                />
+                <span class="q-ml-sm">Tem certeza que deseja remover esse debate?</span>
+              </q-card-section>
+
+              <q-card-actions align="right">
+                <q-btn
+                  v-close-popup
+                  flat
+                  label="Cancelar"
+                  color="negative"
+                />
+                <q-btn
+                  v-close-popup
+                  flat
+                  label="Remover"
+                  color="negative"
+                  @click="removeTopic()"
+                />
+              </q-card-actions>
+            </q-card>
+          </q-dialog>
         </q-item>
       </q-list>
     </q-scroll-area>
@@ -60,6 +97,7 @@ export default {
         width: "4px",
         opacity: .8,
       },
+      confirm: false
     };
   },
   computed: {
@@ -90,6 +128,9 @@ export default {
     },
     fetchStorage() {
       this.$store.dispatch('topics/fetchStorage');
+    },
+    removeTopic() {
+      this.$store.dispatch("topics/deleteTopic", { $socket: this.$socket });
     }
   },
 };
