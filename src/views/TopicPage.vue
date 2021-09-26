@@ -246,6 +246,7 @@ export default {
     ReplyForm,
     Reply,
   },
+  emits: ['card-click'],
   data() {
     return {
       showConfirmDialog: false,

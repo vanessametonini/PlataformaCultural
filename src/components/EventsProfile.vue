@@ -51,16 +51,34 @@
               <i class="fas fa-trash" />
             </q-item-label>
           </q-item-section>
-          <q-dialog v-model="confirm" persistent>
+          <q-dialog
+            v-model="confirm"
+            persistent
+          >
             <q-card>
               <q-card-section class="row items-center">
-                <q-avatar icon="fas fa-trash" color="negative" text-color="white" />
+                <q-avatar
+                  icon="fas fa-trash"
+                  color="negative"
+                  text-color="white"
+                />
                 <span class="q-ml-sm">Tem certeza que deseja remover esse evento?</span>
               </q-card-section>
 
               <q-card-actions align="right">
-                <q-btn flat label="Cancelar" color="negative" v-close-popup />
-                <q-btn flat label="Remover" color="negative" v-close-popup @click="removeEvent()" />
+                <q-btn
+                  v-close-popup
+                  flat
+                  label="Cancelar"
+                  color="negative"
+                />
+                <q-btn
+                  v-close-popup
+                  flat
+                  label="Remover"
+                  color="negative"
+                  @click="removeEvent()"
+                />
               </q-card-actions>
             </q-card>
           </q-dialog>
@@ -79,6 +97,7 @@ const { mapFields } = createHelpers({
 export default {
   name: "EventsProfile",
   props: {},
+  emits: ['card-click'],
   data() {
     return {
       barStyle: {

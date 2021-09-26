@@ -1,5 +1,5 @@
 <template>
-  <event-form :editMode="true" />
+  <event-form :edit-mode="true" />
 </template>
 
 <script>

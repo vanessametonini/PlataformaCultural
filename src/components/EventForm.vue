@@ -1,8 +1,18 @@
 <template>
   <div class="box">
     <div class="input-content">
-      <h4 v-if="editMode" class="title-3 bolder">Edite seu evento</h4>
-      <h4 v-else class="title-3 bolder">Adicione um novo evento</h4>
+      <h4
+        v-if="editMode"
+        class="title-3 bolder"
+      >
+        Edite seu evento
+      </h4>
+      <h4
+        v-else
+        class="title-3 bolder"
+      >
+        Adicione um novo evento
+      </h4>
       <!-- event name -->
       <div class="column mg-top16">
         <span class="subheading-2">Nome do evento*</span>
@@ -32,8 +42,14 @@
             :error="$v.date.$error"
           >
             <template #prepend>
-              <q-icon name="event" class="cursor-pointer">
-                <q-popup-proxy transition-show="scale" transition-hide="scale">
+              <q-icon
+                name="event"
+                class="cursor-pointer"
+              >
+                <q-popup-proxy
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
                   <q-date
                     v-model="date"
                     mask="DD/MM/YYYY"
@@ -41,7 +57,12 @@
                     color="black"
                   >
                     <div class="row items-center justify-end">
-                      <q-btn v-close-popup label="Fechar" color="black" flat />
+                      <q-btn
+                        v-close-popup
+                        label="Fechar"
+                        color="black"
+                        flat
+                      />
                     </div>
                   </q-date>
                 </q-popup-proxy>
@@ -63,8 +84,14 @@
             :error="$v.time.$error"
           >
             <template #prepend>
-              <q-icon name="access_time" class="cursor-pointer">
-                <q-popup-proxy transition-show="scale" transition-hide="scale">
+              <q-icon
+                name="access_time"
+                class="cursor-pointer"
+              >
+                <q-popup-proxy
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
                   <q-time
                     v-model="time"
                     mask="HH:mm"
@@ -73,7 +100,12 @@
                     format24h
                   >
                     <div class="row items-center justify-end">
-                      <q-btn v-close-popup label="Fechar" color="black" flat />
+                      <q-btn
+                        v-close-popup
+                        label="Fechar"
+                        color="black"
+                        flat
+                      />
                     </div>
                   </q-time>
                 </q-popup-proxy>
@@ -120,6 +152,7 @@
         <div class="column">
           <span class="subheading-2">Número</span>
           <q-input
+            ref="inputNumber"
             v-model="number"
             class="input"
             dense
@@ -130,7 +163,6 @@
             :error-message="numberErrorMessage"
             :error="$v.number.$error"
             @blur="$v.number.$touch"
-            ref="inputNumber"
           />
         </div>
       </div>
@@ -272,7 +304,10 @@
           }`"
         />
         <template #control>
-          <q-carousel-control position="bottom-right" :offset="[18, 18]" />
+          <q-carousel-control
+            position="bottom-right"
+            :offset="[18, 18]"
+          />
         </template>
       </q-carousel>
       
@@ -302,15 +337,27 @@
               class="cursor-pointer"
               @click.stop="files = null"
             />
-            <q-icon name="create_new_folder" @click.stop />
+            <q-icon
+              name="create_new_folder"
+              @click.stop
+            />
           </template>
-          <template #hint> Tamanho máximo de 2MB. Formato JPG. </template>
+          <template #hint>
+            Tamanho máximo de 2MB. Formato JPG.
+          </template>
         </q-file>
       </div>
     </div>
     <!-- actions edit -->
-    <div class="mg-top32" align="right">
-      <q-btn outline color="black" @click="confirmCreate()">
+    <div
+      class="mg-top32"
+      align="right"
+    >
+      <q-btn
+        outline
+        color="black"
+        @click="confirmCreate()"
+      >
         <span class="caption">Enviar</span>
       </q-btn>
     </div>
@@ -334,15 +381,15 @@ const zipcodeNotFound = (value, vm) => (value && vm.zipcodeNotFound == false);
 
 export default {
   name: "EventProfile",
+  components: {
+    Money,
+    QField,
+  },
   props: {
     editMode: {
       type: Boolean,
       default: false,
     },
-  },
-  components: {
-    Money,
-    QField,
   },
   data() {
     return {
