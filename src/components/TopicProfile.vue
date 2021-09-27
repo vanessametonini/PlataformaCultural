@@ -88,6 +88,7 @@ const { mapFields } = createHelpers({
 export default {
   name: "TopicProfile",
   props: {},
+  emits: ['card-click'],
   data() {
     return {
       barStyle: {

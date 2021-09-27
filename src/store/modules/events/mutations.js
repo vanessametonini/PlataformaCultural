@@ -42,9 +42,9 @@ const mutations = {
     state.list[toUpdate] = { ...state.list[toUpdate], ...updatedEvent };
   },
 
-  DELETE_EVENT(state, { data }) {
-    const index = state.list.findIndex((el) => el.id === data.id);
-    state.list.splice(index, 1);
+  DELETE_EVENT(state,  data ) {
+    const filtered = state.list.filter(event => event.id != data.id);
+    state.list = filtered;
   },
 
   updateField,

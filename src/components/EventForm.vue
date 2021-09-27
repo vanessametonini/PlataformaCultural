@@ -1,8 +1,18 @@
 <template>
   <div class="box">
     <div class="input-content">
-      <h4 v-if="editMode" class="title-3 bolder">Edite seu evento</h4>
-      <h4 v-else class="title-3 bolder">Adicione um novo evento</h4>
+      <h4
+        v-if="editMode"
+        class="title-3 bolder"
+      >
+        Edite seu evento
+      </h4>
+      <h4
+        v-else
+        class="title-3 bolder"
+      >
+        Adicione um novo evento
+      </h4>
       <!-- event name -->
       <div class="column mg-top16">
         <span class="subheading-2">Nome do evento*</span>
@@ -120,6 +130,7 @@
         <div class="column">
           <span class="subheading-2">Número</span>
           <q-input
+            ref="inputNumber"
             v-model="number"
             class="input"
             dense
@@ -130,7 +141,6 @@
             :error-message="numberErrorMessage"
             :error="$v.number.$error"
             @blur="$v.number.$touch"
-            ref="inputNumber"
           />
         </div>
       </div>
@@ -272,7 +282,10 @@
           }`"
         />
         <template #control>
-          <q-carousel-control position="bottom-right" :offset="[18, 18]" />
+          <q-carousel-control
+            position="bottom-right"
+            :offset="[18, 18]"
+          />
         </template>
       </q-carousel>
       
@@ -309,8 +322,15 @@
       </div>
     </div>
     <!-- actions edit -->
-    <div class="mg-top32" align="right">
-      <q-btn outline color="black" @click="confirmCreate()">
+    <div
+      class="mg-top32"
+      align="right"
+    >
+      <q-btn
+        outline
+        color="black"
+        @click="confirmCreate()"
+      >
         <span class="caption">Enviar</span>
       </q-btn>
     </div>
@@ -343,6 +363,12 @@ export default {
   components: {
     Money,
     QField,
+  },
+  props: {
+    editMode: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
