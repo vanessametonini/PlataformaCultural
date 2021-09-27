@@ -82,6 +82,7 @@
               </q-card-actions>
             </q-card>
           </q-dialog>
+          </q-item-section>
         </q-item>
       </q-list>
     </q-scroll-area>
