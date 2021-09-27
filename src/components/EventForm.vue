@@ -42,8 +42,14 @@
             :error="$v.date.$error"
           >
             <template #prepend>
-              <q-icon name="event" class="cursor-pointer">
-                <q-popup-proxy transition-show="scale" transition-hide="scale">
+              <q-icon
+                name="event"
+                class="cursor-pointer"
+              >
+                <q-popup-proxy
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
                   <q-date
                     v-model="date"
                     mask="DD/MM/YYYY"
@@ -51,7 +57,12 @@
                     color="black"
                   >
                     <div class="row items-center justify-end">
-                      <q-btn v-close-popup label="Fechar" color="black" flat />
+                      <q-btn
+                        v-close-popup
+                        label="Fechar"
+                        color="black"
+                        flat
+                      />
                     </div>
                   </q-date>
                 </q-popup-proxy>
@@ -73,8 +84,14 @@
             :error="$v.time.$error"
           >
             <template #prepend>
-              <q-icon name="access_time" class="cursor-pointer">
-                <q-popup-proxy transition-show="scale" transition-hide="scale">
+              <q-icon
+                name="access_time"
+                class="cursor-pointer"
+              >
+                <q-popup-proxy
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
                   <q-time
                     v-model="time"
                     mask="HH:mm"
@@ -83,7 +100,12 @@
                     format24h
                   >
                     <div class="row items-center justify-end">
-                      <q-btn v-close-popup label="Fechar" color="black" flat />
+                      <q-btn
+                        v-close-popup
+                        label="Fechar"
+                        color="black"
+                        flat
+                      />
                     </div>
                   </q-time>
                 </q-popup-proxy>
@@ -315,9 +337,14 @@
               class="cursor-pointer"
               @click.stop="files = null"
             />
-            <q-icon name="create_new_folder" @click.stop />
+            <q-icon
+              name="create_new_folder"
+              @click.stop
+            />
           </template>
-          <template #hint> Tamanho máximo de 2MB. Formato JPG. </template>
+          <template #hint>
+            Tamanho máximo de 2MB. Formato JPG.
+          </template>
         </q-file>
       </div>
     </div>
@@ -354,12 +381,6 @@ const zipcodeNotFound = (value, vm) => (value && vm.zipcodeNotFound == false);
 
 export default {
   name: "EventProfile",
-  props: {
-    editMode: {
-      type: Boolean,
-      default: false,
-    },
-  },
   components: {
     Money,
     QField,
