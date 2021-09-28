@@ -367,7 +367,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { createHelpers } from "vuex-map-fields";
-import { required, url, minLength, numeric } from "vuelidate/lib/validators";
+import { required, url, minLength, numeric, requiredIf, helpers } from "vuelidate/lib/validators";
 import { Money } from "v-money";
 import { QField } from "quasar";
 import axios from 'axios';
@@ -377,7 +377,7 @@ const { mapFields } = createHelpers({
   mutationType: "events/updateField",
 });
 
-const zipcodeNotFound = (value, vm) => (value && vm.zipcodeNotFound == false);
+const zipcodeNotFound = (value, vm) => !helpers.req(value) || (value && vm.zipcodeNotFound == false);
 
 export default {
   name: "EventProfile",
@@ -432,7 +432,10 @@ export default {
     },
     zipcode: {
       minLength: minLength(8),
-      zipcodeNotFound
+      zipcodeNotFound,
+      required: requiredIf(function() {
+        return this.zipcode.length;
+      })
     },
     description: {
       required,
