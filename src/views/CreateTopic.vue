@@ -29,7 +29,6 @@ export default {
   width: 100%;
   height: 100vh;
   padding: 32px;
-  // background-color: #f5f5f5;
 }
 
 .create-topic-content {
@@ -38,10 +37,8 @@ export default {
   top: 0px;
   left: 50%;
   transform: translateX(-50%);
-  // border: 1px solid green;
-  width: 700px;
+  max-width: 700px;
   min-width: 300px;
-  // height: 90%;
 }
 
 </style>

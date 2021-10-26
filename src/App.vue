@@ -492,4 +492,10 @@
   transform: scale(1);
 }
 
+.custom-caption {
+  text-align: center;
+  padding: 12px;
+  color: white;
+  background-color: rgba(0, 0, 0, .3);
+}
 </style>

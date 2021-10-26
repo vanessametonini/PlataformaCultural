@@ -63,6 +63,20 @@ const routes = [
     },
   },
   {
+    path: '/perfil',
+    component: () => import('../views/NovoPerfil.vue'),
+    meta: {
+      requiresAuth: true,
+    },
+    children: [
+      {
+        path: '',
+        name: 'perfil',
+        component: () => import('../views/profile/Sliders.vue'),
+      }
+    ]
+  },
+  {
     path: '/dashboard',
     name: 'Dashboard',
     component: () => import('../views/Dashboard.vue'),
