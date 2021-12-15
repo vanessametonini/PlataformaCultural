@@ -29,6 +29,7 @@
     "v-sanitize": "0.0.4",
     "vue": "^2.6.12",
     "vue-analytics": "^5.22.1",
+    "vue-carousel": "^0.16.1",
     "vue-masonry": "^0.11.8",
     "vue-masonry-css": "^1.0.3",
     "vue-router": "^3.5.1",
