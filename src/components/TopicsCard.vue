@@ -2,7 +2,7 @@
   <div
     class="user-card"
     role="button"
-    @click="$emit('card-click')"
+      @click="$router.push('/perfil/topics/add')"
   >
     <h3>
       Adicionar Debate
@@ -23,7 +23,6 @@ export default {
       default: () => {},
     },
   },
-  emits: ['card-click'],
 };
 </script>
 
