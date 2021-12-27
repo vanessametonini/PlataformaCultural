@@ -4,12 +4,6 @@
       <h4 class="title-3 bolder">
         Perfil
       </h4>
-      <span
-        class="edit-icon"
-        @click="setEditMode()"
-      >
-        <i class="fas fa-edit" />
-      </span>
 
       <div class="row justify-between mg-top8">
         <div class="column">
@@ -210,7 +204,7 @@
         class="mg-right8"
         flat
         color="black"
-        @click="setEditMode()"
+        @click="$router.push('/perfil');"
       >
         <span class="caption">Cancelar</span>
       </q-btn>
@@ -243,7 +237,7 @@ export default {
   data() {
     return {
       waiting: false,
-      editMode: false,
+      editMode: true,
       defaultImage: require("../assets/default.png"),
       file: null,
       img64: '',
@@ -371,6 +365,15 @@ export default {
 <style lang="scss" scoped>
 @import '../styles/variables.scss';
 @import '../styles/mixins.scss';
+
+.box {
+  padding: 10px;
+
+  @media screen and (min-width: 1024px) {
+    max-width: 700px;
+    margin-left: 30px;
+  }
+}
 
 .input-content {
   position: relative;
