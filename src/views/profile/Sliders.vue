@@ -1,27 +1,30 @@
 <template>
-  <div>
+  <div class="profile">
     <section class="profile-carousel">
-      <h2>
-        Meus Pins
-        <router-link
-          to="profile/pins/add"
-          aria-label="Adicionar Pin no mapa"
-          class="btn-add"
-        >
-          +
-        </router-link>
-      </h2>
+      <h2>Meus Pins</h2>
       <pins-profile />
+    </section>
+    <section class="profile-carousel">
+      <h2>Meus Debates</h2>
+      <topics-profile />
+    </section>
+    <section class="profile-carousel">
+      <h2>Meus Eventos</h2>
+      <events-profile />
     </section>
   </div>
 </template>
 <script>
-import PinsProfile from '../../components/PinsProfile.vue';
+import PinsProfile from '../../components/NewPinsProfile.vue';
+import TopicsProfile from '../../components/NewTopicsProfile.vue';
+import EventsProfile from '../../components/NewEventsProfile.vue';
 
 export default {
   name: "Sliders",
   components: {
     PinsProfile,
+    TopicsProfile,
+    EventsProfile
   },
   data () {
     return {
@@ -33,12 +36,17 @@ export default {
 </script>
 <style lang="scss" scoped>
 .profile-carousel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
 
   h2 {
     font-size: 2em;
     font-weight: bolder;
-    margin: 0;
+    margin: 0 0 10px;
     position: relative;
+    align-self: flex-start;
   }
 
   .btn-add {

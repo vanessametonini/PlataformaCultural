@@ -1,9 +1,7 @@
 <template>
-  <div class="pins-profile">
+  <div class="events-profile">
     <carousel
-      :mouseDrag="false"
-      :loop="false"
-      :centerMode="true"
+      :scrollPerPage="true"
       :perPage="1"
       :perPageCustom="[
         [640, 2],
@@ -13,14 +11,17 @@
       :paginationEnabled="pagination"
       class="carousel"
     >
-      <slide v-for="pin in userPinList" :key="pin.id">
+      <slide
+        v-for="event in $store.getters['events/getMyEvents']"
+        :key="event.id"
+      >
         <div
           class="content"
           :style="{
             background:
-              pin.imageIds.length > 0
-                ? `url(${$store.getters['services/getImagePath']}${pin.imageIds[0]}) no-repeat`
-                : $store.getters['categories/getCategoryById'](pin.categoryId)
+              event.imageIds.length > 0
+                ? `url(${$store.getters['services/getImagePath']}${event.imageIds[0]}) no-repeat`
+                : $store.getters['categories/getCategoryById'](event.categoryId)
                     .color,
             'background-size': 'cover',
           }"
@@ -39,7 +40,7 @@
               square
               color="black"
               text-color="white"
-              @click="$store.dispatch('pins/animatePin', { $router, pin })"
+              @click="openEvent(event.id)"
               icon="visibility"
             />
             <q-fab-action
@@ -48,7 +49,7 @@
               color="black"
               text-color="white"
               @click="
-                $store.commit('pins/SET_SELECTED_PIN_ID', pin.id),
+                $store.commit('events/SET_CURRENT_EVENT', event),
                   (confirm = true)
               "
               icon="delete"
@@ -59,8 +60,9 @@
               color="black"
               text-color="white"
               @click="
-                $router.push(`/perfil/pins/edit/${pin.id}`),
-                  $store.commit('pins/SET_SELECTED_PIN_ID', pin.id)
+                $router.push(`/perfil/events/edit/${event.id}`),
+                  $store.commit('events/SET_CURRENT_EVENT', event),
+                  fetchStorage(event)
               "
               icon="edit"
             />
@@ -69,16 +71,16 @@
               square
               color="black"
               text-color="white"
-              @click="$router.push('/perfil/pins/add')"
+              @click="$router.push('/perfil/events/add')"
               icon="add"
             /> -->
           </q-fab>
           <div class="absolute-bottom custom-caption">
             <div class="text-h2">
-              {{ pin.title }}
+              {{ mask(event.title) }}
             </div>
             <div class="text-subtitle1">
-              {{ pin.street }}
+              {{ event.local }}
             </div>
           </div>
 
@@ -91,7 +93,7 @@
                   text-color="white"
                 />
                 <span class="q-ml-sm"
-                  >Tem certeza que deseja remover esse pin?</span
+                  >Tem certeza que deseja remover esse evento?</span
                 >
               </q-card-section>
 
@@ -102,7 +104,7 @@
                   flat
                   label="Remover"
                   color="negative"
-                  @click="removePin()"
+                  @click="removeEvent()"
                 />
               </q-card-actions>
             </q-card>
@@ -115,42 +117,37 @@
 
 <script>
 import { createHelpers } from "vuex-map-fields";
-import { mapGetters } from "vuex";
-
 const { mapFields } = createHelpers({
-  getterType: "pins/getField",
-  mutationType: "pins/updateField",
+  getterType: "events/getField",
+  mutationType: "events/updateField",
 });
 export default {
-  name: "PinsProfile",
+  name: "EventsProfile",
+  props: {},
   emits: ["card-click"],
   data() {
     return {
+      navigation: false,
       confirm: false,
     };
   },
   computed: {
-    ...mapGetters({
-      userPinList: "pins/getMyPins",
-    }),
     ...mapFields({
       category: "categorySelected",
-      categoryId: "pinForm.categoryId",
-      title: "pinForm.title",
-      email: "pinForm.email",
-      phone: "pinForm.phone",
-      street: "pinForm.street",
-      number: "pinForm.number",
-      neighborhood: "pinForm.neighborhood",
-      city: "pinForm.city",
-      cep: "pinForm.zipcode",
-      description: "pinForm.description",
-      images: "pinForm.imageIds",
-      link: "pinForm.link",
-      facebook: "pinForm.facebook",
-      instagram: "pinForm.instagram",
-      twitter: "pinForm.twitter",
-      whatsapp: "pinForm.whatsapp",
+      categoryId: "eventForm.categoryId",
+      imageIds: "eventForm.imageIds",
+      title: "eventForm.title",
+      date: "eventForm.date",
+      time: "eventForm.time",
+      street: "eventForm.street",
+      neighborhood: "eventForm.neighborhood",
+      number: "eventForm.number",
+      zipcode: "eventForm.zipcode",
+      city: "eventForm.city",
+      ticket: "eventForm.ticket",
+      link: "eventForm.link",
+      local: "eventForm.local",
+      description: "eventForm.description",
     }),
     pagination() {
       return this.$q.screen.width < 768 ? false : true;
@@ -162,29 +159,38 @@ export default {
       if (text.length > limit) return text.substring(0, limit) + "...";
       return text;
     },
-    // fetchStorage() {
-    //   const idToUpdate = this.$store.state.pins.selectedPinId;
-    //   const info = this.$store.getters["pins/getPinById"](idToUpdate);
-    //   this.categoryId = info.categoryId;
-    //   this.category = this.$store.getters["categories/getCategoryById"](
-    //     this.categoryId
-    //   );
-    //   this.title = info.title;
-    //   this.email = info.email;
-    //   this.phone = info.phone;
-    //   this.number = info.number;
-    //   this.street = info.street;
-    //   this.neighborhood = info.neighborhood;
-    //   this.city = info.city;
-    //   this.cep = info.zipcode;
-    //   this.description = info.description;
-    //   this.link = info.link;
-    //   this.facebook = info.facebook;
-    //   this.instagram = info.instagram;
-    //   this.images = info.imageIds;
-    // },
-    removePin() {
-      this.$store.dispatch("pins/deletePin");
+    async openEvent(eventId) {
+      this.$router.push({
+        name: "Agenda",
+        hash: `#${eventId}`,
+      });
+    },
+
+    fetchStorage(info) {
+      const date = new Date(this.$store.state.events.currentEvent.dateTime);
+      const dateInfo = date.toLocaleDateString();
+      const timeInfo = date.toLocaleTimeString();
+
+      this.categoryId = info.categoryId;
+      this.category = this.$store.getters["categories/getCategoryById"](
+        this.categoryId
+      );
+      this.imageIds = info.imageIds;
+      this.title = info.title;
+      this.date = dateInfo;
+      this.time = timeInfo;
+      this.street = info.street;
+      this.neighborhood = info.neighborhood;
+      this.number = info.number;
+      this.zipcode = info.zipcode;
+      this.city = info.city;
+      this.ticket = info.ticket;
+      this.link = info.link;
+      this.local = info.local;
+      this.description = info.description;
+    },
+    removeEvent() {
+      this.$store.dispatch("events/deleteEvent");
     },
   },
 };
@@ -193,14 +199,14 @@ export default {
 <style lang="scss" scoped>
 @import "../styles/mixins.scss";
 
-.pins-profile {
+.events-profile {
   width: 100%;
   overflow: hidden;
   padding-top: 26px;
 
   .VueCarousel {
 
-    > :first-child {
+    :first-child {
       overflow: visible;
       margin-top: 0 !important;
     }
@@ -222,42 +228,19 @@ export default {
           height: 400px;
 
           .btn-actions {
-            top: -25px;
-            cursor: pointer;
-            display: block;
-            right: -8px;
             position: absolute;
-            text-decoration: none;
+            top: -25px;
+            right: -8px;
             z-index: 1;
+            display: block;
+            cursor: pointer;
+            text-decoration: none;
           }
         }
       }
     }
 
-    > :last-child {
-      .leftArrow {
-        position: absolute;
-        left: 20px;
-      }
-
-      .VueCarousel-navigation-button {
-        &.VueCarousel-navigation-prev {
-          transform: translateY(-50%) translateX(100%) !important;
-          left: 30px !important;
-        }
-
-        &.VueCarousel-navigation-next {
-          transform: translateY(-50%) translateX(-100%);
-        }
-      }
-    }
-
     .VueCarousel-navigation {
-      .leftArrow {
-        position: absolute;
-        left: 20px;
-      }
-
       .VueCarousel-navigation-button {
         &.VueCarousel-navigation-prev {
           transform: translateY(-50%) translateX(100%) !important;
