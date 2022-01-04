@@ -495,7 +495,12 @@ export default {
     },
   },
   created() {
-    if(!this.editMode) this.cleanForm() && this.$v.$reset();
+    // if(!this.editMode) {this.cleanForm() && this.$v.$reset();} 
+    if(this.$route.params.action === "edit") {
+      this.fetchStorage();
+    } else if (this.$route.params.action !== "edit") {
+      this.cleanForm() && this.$v.$reset();
+    }
   },
   methods: {
     sendForm() {
@@ -603,7 +608,28 @@ export default {
           self.city = addressData.data.localidade;
           this.$refs.inputNumber.focus();
       }
-    }
+    },
+    fetchStorage() {
+      const idToUpdate = this.$route.params.id ? this.$route.params.id : this.$store.state.pins.selectedPinId;
+      const info = this.$store.getters["pins/getPinById"](idToUpdate);
+      this.categoryId = info.categoryId;
+      this.category = this.$store.getters["categories/getCategoryById"](
+        this.categoryId
+      );
+      this.title = info.title;
+      this.email = info.email;
+      this.phone = info.phone;
+      this.number = info.number;
+      this.street = info.street;
+      this.neighborhood = info.neighborhood;
+      this.city = info.city;
+      this.cep = info.zipcode;
+      this.description = info.description;
+      this.link = info.link;
+      this.facebook = info.facebook;
+      this.instagram = info.instagram;
+      this.images = info.imageIds;
+    },
   }
 }
 </script>
@@ -611,6 +637,19 @@ export default {
 <style lang="scss" scoped>
 @import "../styles/variables.scss";
 @import "../styles/mixins.scss";
+
+.box {
+  padding: 26px;
+  background-color: #f5f5f5;
+
+  @media screen and (min-width: 1024px) {
+    max-width: 586px;
+  }
+
+  @media screen and (min-width: 1800px) {
+    max-width: 616px;
+  }
+}
 
 .input {
   width: 100%;

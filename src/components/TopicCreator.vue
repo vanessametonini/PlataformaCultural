@@ -2,7 +2,7 @@
   <div class="app-component stepper">
     <!-- header -->
     <header class="stepper-header">
-      <logo-card />
+      <!-- <logo-card /> -->
       <progress-bar
         class="progressbar"
         :current-step="currentStep"
@@ -371,6 +371,15 @@ $secondaryColor: #ddd;
   flex-wrap: nowrap;
   justify-content: space-between;
   margin-bottom: 50px;
+  background-color: #f5f5f5;
+
+  @media screen and (min-width: 1024px) {
+    max-width: 586px;
+  }
+
+  @media screen and (min-width: 1800px) {
+    max-width: 616px;
+  }
 }
 
 .stepper-header {

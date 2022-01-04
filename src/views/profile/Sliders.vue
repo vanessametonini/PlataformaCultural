@@ -35,6 +35,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.profile {
+   padding: 16px;
+}
+
 .profile-carousel {
     display: flex;
     flex-direction: column;

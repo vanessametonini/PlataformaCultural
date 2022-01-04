@@ -61,8 +61,7 @@
               text-color="white"
               @click="
                 $router.push(`/perfil/events/edit/${event.id}`),
-                  $store.commit('events/SET_CURRENT_EVENT', event),
-                  fetchStorage(event)
+                  $store.commit('events/SET_CURRENT_EVENT', event)
               "
               icon="edit"
             />
@@ -166,29 +165,6 @@ export default {
       });
     },
 
-    fetchStorage(info) {
-      const date = new Date(this.$store.state.events.currentEvent.dateTime);
-      const dateInfo = date.toLocaleDateString();
-      const timeInfo = date.toLocaleTimeString();
-
-      this.categoryId = info.categoryId;
-      this.category = this.$store.getters["categories/getCategoryById"](
-        this.categoryId
-      );
-      this.imageIds = info.imageIds;
-      this.title = info.title;
-      this.date = dateInfo;
-      this.time = timeInfo;
-      this.street = info.street;
-      this.neighborhood = info.neighborhood;
-      this.number = info.number;
-      this.zipcode = info.zipcode;
-      this.city = info.city;
-      this.ticket = info.ticket;
-      this.link = info.link;
-      this.local = info.local;
-      this.description = info.description;
-    },
     removeEvent() {
       this.$store.dispatch("events/deleteEvent");
     },
