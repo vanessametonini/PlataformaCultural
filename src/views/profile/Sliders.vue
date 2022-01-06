@@ -15,7 +15,7 @@
       </section>
     </template>
     <template v-else>
-      <h2 class="empty">Faça sua primeira colaboração, insira seu pin, um evento ou debate.</h2>
+      <h2 class="empty">Faça sua primeira colaboração, insira seu <router-link class="link" to='/perfil/pins/add'>pin</router-link>, um <router-link class="link" to='/perfil/events/add'>evento</router-link> ou <router-link class="link" to='/perfil/topics/add'>debate</router-link>.</h2>
     </template>
   </div>
 </template>
@@ -98,6 +98,10 @@ export default {
     @media screen and (min-width: 1024px) {
       max-width: 360px;      
     }
+  }
+
+  .link {
+    color: #000;
   }
 }
 </style>
