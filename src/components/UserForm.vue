@@ -367,11 +367,15 @@ export default {
 @import '../styles/mixins.scss';
 
 .box {
-  padding: 10px;
-
+  padding: 26px;
+  background-color: #f5f5f5;
+  
   @media screen and (min-width: 1024px) {
-    max-width: 700px;
-    margin-left: 30px;
+    max-width: 586px;
+  }
+
+  @media screen and (min-width: 1800px) {
+    max-width: 616px;
   }
 }
 

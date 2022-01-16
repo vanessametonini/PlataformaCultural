@@ -370,7 +370,6 @@ $secondaryColor: #ddd;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: space-between;
-  margin-bottom: 50px;
   background-color: #f5f5f5;
 
   @media screen and (min-width: 1024px) {
