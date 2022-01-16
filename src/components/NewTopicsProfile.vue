@@ -137,29 +137,11 @@ export default {
   padding-top: 26px;
 
   .VueCarousel {
-    
-    :first-child {
-      overflow: visible; 
-      margin-top: 0 !important;
-    }
-
     .VueCarousel-inner {
-      flex-basis: 304px !important;
-
       .VueCarousel-slide {
-        position: relative;
-        background: #fff;
-        color: #fff;
-        font-family: Arial;
-        font-size: 24px;
-        text-align: center;
-        padding: 0 10px;
-
         .content {
-          position: relative;
           display: flex;
           text-align: left;
-          height: 400px;
           padding: 60px 35px;
 
           .title {
@@ -171,33 +153,8 @@ export default {
             bottom: 55px;
             left: 38px;
           }
-
-          .btn-actions {
-            position: absolute;
-            top: -25px;
-            right: -8px;
-            z-index: 1;
-            display: block;
-            cursor: pointer;
-            text-decoration: none;
-          }
         }
       }
-    }
-
-    .VueCarousel-navigation {
-
-      .VueCarousel-navigation-button {
-        &.VueCarousel-navigation-prev {
-          transform: translateY(-50%) translateX(100%) !important;
-          left: 30px !important;
-        }
-
-        &.VueCarousel-navigation-next {
-          transform: translateY(-50%) translateX(-100%);
-        }
-      }
-      
     }
   }
 }
