@@ -20,9 +20,7 @@
         <q-fab class="btn-actions no-border-radius" square color="black" padding="13px" text-color="white" icon="more_vert" direction="left">
           <q-fab-action class="no-border-radius" square color="black" text-color="white" @click="emitThisTopic(topic)" icon="visibility" />
           <q-fab-action class="no-border-radius" square color="black" text-color="white" @click="$store.commit('topics/SET_CURRENT_TOPIC', topic), confirm=true" icon="delete" />
-          <q-fab-action class="no-border-radius" square color="black" text-color="white" @click="$router.push(`/perfil/topics/edit/${topic.id}`), $store.commit('topics/SET_CURRENT_TOPIC', topic)" icon="edit" />
-          <!-- <q-fab-action class="no-border-radius" square color="black" text-color="white" @click="$router.push('/perfil/topics/add')" icon="add" /> -->
-  
+          <q-fab-action class="no-border-radius" square color="black" text-color="white" @click="$router.push(`/profile/topics/edit/${topic.id}`), $store.commit('topics/SET_CURRENT_TOPIC', topic)" icon="edit" />
         </q-fab>
         <div>
           <div class="title text-h4">

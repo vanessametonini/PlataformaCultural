@@ -2,7 +2,7 @@
   <div
     class="user-card"
     role="button"
-    @click="$router.push('/perfil/pins/add')"
+    @click="$router.push('/profile/pins/add')"
   >
     <h3>
       Adicionar no Mapa

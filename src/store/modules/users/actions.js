@@ -240,7 +240,7 @@ const actions = {
           spinner: false,
           message: 'Perfil atualizado!',
         })
-        router.push('/perfil');
+        router.push('/profile');
         return response;
       })
       .catch((error) => {

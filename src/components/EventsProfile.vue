@@ -1,60 +1,81 @@
 <template>
-  <div class="topics-profile">
-    <h3>Meus Eventos</h3>
-    <q-scroll-area
-      :bar-style="barStyle"
+  <div class="events-profile">
+    <carousel
+      :scrollPerPage="true"
+      :perPage="1"
+      :perPageCustom="[
+        [640, 2],
+        [1366, 3],
+        [1600, 5]
+      ]"
+      :paginationEnabled="pagination"
+      class="carousel"
     >
-      <q-list>
-        <q-item
-          v-for="event in $store.getters['events/getMyEvents']"
-          :key="event.id"
-          v-ripple
-          clickable
-          class="info"
-          :style="{ 'border-color': $store.getters['categories/getCategoryById'](event.categoryId).color}"
+      <slide
+        v-for="event in $store.getters['events/getMyEvents']"
+        :key="event.id"
+      >
+        <div
+          class="content"
+          :style="{
+            background:
+              event.imageIds.length > 0
+                ? `url(${$store.getters['services/getImagePath']}${event.imageIds[0]}) no-repeat`
+                : $store.getters['categories/getCategoryById'](event.categoryId)
+                    .color,
+            'background-size': 'cover',
+          }"
         >
-          <q-item-section
-            v-if="event.imageIds[0]"
-            avatar
+          <q-fab
+            class="btn-actions no-border-radius"
+            square
+            color="black"
+            padding="13px"
+            text-color="white"
+            icon="more_vert"
+            direction="left"
           >
-            <q-avatar square>
-              <img
-                :src="`${$store.getters['services/getImagePath']}${event.imageIds[0]}`"
-              >
-            </q-avatar>
-          </q-item-section>
-          <q-item-section>
-            <q-item-label class="text-white">
-              {{ mask(event.title) }}
-            </q-item-label>
-            <q-item-label caption>
-              {{ event.date }}
-            </q-item-label>
-          </q-item-section>
-          <q-item-section class="actions">
-            <q-item-label 
-              class="icon" 
+            <q-fab-action
+              class="no-border-radius"
+              square
+              color="black"
+              text-color="white"
               @click="openEvent(event.id)"
-            >
-              <i class="fas fa-eye" />
-            </q-item-label>
-            <q-item-label 
-              class="icon" 
-              @click="$emit('card-click'), $store.commit('events/SET_CURRENT_EVENT', event), fetchStorage(event)"
-            >
-              <i class="fas fa-edit" />
-            </q-item-label>
-            <q-item-label 
-              class="icon"
-              @click="$store.commit('events/SET_CURRENT_EVENT', event), confirm=true"
-            >
-              <i class="fas fa-trash" />
-            </q-item-label>
-          </q-item-section>
-          <q-dialog
-            v-model="confirm"
-            persistent
-          >
+              icon="visibility"
+            />
+            <q-fab-action
+              class="no-border-radius"
+              square
+              color="black"
+              text-color="white"
+              @click="
+                $store.commit('events/SET_CURRENT_EVENT', event),
+                  (confirm = true)
+              "
+              icon="delete"
+            />
+            <q-fab-action
+              class="no-border-radius"
+              square
+              color="black"
+              text-color="white"
+              @click="
+                $router.push(`/profile/events/edit/${event.id}`),
+                  $store.commit('events/SET_CURRENT_EVENT', event)
+              "
+              icon="edit"
+            />
+          </q-fab>
+          <div class="absolute-bottom custom-caption">
+            <div class="text-h2">
+              {{ mask(event.title) }}
+            </div>
+            <div class="text-subtitle1">
+              {{ event.local }}
+            </div>
+          </div>
+
+          <q-dialog v-model="confirm" persistent>
             <q-card>
               <q-card-section class="row items-center">
                 <q-avatar
@@ -62,16 +83,13 @@
                   color="negative"
                   text-color="white"
                 />
-                <span class="q-ml-sm">Tem certeza que deseja remover esse evento?</span>
+                <span class="q-ml-sm"
+                  >Tem certeza que deseja remover esse evento?</span
+                >
               </q-card-section>
 
               <q-card-actions align="right">
-                <q-btn
-                  v-close-popup
-                  flat
-                  label="Cancelar"
-                  color="negative"
-                />
+                <q-btn v-close-popup flat label="Cancelar" color="negative" />
                 <q-btn
                   v-close-popup
                   flat
@@ -82,9 +100,9 @@
               </q-card-actions>
             </q-card>
           </q-dialog>
-        </q-item>
-      </q-list>
-    </q-scroll-area>
+        </div>
+      </slide>
+    </carousel>
   </div>
 </template>
 
@@ -97,17 +115,11 @@ const { mapFields } = createHelpers({
 export default {
   name: "EventsProfile",
   props: {},
-  emits: ['card-click'],
+  emits: ["card-click"],
   data() {
     return {
-      barStyle: {
-       right: "0",
-        borderRadius: "4px",
-        backgroundColor: "#fff",
-        width: "4px",
-        opacity: .8,
-      },
-      confirm: false
+      navigation: false,
+      confirm: false,
     };
   },
   computed: {
@@ -127,7 +139,10 @@ export default {
       link: "eventForm.link",
       local: "eventForm.local",
       description: "eventForm.description",
-    })
+    }),
+    pagination() {
+      return this.$q.screen.width < 768 ? false : true;
+    } 
   },
   methods: {
     mask(text) {
@@ -138,34 +153,13 @@ export default {
     async openEvent(eventId) {
       this.$router.push({
         name: "Agenda",
-        hash: `#${eventId}`
+        hash: `#${eventId}`,
       });
     },
 
-    fetchStorage(info) {
-      const date = new Date(this.$store.state.events.currentEvent.dateTime)
-      const dateInfo = date.toLocaleDateString()
-      const timeInfo = date.toLocaleTimeString()
-     
-      this.categoryId = info.categoryId;
-      this.category = this.$store.getters['categories/getCategoryById'](this.categoryId);
-      this.imageIds = info.imageIds;
-      this.title = info.title;
-      this.date = dateInfo;
-      this.time = timeInfo;
-      this.street = info.street;
-      this.neighborhood = info.neighborhood;
-      this.number = info.number;
-      this.zipcode = info.zipcode;
-      this.city = info.city;
-      this.ticket = info.ticket;
-      this.link = info.link;
-      this.local = info.local;
-      this.description = info.description;
-    },
     removeEvent() {
       this.$store.dispatch("events/deleteEvent");
-    }
+    },
   },
 };
 </script>
@@ -173,42 +167,9 @@ export default {
 <style lang="scss" scoped>
 @import "../styles/mixins.scss";
 
-.topics-profile {
-  @include profile-box;
-  @include profile-scrolls;
-
-  .q-scrollarea {
-    height: 87px;
-  }
-
-  .info  {
-    position: relative;
-    display: flex;
-    cursor: pointer;
-  }
-
-  .info:hover .actions {
-      position: absolute;
-      display: flex;
-      flex-direction: row;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      justify-content: space-around;
-      align-items: center;
-      background-color: rgba(0, 0, 0, .7);
-  }
-
-  .actions {
-    display: none;   
-  }
-
-  .icon {
-      margin: 0;
-      padding: 6px;
-    }
+.events-profile {
+  width: 100%;
+  overflow: hidden;
+  padding-top: 26px;
 }
-
 </style>

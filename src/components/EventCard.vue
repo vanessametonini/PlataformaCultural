@@ -2,7 +2,7 @@
   <div
     class="user-card"
     role="button"
-    @click="$router.push('/perfil/events/add')"
+    @click="$router.push('/profile/events/add')"
   >
     <h3>
       Adicionar Evento

@@ -204,7 +204,7 @@
         class="mg-right8"
         flat
         color="black"
-        @click="$router.push('/perfil');"
+        @click="$router.push('/profile');"
       >
         <span class="caption">Cancelar</span>
       </q-btn>

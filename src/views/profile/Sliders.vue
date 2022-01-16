@@ -15,14 +15,14 @@
       </section>
     </template>
     <template v-else>
-      <h2 class="empty">Faça sua primeira colaboração, insira seu <router-link class="link" to='/perfil/pins/add'>pin</router-link>, um <router-link class="link" to='/perfil/events/add'>evento</router-link> ou <router-link class="link" to='/perfil/topics/add'>debate</router-link>.</h2>
+      <h2 class="empty">Faça sua primeira colaboração, insira seu <router-link class="link" to='/profile/pins/add'>pin</router-link>, um <router-link class="link" to='/profile/events/add'>evento</router-link> ou <router-link class="link" to='/profile/topics/add'>debate</router-link>.</h2>
     </template>
   </div>
 </template>
 <script>
-import PinsProfile from '../../components/NewPinsProfile.vue';
-import TopicsProfile from '../../components/NewTopicsProfile.vue';
-import EventsProfile from '../../components/NewEventsProfile.vue';
+import PinsProfile from '../../components/PinsProfile.vue';
+import TopicsProfile from '../../components/TopicsProfile.vue';
+import EventsProfile from '../../components/EventsProfile.vue';
 
 export default {
   name: "Sliders",

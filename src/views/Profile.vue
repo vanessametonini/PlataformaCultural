@@ -1,152 +1,199 @@
 <template>
-  <div class="app-page profile-page">
-    <div class="row no-wrap">
-      <header class="col-auto">
-        <logo-card class="mg-bottom8" />
-        <avatar-card
-          v-if="currentUser.avatarId"
-          :user="currentUser"
-          class="mg-bottom8"
-        />
-        <base-button
-          class="btn-logout"
-          theme="primary"
-          @click="$store.dispatch('users/destroyToken'); $router.push({ name: 'Home' });"
-        >
-          sair
-        </base-button>
-      </header>
-      <div class="col-auto">
-        <nav class="row">
-          <user-card
-            class="card"
-            :user="currentUser"
-            @card-click="form = 'user'"
-          />
+  <q-layout view="hHh Lpr lff" container class="profile-layout">
+    <q-header class="bg-black" :style="[ !mobile ? {'background-color': '#fff !important'} : '']">
+      <q-toolbar>
+        <q-toolbar-title>
+          <logo-card :mobile="mobile" />
+        </q-toolbar-title>
+        <nav class="row" v-if="!mobile">
           <pin-card
             class="card"
-            @card-click="form = 'pin'"
           />
           <event-card
             class="card"
-            @card-click="form = 'event'"
           />
           <topic-card
             class="card"
-            @card-click="$router.push({ name: 'CreateTopic' })"
           />
         </nav>
-        <main>
-          <forms-profile
-            class="forms"
-            :form="form"
-          />
-        </main>
-      </div>
-      <div class="col">
-        <topic-profile @card-click="form = 'topic-editor'" />
-        <pins-profile @card-click="form = 'pin-editor'" />
-        <events-profile @card-click="form = 'event-editor'" />
-      </div>
-    </div>
-  </div>
-</template>
+        <q-btn
+          flat
+          round
+          dense
+          icon="menu"
+          v-if="mobile"
+          @click="isMobileMenuOpen = !isMobileMenuOpen"
+        />
+      </q-toolbar>
+    </q-header>
 
+    <q-drawer
+      v-model="isMobileMenuOpen"
+      side="left"
+      show-if-above
+      bordered
+      :width="width"
+      :breakpoint="1023"
+      content-class="bg-grey-3"
+    >
+      <q-scroll-area class="fit">
+        <div class="menu-container">
+          <div>
+            <avatar-card v-if="user.avatarId" :user="user" />
+            <img v-else :src="defaultImage" alt="Avatar" />
+          </div>
+          <div
+            class="name-box q-pa-lg"
+            :style="{ background: getCategoryColor }"
+          >
+            <span class="name"
+              >{{ user.firstName }}<br />{{ user.lastName }}
+            </span>
+            <base-button class="edit" @click="$router.push(`/profile/user/edit/${user.id}`)">editar perfil</base-button>
+          </div>
+          <div class="btn-box">
+            <base-button :to="'/profile/pins/add'" class="action">adicionar pin</base-button>
+            <base-button :to="'/profile/events/add'" class="action">adicionar evento</base-button>
+            <base-button :to="'/profile/topics/add'" class="action">adicionar debate</base-button>
+            <base-button :to="{ name: 'Home' }">voltar no mapa</base-button>
+            <base-button class="logout"
+              @click="
+                $store.dispatch('users/destroyToken');
+                $router.push({ name: 'Home' });
+              "
+              >sair</base-button
+            >
+          </div>
+        </div>
+      </q-scroll-area>
+    </q-drawer>
+
+    <q-page-container>
+      <q-page>
+        <router-view />
+      </q-page>
+    </q-page-container>
+  </q-layout>
+</template>
 <script>
 import { mapGetters } from "vuex";
-import BaseButton from "../components/BaseButton.vue";
 import AvatarCard from "../components/AvatarCard.vue";
-import UserCard from "../components/UserCard.vue";
+import BaseButton from "../components/BaseButton.vue";
 import EventCard from "../components/EventCard.vue";
 import PinCard from "../components/PinCard.vue";
-import FormsProfile from "../components/FormsProfile.vue";
-import EventsProfile from "../components/EventsProfile.vue";
-import PinsProfile from "../components/PinsProfile.vue";
 import TopicCard from "../components/TopicsCard.vue";
-import TopicProfile from "../components/TopicProfile.vue";
-
 
 export default {
-  name: "ProfilePage",
+  name: "Profile",
   components: {
-    BaseButton,
     AvatarCard,
-    UserCard,
+    BaseButton,
     EventCard,
     PinCard,
-    FormsProfile,
-    TopicCard,
-    EventsProfile,
-    PinsProfile,
-    TopicProfile
-  },
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      vm.previous = from; 
-    });
+    TopicCard
   },
   data() {
     return {
-      // form: 'user',
-      previous: null
+      defaultImage: require("../assets/default.png"),
+      isMobileMenuOpen: false,
+      mobile: true,
+      width: 210
     };
   },
-  computed: {
-    form:{
-      get(){
-        return this.$store.state.users.selectedForm;
-      },
-      set(form){
-        this.$store.commit('users/SET_SELECTED_FORM', form);
-      }
-    },
-    ...mapGetters({
-      currentUser: "users/getCurrentUser",
-    }),
-  },
   mounted() {
-    this.$store.dispatch('pins/loadPins');
-    this.$store.dispatch('topics/loadTopics');
-    this.$store.dispatch('events/loadEvents')
-    if((this.previous.name === 'TopicPage') && (this.$store.state.users.selectedForm === 'topic-editor')){
-      return
-    }
-    if((this.previous.name === 'Agenda') && (this.$store.state.users.selectedForm === 'event')){
-      return
-    }
-    this.$store.commit('users/SET_SELECTED_FORM', 'user');
+    if (this.$q.screen.width >= 1024) this.mobile = false;
+    if (this.$q.screen.width >= 1800) this.width = 220;
+  },
+  computed: {
+    ...mapGetters({
+      user: "users/getCurrentUser",
+    }),
+    getCategoryColor() {
+      return this.$store.getters["categories/getCategoryById"](
+        this.user.categoryId
+      ).color;
+    },
   },
 };
 </script>
 <style lang="scss" scoped>
-@import "../styles/variables.scss";
-@import "../styles/mixins.scss";
+.profile-layout {
+  min-height: 100vh;
 
-.profile-page {
-  padding: 16px;
+  .card {
+    margin-right: 8px;
+    margin-bottom: 0;
+  }
+
+  .menu-container {
+    padding: 14px;
+
+    .avatar {
+      max-width: 100%;
+    }
+    .name-box {
+      position: relative;
+      min-height: 180px;
+
+      .name {
+        font-weight: bold;
+        font-size: 28px;
+        color: #fff;
+        word-break: break-word;
+      }
+
+      .edit {
+          position: absolute;
+          right: 20px;
+          bottom: 20px;
+          text-decoration: underline;
+          background: transparent;
+        }
+    }
+    .btn-box {
+      margin-top: 20px;
+
+      .base-button {
+        width: 100%;
+        margin-bottom: 10px;
+        font-size: 18px;
+        font-weight: bold;
+
+        &.logout {
+          margin-top: 10px;
+          margin-bottom: 0;
+          background: red;
+        }
+
+      }
+        
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .q-toolbar__title {
+      max-width: 198px;
+    }
+
+    .q-btn{ 
+      font-size: 20px;
+      margin-bottom: -120px;
+    }
+    
+    .avatar {
+      height: 190px;
+    }
+
+    .action {
+      display: none;
+    }
+    
+  }
+
+  @media screen and (min-width: 1800px) {
+    .q-toolbar__title {
+      max-width: 208px;
+    }  
+  }
 }
-
-.btn-logout {
-  font-size: 16px;
-  width: 100%;
-}
-
-.card {
-  margin-right: 8px;
-}
-
-nav.row {
-  margin-left: 8px;
-}
-
-.forms {
-  margin-left: 10px;
-  width: calc(100% - 18px);
-  background-color: #f5f5f5;
-  padding: 16px 32px;
-  margin-bottom: 60px;
-}
-
-
-
 </style>
