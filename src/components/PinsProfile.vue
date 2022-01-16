@@ -1,19 +1,22 @@
 <template>
   <div class="pins-profile">
     <carousel
-      :mouseDrag="false"
+      :mouse-drag="false"
       :loop="false"
-      :centerMode="true"
-      :perPage="1"
-      :perPageCustom="[
+      :center-mode="true"
+      :per-page="1"
+      :per-page-custom="[
         [640, 2],
         [1366, 3],
         [1600, 5]
       ]"
-      :paginationEnabled="pagination"
+      :pagination-enabled="pagination"
       class="carousel"
     >
-      <slide v-for="pin in userPinList" :key="pin.id">
+      <slide
+        v-for="pin in userPinList"
+        :key="pin.id"
+      >
         <div
           class="content"
           :style="{
@@ -21,7 +24,7 @@
               pin.imageIds.length > 0
                 ? `url(${$store.getters['services/getImagePath']}${pin.imageIds[0]}) no-repeat`
                 : $store.getters['categories/getCategoryById'](pin.categoryId)
-                    .color,
+                  .color,
             'background-size': 'cover',
           }"
         >
@@ -39,30 +42,30 @@
               square
               color="black"
               text-color="white"
-              @click="$store.dispatch('pins/animatePin', { $router, pin })"
               icon="visibility"
+              @click="$store.dispatch('pins/animatePin', { $router, pin })"
             />
             <q-fab-action
               class="no-border-radius"
               square
               color="black"
               text-color="white"
+              icon="delete"
               @click="
                 $store.commit('pins/SET_SELECTED_PIN_ID', pin.id),
-                  (confirm = true)
+                (confirm = true)
               "
-              icon="delete"
             />
             <q-fab-action
               class="no-border-radius"
               square
               color="black"
               text-color="white"
+              icon="edit"
               @click="
                 $router.push(`/profile/pins/edit/${pin.id}`),
-                  $store.commit('pins/SET_SELECTED_PIN_ID', pin.id)
+                $store.commit('pins/SET_SELECTED_PIN_ID', pin.id)
               "
-              icon="edit"
             />
           </q-fab>
           <div class="absolute-bottom custom-caption">
@@ -74,7 +77,10 @@
             </div>
           </div>
 
-          <q-dialog v-model="confirm" persistent>
+          <q-dialog
+            v-model="confirm"
+            persistent
+          >
             <q-card>
               <q-card-section class="row items-center">
                 <q-avatar
@@ -82,13 +88,18 @@
                   color="negative"
                   text-color="white"
                 />
-                <span class="q-ml-sm"
-                  >Tem certeza que deseja remover esse pin?</span
-                >
+                <span
+                  class="q-ml-sm"
+                >Tem certeza que deseja remover esse pin?</span>
               </q-card-section>
 
               <q-card-actions align="right">
-                <q-btn v-close-popup flat label="Cancelar" color="negative" />
+                <q-btn
+                  v-close-popup
+                  flat
+                  label="Cancelar"
+                  color="negative"
+                />
                 <q-btn
                   v-close-popup
                   flat

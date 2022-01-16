@@ -1,14 +1,14 @@
 <template>
   <div class="events-profile">
     <carousel
-      :scrollPerPage="true"
-      :perPage="1"
-      :perPageCustom="[
+      :scroll-per-page="true"
+      :per-page="1"
+      :per-page-custom="[
         [640, 2],
         [1366, 3],
         [1600, 5]
       ]"
-      :paginationEnabled="pagination"
+      :pagination-enabled="pagination"
       class="carousel"
     >
       <slide
@@ -22,7 +22,7 @@
               event.imageIds.length > 0
                 ? `url(${$store.getters['services/getImagePath']}${event.imageIds[0]}) no-repeat`
                 : $store.getters['categories/getCategoryById'](event.categoryId)
-                    .color,
+                  .color,
             'background-size': 'cover',
           }"
         >
@@ -40,30 +40,30 @@
               square
               color="black"
               text-color="white"
-              @click="openEvent(event.id)"
               icon="visibility"
+              @click="openEvent(event.id)"
             />
             <q-fab-action
               class="no-border-radius"
               square
               color="black"
               text-color="white"
+              icon="delete"
               @click="
                 $store.commit('events/SET_CURRENT_EVENT', event),
-                  (confirm = true)
+                (confirm = true)
               "
-              icon="delete"
             />
             <q-fab-action
               class="no-border-radius"
               square
               color="black"
               text-color="white"
+              icon="edit"
               @click="
                 $router.push(`/profile/events/edit/${event.id}`),
-                  $store.commit('events/SET_CURRENT_EVENT', event)
+                $store.commit('events/SET_CURRENT_EVENT', event)
               "
-              icon="edit"
             />
           </q-fab>
           <div class="absolute-bottom custom-caption">
@@ -75,7 +75,10 @@
             </div>
           </div>
 
-          <q-dialog v-model="confirm" persistent>
+          <q-dialog
+            v-model="confirm"
+            persistent
+          >
             <q-card>
               <q-card-section class="row items-center">
                 <q-avatar
@@ -83,13 +86,18 @@
                   color="negative"
                   text-color="white"
                 />
-                <span class="q-ml-sm"
-                  >Tem certeza que deseja remover esse evento?</span
-                >
+                <span
+                  class="q-ml-sm"
+                >Tem certeza que deseja remover esse evento?</span>
               </q-card-section>
 
               <q-card-actions align="right">
-                <q-btn v-close-popup flat label="Cancelar" color="negative" />
+                <q-btn
+                  v-close-popup
+                  flat
+                  label="Cancelar"
+                  color="negative"
+                />
                 <q-btn
                   v-close-popup
                   flat

@@ -2,7 +2,7 @@
   <div
     class="user-card"
     role="button"
-      @click="$router.push('/profile/topics/add')"
+    @click="$router.push('/profile/topics/add')"
   >
     <h3>
       Adicionar Debate

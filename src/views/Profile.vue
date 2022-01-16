@@ -1,11 +1,21 @@
 <template>
-  <q-layout view="hHh Lpr lff" container class="profile-layout">
-    <q-header class="bg-black" :style="[ !mobile ? {'background-color': '#fff !important'} : '']">
+  <q-layout
+    view="hHh Lpr lff"
+    container
+    class="profile-layout"
+  >
+    <q-header
+      class="bg-black"
+      :style="[ !mobile ? {'background-color': '#fff !important'} : '']"
+    >
       <q-toolbar>
         <q-toolbar-title>
           <logo-card :mobile="mobile" />
         </q-toolbar-title>
-        <nav class="row" v-if="!mobile">
+        <nav
+          v-if="!mobile"
+          class="row"
+        >
           <pin-card
             class="card"
           />
@@ -17,11 +27,11 @@
           />
         </nav>
         <q-btn
+          v-if="mobile"
           flat
           round
           dense
           icon="menu"
-          v-if="mobile"
           @click="isMobileMenuOpen = !isMobileMenuOpen"
         />
       </q-toolbar>
@@ -39,30 +49,62 @@
       <q-scroll-area class="fit">
         <div class="menu-container">
           <div>
-            <avatar-card v-if="user.avatarId" :user="user" />
-            <img v-else :src="defaultImage" alt="Avatar" />
+            <avatar-card
+              v-if="user.avatarId"
+              :user="user"
+            />
+            <img
+              v-else
+              :src="defaultImage"
+              alt="Avatar"
+            >
           </div>
           <div
             class="name-box q-pa-lg"
             :style="{ background: getCategoryColor }"
           >
-            <span class="name"
-              >{{ user.firstName }}<br />{{ user.lastName }}
+            <span
+              class="name"
+            >{{ user.firstName }}<br>{{ user.lastName }}
             </span>
-            <base-button class="edit" @click="$router.push(`/profile/user/edit/${user.id}`)">editar perfil</base-button>
+            <base-button
+              class="edit"
+              @click="$router.push(`/profile/user/edit/${user.id}`)"
+            >
+              editar perfil
+            </base-button>
           </div>
           <div class="btn-box">
-            <base-button :to="'/profile/pins/add'" class="action">adicionar pin</base-button>
-            <base-button :to="'/profile/events/add'" class="action">adicionar evento</base-button>
-            <base-button :to="'/profile/topics/add'" class="action">adicionar debate</base-button>
-            <base-button :to="{ name: 'Home' }">voltar no mapa</base-button>
-            <base-button class="logout"
+            <base-button
+              :to="'/profile/pins/add'"
+              class="action"
+            >
+              adicionar pin
+            </base-button>
+            <base-button
+              :to="'/profile/events/add'"
+              class="action"
+            >
+              adicionar evento
+            </base-button>
+            <base-button
+              :to="'/profile/topics/add'"
+              class="action"
+            >
+              adicionar debate
+            </base-button>
+            <base-button :to="{ name: 'Home' }">
+              voltar no mapa
+            </base-button>
+            <base-button
+              class="logout"
               @click="
                 $store.dispatch('users/destroyToken');
                 $router.push({ name: 'Home' });
               "
-              >sair</base-button
             >
+              sair
+            </base-button>
           </div>
         </div>
       </q-scroll-area>
@@ -100,10 +142,6 @@ export default {
       width: 210
     };
   },
-  mounted() {
-    if (this.$q.screen.width >= 1024) this.mobile = false;
-    if (this.$q.screen.width >= 1800) this.width = 220;
-  },
   computed: {
     ...mapGetters({
       user: "users/getCurrentUser",
@@ -113,6 +151,10 @@ export default {
         this.user.categoryId
       ).color;
     },
+  },
+  mounted() {
+    if (this.$q.screen.width >= 1024) this.mobile = false;
+    if (this.$q.screen.width >= 1800) this.width = 220;
   },
 };
 </script>

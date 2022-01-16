@@ -27,24 +27,24 @@
 
         <q-list>
           <q-item-section class="actions">
-          <q-item-label 
+            <q-item-label 
               class="icon" 
               @click="$store.dispatch('pins/animatePin', { $router, pin });"
-          >
+            >
               <i class="fas fa-eye" />
-          </q-item-label>
-          <q-item-label 
+            </q-item-label>
+            <q-item-label 
               class="icon" 
               @click="$emit('card-click'), $store.commit('pins/SET_SELECTED_PIN_ID', pin.id), fetchStorage()"
-          >
+            >
               <i class="fas fa-edit" />
-          </q-item-label>
-          <q-item-label 
+            </q-item-label>
+            <q-item-label 
               class="icon"
               @click="$store.commit('pins/SET_SELECTED_PIN_ID', pin.id), confirm=true"
-          >
+            >
               <i class="fas fa-trash" />
-          </q-item-label>
+            </q-item-label>
           </q-item-section>
         </q-list>
 
@@ -52,35 +52,34 @@
           v-model="confirm"
           persistent
         >
-        <q-card>
-          <q-card-section class="row items-center">
-          <q-avatar
-              icon="fas fa-trash"
-              color="negative"
-              text-color="white"
-          />
-          <span class="q-ml-sm">Tem certeza que deseja remover esse pin?</span>
-          </q-card-section>
+          <q-card>
+            <q-card-section class="row items-center">
+              <q-avatar
+                icon="fas fa-trash"
+                color="negative"
+                text-color="white"
+              />
+              <span class="q-ml-sm">Tem certeza que deseja remover esse pin?</span>
+            </q-card-section>
 
-          <q-card-actions align="right">
-          <q-btn
-              v-close-popup
-              flat
-              label="Cancelar"
-              color="negative"
-          />
-          <q-btn
-              v-close-popup
-              flat
-              label="Remover"
-              color="negative"
-              @click="removePin()"
-          />
-          </q-card-actions>
-        </q-card>
+            <q-card-actions align="right">
+              <q-btn
+                v-close-popup
+                flat
+                label="Cancelar"
+                color="negative"
+              />
+              <q-btn
+                v-close-popup
+                flat
+                label="Remover"
+                color="negative"
+                @click="removePin()"
+              />
+            </q-card-actions>
+          </q-card>
         </q-dialog>
       </div>
-      
     </q-carousel-slide>
   </q-carousel>
 </template>

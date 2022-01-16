@@ -1,71 +1,101 @@
 <template>
-<div class="topics-profile">
+  <div class="topics-profile">
     <carousel
-      :scrollPerPage="true"
-      :perPage=1
-      :perPageCustom="[
+      :scroll-per-page="true"
+      :per-page="1"
+      :per-page-custom="[
         [640, 2],
         [1366, 3],
         [1600, 5]
       ]"
-      :paginationEnabled="pagination"
+      :pagination-enabled="pagination"
       class="carousel"
     >
       <slide
         v-for="topic in $store.getters['topics/getMyTopics']"
         :key="topic.id"  
       >
-      <div
-      class="content" :style="{'background': $store.getters['categories/getCategoryById'](topic.categoryId).color}">
-        <q-fab class="btn-actions no-border-radius" square color="black" padding="13px" text-color="white" icon="more_vert" direction="left">
-          <q-fab-action class="no-border-radius" square color="black" text-color="white" @click="emitThisTopic(topic)" icon="visibility" />
-          <q-fab-action class="no-border-radius" square color="black" text-color="white" @click="$store.commit('topics/SET_CURRENT_TOPIC', topic), confirm=true" icon="delete" />
-          <q-fab-action class="no-border-radius" square color="black" text-color="white" @click="$router.push(`/profile/topics/edit/${topic.id}`), $store.commit('topics/SET_CURRENT_TOPIC', topic)" icon="edit" />
-        </q-fab>
-        <div>
-          <div class="title text-h4">
-            {{ topic.title }}
-          </div>
-          <div class="description text-subtitle1 text-left q-mt-xl">
-            {{ $store.getters.formatDate(topic.createdAt) }}
-            <br>
-            {{ $store.getters['categories/getCategoryById'](topic.categoryId).label }}
-          </div>
-        </div>
-
-        <q-dialog
-          v-model="confirm"
-          persistent
+        <div
+          class="content"
+          :style="{'background': $store.getters['categories/getCategoryById'](topic.categoryId).color}"
         >
-        <q-card>
-          <q-card-section class="row items-center">
-          <q-avatar
-              icon="fas fa-trash"
-              color="negative"
+          <q-fab
+            class="btn-actions no-border-radius"
+            square
+            color="black"
+            padding="13px"
+            text-color="white"
+            icon="more_vert"
+            direction="left"
+          >
+            <q-fab-action
+              class="no-border-radius"
+              square
+              color="black"
               text-color="white"
-          />
-          <span class="q-ml-sm">Tem certeza que deseja remover esse debate?</span>
-          </q-card-section>
+              icon="visibility"
+              @click="emitThisTopic(topic)"
+            />
+            <q-fab-action
+              class="no-border-radius"
+              square
+              color="black"
+              text-color="white"
+              icon="delete"
+              @click="$store.commit('topics/SET_CURRENT_TOPIC', topic), confirm=true"
+            />
+            <q-fab-action
+              class="no-border-radius"
+              square
+              color="black"
+              text-color="white"
+              icon="edit"
+              @click="$router.push(`/profile/topics/edit/${topic.id}`), $store.commit('topics/SET_CURRENT_TOPIC', topic)"
+            />
+          </q-fab>
+          <div>
+            <div class="title text-h4">
+              {{ topic.title }}
+            </div>
+            <div class="description text-subtitle1 text-left q-mt-xl">
+              {{ $store.getters.formatDate(topic.createdAt) }}
+              <br>
+              {{ $store.getters['categories/getCategoryById'](topic.categoryId).label }}
+            </div>
+          </div>
 
-          <q-card-actions align="right">
-          <q-btn
-              v-close-popup
-              flat
-              label="Cancelar"
-              color="negative"
-          />
-          <q-btn
-              v-close-popup
-              flat
-              label="Remover"
-              color="negative"
-              @click="removeTopic()"
-          />
-          </q-card-actions>
-        </q-card>
-        </q-dialog>
-  
-      </div>
+          <q-dialog
+            v-model="confirm"
+            persistent
+          >
+            <q-card>
+              <q-card-section class="row items-center">
+                <q-avatar
+                  icon="fas fa-trash"
+                  color="negative"
+                  text-color="white"
+                />
+                <span class="q-ml-sm">Tem certeza que deseja remover esse debate?</span>
+              </q-card-section>
+
+              <q-card-actions align="right">
+                <q-btn
+                  v-close-popup
+                  flat
+                  label="Cancelar"
+                  color="negative"
+                />
+                <q-btn
+                  v-close-popup
+                  flat
+                  label="Remover"
+                  color="negative"
+                  @click="removeTopic()"
+                />
+              </q-card-actions>
+            </q-card>
+          </q-dialog>
+        </div>
       </slide>
     </carousel>
   </div>

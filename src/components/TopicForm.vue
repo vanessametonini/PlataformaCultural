@@ -98,7 +98,10 @@
             <span :class="`icon-${item.value}`" />
           </q-item-section>
 
-          <q-item-section class="category-label" :id="`category-label-${item.value}`">
+          <q-item-section
+            :id="`category-label-${item.value}`"
+            class="category-label"
+          >
             <span class="caption bolder">{{ item.label }}</span>
           </q-item-section>
         </q-item>

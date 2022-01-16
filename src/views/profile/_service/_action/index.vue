@@ -2,7 +2,7 @@
   <div>
     <pin-form v-if="form === 'pin'" />
     <event-form v-if="form === 'event'" />
-    <topic-creator v-if="form === 'topic'"/>
+    <topic-creator v-if="form === 'topic'" />
   </div>
 </template>
 
