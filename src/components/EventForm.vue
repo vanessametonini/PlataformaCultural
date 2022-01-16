@@ -642,7 +642,7 @@ export default {
     },
 
     fetchStorage() {
-      const info = this.$route.params.id ? this.$route.params.id : this.$store.state.events.currentEvent;
+      const info = this.$store.state.events.currentEvent;
       const date = new Date(this.$store.state.events.currentEvent.dateTime);
       const dateInfo = date.toLocaleDateString();
       const timeInfo = date.toLocaleTimeString();
