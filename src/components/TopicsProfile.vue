@@ -146,9 +146,6 @@ export default {
         params: { topicId: topic.id },
       });
     },
-    // fetchStorage() {
-    //   this.$store.dispatch('topics/fetchStorage');
-    // },
     removeTopic() {
       this.$store.dispatch("topics/deleteTopic", { $socket: this.$socket });
     }

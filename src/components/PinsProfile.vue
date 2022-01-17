@@ -165,27 +165,6 @@ export default {
       if (text.length > limit) return text.substring(0, limit) + "...";
       return text;
     },
-    // fetchStorage() {
-    //   const idToUpdate = this.$store.state.pins.selectedPinId;
-    //   const info = this.$store.getters["pins/getPinById"](idToUpdate);
-    //   this.categoryId = info.categoryId;
-    //   this.category = this.$store.getters["categories/getCategoryById"](
-    //     this.categoryId
-    //   );
-    //   this.title = info.title;
-    //   this.email = info.email;
-    //   this.phone = info.phone;
-    //   this.number = info.number;
-    //   this.street = info.street;
-    //   this.neighborhood = info.neighborhood;
-    //   this.city = info.city;
-    //   this.cep = info.zipcode;
-    //   this.description = info.description;
-    //   this.link = info.link;
-    //   this.facebook = info.facebook;
-    //   this.instagram = info.instagram;
-    //   this.images = info.imageIds;
-    // },
     removePin() {
       this.$store.dispatch("pins/deletePin");
     },
