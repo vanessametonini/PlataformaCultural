@@ -71,27 +71,30 @@
               class="edit"
               @click="$router.push(`/profile/user/edit/${user.id}`)"
             >
-              editar perfil
+              editar
             </base-button>
           </div>
           <div class="btn-box">
             <base-button
-              :to="'/profile/pins/add'"
+              :to="{ path: '/profile/pins/add' }"
               class="action"
             >
               adicionar pin
             </base-button>
             <base-button
-              :to="'/profile/events/add'"
+              :to="{ path: '/profile/events/add' }"
               class="action"
             >
               adicionar evento
             </base-button>
             <base-button
-              :to="'/profile/topics/add'"
+              :to="{ path: '/profile/topics/add' }"
               class="action"
             >
               adicionar debate
+            </base-button>
+            <base-button :to="{ name: 'Profile' }">
+              voltar no perfil
             </base-button>
             <base-button :to="{ name: 'Home' }">
               voltar no mapa

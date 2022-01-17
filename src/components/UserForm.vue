@@ -2,7 +2,7 @@
   <div class="box">
     <div class="input-content">
       <h4 class="title-3 bolder">
-        Perfil
+        Meus dados
       </h4>
 
       <div class="row justify-between mg-top8">
