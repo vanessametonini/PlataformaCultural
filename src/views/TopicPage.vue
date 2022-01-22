@@ -289,7 +289,7 @@ export default {
       this.$store.commit('users/SET_SELECTED_FORM', 'topic-editor');
       this.$store.dispatch('topics/fetchStorage');
       
-      this.$router.push('/profile')
+      this.$router.push(`/profile/topics/edit/${this.topic.id}`)
     },
     confirmSupport (triggerType){
       this.showConfirmDialog = true;

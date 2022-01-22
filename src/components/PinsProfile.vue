@@ -1,54 +1,82 @@
 <template>
   <div class="pins-profile">
-    <h3>Meus Pins</h3>
-    <q-scroll-area
-      :bar-style="barStyle"
+    <carousel
+      :mouse-drag="false"
+      :loop="false"
+      :center-mode="true"
+      :per-page="1"
+      :per-page-custom="[
+        [640, 2],
+        [1366, 3],
+        [1600, 5]
+      ]"
+      :pagination-enabled="pagination"
+      class="carousel"
     >
-      <q-list>
-        <q-item
-          v-for="pin in $store.getters['pins/getMyPins']"
-          :key="pin.id"
-          class="info"
-          :style="{ 'border-color': $store.getters['categories/getCategoryById'](pin.categoryId).color}"
+      <slide
+        v-for="pin in userPinList"
+        :key="pin.id"
+      >
+        <div
+          class="content"
+          :style="{
+            background:
+              pin.imageIds.length > 0
+                ? `url(${$store.getters['services/getImagePath']}${pin.imageIds[0]}) no-repeat`
+                : $store.getters['categories/getCategoryById'](pin.categoryId)
+                  .color,
+            'background-size': 'cover',
+          }"
         >
-          <q-item-section
-            v-if="pin.imageIds[0]"
-            avatar
+          <q-fab
+            class="btn-actions no-border-radius"
+            square
+            color="black"
+            padding="13px"
+            text-color="white"
+            icon="more_vert"
+            direction="left"
           >
-            <q-avatar square>
-              <img
-                :src="`${$store.getters['services/getImagePath']}${pin.imageIds[0]}`"
-              >
-            </q-avatar>
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>
-              {{ mask(pin.title) }}
-            </q-item-label>
-            <q-item-label caption>
-              {{ mask(pin.street) }}
-            </q-item-label>
-          </q-item-section>
-          <q-item-section class="actions">
-            <q-item-label 
-              class="icon" 
-              @click="$store.dispatch('pins/animatePin', { $router, pin });"
-            >
-              <i class="fas fa-eye" />
-            </q-item-label>
-            <q-item-label 
-              class="icon" 
-              @click="$emit('card-click'), $store.commit('pins/SET_SELECTED_PIN_ID', pin.id), fetchStorage()"
-            >
-              <i class="fas fa-edit" />
-            </q-item-label>
-            <q-item-label 
-              class="icon"
-              @click="$store.commit('pins/SET_SELECTED_PIN_ID', pin.id), confirm=true"
-            >
-              <i class="fas fa-trash" />
-            </q-item-label>
-          </q-item-section>
+            <q-fab-action
+              class="no-border-radius"
+              square
+              color="black"
+              text-color="white"
+              icon="visibility"
+              @click="$store.dispatch('pins/animatePin', { $router, pin })"
+            />
+            <q-fab-action
+              class="no-border-radius"
+              square
+              color="black"
+              text-color="white"
+              icon="delete"
+              @click="
+                $store.commit('pins/SET_SELECTED_PIN_ID', pin.id),
+                (confirm = true)
+              "
+            />
+            <q-fab-action
+              class="no-border-radius"
+              square
+              color="black"
+              text-color="white"
+              icon="edit"
+              @click="
+                $router.push(`/profile/pins/edit/${pin.id}`),
+                $store.commit('pins/SET_SELECTED_PIN_ID', pin.id)
+              "
+            />
+          </q-fab>
+          <div class="absolute-bottom custom-caption">
+            <div class="text-h2">
+              {{ pin.title }}
+            </div>
+            <div class="text-subtitle1">
+              {{ pin.street }}
+            </div>
+          </div>
+
           <q-dialog
             v-model="confirm"
             persistent
@@ -60,7 +88,9 @@
                   color="negative"
                   text-color="white"
                 />
-                <span class="q-ml-sm">Tem certeza que deseja remover esse pin?</span>
+                <span
+                  class="q-ml-sm"
+                >Tem certeza que deseja remover esse pin?</span>
               </q-card-section>
 
               <q-card-actions align="right">
@@ -80,35 +110,32 @@
               </q-card-actions>
             </q-card>
           </q-dialog>
-        </q-item>
-      </q-list>
-    </q-scroll-area>
+        </div>
+      </slide>
+    </carousel>
   </div>
 </template>
 
 <script>
 import { createHelpers } from "vuex-map-fields";
+import { mapGetters } from "vuex";
+
 const { mapFields } = createHelpers({
   getterType: "pins/getField",
   mutationType: "pins/updateField",
 });
 export default {
   name: "PinsProfile",
-  props: {},
-  emits: ['card-click'],
+  emits: ["card-click"],
   data() {
     return {
-      barStyle: {
-        right: "0",
-        borderRadius: "4px",
-        backgroundColor: "#fff",
-        width: "4px",
-        opacity: .8,
-      },
-      confirm: false
+      confirm: false,
     };
   },
   computed: {
+    ...mapGetters({
+      userPinList: "pins/getMyPins",
+    }),
     ...mapFields({
       category: "categorySelected",
       categoryId: "pinForm.categoryId",
@@ -128,6 +155,9 @@ export default {
       twitter: "pinForm.twitter",
       whatsapp: "pinForm.whatsapp",
     }),
+    pagination() {
+      return this.$q.screen.width < 768 ? false : true;
+    } 
   },
   methods: {
     mask(text) {
@@ -135,66 +165,19 @@ export default {
       if (text.length > limit) return text.substring(0, limit) + "...";
       return text;
     },
-    fetchStorage() {
-      const idToUpdate = this.$store.state.pins.selectedPinId;
-      const info = this.$store.getters['pins/getPinById'](idToUpdate);
-      this.categoryId = info.categoryId;
-      this.category = this.$store.getters['categories/getCategoryById'](this.categoryId);
-      this.title = info.title;
-      this.email = info.email;
-      this.phone = info.phone;
-      this.number = info.number;
-      this.street = info.street;
-      this.neighborhood = info.neighborhood;
-      this.city = info.city;
-      this.cep = info.zipcode;
-      this.description = info.description;
-      this.link= info.link;
-      this.facebook = info.facebook
-      this.instagram = info.instagram;
-      this.images = info.imageIds;
-    },
     removePin() {
-      const idToRemove = this.$store.state.pins.selectedPinId;
       this.$store.dispatch("pins/deletePin");
-    }
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/mixins.scss';
+@import "../styles/mixins.scss";
 
 .pins-profile {
-  @include profile-box;
-  @include profile-scrolls;
-
-  .info  {
-    position: relative;
-    display: flex;
-    cursor: pointer;
-  }
-
-  .info:hover .actions {
-      position: absolute;
-      display: flex;
-      flex-direction: row;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      justify-content: space-around;
-      align-items: center;
-      background-color: rgba(0, 0, 0, .7);
-  }
-  .actions {
-    display: none;   
-  }
-
-  .icon {
-      margin: 0;
-      padding: 6px;
-    }
+  width: 100%;
+  overflow: hidden;
+  padding-top: 26px;
 }
 </style>

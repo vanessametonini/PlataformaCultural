@@ -2,7 +2,7 @@
   <div
     class="user-card"
     role="button"
-    @click="$emit('card-click')"
+    @click="$router.push('/profile/events/add')"
   >
     <h3>
       Adicionar Evento
@@ -13,7 +13,6 @@
 <script>
 export default {
   name: 'EventCard',
-  emits: ['card-click'],
 };
 </script>
 

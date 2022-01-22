@@ -98,7 +98,7 @@
             <q-item-section>
               <router-link
                 class="btn-red"
-                :to="{ path: `/profile` }"
+                :to="{path: '/profile/pins/add'}"
               >
                 Inserir no mapa
               </router-link>

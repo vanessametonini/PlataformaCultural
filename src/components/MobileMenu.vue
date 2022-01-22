@@ -84,7 +84,7 @@
           <q-card-section>
             <router-link
               type="link"
-              :to="{ name: '/profile' }"
+              :to="{ path: '/profile/pins/add' }"
               exact
               class="map-link"
             >

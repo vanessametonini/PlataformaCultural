@@ -2,7 +2,7 @@
   <div
     class="user-card"
     role="button"
-    @click="$emit('card-click')"
+    @click="$router.push('/profile/pins/add')"
   >
     <h3>
       Adicionar no Mapa
@@ -13,8 +13,6 @@
 <script>
 export default {
   name: "PinCard",
-  props: {},
-  emits: ['card-click'],
 };
 </script>
 

@@ -531,7 +531,12 @@ export default {
     },
   },
   created() {
-    if (!this.editMode) this.cleanForm() && this.$v.$reset();
+    // if (!this.editMode) this.cleanForm() && this.$v.$reset();
+    if(this.$route.params.action === "edit") {
+      this.fetchStorage();
+    } else if (this.$route.params.action !== "edit") {
+      this.cleanForm() && this.$v.$reset();
+    }
   },
   methods: {
     updateFiles(files) {
@@ -634,12 +639,51 @@ export default {
           self.city = addressData.data.localidade;
           this.$refs.inputNumber.focus();
       }
-    }
+    },
+
+    fetchStorage() {
+      const info = this.$store.state.events.currentEvent;
+      const date = new Date(this.$store.state.events.currentEvent.dateTime);
+      const dateInfo = date.toLocaleDateString();
+      const timeInfo = date.toLocaleTimeString();
+
+      this.categoryId = info.categoryId;
+      this.category = this.$store.getters["categories/getCategoryById"](
+        this.categoryId
+      );
+      this.imageIds = info.imageIds;
+      this.name = info.title;
+      this.date = dateInfo;
+      this.time = timeInfo;
+      this.street = info.street;
+      this.neighborhood = info.neighborhood;
+      this.number = info.number;
+      this.zipcode = info.zipcode;
+      this.city = info.city;
+      this.ticket = info.ticket;
+      this.link = info.link;
+      this.local = info.local;
+      this.description = info.description;
+    },
+    
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.box {
+  padding: 26px;
+  background-color: #f5f5f5;
+  
+  @media screen and (min-width: 1024px) {
+    max-width: 586px;
+  }
+
+  @media screen and (min-width: 1800px) {
+    max-width: 616px;
+  }
+}
+
 .input {
   width: 100%;
   font-size: 1.2rem;

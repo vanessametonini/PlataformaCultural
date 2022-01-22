@@ -23,6 +23,7 @@ import VueSocketIO from 'vue-socket.io'
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
 import VSanitize from "v-sanitize";
+import {Carousel, Slide} from 'vue-carousel';
 
 // FIX leaflet's default icon path problems with webpack
 delete L.Icon.Default.prototype._getIconUrl
@@ -69,6 +70,8 @@ Vue.use(Vuelidate);
 Vue.use(VueRouter);
 Vue.config.productionTip = process.env.VUE_APP_DEV_TOOLS === "false";
 Vue.config.devtools = process.env.VUE_APP_DEV_TOOLS === "true";
+Vue.component('carousel', Carousel);
+Vue.component('slide', Slide);
 
 const sanitizationOptions = {
   allowedTags: ['div', 'br', 'blockquote', 'strike', 'hr', 'i', 'a', 'b', 'u', 'ul', 'ol', 'li', 'p', 'em', 'strong'],

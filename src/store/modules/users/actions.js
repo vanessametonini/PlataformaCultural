@@ -1,4 +1,6 @@
 import { Notify } from 'quasar';
+import router from "../../../router";
+
 
 const actions = {
 
@@ -238,6 +240,7 @@ const actions = {
           spinner: false,
           message: 'Perfil atualizado!',
         })
+        router.push('/profile');
         return response;
       })
       .catch((error) => {

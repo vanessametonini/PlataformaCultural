@@ -56,11 +56,27 @@ const routes = [
   },
   {
     path: '/profile',
-    name: 'Profile',
     component: () => import('../views/Profile.vue'),
     meta: {
       requiresAuth: true,
     },
+    children: [
+      {
+        path: '',
+        name: 'Profile',
+        component: () => import('../views/profile/Sliders.vue'),
+      },
+      {
+        path: ':service/:action',
+        name: 'Profile',
+        component: () => import('../views/profile/_service/_action/index.vue')    
+      },
+      {
+        path: ':service/:action/:id',
+        name: 'Profile',
+        component: () => import('../views/profile/_service/_action/_id.vue')
+      }
+    ]
   },
   {
     path: '/dashboard',

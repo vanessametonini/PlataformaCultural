@@ -98,7 +98,10 @@
             <span :class="`icon-${item.value}`" />
           </q-item-section>
 
-          <q-item-section :id="`category-label-${item.value}`">
+          <q-item-section
+            :id="`category-label-${item.value}`"
+            class="category-label"
+          >
             <span class="caption bolder">{{ item.label }}</span>
           </q-item-section>
         </q-item>
@@ -285,6 +288,10 @@ export default {
       this.categoriesTagged = [],
       this.content = ''
     }
+
+    if(this.$route.params.action === "edit") {
+      this.fetchStorage();
+    }
   },
   methods: {
     sanitize(value) {
@@ -318,7 +325,10 @@ export default {
           position: 'top-right',
         });
       }
-    }
+    },
+     fetchStorage() {
+      this.$store.dispatch('topics/fetchStorage');
+    },
   }
 }
 
@@ -346,7 +356,8 @@ $secondaryColor: #ddd;
 }
 
 .stepper-section {
-  max-width: 760px;
+  padding: 26px;
+  background-color: #f5f5f5;
 }
 
 .stepper-header {
@@ -439,9 +450,13 @@ li {
 
   .category-list {
     border: 1px solid #ddd;
-    padding: 0 8px;
+    padding: 0 4px;
     border-radius: 2px;
-    margin-right: 32px;
+    margin-right: 20px;
+
+    .category-label {
+      max-width: 75%;
+    }
 
     span[class^="icon-"] {
       font-size: 2em;
@@ -543,5 +558,24 @@ li {
 .stepper-btn-span {
   color: $primaryColor !important;
   letter-spacing: 1px;
+}
+
+
+@media screen and (min-width: 1024px) {
+  
+  .stepper-section {
+    max-width: 586px;
+  }
+
+  .category-list {
+    padding: 0 8px;
+    margin-right: 32px;
+  }
+}
+
+@media screen and (min-width: 1800px) {
+  .stepper-section {
+    max-width: 616px;
+  }
 }
 </style>

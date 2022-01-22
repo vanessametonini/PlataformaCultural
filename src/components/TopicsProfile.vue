@@ -1,47 +1,69 @@
 <template>
   <div class="topics-profile">
-    <h3>Meus Debates</h3>
-    <q-scroll-area
-      :bar-style="barStyle"
+    <carousel
+      :scroll-per-page="true"
+      :per-page="1"
+      :per-page-custom="[
+        [640, 2],
+        [1366, 3],
+        [1600, 5]
+      ]"
+      :pagination-enabled="pagination"
+      class="carousel"
     >
-      <q-list>
-        <q-item
-          v-for="topic in $store.getters['topics/getMyTopics']"
-          :key="topic.id"
-          v-ripple
-          class="info"
-          clickable
-          :style="{ 'border-color': $store.getters['categories/getCategoryById'](topic.categoryId).color}"
-          :title="topic.title"
+      <slide
+        v-for="topic in $store.getters['topics/getMyTopics']"
+        :key="topic.id"  
+      >
+        <div
+          class="content"
+          :style="{'background': $store.getters['categories/getCategoryById'](topic.categoryId).color}"
         >
-          <q-item-section>
-            <q-item-label>
-              {{ mask(topic.title) }}
-            </q-item-label>
-            <q-item-label caption>
-              {{ $store.getters.formatDate(topic.createdAt) }}
-            </q-item-label>
-          </q-item-section>
-          <q-item-section class="actions">
-            <q-item-label 
-              class="icon" 
+          <q-fab
+            class="btn-actions no-border-radius"
+            square
+            color="black"
+            padding="13px"
+            text-color="white"
+            icon="more_vert"
+            direction="left"
+          >
+            <q-fab-action
+              class="no-border-radius"
+              square
+              color="black"
+              text-color="white"
+              icon="visibility"
               @click="emitThisTopic(topic)"
-            >
-              <i class="fas fa-eye" />
-            </q-item-label>
-            <q-item-label 
-              class="icon" 
-              @click="$emit('card-click'), $store.commit('topics/SET_CURRENT_TOPIC', topic), fetchStorage()"
-            >
-              <i class="fas fa-edit" />
-            </q-item-label>
-            <q-item-label 
-              class="icon"
+            />
+            <q-fab-action
+              class="no-border-radius"
+              square
+              color="black"
+              text-color="white"
+              icon="delete"
               @click="$store.commit('topics/SET_CURRENT_TOPIC', topic), confirm=true"
-            >
-              <i class="fas fa-trash" />
-            </q-item-label>
-          </q-item-section>
+            />
+            <q-fab-action
+              class="no-border-radius"
+              square
+              color="black"
+              text-color="white"
+              icon="edit"
+              @click="$router.push(`/profile/topics/edit/${topic.id}`), $store.commit('topics/SET_CURRENT_TOPIC', topic)"
+            />
+          </q-fab>
+          <div>
+            <div class="title text-h4">
+              {{ topic.title }}
+            </div>
+            <div class="description text-subtitle1 text-left q-mt-xl">
+              {{ $store.getters.formatDate(topic.createdAt) }}
+              <br>
+              {{ $store.getters['categories/getCategoryById'](topic.categoryId).label }}
+            </div>
+          </div>
+
           <q-dialog
             v-model="confirm"
             persistent
@@ -73,9 +95,9 @@
               </q-card-actions>
             </q-card>
           </q-dialog>
-        </q-item>
-      </q-list>
-    </q-scroll-area>
+        </div>
+      </slide>
+    </carousel>
   </div>
 </template>
 
@@ -91,13 +113,7 @@ export default {
   emits: ['card-click'],
   data() {
     return {
-      barStyle: {
-        right: "0",
-        borderRadius: "4px",
-        backgroundColor: "#fff",
-        width: "4px",
-        opacity: .8,
-      },
+      navigation: false,
       confirm: false
     };
   },
@@ -113,7 +129,10 @@ export default {
       numberOfReplies: "topicForm.numberOfReplies",
       content: "topicForm.content",
       views: "topicForm.views",
-    })
+    }),
+    pagination() {
+      return this.$q.screen.width < 768 ? false : true;
+    } 
   },
   methods: {
     mask(text){
@@ -127,9 +146,6 @@ export default {
         params: { topicId: topic.id },
       });
     },
-    fetchStorage() {
-      this.$store.dispatch('topics/fetchStorage');
-    },
     removeTopic() {
       this.$store.dispatch("topics/deleteTopic", { $socket: this.$socket });
     }
@@ -141,41 +157,31 @@ export default {
 @import '../styles/mixins.scss';
 
 .topics-profile {
-  @include profile-box;
-  @include profile-scrolls;
+  width: 100%;
+  overflow: hidden;
+  padding-top: 26px;
 
-  .q-scrollarea {
-    height: 87px;
-  }
+  .VueCarousel {
+    .VueCarousel-inner {
+      .VueCarousel-slide {
+        .content {
+          display: flex;
+          text-align: left;
+          padding: 60px 35px;
 
-  .info  {
-    position: relative;
-    display: flex;
-    cursor: pointer;
-  }
+          .title {
+            font-size: 2rem;
+          }
 
-  .info:hover .actions {
-      position: absolute;
-      display: flex;
-      flex-direction: row;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      justify-content: space-around;
-      align-items: center;
-      background-color: rgba(0, 0, 0, .7);
-  }
-
-  .actions {
-    display: none;   
-  }
-
-  .icon {
-      margin: 0;
-      padding: 6px;
+          .description {
+            position: absolute;
+            bottom: 55px;
+            left: 38px;
+          }
+        }
+      }
     }
+  }
 }
 
 </style>
