@@ -4,6 +4,25 @@
       view="lHh Lpr lff"
       container
     >
+    <q-header
+      class="bg-black"
+      v-if="mobile"
+    >
+      <q-toolbar>
+        <q-toolbar-title>
+          <logo-card :mobile="true" />
+        </q-toolbar-title>
+        
+        <q-btn
+          v-if="mobile"
+          flat
+          round
+          dense
+          icon="menu"
+          @click="drawer = !drawer"
+        />
+      </q-toolbar>
+    </q-header>
       <!-- <q-btn flat @click="drawer = !drawer" round dense icon="menu" /> -->
       <q-drawer
         v-model="drawer"
@@ -67,7 +86,7 @@
                 v-if="$store.getters['getAuth']"
                 class="row no-wrap al-items-center"
                 theme="primary"
-                @click="$router.push({ name: 'CreateTopic' })"
+                @click="$router.push('/profile/topics/add')"
               >
                 <span class="body-2 bolder text-white"> + </span>
                 <span class="caption bolder text-white"> adicionar um novo debate </span>
@@ -110,13 +129,14 @@ export default {
   data() {
     return {
       drawer: false,
+      mobile: true,
       newEvent: "",
       filterTypeSelected: "mostRecent",
       options: [
         { label: 'Mais ativos', value: 'mostActive', color: 'black' },
         { label: 'Mais comentados', value: 'mostAnswed', color: 'black' },
         { label: 'Novos', value: 'mostRecent', color: 'black' },
-      ]
+      ],
     };
   },
   computed: {
@@ -125,6 +145,10 @@ export default {
       const eventsToShow = this.$store.getters.eventsFiltered;
       return eventsToShow;
     },
+  },
+  mounted() {
+    if (this.$q.screen.width >= 1024) this.mobile = false;
+    if (this.$q.screen.width >= 1800) this.width = 220;
   },
   methods: {
     signUp() {
