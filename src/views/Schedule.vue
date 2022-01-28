@@ -4,6 +4,25 @@
       view="lHh Lpr lff"
       container
     >
+      <q-header
+      class="bg-black"
+      v-if="mobile"
+    >
+      <q-toolbar>
+        <q-toolbar-title>
+          <logo-card :mobile="true" />
+        </q-toolbar-title>
+        
+        <q-btn
+          v-if="mobile"
+          flat
+          round
+          dense
+          icon="menu"
+          @click="drawer = !drawer"
+        />
+      </q-toolbar>
+    </q-header>
       <!-- <q-btn flat @click="drawer = !drawer" round dense icon="menu" /> -->
       <q-drawer
         v-model="drawer"
@@ -67,10 +86,7 @@
                 v-if="$store.getters['getAuth']"
                 class="btn-signup"
                 theme="primary"
-                @click="
-                  $store.commit('users/SET_SELECTED_FORM', 'event');
-                  $router.push({ name: 'Profile' });
-                "
+                @click="$router.push('/profile/events/add')"
               >
                 <span class="body-2 bolder text-white"> + </span>
                 <span class="caption bolder text-white">
@@ -107,6 +123,7 @@ export default {
   data() {
     return {
       drawer: false,
+      mobile: true,
       newEvent: "",
       filterTypeSelected: "mostRecent",
       search: "",
@@ -121,6 +138,10 @@ export default {
       const eventsToShow = this.$store.getters.eventsFiltered;
       return eventsToShow;
     },
+  },
+  mounted() {
+    if (this.$q.screen.width >= 1024) this.mobile = false;
+    if (this.$q.screen.width >= 1800) this.width = 220;
   },
   methods: {
     signUp() {
