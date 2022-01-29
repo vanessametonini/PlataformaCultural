@@ -6,15 +6,14 @@
   >
     <q-header
       class="bg-black"
-      :style="[ !mobile ? {'background-color': '#fff !important'} : '']"
     >
       <q-toolbar>
         <q-toolbar-title>
           <logo-card :mobile="mobile" />
         </q-toolbar-title>
         <nav
-          v-if="!mobile"
-          class="row"
+          
+          class="row desktop-nav"
         >
           <pin-card
             class="card"
@@ -27,7 +26,7 @@
           />
         </nav>
         <q-btn
-          v-if="mobile"
+          class="mobile-only"
           flat
           round
           dense
@@ -155,7 +154,7 @@ export default {
       ).color;
     },
   },
-  mounted() {
+  beforeUpdate() {
     if (this.$q.screen.width >= 1024) this.mobile = false;
     if (this.$q.screen.width >= 1800) this.width = 220;
   },
@@ -164,6 +163,10 @@ export default {
 <style lang="scss" scoped>
 .profile-layout {
   min-height: 100vh;
+
+  .desktop-nav {
+    display: none;
+  }
 
   .card {
     margin-right: 8px;
@@ -216,11 +219,23 @@ export default {
   }
 
   @media screen and (min-width: 1024px) {
+
+    .q-header {
+      background-color: #fff !important;
+    }
+
+    .desktop-nav {
+      display: flex;
+    }
+
+    .mobile-only {
+      display: none;
+    }
     .q-toolbar__title {
       max-width: 198px;
     }
 
-    .q-btn{ 
+    .q-btn { 
       font-size: 20px;
       margin-bottom: -120px;
     }
