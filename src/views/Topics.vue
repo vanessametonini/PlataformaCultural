@@ -5,8 +5,7 @@
       container
     >
     <q-header
-      class="bg-black"
-      v-if="mobile"
+      class="bg-black mobile-only"
     >
       <q-toolbar>
         <q-toolbar-title>
@@ -14,7 +13,6 @@
         </q-toolbar-title>
         
         <q-btn
-          v-if="mobile"
           flat
           round
           dense
@@ -23,12 +21,11 @@
         />
       </q-toolbar>
     </q-header>
-      <!-- <q-btn flat @click="drawer = !drawer" round dense icon="menu" /> -->
       <q-drawer
         v-model="drawer"
         show-if-above
         :width="257"
-        :breakpoint="400"
+        :breakpoint="1023"
       >
         <div class="drawer-layout">
           <logo-card />
@@ -129,7 +126,6 @@ export default {
   data() {
     return {
       drawer: false,
-      mobile: true,
       newEvent: "",
       filterTypeSelected: "mostRecent",
       options: [
@@ -145,10 +141,6 @@ export default {
       const eventsToShow = this.$store.getters.eventsFiltered;
       return eventsToShow;
     },
-  },
-  mounted() {
-    if (this.$q.screen.width >= 1024) this.mobile = false;
-    if (this.$q.screen.width >= 1800) this.width = 220;
   },
   methods: {
     signUp() {
@@ -223,5 +215,11 @@ export default {
 .aside-filter-btn,
 .aside-filter-search {
   margin-top: 32px;
+}
+
+@media screen and (min-width: 1024px) {
+  .mobile-only {
+    display: none;
+  }
 }
 </style>
