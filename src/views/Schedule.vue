@@ -4,17 +4,14 @@
       view="lHh Lpr lff"
       container
     >
-      <q-header
-      class="bg-black"
-      v-if="mobile"
+    <q-header
+      class="bg-black mobile-only"
     >
       <q-toolbar>
         <q-toolbar-title>
           <logo-card :mobile="true" />
-        </q-toolbar-title>
-        
+        </q-toolbar-title>  
         <q-btn
-          v-if="mobile"
           flat
           round
           dense
@@ -28,7 +25,7 @@
         v-model="drawer"
         show-if-above
         :width="257"
-        :breakpoint="400"
+        :breakpoint="1023"
       >
         <div class="drawer-layout">
           <logo-card />
@@ -123,7 +120,6 @@ export default {
   data() {
     return {
       drawer: false,
-      mobile: true,
       newEvent: "",
       filterTypeSelected: "mostRecent",
       search: "",
@@ -138,10 +134,6 @@ export default {
       const eventsToShow = this.$store.getters.eventsFiltered;
       return eventsToShow;
     },
-  },
-  mounted() {
-    if (this.$q.screen.width >= 1024) this.mobile = false;
-    if (this.$q.screen.width >= 1800) this.width = 220;
   },
   methods: {
     signUp() {
@@ -218,4 +210,9 @@ export default {
   margin-top: 32px;
 }
 
+@media screen and (min-width: 1024px) {
+  .mobile-only {
+    display: none;
+  }
+}
 </style>
