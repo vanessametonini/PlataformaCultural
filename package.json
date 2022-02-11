@@ -13,7 +13,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/vue-fontawesome": "^0.1.10",
     "@quasar/extras": "^1.10.4",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "core-js": "^3.11.1",
     "date-fns": "^2.21.1",
     "dotenv": "^8.2.0",
