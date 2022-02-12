@@ -55,8 +55,8 @@ $secondaryColor: #ddd;
   flex-wrap: nowrap;
   justify-content: space-around;
   counter-reset: step;
-  // border: 1px solid red;
   margin: 0;
+  padding: 0;
 }
 
 .progressbar li {

@@ -159,6 +159,7 @@
       <!-- SECTION 3 -->
       <topic-form
         v-if="currentStep === 3"
+        ref="topicInfos"
         :edit-mode="false"
       />
       <!-- TERMS -->
@@ -299,7 +300,8 @@ export default {
   methods: {
     async submit() {
       this.$v.$touch();
-      if(!this.$v.$anyError) {
+      this.$refs.topicInfos.$v.$touch();
+      if(!this.$v.$anyError && !this.$refs.topicInfos.$v.$anyError) {
         this.$store
         .dispatch("topics/createNewTopic", { $socket: this.$socket })
         .then(() => {
@@ -555,7 +557,7 @@ li {
   width: 100%;
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   justify-content: space-around;
   margin: 32px 0;
   padding: 0 16px;
@@ -566,6 +568,7 @@ li {
 .stepper-btn {
   min-width: 150px;
   transition: 1s ease-in-out;
+  margin-bottom: 10px;
 }
 
 .btn-icon {
