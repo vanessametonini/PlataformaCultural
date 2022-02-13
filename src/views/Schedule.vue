@@ -4,12 +4,28 @@
       view="lHh Lpr lff"
       container
     >
+    <q-header
+      class="bg-black mobile-only"
+    >
+      <q-toolbar>
+        <q-toolbar-title>
+          <logo-card :mobile="true" />
+        </q-toolbar-title>  
+        <q-btn
+          flat
+          round
+          dense
+          icon="menu"
+          @click="drawer = !drawer"
+        />
+      </q-toolbar>
+    </q-header>
       <!-- <q-btn flat @click="drawer = !drawer" round dense icon="menu" /> -->
       <q-drawer
         v-model="drawer"
         show-if-above
         :width="257"
-        :breakpoint="400"
+        :breakpoint="1023"
       >
         <div class="drawer-layout">
           <logo-card />
@@ -67,10 +83,7 @@
                 v-if="$store.getters['getAuth']"
                 class="btn-signup"
                 theme="primary"
-                @click="
-                  $store.commit('users/SET_SELECTED_FORM', 'event');
-                  $router.push({ name: 'Profile' });
-                "
+                @click="$router.push('/profile/events/add')"
               >
                 <span class="body-2 bolder text-white"> + </span>
                 <span class="caption bolder text-white">
@@ -197,4 +210,9 @@ export default {
   margin-top: 32px;
 }
 
+@media screen and (min-width: 1024px) {
+  .mobile-only {
+    display: none;
+  }
+}
 </style>

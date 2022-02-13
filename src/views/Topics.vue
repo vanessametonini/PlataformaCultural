@@ -4,12 +4,28 @@
       view="lHh Lpr lff"
       container
     >
-      <!-- <q-btn flat @click="drawer = !drawer" round dense icon="menu" /> -->
+    <q-header
+      class="bg-black mobile-only"
+    >
+      <q-toolbar>
+        <q-toolbar-title>
+          <logo-card :mobile="true" />
+        </q-toolbar-title>
+        
+        <q-btn
+          flat
+          round
+          dense
+          icon="menu"
+          @click="drawer = !drawer"
+        />
+      </q-toolbar>
+    </q-header>
       <q-drawer
         v-model="drawer"
         show-if-above
         :width="257"
-        :breakpoint="400"
+        :breakpoint="1023"
       >
         <div class="drawer-layout">
           <logo-card />
@@ -67,7 +83,7 @@
                 v-if="$store.getters['getAuth']"
                 class="row no-wrap al-items-center"
                 theme="primary"
-                @click="$router.push({ name: 'CreateTopic' })"
+                @click="$router.push('/profile/topics/add')"
               >
                 <span class="body-2 bolder text-white"> + </span>
                 <span class="caption bolder text-white"> adicionar um novo debate </span>
@@ -116,7 +132,7 @@ export default {
         { label: 'Mais ativos', value: 'mostActive', color: 'black' },
         { label: 'Mais comentados', value: 'mostAnswed', color: 'black' },
         { label: 'Novos', value: 'mostRecent', color: 'black' },
-      ]
+      ],
     };
   },
   computed: {
@@ -199,5 +215,11 @@ export default {
 .aside-filter-btn,
 .aside-filter-search {
   margin-top: 32px;
+}
+
+@media screen and (min-width: 1024px) {
+  .mobile-only {
+    display: none;
+  }
 }
 </style>

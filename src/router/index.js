@@ -104,14 +104,6 @@ const routes = [
     },
   },
   {
-    path: '/topics/create',
-    name: 'CreateTopic',
-    component: () => import('../views/CreateTopic.vue'),
-    meta: {
-      requiresAuth: true,
-    },
-  },
-  {
     path: '/topics/:topicId',
     name: 'TopicPage',
     component: () => import('../views/TopicPage.vue'),
