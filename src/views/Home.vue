@@ -43,6 +43,16 @@
           @click="drawerRight = !drawerRight"
         />
 
+        <h2 class="marquee">
+          <router-link
+            :to="{ name: 'Topics' }"
+          >
+            <span>
+              Para saber mais sobre a eleição do Fórum Municipal, clique aqui.
+            </span>
+          </router-link>
+        </h2>
+
         <!-- MAP -->
         <main class="map-container">
           <l-map
@@ -277,6 +287,55 @@ export default {
     top: calc( #{$logoLargeSize} + #{$logoMargin} + 4px);
   }
 
+}
+
+@keyframes marqueeScroll {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-100%, 0)
+  }
+}
+
+.marquee {
+  background-color: rgba(255,255,255,.8);;
+  display: block;
+  font-size:1.8em;
+  line-height: 1.4em;
+  margin: 0;
+  overflow: hidden;
+  position: fixed;
+  top: 80px;
+  left: calc(#{$logoLargeSize} + #{$logoMargin});
+  z-index: 1;
+
+
+  @include for-desktop-up {
+    right: 0;
+    white-space: nowrap;
+    width: calc(100% - #{$logoLargeSize} - #{$logoMargin});
+  }
+
+ span {
+   display: inline-block;
+
+   @include for-desktop-up {
+     animation: marqueeScroll 10s infinite linear;
+     padding-left: 100%;
+   }
+  }
+
+  a {
+    display: block;
+    color: black;
+    text-decoration: none;
+    padding: 10px;
+
+    &:hover, &:active {
+      text-decoration: underline;
+    }
+  }
 }
 
 .menu {
