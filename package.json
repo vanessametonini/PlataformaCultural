@@ -23,7 +23,7 @@
     "node-geocoder": "^3.27.0",
     "quasar": "^1.15.11",
     "register-service-worker": "^1.7.2",
-    "socket.io": "^4.0.1",
+    "socket.io": "^4.5.3",
     "socket.io-client": "^4.0.1",
     "v-money": "^0.8.1",
     "v-sanitize": "0.0.4",
